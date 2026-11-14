@@ -23,3 +23,5 @@
 [science] On the 2nd computer `python` on PATH is a broken venv; run skyops with `py ops/bin/skyops.py` and science code with science/.venv/Scripts/python.exe.
 [orchestrator] Kanan's computer: plain `python` is a broken venv → use `python3` (also for skyops: `python3 ops/bin/skyops.py ...`). In PowerShell tabs use `npx.cmd` (npx.ps1 blocked by execution policy).
 [orchestrator] Live coordinates take ~6 min to first frames at the default 8.8′ FOV on the free Railway tier (Sat 23:19). In the demo use a pre-warmed coordinate (`150.5 2.5` is cached), never a new one.
+[orchestrator] Railway var SKYLAPSE_CACHE had been mangled by Git Bash into "C:/Program Files/Git/data/cache" (live cache NOT on the volume, wiped on every deploy). Fixed Sat 23:40 to /data/cache. ALWAYS `export MSYS_NO_PATHCONV=1` before railway CLI calls with /paths.
+[orchestrator] After API redeploy with pipeline fix #67: live wise_ready in 88 s (23 W2 frames) at 8.8′ (was ~6 min). Pre-warmed demo coordinate: 150.5 2.5.

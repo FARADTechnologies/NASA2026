@@ -12,7 +12,7 @@ Next: **M4 FEATURE FREEZE Sun 10:30** (tag v1.0) · Sun 11:00 rehearsals (A6) ·
 
 ## Deployed
 - Web: **https://skylapse.vercel.app** — deploy ONLY with `python3 ops/bin/deploy_web.py` (Vercel login OK on this computer).
-- API: https://api-production-02611b3c.up.railway.app (Railway trial, D-015), reached as `/api/*`. Railway CLI login pending on this computer.
+- API: https://api-production-02611b3c.up.railway.app (Railway trial, D-015), reached as `/api/*`. Railway CLI logged in + linked on this computer.
   Redeploy: `MSYS_NO_PATHCONV=1 npx @railway/cli up --detach --service api` (needs `railway link` to project skylapse-api after login).
 - Repo: https://github.com/FARADTechnologies/NASA2026 — private until Sun ~13:00. PRs merged with merge commits (D-016).
 
@@ -29,8 +29,8 @@ Next: **M4 FEATURE FREEZE Sun 10:30** (tag v1.0) · Sun 11:00 rehearsals (A6) ·
 - captain Deneme: FARADTechnologies
 
 ## Status of P0 / P1
-P0-1…P0-6 ✅ · P0-7 live ⚠️ works but slow (~6 min to first frames at 8.8′) · P0-8 ✅ · P0-9 ✅ in UI (99.8 / 99.0 / 99.9 %) · P0-10 ◐ (deck v2)
-P1-1 spectra ✅ · P1-2 RGB ✅ · P1-3 light curves ✅ data (R Dra 246 d vs 245.6 d), axis label fix #70 · P1-4 copilot ❌ (#11) · P1-5 Discover ◐ (recall 3/3, 0 false) · P1-6 About ✅
+P0-1…P0-6 ✅ · P0-7 live ✅ (wise_ready 88 s after fix, D-020) · P0-8 ✅ · P0-9 ✅ in UI (99.8 / 99.0 / 99.9 %) · P0-10 ◐ (deck v2)
+P1-1 spectra ✅ · P1-2 RGB ✅ · P1-3 light curves ✅ data (R Dra 246 d vs 245.6 d), axis label fix #70 · P1-4 copilot ✅ EN+AZ live (D-018) · P1-5 Discover ◐ (recall 3/3, 0 false) · P1-6 About ✅
 Cut (D-019): P1-7 Aladin, all P2.
 
 ## Blockers / risks
@@ -40,6 +40,6 @@ Cut (D-019): P1-7 Aladin, all P2.
 - No ANTHROPIC_API_KEY on this computer → copilot via offline fallback (D-018).
 
 ## Next 3 priorities (tonight)
-1. Live mode speed: Railway login → redeploy API with pipeline fix #67 → pre-warm demo coordinates.
+1. ✅ done 23:40: API redeployed, live 88 s, cache on volume. Backup movies on main (pitch/video).
 2. Frontend #70 (truthful light-curve axis — validity) + science #11 copilot → merge, deploy, QA.
 3. Pitch #72 deck v3 + backup recording + one timed rehearsal; pipeline #71 backup movies.
