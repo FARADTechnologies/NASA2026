@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loadIndex } from "../lib/bundle";
-import { apiResolve, matchField, parseCoords } from "../lib/resolve";
+import { apiResolve, matchField, nasaFieldFor, parseCoords } from "../lib/resolve";
 import { navigate } from "../lib/router";
 
 export function SearchBox({ compact }: { compact?: boolean }) {
@@ -18,7 +18,9 @@ export function SearchBox({ compact }: { compact?: boolean }) {
       const c = parseCoords(s);
       if (c) return navigate(`/view?ra=${c.ra.toFixed(5)}&dec=${c.dec.toFixed(5)}`);
       const r = await apiResolve(s);
+      if (r?.field && index.fields.some((x) => x.field_id === r.field)) return navigate(`/view?field=${encodeURIComponent(r.field)}`);
       if (r) return navigate(`/view?ra=${r.ra.toFixed(5)}&dec=${r.dec.toFixed(5)}`);
+      if (nasaFieldFor(s)) return setMsg("This NASA target's 16-year movie is still being built — it will appear here shortly.");
       setMsg("Not found. Try a NASA target name or coordinates like “133.787 −7.245”.");
     } finally { setBusy(false); }
   };
