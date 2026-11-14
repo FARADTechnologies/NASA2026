@@ -6,6 +6,48 @@ import { ScatterChart, type Series } from "./ScatterChart";
 const pct = (x: number) => (x * 100).toFixed(x < 0.01 ? 2 : 1) + "%";
 const NA = <span className="muted">not available yet</span>;
 
+type LC = NonNullable<ObjectInfo["lightcurve"]>;
+/** True when the values are a relative brightness index (saturated stars), not calibrated magnitudes. */
+const isRelativeIndex = (lc: LC) => /relative/i.test(lc.unit ?? "") || (lc.points.length > 0 && lc.points.every((p) => p.kind === "relative_wing_index"));
+
+function periodLine(lc: LC): string | null {
+  const f = lc.validation?.folded;
+  const fmt = (d?: number) => (d != null ? `${Math.round(d)} d` : null);
+  if (f && (f.W1?.best_period_d || f.W2?.best_period_d)) {
+    const found = [f.W1?.best_period_d ? `${fmt(f.W1.best_period_d)} (W1)` : null, f.W2?.best_period_d ? `${fmt(f.W2.best_period_d)} (W2)` : null].filter(Boolean).join(" / ");
+    return `Period found: ${found}${f.period_d ? ` · known: ${f.period_d} d${f.source ? ` (${f.source})` : ""}` : ""}`;
+  }
+  if (lc.period_days) return `Period found: ${Math.round(lc.period_days)} d`;
+  const n = lc.notes?.find((t) => /best period/i.test(t));
+  return n ?? null;
+}
+
+function LightCurve({ lc }: { lc: LC }) {
+  const rel = isRelativeIndex(lc);
+  // one series per instrument + band (W1 / W2 / SPHEREx)
+  const groups = new Map<string, LC["points"]>();
+  for (const p of lc.points) { const k = p.instrument === "WISE" ? `WISE ${p.band}` : p.instrument; if (!groups.has(k)) groups.set(k, []); groups.get(k)!.push(p); }
+  const color = (k: string) => (k === "WISE W1" ? "#ffd166" : k.startsWith("WISE") ? "var(--wise)" : "var(--spherex)");
+  const period = periodLine(lc);
+  const firstNote = rel ? lc.notes?.[0] : null;
+  const otherNotes = (lc.notes ?? []).filter((t) => t !== firstNote && t !== period);
+  return (
+    <>
+      <div className="muted small y-caption">↑ {rel ? "Relative brightness (0 = median, up = brighter)" : "Magnitude (up = brighter)"}</div>
+      <ScatterChart xLabel="year" yLabel={rel ? "rel. brightness" : "magnitude"} invertY
+        series={[...groups.entries()].map(([k, pts]) => ({ name: k, color: color(k), points: pts.map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: rel ? false : p.saturated })) }))}
+        hollowLabel="saturated (less reliable)" />
+      {rel && <div className="small lc-note">Saturated core → brightness index measured from the star's outer wings (not a calibrated magnitude).</div>}
+      {period && <div className="period-line">{period}</div>}
+      {otherNotes.length > 0 && (
+        <details className="lc-more"><summary className="muted small">How this was measured</summary>
+          {otherNotes.map((t) => <div key={t} className="muted small">{t}</div>)}
+        </details>
+      )}
+    </>
+  );
+}
+
 const SPEC_BANDS = [
   { x0: 3.2, x1: 3.45, label: "CH₄ 3.3", color: "rgba(255,93,143,0.12)" },
   { x0: 4.4, x1: 4.85, label: "W2 / D6 4.6", color: "rgba(76,201,240,0.12)" },
@@ -157,11 +199,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
       {obj?.lightcurve?.points?.length ? (
         <section className="card">
           <h3>Light curve</h3>
-          <ScatterChart xLabel="year" yLabel="magnitude" invertY
-            series={["WISE", "SPHEREx"].map((ins) => ({ name: ins, color: ins === "WISE" ? "var(--wise)" : "var(--spherex)",
-              points: obj.lightcurve!.points.filter((p) => p.instrument === ins).map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: p.saturated })) }))}
-            hollowLabel="saturated (less reliable)" />
-          {obj.lightcurve.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
+          <LightCurve lc={obj.lightcurve} />
         </section>
       ) : null}
 

@@ -311,3 +311,12 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .caption { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .coming { padding: 12px 2px; border-top: 1px solid rgba(31, 39, 64, .6); }
 .live-msg { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+
+/* F9 light curve + headings */
+.lc-note { color: #c3cbe0; margin-top: 4px; }
+.period-line { margin-top: 6px; font-weight: 700; color: var(--ok); font-size: 14px; }
+.lc-more summary { cursor: pointer; margin-top: 6px; }
+.panel.side .obj-card h3 { text-transform: none; letter-spacing: 0; font-size: 17px; color: var(--text); font-weight: 700; }
+.headline { font-size: 20px; margin: 18px 0 4px; }
+.headline b { color: var(--ok); }
+.y-caption { margin: -2px 0 2px; }
