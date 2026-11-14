@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun ~00:45 Baku
+Last update: Sun ~01:10 Baku
 
 ## Current task
-#79 F10 AI label submitted (PR #83). #70 F9 merged (PR #76).
+#84 F11 About wording submitted (PR #86). #79 F10 merged (PR #83), #70 merged (PR #76).
 
 ## Status
 Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze Sun 10:30.
