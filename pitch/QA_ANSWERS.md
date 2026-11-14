@@ -22,7 +22,7 @@ Who answers: Amal by default; Murad for deep technical questions (pipeline, data
 
 ## B. Validity — "how do you know it's right?"
 6. **How do you know the motion is real and not noise?**
-   We measure the object's position in every epoch over 16 years and fit a straight line; a real object moves steadily, noise does not.
+   We measure the object's position in every WISE epoch over 14 years (2010–2024) and fit a straight line; a real object moves steadily, noise does not.
    For Barnard's Star, Epsilon Indi B and WISE 0855 our speeds agree with Gaia and the literature to better than 99 % (99.0–99.9 %); ε Indi B also moves with its companion ε Indi A to 99.3 %.
 7. **How did you validate the tool?**
    On the five objects NASA itself chose for this challenge. The three movers are compared with published proper motions; for
@@ -93,7 +93,7 @@ Who answers: Amal by default; Murad for deep technical questions (pipeline, data
     Not reliably yet, and we say so: WISE was built to map, not to measure tiny yearly wobbles, so our parallax is only a helper in the fit.
     Speed across the sky is what we validate — and that agrees with Gaia to better than 99 %.
 27. **Why is ε Indi B "only" 99.0 %?**
-    ε Indi B is really two brown dwarfs orbiting each other every ~11 years. Gaia watched for under 3 years and caught part of that orbit;
+    ε Indi B is really two brown dwarfs orbiting each other every ~11 years. Gaia watched for under 3 years and most likely caught part of that orbit (our interpretation, not tested);
     our 14-year baseline averages over it — and B moves with its star ε Indi A to 99.3 %.
 28. **Barnard's Star is saturated — how can you measure it?**
     The centre is too bright, so we fit the shape of the unsaturated edges of the star in every image. The result, 10.40″ per year,
