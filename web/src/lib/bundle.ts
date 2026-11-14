@@ -144,6 +144,13 @@ export async function loadMask(base: string, f: Frame, w: number, h: number): Pr
   try { const m = new Uint8Array(await getBuf(base + f.mask_file)); return m.length === w * h ? m : null; } catch { return null; }
 }
 
+/** Fetch URLs into the frame cache, 2 at a time. */
+export async function prefetchUrls(urls: string[]) {
+  let i = 0;
+  const worker = async () => { while (i < urls.length) { const u = urls[i++]; try { await getBuf(u); } catch { /* ignore */ } } };
+  await Promise.all([worker(), worker()]);
+}
+
 /** Idle-time warm-up: fetch the default sequence of the given fields into the cache, 2 requests at a time. */
 export function prefetchFields(fields: FieldEntry[]) {
   const idle = (cb: () => void) => ((window as unknown as { requestIdleCallback?: (c: () => void, o?: object) => void }).requestIdleCallback

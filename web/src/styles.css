@@ -326,3 +326,10 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .copilot-block { margin: 0; }
 .ai-label { font-size: 12px; color: var(--catwise); border-left: 2px solid rgba(199, 146, 234, .6); padding-left: 8px; }
 .ai-label .mono { font-size: 11px; }
+
+/* F12 live fields */
+.h2-sub { text-transform: none; letter-spacing: 0; font-weight: 500; margin-left: 8px; color: var(--muted); }
+.live-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.live-btn { display: flex; flex-direction: column; gap: 4px; text-align: left; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg2); color: var(--text); font-family: var(--font); cursor: pointer; transition: border-color .15s, transform .15s; }
+.live-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+.live-name { font-weight: 700; font-size: 15.5px; display: flex; align-items: center; gap: 8px; }

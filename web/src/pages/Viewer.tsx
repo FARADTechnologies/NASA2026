@@ -6,6 +6,7 @@ import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
 import { navigate } from "../lib/router";
 import { matchRadiusDeg, sepDeg } from "../lib/resolve";
 import { propagate } from "../lib/wcs";
+import { getWarmLive } from "../lib/live";
 import { Player, trackAt } from "../components/Player";
 import { Timeline } from "../components/Timeline";
 import { ControlsPanel } from "../components/ControlsPanel";
@@ -60,6 +61,12 @@ export function Viewer({ search }: { search: string }) {
   const [live, setLive] = useState<{ state: string; progress: number; message?: string; queue?: number } | null>(null);
   const [liveNote, setLiveNote] = useState<string>(""); // final message of a finished live job (e.g. "SPHEREx only for NASA targets")
   const runLive = useCallback(async (ra: number, dec: number, fov: number, alive: () => boolean) => {
+    // warmed from the home page → show it at once; a finished job needs no polling
+    const w = getWarmLive(ra, dec, fov);
+    if (w) {
+      await applyManifest(w.manifest, w.manifest_url.replace(/manifest\.json.*$/, ""), false, alive);
+      if (w.state === "done") { setLive(null); setLiveNote(w.message || ""); return; }
+    }
     setLive({ state: "queued", progress: 0 });
     let job: { field_id: string; status_url: string } | null = null;
     try {
