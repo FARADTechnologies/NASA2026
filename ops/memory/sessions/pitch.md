@@ -24,7 +24,7 @@ All Saturday pitch deliverables done. Gaps depend on other agents: light curves 
 2. When target.json has `lightcurve`/`copilot` (check: curl https://skylapse.vercel.app/bundle/<field>/objects/target.json) → QA R3,
    DONE Sun 00:20: light curves + copilot EN/AZ live; deck v3 (pitch/slides/SkyLapse_FARAD_v3.pptx) + backup video pitch/video/SkyLapse_demo_backup.mp4 (1:22) sent to Amal.
 3. Sun 11:00 Tural Salmanov rehearsal (A3 session 2 + A6): full timed run ≤ 4:40 on the live site; fill MENTOR_NOTES session 2.
-4. A6 (#27, after `approved`): final PROJECT_PAGE fields, video link, repo public link, test every link in a private window, submit by 14:30 with Murad.
+4. A6 (#27, after `approved`): PROJECT_PAGE is filled except 3 links: 30-s video (file pitch/video/SkyLapse_30s.mp4 ready — a human uploads it), final deck link (Amal), repo public (Murad ~13:00). Test every link in a private window, submit by 14:30 with Murad.
 
 ## Files touched
 docs/LOCAL_RULES.md, docs/QA.md, pitch/* (STORY, FACTS, QA_ANSWERS, AI_USE, REFERENCES, VIDEO_STORYBOARD, PROJECT_PAGE, SLIDES, MENTOR_NOTES, slides/, qa/)
