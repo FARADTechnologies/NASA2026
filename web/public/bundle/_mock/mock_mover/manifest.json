@@ -1,0 +1,2422 @@
+{
+ "schema_version": "1.0",
+ "field_id": "mock_mover",
+ "title": "MOCK mover field (fake data)",
+ "center": {
+  "ra": 150.1,
+  "dec": 2.2,
+  "epoch": 2018.0
+ },
+ "grid": {
+  "width": 192,
+  "height": 192,
+  "pixel_scale_arcsec": 2.75,
+  "wcs": {
+   "CTYPE1": "RA---TAN",
+   "CTYPE2": "DEC--TAN",
+   "CRVAL1": 150.1,
+   "CRVAL2": 2.2,
+   "CRPIX1": 96.5,
+   "CRPIX2": 96.5,
+   "CD1_1": -0.000763889,
+   "CD1_2": 0.0,
+   "CD2_1": 0.0,
+   "CD2_2": 0.000763889
+  }
+ },
+ "frames": [
+  {
+   "id": "wise_w1_e00",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 55324.0,
+   "mjd_end": 55327.1,
+   "mjd_mid": 55325.55,
+   "date": "2010-05-09",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e00.f32",
+   "mask_file": "frames/wise_w1_e00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.312,
+    "p50": 0.036,
+    "p99": 7.346,
+    "p999": 1119.903
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 0 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e00",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 55324.0,
+   "mjd_end": 55327.1,
+   "mjd_mid": 55325.55,
+   "date": "2010-05-09",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e00.f32",
+   "mask_file": "frames/wise_w2_e00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.29,
+    "p50": 0.043,
+    "p99": 6.17,
+    "p999": 842.567
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 0 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e01",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 55510.0,
+   "mjd_end": 55513.1,
+   "mjd_mid": 55511.55,
+   "date": "2010-11-11",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e01.f32",
+   "mask_file": "frames/wise_w1_e01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.342,
+    "p50": 0.03,
+    "p99": 7.257,
+    "p999": 1120.134
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 1 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e01",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 55510.0,
+   "mjd_end": 55513.1,
+   "mjd_mid": 55511.55,
+   "date": "2010-11-11",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e01.f32",
+   "mask_file": "frames/wise_w2_e01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.325,
+    "p50": 0.026,
+    "p99": 5.909,
+    "p999": 840.995
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 1 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e02",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 56641.0,
+   "mjd_end": 56644.1,
+   "mjd_mid": 56642.55,
+   "date": "2013-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e02.f32",
+   "mask_file": "frames/wise_w1_e02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.308,
+    "p50": 0.022,
+    "p99": 7.002,
+    "p999": 1120.303
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 2 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e02",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 56641.0,
+   "mjd_end": 56644.1,
+   "mjd_mid": 56642.55,
+   "date": "2013-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e02.f32",
+   "mask_file": "frames/wise_w2_e02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.28,
+    "p50": 0.032,
+    "p99": 5.691,
+    "p999": 842.427
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 2 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e03",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 56823.6,
+   "mjd_end": 56826.7,
+   "mjd_mid": 56825.15,
+   "date": "2014-06-17",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e03.f32",
+   "mask_file": "frames/wise_w1_e03.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.324,
+    "p50": 0.041,
+    "p99": 7.487,
+    "p999": 1119.637
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 3 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e03",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 56823.6,
+   "mjd_end": 56826.7,
+   "mjd_mid": 56825.15,
+   "date": "2014-06-17",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e03.f32",
+   "mask_file": "frames/wise_w2_e03.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.317,
+    "p50": 0.031,
+    "p99": 6.143,
+    "p999": 841.526
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 3 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e04",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57006.2,
+   "mjd_end": 57009.3,
+   "mjd_mid": 57007.75,
+   "date": "2014-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e04.f32",
+   "mask_file": "frames/wise_w1_e04.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.338,
+    "p50": 0.031,
+    "p99": 7.358,
+    "p999": 1119.664
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 4 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e04",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57006.2,
+   "mjd_end": 57009.3,
+   "mjd_mid": 57007.75,
+   "date": "2014-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e04.f32",
+   "mask_file": "frames/wise_w2_e04.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.298,
+    "p50": 0.031,
+    "p99": 5.961,
+    "p999": 841.902
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 4 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e05",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57188.8,
+   "mjd_end": 57191.9,
+   "mjd_mid": 57190.35,
+   "date": "2015-06-17",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e05.f32",
+   "mask_file": "frames/wise_w1_e05.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.289,
+    "p50": 0.043,
+    "p99": 7.445,
+    "p999": 1120.049
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 5 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e05",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57188.8,
+   "mjd_end": 57191.9,
+   "mjd_mid": 57190.35,
+   "date": "2015-06-17",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e05.f32",
+   "mask_file": "frames/wise_w2_e05.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.302,
+    "p50": 0.046,
+    "p99": 5.895,
+    "p999": 841.348
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 5 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e06",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57371.4,
+   "mjd_end": 57374.5,
+   "mjd_mid": 57372.95,
+   "date": "2015-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e06.f32",
+   "mask_file": "frames/wise_w1_e06.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.29,
+    "p50": 0.036,
+    "p99": 6.924,
+    "p999": 1119.265
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 6 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e06",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57371.4,
+   "mjd_end": 57374.5,
+   "mjd_mid": 57372.95,
+   "date": "2015-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e06.f32",
+   "mask_file": "frames/wise_w2_e06.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.338,
+    "p50": 0.045,
+    "p99": 5.95,
+    "p999": 841.909
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 6 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e07",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57554.0,
+   "mjd_end": 57557.1,
+   "mjd_mid": 57555.55,
+   "date": "2016-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e07.f32",
+   "mask_file": "frames/wise_w1_e07.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.333,
+    "p50": 0.038,
+    "p99": 7.628,
+    "p999": 1118.869
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 7 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e07",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57554.0,
+   "mjd_end": 57557.1,
+   "mjd_mid": 57555.55,
+   "date": "2016-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e07.f32",
+   "mask_file": "frames/wise_w2_e07.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.311,
+    "p50": 0.031,
+    "p99": 6.202,
+    "p999": 841.053
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 7 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e08",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57736.6,
+   "mjd_end": 57739.7,
+   "mjd_mid": 57738.15,
+   "date": "2016-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e08.f32",
+   "mask_file": "frames/wise_w1_e08.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.302,
+    "p50": 0.046,
+    "p99": 7.607,
+    "p999": 1120.37
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 8 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e08",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57736.6,
+   "mjd_end": 57739.7,
+   "mjd_mid": 57738.15,
+   "date": "2016-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e08.f32",
+   "mask_file": "frames/wise_w2_e08.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.3,
+    "p50": 0.021,
+    "p99": 5.897,
+    "p999": 843.634
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 8 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e09",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57919.2,
+   "mjd_end": 57922.3,
+   "mjd_mid": 57920.75,
+   "date": "2017-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e09.f32",
+   "mask_file": "frames/wise_w1_e09.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.308,
+    "p50": 0.039,
+    "p99": 7.124,
+    "p999": 1119.296
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 9 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e09",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57919.2,
+   "mjd_end": 57922.3,
+   "mjd_mid": 57920.75,
+   "date": "2017-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e09.f32",
+   "mask_file": "frames/wise_w2_e09.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.278,
+    "p50": 0.024,
+    "p99": 5.994,
+    "p999": 840.854
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 9 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e10",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58101.8,
+   "mjd_end": 58104.9,
+   "mjd_mid": 58103.35,
+   "date": "2017-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e10.f32",
+   "mask_file": "frames/wise_w1_e10.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.302,
+    "p50": 0.038,
+    "p99": 7.128,
+    "p999": 1119.774
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 10 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e10",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58101.8,
+   "mjd_end": 58104.9,
+   "mjd_mid": 58103.35,
+   "date": "2017-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e10.f32",
+   "mask_file": "frames/wise_w2_e10.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.293,
+    "p50": 0.038,
+    "p99": 5.864,
+    "p999": 841.751
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 10 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e11",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58284.4,
+   "mjd_end": 58287.5,
+   "mjd_mid": 58285.95,
+   "date": "2018-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e11.f32",
+   "mask_file": "frames/wise_w1_e11.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.314,
+    "p50": 0.037,
+    "p99": 7.558,
+    "p999": 1119.383
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 11 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e11",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58284.4,
+   "mjd_end": 58287.5,
+   "mjd_mid": 58285.95,
+   "date": "2018-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e11.f32",
+   "mask_file": "frames/wise_w2_e11.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.311,
+    "p50": 0.04,
+    "p99": 6.047,
+    "p999": 843.081
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 11 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e12",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58467.0,
+   "mjd_end": 58470.1,
+   "mjd_mid": 58468.55,
+   "date": "2018-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e12.f32",
+   "mask_file": "frames/wise_w1_e12.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.289,
+    "p50": 0.036,
+    "p99": 7.679,
+    "p999": 1119.335
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 12 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e12",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58467.0,
+   "mjd_end": 58470.1,
+   "mjd_mid": 58468.55,
+   "date": "2018-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e12.f32",
+   "mask_file": "frames/wise_w2_e12.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.313,
+    "p50": 0.024,
+    "p99": 6.155,
+    "p999": 842.745
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 12 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e13",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58649.6,
+   "mjd_end": 58652.7,
+   "mjd_mid": 58651.15,
+   "date": "2019-06-17",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e13.f32",
+   "mask_file": "frames/wise_w1_e13.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.343,
+    "p50": 0.041,
+    "p99": 7.091,
+    "p999": 1119.563
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 13 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e13",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58649.6,
+   "mjd_end": 58652.7,
+   "mjd_mid": 58651.15,
+   "date": "2019-06-17",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e13.f32",
+   "mask_file": "frames/wise_w2_e13.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.309,
+    "p50": 0.044,
+    "p99": 5.928,
+    "p999": 842.345
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 13 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e14",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58832.2,
+   "mjd_end": 58835.3,
+   "mjd_mid": 58833.75,
+   "date": "2019-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e14.f32",
+   "mask_file": "frames/wise_w1_e14.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.312,
+    "p50": 0.044,
+    "p99": 7.087,
+    "p999": 1120.095
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 14 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e14",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58832.2,
+   "mjd_end": 58835.3,
+   "mjd_mid": 58833.75,
+   "date": "2019-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e14.f32",
+   "mask_file": "frames/wise_w2_e14.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.324,
+    "p50": 0.026,
+    "p99": 5.91,
+    "p999": 841.854
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 14 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e15",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59014.8,
+   "mjd_end": 59017.9,
+   "mjd_mid": 59016.35,
+   "date": "2020-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e15.f32",
+   "mask_file": "frames/wise_w1_e15.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.33,
+    "p50": 0.033,
+    "p99": 7.216,
+    "p999": 1119.492
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 15 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e15",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59014.8,
+   "mjd_end": 59017.9,
+   "mjd_mid": 59016.35,
+   "date": "2020-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e15.f32",
+   "mask_file": "frames/wise_w2_e15.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.32,
+    "p50": 0.028,
+    "p99": 5.935,
+    "p999": 842.408
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 15 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e16",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59197.4,
+   "mjd_end": 59200.5,
+   "mjd_mid": 59198.95,
+   "date": "2020-12-15",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e16.f32",
+   "mask_file": "frames/wise_w1_e16.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.309,
+    "p50": 0.024,
+    "p99": 7.427,
+    "p999": 1119.337
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 16 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e16",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59197.4,
+   "mjd_end": 59200.5,
+   "mjd_mid": 59198.95,
+   "date": "2020-12-15",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e16.f32",
+   "mask_file": "frames/wise_w2_e16.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.3,
+    "p50": 0.033,
+    "p99": 6.227,
+    "p999": 842.0
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 16 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e17",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59380.0,
+   "mjd_end": 59383.1,
+   "mjd_mid": 59381.55,
+   "date": "2021-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e17.f32",
+   "mask_file": "frames/wise_w1_e17.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.319,
+    "p50": 0.04,
+    "p99": 7.273,
+    "p999": 1120.548
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 17 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e17",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59380.0,
+   "mjd_end": 59383.1,
+   "mjd_mid": 59381.55,
+   "date": "2021-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e17.f32",
+   "mask_file": "frames/wise_w2_e17.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.35,
+    "p50": 0.027,
+    "p99": 5.852,
+    "p999": 841.624
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 17 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e18",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59562.6,
+   "mjd_end": 59565.7,
+   "mjd_mid": 59564.15,
+   "date": "2021-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e18.f32",
+   "mask_file": "frames/wise_w1_e18.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.3,
+    "p50": 0.038,
+    "p99": 7.089,
+    "p999": 1119.439
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 18 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e18",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59562.6,
+   "mjd_end": 59565.7,
+   "mjd_mid": 59564.15,
+   "date": "2021-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e18.f32",
+   "mask_file": "frames/wise_w2_e18.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.296,
+    "p50": 0.025,
+    "p99": 5.985,
+    "p999": 841.343
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 18 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e19",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59745.2,
+   "mjd_end": 59748.3,
+   "mjd_mid": 59746.75,
+   "date": "2022-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e19.f32",
+   "mask_file": "frames/wise_w1_e19.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.289,
+    "p50": 0.04,
+    "p99": 7.557,
+    "p999": 1118.992
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 19 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e19",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59745.2,
+   "mjd_end": 59748.3,
+   "mjd_mid": 59746.75,
+   "date": "2022-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e19.f32",
+   "mask_file": "frames/wise_w2_e19.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.313,
+    "p50": 0.029,
+    "p99": 6.095,
+    "p999": 841.438
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 19 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e20",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59927.8,
+   "mjd_end": 59930.9,
+   "mjd_mid": 59929.35,
+   "date": "2022-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e20.f32",
+   "mask_file": "frames/wise_w1_e20.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.314,
+    "p50": 0.047,
+    "p99": 7.476,
+    "p999": 1119.666
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 20 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e20",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59927.8,
+   "mjd_end": 59930.9,
+   "mjd_mid": 59929.35,
+   "date": "2022-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e20.f32",
+   "mask_file": "frames/wise_w2_e20.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.308,
+    "p50": 0.036,
+    "p99": 6.087,
+    "p999": 841.846
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 20 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e21",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 60110.4,
+   "mjd_end": 60113.5,
+   "mjd_mid": 60111.95,
+   "date": "2023-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e21.f32",
+   "mask_file": "frames/wise_w1_e21.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.301,
+    "p50": 0.038,
+    "p99": 7.2,
+    "p999": 1119.497
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 21 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e21",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 60110.4,
+   "mjd_end": 60113.5,
+   "mjd_mid": 60111.95,
+   "date": "2023-06-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e21.f32",
+   "mask_file": "frames/wise_w2_e21.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.312,
+    "p50": 0.026,
+    "p99": 5.807,
+    "p999": 841.835
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 21 band 2"
+   ]
+  },
+  {
+   "id": "wise_w1_e22",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 60293.0,
+   "mjd_end": 60296.1,
+   "mjd_mid": 60294.55,
+   "date": "2023-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w1_e22.f32",
+   "mask_file": "frames/wise_w1_e22.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.346,
+    "p50": 0.036,
+    "p99": 6.922,
+    "p999": 1119.856
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 22 band 1"
+   ]
+  },
+  {
+   "id": "wise_w2_e22",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 60293.0,
+   "mjd_end": 60296.1,
+   "mjd_mid": 60294.55,
+   "date": "2023-12-16",
+   "n_inputs": 1,
+   "file": "frames/wise_w2_e22.f32",
+   "mask_file": "frames/wise_w2_e22.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -2.308,
+    "p50": 0.043,
+    "p99": 5.814,
+    "p999": 842.096
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.001,
+    "notes": [
+     "MOCK DATA",
+     "saturated star at lower left (flat core)"
+    ]
+   },
+   "source_files": [
+    "MOCK byw.tools epoch 22 band 2"
+   ]
+  },
+  {
+   "id": "spx_d1_t00",
+   "instrument": "SPHEREx",
+   "band": "D1",
+   "lambda_um": [
+    0.75,
+    1.1
+   ],
+   "mjd_start": 60800.2,
+   "mjd_end": 60801.0,
+   "mjd_mid": 60800.6,
+   "date": "2025-05-05",
+   "n_inputs": 6,
+   "file": "frames/spx_d1_t00.f32",
+   "mask_file": "frames/spx_d1_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.32,
+    "p50": 0.094,
+    "p99": 142.027,
+    "p999": 7817.936
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 6 images"
+   ]
+  },
+  {
+   "id": "spx_d2_t00",
+   "instrument": "SPHEREx",
+   "band": "D2",
+   "lambda_um": [
+    1.1,
+    1.6
+   ],
+   "mjd_start": 60800.4,
+   "mjd_end": 60801.2,
+   "mjd_mid": 60800.8,
+   "date": "2025-05-05",
+   "n_inputs": 9,
+   "file": "frames/spx_d2_t00.f32",
+   "mask_file": "frames/spx_d2_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.06,
+    "p50": 0.085,
+    "p99": 90.055,
+    "p999": 4966.746
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 9 images"
+   ]
+  },
+  {
+   "id": "spx_d3_t00",
+   "instrument": "SPHEREx",
+   "band": "D3",
+   "lambda_um": [
+    1.6,
+    2.4
+   ],
+   "mjd_start": 60800.6,
+   "mjd_end": 60801.4,
+   "mjd_mid": 60801.0,
+   "date": "2025-05-06",
+   "n_inputs": 8,
+   "file": "frames/spx_d3_t00.f32",
+   "mask_file": "frames/spx_d3_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.107,
+    "p50": 0.076,
+    "p99": 59.065,
+    "p999": 3099.287
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 8 images"
+   ]
+  },
+  {
+   "id": "spx_d4_t00",
+   "instrument": "SPHEREx",
+   "band": "D4",
+   "lambda_um": [
+    2.4,
+    3.8
+   ],
+   "mjd_start": 60800.8,
+   "mjd_end": 60801.6,
+   "mjd_mid": 60801.2,
+   "date": "2025-05-06",
+   "n_inputs": 9,
+   "file": "frames/spx_d4_t00.f32",
+   "mask_file": "frames/spx_d4_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.048,
+    "p50": 0.06,
+    "p99": 37.368,
+    "p999": 1831.887
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 9 images"
+   ]
+  },
+  {
+   "id": "spx_d5_t00",
+   "instrument": "SPHEREx",
+   "band": "D5",
+   "lambda_um": [
+    3.8,
+    4.4
+   ],
+   "mjd_start": 60801.0,
+   "mjd_end": 60801.8,
+   "mjd_mid": 60801.4,
+   "date": "2025-05-06",
+   "n_inputs": 7,
+   "file": "frames/spx_d5_t00.f32",
+   "mask_file": "frames/spx_d5_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.214,
+    "p50": 0.069,
+    "p99": 30.22,
+    "p999": 1309.204
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 7 images"
+   ]
+  },
+  {
+   "id": "spx_d6_t00",
+   "instrument": "SPHEREx",
+   "band": "D6",
+   "lambda_um": [
+    4.4,
+    5.0
+   ],
+   "mjd_start": 60801.2,
+   "mjd_end": 60802.0,
+   "mjd_mid": 60801.6,
+   "date": "2025-05-06",
+   "n_inputs": 9,
+   "file": "frames/spx_d6_t00.f32",
+   "mask_file": "frames/spx_d6_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.068,
+    "p50": 0.065,
+    "p99": 29.582,
+    "p999": 1111.702
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 9 images"
+   ]
+  },
+  {
+   "id": "spx_d1_t01",
+   "instrument": "SPHEREx",
+   "band": "D1",
+   "lambda_um": [
+    0.75,
+    1.1
+   ],
+   "mjd_start": 60980.2,
+   "mjd_end": 61021.0,
+   "mjd_mid": 61000.6,
+   "date": "2025-11-21",
+   "n_inputs": 11,
+   "file": "frames/spx_d1_t01.f32",
+   "mask_file": "frames/spx_d1_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -0.95,
+    "p50": 0.077,
+    "p99": 142.959,
+    "p999": 7818.094
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 11 images"
+   ]
+  },
+  {
+   "id": "spx_d2_t01",
+   "instrument": "SPHEREx",
+   "band": "D2",
+   "lambda_um": [
+    1.1,
+    1.6
+   ],
+   "mjd_start": 60980.4,
+   "mjd_end": 61021.2,
+   "mjd_mid": 61000.8,
+   "date": "2025-11-21",
+   "n_inputs": 6,
+   "file": "frames/spx_d2_t01.f32",
+   "mask_file": "frames/spx_d2_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.309,
+    "p50": 0.087,
+    "p99": 92.99,
+    "p999": 4966.723
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 6 images"
+   ]
+  },
+  {
+   "id": "spx_d3_t01",
+   "instrument": "SPHEREx",
+   "band": "D3",
+   "lambda_um": [
+    1.6,
+    2.4
+   ],
+   "mjd_start": 60980.6,
+   "mjd_end": 61021.4,
+   "mjd_mid": 61001.0,
+   "date": "2025-11-22",
+   "n_inputs": 6,
+   "file": "frames/spx_d3_t01.f32",
+   "mask_file": "frames/spx_d3_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.298,
+    "p50": 0.084,
+    "p99": 63.495,
+    "p999": 3098.833
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 6 images"
+   ]
+  },
+  {
+   "id": "spx_d4_t01",
+   "instrument": "SPHEREx",
+   "band": "D4",
+   "lambda_um": [
+    2.4,
+    3.8
+   ],
+   "mjd_start": 60980.8,
+   "mjd_end": 61021.6,
+   "mjd_mid": 61001.2,
+   "date": "2025-11-22",
+   "n_inputs": 8,
+   "file": "frames/spx_d4_t01.f32",
+   "mask_file": "frames/spx_d4_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.112,
+    "p50": 0.07,
+    "p99": 41.523,
+    "p999": 1831.624
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 8 images"
+   ]
+  },
+  {
+   "id": "spx_d5_t01",
+   "instrument": "SPHEREx",
+   "band": "D5",
+   "lambda_um": [
+    3.8,
+    4.4
+   ],
+   "mjd_start": 60981.0,
+   "mjd_end": 61021.8,
+   "mjd_mid": 61001.4,
+   "date": "2025-11-22",
+   "n_inputs": 11,
+   "file": "frames/spx_d5_t01.f32",
+   "mask_file": "frames/spx_d5_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -0.955,
+    "p50": 0.06,
+    "p99": 31.155,
+    "p999": 1309.636
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 11 images"
+   ]
+  },
+  {
+   "id": "spx_d6_t01",
+   "instrument": "SPHEREx",
+   "band": "D6",
+   "lambda_um": [
+    4.4,
+    5.0
+   ],
+   "mjd_start": 60981.2,
+   "mjd_end": 61022.0,
+   "mjd_mid": 61001.6,
+   "date": "2025-11-22",
+   "n_inputs": 7,
+   "file": "frames/spx_d6_t01.f32",
+   "mask_file": "frames/spx_d6_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.206,
+    "p50": 0.072,
+    "p99": 30.302,
+    "p999": 1111.373
+   },
+   "quality": {
+    "masked_frac": 0.00165,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 7 images"
+   ]
+  },
+  {
+   "id": "spx_d1_t02",
+   "instrument": "SPHEREx",
+   "band": "D1",
+   "lambda_um": [
+    0.75,
+    1.1
+   ],
+   "mjd_start": 61151.2,
+   "mjd_end": 61173.0,
+   "mjd_mid": 61162.1,
+   "date": "2026-05-02",
+   "n_inputs": 7,
+   "file": "frames/spx_d1_t02.f32",
+   "mask_file": "frames/spx_d1_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.199,
+    "p50": 0.088,
+    "p99": 148.105,
+    "p999": 7818.008
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 7 images"
+   ]
+  },
+  {
+   "id": "spx_d2_t02",
+   "instrument": "SPHEREx",
+   "band": "D2",
+   "lambda_um": [
+    1.1,
+    1.6
+   ],
+   "mjd_start": 61151.4,
+   "mjd_end": 61173.2,
+   "mjd_mid": 61162.3,
+   "date": "2026-05-02",
+   "n_inputs": 5,
+   "file": "frames/spx_d2_t02.f32",
+   "mask_file": "frames/spx_d2_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.419,
+    "p50": 0.091,
+    "p99": 99.837,
+    "p999": 4966.915
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 5 images"
+   ]
+  },
+  {
+   "id": "spx_d3_t02",
+   "instrument": "SPHEREx",
+   "band": "D3",
+   "lambda_um": [
+    1.6,
+    2.4
+   ],
+   "mjd_start": 61151.6,
+   "mjd_end": 61173.4,
+   "mjd_mid": 61162.5,
+   "date": "2026-05-02",
+   "n_inputs": 9,
+   "file": "frames/spx_d3_t02.f32",
+   "mask_file": "frames/spx_d3_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.051,
+    "p50": 0.073,
+    "p99": 68.401,
+    "p999": 3099.244
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 9 images"
+   ]
+  },
+  {
+   "id": "spx_d4_t02",
+   "instrument": "SPHEREx",
+   "band": "D4",
+   "lambda_um": [
+    2.4,
+    3.8
+   ],
+   "mjd_start": 61151.8,
+   "mjd_end": 61173.6,
+   "mjd_mid": 61162.7,
+   "date": "2026-05-02",
+   "n_inputs": 7,
+   "file": "frames/spx_d4_t02.f32",
+   "mask_file": "frames/spx_d4_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.217,
+    "p50": 0.068,
+    "p99": 42.3,
+    "p999": 1831.747
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 7 images"
+   ]
+  },
+  {
+   "id": "spx_d5_t02",
+   "instrument": "SPHEREx",
+   "band": "D5",
+   "lambda_um": [
+    3.8,
+    4.4
+   ],
+   "mjd_start": 61152.0,
+   "mjd_end": 61173.8,
+   "mjd_mid": 61162.9,
+   "date": "2026-05-02",
+   "n_inputs": 10,
+   "file": "frames/spx_d5_t02.f32",
+   "mask_file": "frames/spx_d5_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.013,
+    "p50": 0.062,
+    "p99": 33.254,
+    "p999": 1309.071
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 10 images"
+   ]
+  },
+  {
+   "id": "spx_d6_t02",
+   "instrument": "SPHEREx",
+   "band": "D6",
+   "lambda_um": [
+    4.4,
+    5.0
+   ],
+   "mjd_start": 61152.2,
+   "mjd_end": 61174.0,
+   "mjd_mid": 61163.1,
+   "date": "2026-05-03",
+   "n_inputs": 6,
+   "file": "frames/spx_d6_t02.f32",
+   "mask_file": "frames/spx_d6_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative",
+   "display": {
+    "p01": -1.314,
+    "p50": 0.08,
+    "p99": 30.439,
+    "p999": 1111.625
+   },
+   "quality": {
+    "masked_frac": 0.00168,
+    "saturated_frac": 0.00187,
+    "notes": [
+     "MOCK DATA",
+     "SPHEREx pixels are 6.15\"; resampled to 2.75\"",
+     "saturated star: NaN core (OVERFLOW)"
+    ]
+   },
+   "source_files": [
+    "MOCK SPHEREx dr1+qr3 6 images"
+   ]
+  }
+ ],
+ "sequences": [
+  {
+   "id": "thermal46",
+   "label": "4.6 µm — WISE W2 + SPHEREx D6",
+   "default": true,
+   "frames": [
+    "wise_w2_e00",
+    "wise_w2_e01",
+    "wise_w2_e02",
+    "wise_w2_e03",
+    "wise_w2_e04",
+    "wise_w2_e05",
+    "wise_w2_e06",
+    "wise_w2_e07",
+    "wise_w2_e08",
+    "wise_w2_e09",
+    "wise_w2_e10",
+    "wise_w2_e11",
+    "wise_w2_e12",
+    "wise_w2_e13",
+    "wise_w2_e14",
+    "wise_w2_e15",
+    "wise_w2_e16",
+    "wise_w2_e17",
+    "wise_w2_e18",
+    "wise_w2_e19",
+    "wise_w2_e20",
+    "wise_w2_e21",
+    "wise_w2_e22",
+    "spx_d6_t00",
+    "spx_d6_t01",
+    "spx_d6_t02"
+   ]
+  },
+  {
+   "id": "w1d4",
+   "label": "3.4 µm — WISE W1 + SPHEREx D4",
+   "default": false,
+   "frames": [
+    "wise_w1_e00",
+    "wise_w1_e01",
+    "wise_w1_e02",
+    "wise_w1_e03",
+    "wise_w1_e04",
+    "wise_w1_e05",
+    "wise_w1_e06",
+    "wise_w1_e07",
+    "wise_w1_e08",
+    "wise_w1_e09",
+    "wise_w1_e10",
+    "wise_w1_e11",
+    "wise_w1_e12",
+    "wise_w1_e13",
+    "wise_w1_e14",
+    "wise_w1_e15",
+    "wise_w1_e16",
+    "wise_w1_e17",
+    "wise_w1_e18",
+    "wise_w1_e19",
+    "wise_w1_e20",
+    "wise_w1_e21",
+    "wise_w1_e22",
+    "spx_d4_t00",
+    "spx_d4_t01",
+    "spx_d4_t02"
+   ]
+  },
+  {
+   "id": "spherex6",
+   "label": "SPHEREx only — D1…D6",
+   "default": false,
+   "frames": [
+    "spx_d1_t00",
+    "spx_d2_t00",
+    "spx_d3_t00",
+    "spx_d4_t00",
+    "spx_d5_t00",
+    "spx_d6_t00",
+    "spx_d1_t01",
+    "spx_d2_t01",
+    "spx_d3_t01",
+    "spx_d4_t01",
+    "spx_d5_t01",
+    "spx_d6_t01",
+    "spx_d1_t02",
+    "spx_d2_t02",
+    "spx_d3_t02",
+    "spx_d4_t02",
+    "spx_d5_t02",
+    "spx_d6_t02"
+   ]
+  }
+ ],
+ "rgb_composites": [
+  {
+   "id": "fingerprint_t00",
+   "label": "Spectral fingerprint (D1/D3/D6), cluster 0 (MOCK)",
+   "r": "spx_d6_t00",
+   "g": "spx_d3_t00",
+   "b": "spx_d1_t00"
+  },
+  {
+   "id": "fingerprint_t01",
+   "label": "Spectral fingerprint (D1/D3/D6), cluster 1 (MOCK)",
+   "r": "spx_d6_t01",
+   "g": "spx_d3_t01",
+   "b": "spx_d1_t01"
+  },
+  {
+   "id": "fingerprint_t02",
+   "label": "Spectral fingerprint (D1/D3/D6), cluster 2 (MOCK)",
+   "r": "spx_d6_t02",
+   "g": "spx_d3_t02",
+   "b": "spx_d1_t02"
+  }
+ ],
+ "objects": [
+  "target",
+  "c002"
+ ],
+ "catalogs": {
+  "gaia": "catalogs/gaia.json",
+  "catwise": "catalogs/catwise.json"
+ },
+ "candidates": "candidates.json",
+ "credits": [
+  "MOCK DATA generated by pipeline/skylapse_pipeline/mock.py — not real observations"
+ ],
+ "build": {
+  "pipeline_version": "mock-1.0",
+  "generated_utc": "2026-11-14T10:12:29Z",
+  "spherex_releases": [
+   "mock"
+  ]
+ }
+}
