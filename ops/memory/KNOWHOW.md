@@ -10,3 +10,5 @@
 [science] unWISE epoch coadds write saturated cores as exact 0 (hole ~6 px for Barnard, 2016+ epochs); fit the wings (Moffat), never centroid the hole box.
 [science] Fitted WISE parallaxes are biased by seasonal scan-direction centroid offsets (~0.25" for bright sources); PM is fine. Do not quote WISE parallax.
 [science] Science Python env: science/.venv (pip install -r science/requirements.txt); system Python 3.14 has no astropy.
+[pitch] LOCAL RULE Baku: presentation+demo = 5:00 TOTAL (overtime = disqualified), Q&A 5:00, max 7 English slides shared by link; AI media need watermark.
+[orchestrator] Web deploy = Vercel CLI from Murad's PC: `cd web && npx vercel deploy --prod --yes` → https://skylapse.vercel.app (project 'skylapse'; Git auto-deploy NOT connected: Vercel GitHub app is not installed on FARADTechnologies). Redeploy after every merge to main.

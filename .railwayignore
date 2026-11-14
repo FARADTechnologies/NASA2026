@@ -1,0 +1,14 @@
+web/
+data/
+cache/
+science/
+pitch/
+docs/
+ops/
+test/
+prompts/
+.git/
+**/node_modules/
+**/__pycache__/
+.env
+.env.*
