@@ -31,6 +31,7 @@ export function Home() {
           <p className="lede">SkyLapse joins NASA's WISE/NEOWISE (2010–2024) and SPHEREx (2025–2026) into one movie of any patch of sky,
             so nearby brown dwarfs and fast stars visibly crawl across the screen.</p>
           <SearchBox />
+          <div className="how"><b>How it works:</b> pick a target <span>→</span> watch 16 years play <span>→</span> the moving dot is the object.</div>
         </div>
       </section>
       <section className="targets">
