@@ -2,7 +2,7 @@
 Last update: Sun 15 Nov 00:30 Baku
 
 ## Current task
-#75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
+#80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
 None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
