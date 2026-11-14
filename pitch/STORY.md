@@ -90,6 +90,7 @@ SkyLapse — sixteen years of sky, for everyone. Thank you."
 
 Word count of spoken script (without demo) = 350 (counted with `wc -w`) → 2:30 at 140 wpm, 2:55 at a calm 120 wpm;
 demo narration = 107 words in 1:30. Estimated total 4:00–4:25 → 15–60 s buffer under the 5:00 hard limit.
+**Timing estimate Sun 03:00 (A12):** spoken §4 = 372 words + demo ≈ 110 words → ≈ 3:10 at Amal's measured pace (≈ 152 wpm); + demo clicks with PRE-OPENED tabs ≈ 15 s + slide↔browser switches → **≈ 3:30–3:50**. Real stopwatch run = Amal (her deck/notes may differ). Pre-open WISE 0855, ε Indi B, Barnard (10.9 s cold load!) and R Dra (8.9 s) in tabs before going on stage.
 **Timing proof:** Amal read §4 script + §3 demo narration aloud with a stopwatch on Sat 14 Nov ~14:40: **3:00**.
 Live clicking/loading will add time → rehearse with the real site (A6) and keep the total ≤ 4:40.
 
