@@ -25,11 +25,11 @@ export interface Manifest {
   build?: Record<string, unknown>;
 }
 export interface Catalog { catalog: string; ref_epoch: number; columns: string[]; rows: (string | number | null)[][] }
-export interface MotionTrackPoint { mjd: number; ra: number; dec: number; instrument: string }
+export interface MotionTrackPoint { mjd: number; ra: number; dec: number; instrument: string; kind?: string }
 export interface ObjectInfo {
   id: string; name: string; kind: string; ra: number; dec: number; epoch: number;
   motion: null | {
-    measured: null | { pmra: number; pmdec: number; pm_total: number; err: number; unit: string; n_epochs: number };
+    measured: null | { pmra: number; pmdec: number; pm_total: number; err: number; unit: string; n_epochs: number; baseline_yr?: number; parallax?: number; parallax_err?: number };
     reference: null | { source: string; pmra: number; pmdec: number; unit: string };
     agreement_pct: number | null; track: MotionTrackPoint[] | null;
   };
