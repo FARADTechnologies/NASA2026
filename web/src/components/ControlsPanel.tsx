@@ -2,8 +2,9 @@ import { useState } from "react";
 import type { Frame, Manifest } from "../lib/bundle";
 import type { ViewState } from "../lib/url";
 
-export function ControlsPanel({ view, update, manifest, seqFrames, idx }: {
+export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, onClose }: {
   view: ViewState; update: (p: Partial<ViewState>) => void; manifest: Manifest | null; seqFrames: Frame[]; idx: number; playing: boolean;
+  open?: boolean; onClose?: () => void;
 }) {
   const [copied, setCopied] = useState(false);
   const full = manifest ? (manifest.grid.width * manifest.grid.pixel_scale_arcsec) / 60 : 8.8;
@@ -14,7 +15,8 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx }: {
   const toggleOverlay = (k: string) => update({ overlay: view.overlay.includes(k) ? view.overlay.filter((x) => x !== k) : [...view.overlay, k] });
 
   return (
-    <aside className="panel controls">
+    <aside className={"panel controls" + (open ? " open" : "")}>
+      {onClose && <button className="btn small controls-close" onClick={onClose}>✕ Close controls</button>}
       <section>
         <h3>Sequence</h3>
         <select value={view.seq} onChange={(e) => update({ seq: e.target.value, frame: 0, coadd: "" })}>

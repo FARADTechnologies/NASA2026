@@ -238,3 +238,44 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .credits { padding-left: 20px; }
 .credits li { margin: 4px 0; }
 .ok { color: var(--ok); }
+
+/* phone / narrow layout (< 800 px): one column — image + transport first, info next, controls behind a toggle */
+.controls-toggle, .controls-close { display: none; }
+@media (max-width: 800px) {
+  body { font-size: 14px; }
+  .topbar { height: auto; min-height: 52px; flex-wrap: wrap; gap: 8px 12px; padding: 8px 12px; }
+  .tb-title { display: none; }
+  .tb-search { order: 3; flex-basis: 100%; max-width: none; margin-left: 0; }
+  .topbar nav { margin-left: auto; gap: 12px; }
+  .viewer { height: auto; min-height: 100%; overflow: visible; }
+  .viewer-grid { display: flex; flex-direction: column; }
+  .stage { order: 1; padding: 10px 10px 6px; }
+  .panel.side { order: 2; border-left: 0; border-top: 1px solid var(--border); overflow: visible; }
+  .panel.controls { order: 3; display: none; border-right: 0; border-top: 1px solid var(--border); overflow: visible; }
+  .panel.controls.open { display: block; position: fixed; inset: 0; z-index: 30; overflow-y: auto; background: var(--bg2); padding-top: 12px; }
+  .controls-close { display: block; margin: 0 0 6px auto; }
+  .controls-toggle { display: inline-block; }
+  .frame-label { min-height: 0; gap: 4px 12px; }
+  .fl-date { font-size: 28px; letter-spacing: -.5px; }
+  .fl-meta { font-size: 13.5px; flex-wrap: wrap; }
+  .player-wrap { flex: none; width: 100%; aspect-ratio: 1 / 1; }
+  .transport { flex-wrap: wrap; gap: 8px; }
+  .transport .play { min-width: 92px; }
+  .speed { margin-left: 0; order: 5; flex-basis: 100%; }
+  .speed input { flex: 1; width: auto; }
+  .span-label { font-size: 12.5px; margin-left: auto; }
+  .span-label b { font-size: 14px; }
+  .tl-axis span:nth-child(even) { display: none; }
+  .tl-gap span { display: none; }
+  .tl-legend { justify-content: flex-start; }
+  .hero { padding: 48px 16px 40px; }
+  .lede { font-size: 16px; }
+  .hero .search { flex-wrap: wrap; }
+  .hero .search .btn { padding: 10px 20px; }
+  .targets, .doc { padding-left: 16px; padding-right: 16px; }
+  .cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tcard { min-height: 0; }
+  .stat-row { grid-template-columns: 1fr; }
+  .cand-table { display: block; overflow-x: auto; }
+  .doc h1 { font-size: 30px; }
+}
