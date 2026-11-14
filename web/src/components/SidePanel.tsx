@@ -21,14 +21,15 @@ function spectrumByEpoch(points: SpecPt[]) {
   });
 }
 
-export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, objectId, onObject }: {
+export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, objectId, onObject, panelRef, flash }: {
+  panelRef?: React.Ref<HTMLDivElement>; flash?: number;
   frame: Frame | null; obj: ObjectInfo | null; cands: Candidates | null; manifest: Manifest | null; isMock: boolean;
   objectIds?: string[]; objectId?: string; onObject?: (id: string) => void;
 }) {
   const [lang, setLang] = useState<"en" | "az">("en");
   const m = obj?.motion;
   return (
-    <aside className="panel side">
+    <aside className="panel side" ref={panelRef as React.Ref<HTMLElement>}>
       {isMock && <div className="mock-banner">Demo data (mock) — real survey frames replace this automatically.</div>}
 
       <section className="card">
@@ -46,7 +47,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
         ) : NA}
       </section>
 
-      <section className="card">
+      <section className={"card obj-card" + (flash ? " flash" : "")} key={"obj" + (flash ?? 0)}>
         <div className="card-head">
           <h3>{obj?.name ?? manifest?.title ?? "Object"}</h3>
           {objectIds && objectIds.length > 1 && onObject && (
@@ -61,18 +62,30 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
             {m?.measured && m.measured.pm_total > 0 ? (
               <div className="motion">
                 {m.agreement_pct != null && (
-                  <div className="big-stat"><b>{m.agreement_pct.toFixed(1)}%</b><span>agreement with {m.reference?.source ?? "reference"}</span></div>
+                  <div className="big-stat"><b>{m.agreement_pct.toFixed(1)}%</b><span>agreement with the published motion</span></div>
                 )}
                 <table className="pm">
                   <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
                   <tbody>
-                    <tr><td>Measured</td><td>{m.measured.pmra}</td><td>{m.measured.pmdec}</td><td><b>{m.measured.pm_total}</b> ± {m.measured.err}</td></tr>
-                    {m.reference && <tr><td>{m.reference.source}</td><td>{m.reference.pmra}</td><td>{m.reference.pmdec}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>}
+                    <tr><td>Measured</td><td>{Math.round(m.measured.pmra)}</td><td>{Math.round(m.measured.pmdec)}</td><td><b>{Math.round(m.measured.pm_total)}</b> ± {Math.round(m.measured.err)}</td></tr>
+                    {m.reference && <tr><td title={m.reference.source}>Reference</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>}
                   </tbody>
                 </table>
-                <div className="muted small">mas/yr · fitted over {m.measured.n_epochs} epochs</div>
+                {m.reference && <div className="muted small ref-src">Reference: {m.reference.source}</div>}
+                <div className="muted small">mas/yr · fitted over {m.measured.n_epochs} epochs{m.measured.baseline_yr ? ` spanning ${m.measured.baseline_yr.toFixed(1)} years` : ""}</div>
               </div>
-            ) : <div className="muted small">No significant motion measured.</div>}
+            ) : m?.reference ? (
+              <div className="motion">
+                <table className="pm">
+                  <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
+                  <tbody>
+                    <tr><td>Measured</td><td colSpan={3} className="muted" style={{ textAlign: "right", fontFamily: "var(--font)" }}>not available yet</td></tr>
+                    <tr><td title={m.reference.source}>Reference</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>
+                  </tbody>
+                </table>
+                <div className="muted small ref-src">Reference: {m.reference.source} · mas/yr</div>
+              </div>
+            ) : <div className="muted small">Motion not available yet.</div>}
             {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}>⚠ {w}</li>)}</ul> : null}
             {obj.flags?.saturated_in?.length ? <div className="warn small">⚠ Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
           </>

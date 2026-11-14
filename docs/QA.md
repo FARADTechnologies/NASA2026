@@ -1,3 +1,6 @@
 # QA — test log (pitch role runs it on the DEPLOYED site after every checkpoint)
 | time | build/commit | target | movie plays | motion visible | Gaia overlay | diff mode | spectrum | light curve | URL share | notes |
 |---|---|---|---|---|---|---|---|---|---|---|
+| Sat 15:55 R1 | main as deployed (mock bundle only) | Barnard's Star, ε Indi B, WISE 0855, RW Aur, R Dra | — | — | — | — | — | — | — | **Not testable: no real fields deployed yet.** Name search works (`/api/resolve` → 269.452, +4.693) and coordinates (sexagesimal + decimal) parse; both show a clear "No precomputed field near … yet" page. |
+| Sat 15:55 R1 | same | mock_mover (fake data, 150.1 +2.2) | ✅ 26 frames, ~5–7 s to load all | ✅ track line + mover | ✅ circles per date | ✅ "− previous" + label "this frame − date" | ✅ chart shown (mock) | n/a | ✅ URL holds field/seq/stretch/diff/overlays; reopened in a new load → same state | Copilot EN/AZ toggle ✅. MOCK badge + "Demo data" warning clearly visible ✅. Phone 375 px: **broken layout → #45**. Console: one harmless 404 for `/bundle/index.json` (falls back to `_mock`). |
+| Sat 15:55 R1 | same | random coordinate 150.1 +2.2 / 133.795 −7.245 | ✅ 150.1 +2.2 opens nearest field (mock); 133.795 −7.245 → "not available yet" page | — | — | — | — | — | ✅ | Live mode not deployed (API host O3b #36). |
