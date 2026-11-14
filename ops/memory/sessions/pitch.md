@@ -1,7 +1,8 @@
 # Journal — role: pitch  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov 23:20 Baku
+Last update: Sun 15 Nov 00:30 Baku
 
 ## Current task
+#72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
 None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
@@ -18,9 +19,10 @@ All Saturday pitch deliverables done. Gaps depend on other agents: light curves 
 - A3 #24: Vugar Aliyev notes in pitch/MENTOR_NOTES.md, sent to orchestrator #52.
 
 ## Next step (exact, so a fresh session can continue blindly)
+0. DO NOT touch the deck. Facts go to pitch/FACTS.md; offer them to Amal, she edits slides herself.
 1. `python ops/bin/skyops.py next --wait 540` loop.
 2. When target.json has `lightcurve`/`copilot` (check: curl https://skylapse.vercel.app/bundle/<field>/objects/target.json) → QA R3,
-   slide 5 RW Aur/R Dra row ("in progress" → real result), demo step 4 (AZ copilot) back into STORY §3, new deck v3 (Amal re-uploads as new version).
+   DONE Sun 00:20: light curves + copilot EN/AZ live; deck v3 (pitch/slides/SkyLapse_FARAD_v3.pptx) + backup video pitch/video/SkyLapse_demo_backup.mp4 (1:22) sent to Amal.
 3. Sun 11:00 Tural Salmanov rehearsal (A3 session 2 + A6): full timed run ≤ 4:40 on the live site; fill MENTOR_NOTES session 2.
 4. A6 (#27, after `approved`): final PROJECT_PAGE fields, video link, repo public link, test every link in a private window, submit by 14:30 with Murad.
 
