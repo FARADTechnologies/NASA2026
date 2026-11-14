@@ -1,11 +1,11 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14:30
+Last update: Sat 15:00
 
 ## Current task
-Phase 1 loop. Waiting: Murad's API-host decision for O3b #36. Next checkpoint M1 #28 at 16:00.
+Phase 1 autonomous loop (`skyops next`). Next: CHECKPOINT M1 #28 at 16:00 (needs pipeline T2 real wise0855).
 
 ## Status
-M0 done 14:20 (3 h late, D-008). Web live at https://skylapse.vercel.app (mock data). API code done, not hosted.
+M1 reached 14:55. Web + API live. Waiting on pipeline T3 (5 fields + merge-science).
 Pipeline (T1 #2, not claimed yet but writing code) and science (S1 #8 claimed) are running in their worktrees.
 
 ## Done (with proof)
@@ -18,7 +18,11 @@ Pipeline (T1 #2, not claimed yet but writing code) and science (S1 #8 claimed) a
 - Issues #1–#32 created (+ #36 O3b). Map in ops/tmp/issue_numbers.json and PROJECT_STATE.
 - O0 #1 closed: mock.py + validate_bundle.py + _mock bundle on main; validator PASS; negative test FAIL as expected.
 - PR #35 (frontend F0–F3) merged after `npm ci && npm run build` + browser check on mock; #13–#16 closed.
-- PR #34 (pitch A1 LOCAL_RULES) merged; #22 closed. Local format: 5 min pitch+demo, overrun = disqualified (D-012).
+- PR #34 (pitch A1) merged; #22 closed. PR #44 S1 merged (#8 closed: 99.8/99.0/99.9 %). PR #42 F4+F5 merged (#17,#18). PR #37 pitch A2+A5 merged (#23,#26).
+- O3b #36 closed: Railway API online, /api/* proxied via web/vercel.json.
+- 15:00: #45 #47 (frontend bugs) merged via PR #48 #50; pitch A4 #25 (PR #46), A3 #24 (PR #55) merged; Q #33 #43 #49 #52 answered.
+- PR #53 pipeline T1+T2 merged, #2 #3 closed → M1 reached 14:55 (wise0855 real movie live). New tasks: F6 #51 demo speed, F7 #54 clarity.
+- skyops accept now uses merge commits (D-016); validator sizes nested roots separately; deploy_web.py skips _mock once real fields exist. Local format: 5 min pitch+demo, overrun = disqualified (D-012).
 - O3 #20 closed: Vercel project 'skylapse' → https://skylapse.vercel.app (200 on /, /view, /bundle/_mock/...).
 - O1 #19 closed: api/skylapse_api (resolve + field files + CORS), TestClient proof in the issue.
 - Hooks work here (RECOVERY BRIEF appeared at session start).
@@ -26,8 +30,8 @@ Pipeline (T1 #2, not claimed yet but writing code) and science (S1 #8 claimed) a
 ## Next step (exact, so a fresh session can continue blindly)
 1. If the last commit is not on origin: `git push origin main` (DNS to github.com failed once at 14:30).
 2. Loop `python ops/bin/skyops.py next --wait 540`; review PRs (build web in ../skylapse-review: `git -C ../skylapse-review checkout --detach origin/role/<x>`, `cd web && npm ci && npm run build`).
-3. After every merge touching web/ or bundle: `cd web && npx vercel deploy --prod --yes`, then check https://skylapse.vercel.app.
-4. O3b #36 when Murad decides the host; then set VITE_API_BASE in Vercel and redeploy.
+3. After every merge touching web/ or bundle: `python ops/bin/deploy_web.py` (NOT plain vercel deploy: blocked for non-team commit authors), then check https://skylapse.vercel.app.
+4. API redeploy: `MSYS_NO_PATHCONV=1 npx @railway/cli up --detach --service api` (repo root). O2 #21 after pipeline T5 #6: WISE-only live, < 300 MB RAM (D-015).
 5. CHECKPOINT M1 #28 at 16:00 (real wise0855 bundle from pipeline T2 #3).
 
 ## Files touched
@@ -41,4 +45,5 @@ CLAUDE.md, ops/team.json, ops/memory/*, .gitattributes, .gitignore, web/.gitigno
 - Check the time with `date` — do not estimate it.
 
 ## Open questions / waiting on
-- Murad: API host (Railway/Render paid vs laptop + Cloudflare tunnel) for O3b #36.
+- Pipeline agent commits code but never claimed T1–T6 (#2–#7): check at M1 that it uses the issue loop.
+- New rule: ESC issues → explain to Murad in the 5-part Azerbaijani format (CLAUDE.md §7b); agents asked to merge main (#38–#41).

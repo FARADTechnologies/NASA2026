@@ -1,0 +1,29 @@
+{
+ "id": "target",
+ "name": "WISE 0855−0714",
+ "kind": "brown_dwarf",
+ "ra": 133.77796297,
+ "dec": -7.24368017,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2021ApJS..253....7K)",
+   "pmra": -8123.7,
+   "pmdec": 673.2,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": null,
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [],
+  "warnings": []
+ },
+ "simbad_id": "WISEA J085510.74-071442.5",
+ "sp_type": "Y2",
+ "parallax_mas": 439.0
+}

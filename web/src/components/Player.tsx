@@ -14,6 +14,20 @@ export interface PlayerProps {
   centerRaDec: [number, number] | null;
   loadingText?: string;
   onPick?: (ra: number, dec: number) => void;
+  targetLabel?: string;
+}
+
+/** Target position at `mjd`, linearly interpolated along the track (clamped at the ends). */
+export function trackAt(track: MotionTrackPoint[], mjd: number): [number, number] | null {
+  if (!track.length) return null;
+  const t = [...track].sort((a, b) => a.mjd - b.mjd);
+  if (mjd <= t[0].mjd) return [t[0].ra, t[0].dec];
+  if (mjd >= t[t.length - 1].mjd) return [t[t.length - 1].ra, t[t.length - 1].dec];
+  for (let i = 1; i < t.length; i++) if (mjd <= t[i].mjd) {
+    const a = t[i - 1], b = t[i], f = (mjd - a.mjd) / (b.mjd - a.mjd || 1);
+    return [a.ra + (b.ra - a.ra) * f, a.dec + (b.dec - a.dec) * f];
+  }
+  return null;
 }
 
 export function Player(p: PlayerProps) {
@@ -108,14 +122,26 @@ export function Player(p: PlayerProps) {
       g.beginPath();
       p.track.forEach((t, i) => { const [sx, sy] = toScreen(...world2pix(wcs, t.ra, t.dec)); if (i) g.lineTo(sx, sy); else g.moveTo(sx, sy); });
       g.stroke(); g.setLineDash([]);
+      for (const t of p.track) { // measured positions = small dots, model/predicted = hollow
+        const [sx, sy] = toScreen(...world2pix(wcs, t.ra, t.dec));
+        g.beginPath(); g.arc(sx, sy, 2.2, 0, Math.PI * 2);
+        if (t.kind && t.kind !== "measured") { g.strokeStyle = "rgba(255,93,143,0.8)"; g.lineWidth = 1; g.stroke(); }
+        else { g.fillStyle = "rgba(255,93,143,0.75)"; g.fill(); }
+      }
       if (p.frame) {
-        let best = p.track[0];
-        for (const t of p.track) if (Math.abs(t.mjd - p.frame.mjd_mid) < Math.abs(best.mjd - p.frame.mjd_mid)) best = t;
-        const [sx, sy] = toScreen(...world2pix(wcs, best.ra, best.dec));
-        g.strokeStyle = "#ff5d8f"; g.lineWidth = 2;
-        const r = rCirc + 6;
-        for (const [a, b] of [[0, 1], [0, -1], [1, 0], [-1, 0]]) { // open tick marks around the target
-          g.beginPath(); g.moveTo(sx + a * r, sy + b * r); g.lineTo(sx + a * (r + 8), sy + b * (r + 8)); g.stroke();
+        const pos = trackAt(p.track, p.frame.mjd_mid);
+        if (pos) {
+          const [sx, sy] = toScreen(...world2pix(wcs, pos[0], pos[1]));
+          const r = Math.max(14, rCirc + 8);
+          g.strokeStyle = "#ff5d8f"; g.lineWidth = 2.5;
+          g.beginPath(); g.arc(sx, sy, r, 0, Math.PI * 2); g.stroke();
+          if (p.targetLabel) {
+            g.font = "700 13px Inter, system-ui";
+            const tw = g.measureText(p.targetLabel).width;
+            const lx = Math.min(size - tw - 14, Math.max(6, sx + r + 6)), ly = Math.max(18, sy - r - 4);
+            g.fillStyle = "rgba(5,7,13,0.75)"; g.fillRect(lx - 5, ly - 14, tw + 10, 19);
+            g.fillStyle = "#ff8fb1"; g.fillText(p.targetLabel, lx, ly);
+          }
         }
       }
     }
@@ -131,7 +157,7 @@ export function Player(p: PlayerProps) {
     g.fillText("N", size - 26, 20); g.fillText(flipX ? "E" : "E", flipX ? size - 12 : size - 52, 44);
     g.strokeStyle = "rgba(232,236,245,0.85)"; g.lineWidth = 1.5; g.beginPath();
     g.moveTo(size - 22, 40); g.lineTo(size - 22, 26); g.moveTo(size - 22, 40); g.lineTo(flipX ? size - 8 : size - 36, 40); g.stroke();
-  }, [p.image, p.frame, p.overlay, p.catalogs, p.track, size, u0, v0, cropPx]);
+  }, [p.image, p.frame, p.overlay, p.catalogs, p.track, p.targetLabel, size, u0, v0, cropPx]);
 
   return (
     <div className="player-wrap" ref={wrapRef}>

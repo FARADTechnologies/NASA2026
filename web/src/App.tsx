@@ -2,13 +2,16 @@ import { useLocation } from "./lib/router";
 import { Home } from "./pages/Home";
 import { Viewer } from "./pages/Viewer";
 import { TopBar } from "./components/TopBar";
+import { Discover } from "./pages/Discover";
+import { About } from "./pages/About";
 
 export default function App() {
   const { path, search } = useLocation();
   if (path.startsWith("/view")) return <Viewer key={viewKey(search)} search={search} />;
-  if (path.startsWith("/discover")) return <Placeholder title="Discover" text="Auto-detected movers and candidates across all fields — coming in the next build." />;
-  if (path.startsWith("/about")) return <Placeholder title="About SkyLapse" text="Method, validation and data credits — coming in the next build." />;
-  return <Home />;
+  if (path.startsWith("/discover")) return <Discover />;
+  if (path.startsWith("/about")) return <About />;
+  if (path === "/" || path === "/index.html") return <Home />;
+  return <Placeholder title="Page not found" text="This page does not exist. Go back to the home page to pick a target." />;
 }
 
 function viewKey(search: string) {
