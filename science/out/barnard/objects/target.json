@@ -243,15 +243,39 @@
    }
   ]
  },
- "spectrum": null,
+ "spectrum": {
+  "unit_flux": "mJy",
+  "usable": false,
+  "points": [],
+  "binned": [],
+  "template": null,
+  "notes": [
+   "362 SPHEREx images examined.",
+   "Saturated in 356 of 357 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ],
+  "stats": {
+   "images": 362,
+   "measured": 118,
+   "unflagged": 0,
+   "saturated": 356,
+   "nan_core": 239,
+   "edge": 5,
+   "blended": 48,
+   "psf_fit": 118,
+   "saturated_or_empty_core": 356
+  },
+  "method": "SPHEREx L2 cutouts, IMAGE−ZODI; forced EPSF fit of target + Gaia/CatWISE neighbours + constant within 4 px (aperture r=2 px fallback), VARIANCE errors, blends < 1.5 px flagged, per-pixel wavelength from WCS-WAVE (quick-look), moving position per image"
+ },
  "lightcurve": null,
  "copilot": null,
  "flags": {
   "saturated_in": [
-   "WISE"
+   "WISE",
+   "SPHEREx"
   ],
   "warnings": [
-   "Saturated core in 46 of 46 WISE epochs; positions from the unsaturated wings."
+   "Saturated core in 46 of 46 WISE epochs; positions from the unsaturated wings.",
+   "SPHEREx: saturated — spectrum not usable"
   ]
  }
 }
