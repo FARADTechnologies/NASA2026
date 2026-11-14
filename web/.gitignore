@@ -1,0 +1,4 @@
+public/devmock/
+*.tsbuildinfo
+.vercel
+.env*

@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://api-production-02611b3c.up.railway.app/api/:path*" },
+    { "source": "/((?!bundle/|devmock/|assets/|favicon|api/).*)", "destination": "/index.html" }
+  ]
+}
