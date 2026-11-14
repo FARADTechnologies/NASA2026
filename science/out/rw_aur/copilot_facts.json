@@ -1,0 +1,24 @@
+{
+ "name": "RW Aurigae",
+ "what_it_is": "a young star (a T Tauri star, still surrounded by a disk of gas and dust) that is known for irregular dimming and brightening",
+ "spherex_spectrum": {
+  "usable": false,
+  "notes": [
+   "335 SPHEREx images examined.",
+   "Saturated in 304 of 333 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ]
+ },
+ "light_curve": {
+  "what_is_plotted": "a relative brightness index from the outer glow of the star image (not a magnitude), because the star is too bright for the detectors' cores",
+  "notes": [
+   "Noise floor: a constant comparison star (Gaia G = 10.95) in the same images varies by only 0.03 mag rms (W1) / 0.05 (W2); the target varies by 0.24 / 0.40 mag rms (full range 1.0 / 1.6 mag).",
+   "Cross-check: the index follows NEOWISE profile-fit photometry (correlation 0.93 in W1, 0.98 in W2 over 23 visits).",
+   "SPHEREx points (synthesized at 3.4/4.6 µm from per-epoch spectra) are not possible: the star is saturated in SPHEREx."
+  ]
+ },
+ "saturated_in": [
+  "SPHEREx",
+  "WISE"
+ ],
+ "what_to_look_for_in_the_movie": "the star stays in place but its infrared glow changes from year to year"
+}

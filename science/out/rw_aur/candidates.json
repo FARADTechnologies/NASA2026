@@ -1,0 +1,19 @@
+{
+ "method": "WISE W2 2010 vs 2023-24 stacks, detection 5 sigma, epoch-by-epoch track verification (>= 60 % of 23 epochs), proper-motion fit, >= 3 sigma movers, Gaia DR3 + CatWISE2020 cross-match",
+ "stats": {
+  "known_movers_in_field": 0,
+  "recovered": 0,
+  "catwise_raw_high_pm_in_frame": 206,
+  "catwise_raw_high_pm_confirmed_by_gaia": 0,
+  "new_candidates": 0,
+  "artifacts": 0,
+  "sources_early": 190,
+  "sources_late": 180,
+  "stationary": 176,
+  "trial_tracks": 7,
+  "verified_tracks": 0
+ },
+ "known_movers": [],
+ "items": [],
+ "caveat": "A 'candidate' is an unconfirmed moving source that is not in Gaia DR3 or CatWISE2020 with a matching motion. It needs follow-up; it is not a discovery."
+}

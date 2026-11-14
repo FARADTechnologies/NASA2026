@@ -1,14 +1,16 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov ~15:00 Baku
+Last update: Sat 14 Nov ~19:00 Baku
 
 ## Current task
-#9 S2 — SPHEREx spectra (claimed Sat ~15:20). #8 S1 done + submitted (PR #44, status:review). Queue after: #10 S3, #11 S5, #12 S4.
+#12 S4 discovery (claimed ~18:00) → done, PR + submit pending at time of writing. #11 S5 copilot BLOCKED: waiting for
+ANTHROPIC_API_KEY in C:/Users/Murad/Downloads/skylapse-science/.env (asked Murad ~18:00). Done: S1 #8, S2 #9, S3 #10 (PRs #44, #58, #61).
 
 ## Status
-S2 nearly done: spectra.py works for all 5 targets; final full run + commit/PR/submit pending.
-- S2 results: WISE 0855 undetected <2.4 µm & CH4 band, detected 4.4–4.9 µm (30 clean May-2025 images; later images blended with a
-  G=16.3 star <9"). eps Indi B full T-dwarf spectrum (324 images). Barnard/R Dra/RW Aur saturated → usable:false, no points.
-- Flux scale: 9 CatWISE stars, D4/W1 = 1.01±0.03, D6/W2 = 1.03±0.03 (`spectra-calib`).
+- S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
+  Raw CatWISE >300 mas/yr in frames: 881, none confirmed by Gaia → reliability cuts documented in science/DISCOVERY.md.
+- S5: copilot.py done (facts JSON, number guard, facts_hash). `python -m skylapse_science copilot --dry-run` shows facts.
+- S3: RW Aur wing index vs NEOWISE corr 0.93/0.98; R Dra period 246/247 d vs GCVS 245.6 (alias ~713 d).
+- S2: WISE 0855 undetected <2.4 µm, detected 4.4–4.9 µm; eps Indi B T-dwarf spectrum; flux scale 1.01/1.03.
 
 ## Done (with proof)
 - `python -m skylapse_science validate` (run from `science/` with `science/.venv`) → 9 s, writes
@@ -19,13 +21,15 @@ S2 nearly done: spectra.py works for all 5 targets; final full run + commit/PR/s
 - Sanity: fitted 2010 position of WISE 0855 = 133.79519, -7.24512 ≈ NASA challenge coordinate (133.795130, -7.245147).
 
 ## Next step (exact, so a fresh session can continue blindly)
-- If S2 not yet submitted: `cd science && .venv/Scripts/python.exe -m skylapse_science spectra` (6 min), check out/png/*.png,
-  commit science/ + journal, push role/science (PR #44 updates automatically), `skyops.py submit 9 --file report.md --pr <PR #44 url>`.
-- Then `python ops/bin/skyops.py next --wait 540` → likely #10 S3 light curves (R Dra / RW Aur saturated: decide by M2 18:30;
-  options in SCIENCE_NOTES §7: NEOWISE single-exposure profile-fit photometry, wing index, or honest fallback).
+- If S4 not submitted: commit, push, PR, `skyops.py submit 12 --file … --pr …`.
+- When Murad says the .env is ready: `cd science && .venv/Scripts/python.exe -m skylapse_science copilot`, read every EN/AZ
+  text against out/<field>/copilot_facts.json, commit, PR, `skyops.py submit 11` (paste all 10 texts in the report).
+- Then `skyops.py next --wait 540`.
 
 ## Files touched
-- science/skylapse_science/{__init__,__main__,config,astrometry,validate}.py, science/requirements.txt, science/VALIDATION.md, science/out/**
+- science/skylapse_science/{__init__,__main__,config,astrometry,validate,spectra,photometry,copilot,discovery}.py,
+  science/{VALIDATION,SPECTRA,LIGHTCURVES,DISCOVERY}.md,
+  science/requirements.txt, science/data_cache/*.csv, science/out/**
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
 - Python: system Python 3.14 has no astropy → use `science/.venv/Scripts/python.exe` (created with pip install -r science/requirements.txt).
@@ -40,5 +44,11 @@ S2 nearly done: spectra.py works for all 5 targets; final full run + commit/PR/s
   gave a FALSE short-wave detection (blend) — always forced-PSF + blend flag.
 - eps Indi B T-dwarf peak is 3.9–4.2 µm, not 4.6 (CO absorption at 4.6). Don't say "bright at 4.6" for T dwarfs.
 
+- unWISE R Dra: some epochs are all-zero (no coverage) or have coverage-edge zeros merging with the core → use the zero region
+  connected to the centre and a 90th-percentile radius. AllWISE MEP has no qual_frame column (NEOWISE L1b does).
+
+- CatWISE2020 high-pm lists are full of junk near bright stars/fast movers: use nb=1, ab_flags clean, w2mpro≈w2mpro_pm,
+  par_pm not negative, outside saturated-star halos. Saturated movers: detect via zero holes + S1 wing fit.
+
 ## Open questions / waiting on
-- none. Pipeline `merge-science` copies science/out into the bundle (D-009).
+- S5 waits for ANTHROPIC_API_KEY in .env (Murad). Pipeline `merge-science` copies science/out into the bundle (D-009).

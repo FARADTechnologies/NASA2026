@@ -17,7 +17,7 @@ Next: M2 at 19:30 (all P0-1…P0-6 on 5 targets; WISE-live). Then M3 22:30 · M4
 - Science→bundle: orchestrator runs `python ops/bin/merge_science.py` + validator, then `python ops/bin/deploy_web.py`.
 
 ## Who is doing what (issue numbers)
-- orchestrator (Murad, `skylapse_kit_v4`): O0 #1 ✅ · O1 #19 ✅ · O3 #20 ✅ · O3b #36 ✅ · O2 live jobs #21 (after T5) · checkpoints #28–#32
+- orchestrator (Murad, `skylapse_kit_v4`): O0 #1 ✅ · O1 #19 ✅ · O3 #20 ✅ · O3b #36 ✅ · O2 #21 ✅ · checkpoints #28–#32
 - pipeline (Murad 2nd session, `skylapse-pipeline`): T1–T6 #2–#7 ✅ (PR #59; live runner WISE-ready 83 s)
 - science (Murad 3rd session, `skylapse-science`; Kanan absent): S1 #8 ✅ (Barnard 99.8 %, ε Indi B 99.0 %, WISE 0855 99.9 % — science/VALIDATION.md) · S2 #9 ✅ (WISE 0855 spectrum: dark < 3 µm, 0.62 mJy at 4.6 µm) · S3 #10 · S5 #11 · S4 #12 (after T3)
 - frontend (Azer): F0–F5 #13–#18 ✅ · bugs #45 ✅ #47 ✅ · F6 #51 ✅ · F7 clarity #54 ✅ · F8 spectrum panel #60 · BUG Gaia clutter #62
@@ -26,7 +26,7 @@ Next: M2 at 19:30 (all P0-1…P0-6 on 5 targets; WISE-live). Then M3 22:30 · M4
 
 ## Status of P0 items
 P0-1 bundle ✅ (5/5 live) · P0-2 viewer ✅ · P0-3 search/URL ✅ (resolve.field) · P0-4 difference ✅ · P0-5 Gaia overlay ✅ (verify on movers)
-P0-6 metadata/flags ✅ · P0-7 live coords ☐ (T5, O2) · P0-8 deploy ✅ · P0-9 validation ✅ in UI (99.8 / 99.0 / 99.9 %) · P0-10 pitch ◐ (A2/A5 v1)
+P0-6 metadata/flags ✅ · P0-7 live coords ✅ (WISE-only, ~70 s) · P0-8 deploy ✅ · P0-9 validation ✅ in UI (99.8 / 99.0 / 99.9 %) · P0-10 pitch ◐ (A2/A5 v1)
 
 ## Blockers / risks
 - Local rule: pitch + demo = 5 min, overrun = disqualified (D-012). Demo movie load ~5 s → F6 #51.
