@@ -81,20 +81,30 @@ export function Player(p: PlayerProps) {
       g.drawImage(o, u0, v0, cropPx, cropPx, 0, 0, size, size);
     }
     const year = p.frame ? mjdToYear(p.frame.mjd_mid) : null;
-    const rCirc = Math.max(5, (6 / scale) * k);
+    const rCirc = Math.max(4, (4.5 / scale) * k); // catalogue circles stay smaller/thinner than the target ring
 
-    const drawCat = (cat: Catalog, color: string, square: boolean) => {
+    const drawCat = (cat: Catalog, color: string, square: boolean, limit: number | null) => {
       if (year === null) return;
       const ci = (n: string) => cat.columns.indexOf(n);
-      const [iRa, iDec, iPmra, iPmdec] = [ci("ra"), ci("dec"), ci("pmra"), ci("pmdec")];
-      g.lineWidth = 1.2; g.strokeStyle = color; g.fillStyle = color;
+      const [iRa, iDec, iPmra, iPmdec, iMag] = [ci("ra"), ci("dec"), ci("pmra"), ci("pmdec"), ci("mag")];
+      g.lineWidth = 1; g.strokeStyle = color; g.fillStyle = color;
+      // project everything in view first, then keep the brightest `limit` + every fast mover (µ > 100 mas/yr)
+      const inView: { sx: number; sy: number; ra: number; dec: number; pmra: number; pmdec: number; mag: number; pm: number }[] = [];
       for (const row of cat.rows) {
         const ra = Number(row[iRa]), dec = Number(row[iDec]);
         const pmra = Number(row[iPmra]) || 0, pmdec = Number(row[iPmdec]) || 0;
         const [r1, d1] = propagate(ra, dec, pmra, pmdec, year, cat.ref_epoch);
-        const [x, y] = world2pix(wcs, r1, d1);
-        const [sx, sy] = toScreen(x, y);
+        const [sx, sy] = toScreen(...world2pix(wcs, r1, d1));
         if (sx < -20 || sy < -20 || sx > size + 20 || sy > size + 20) continue;
+        const m = iMag >= 0 && row[iMag] !== null ? Number(row[iMag]) : 99;
+        inView.push({ sx, sy, ra, dec, pmra, pmdec, mag: Number.isFinite(m) ? m : 99, pm: Math.hypot(pmra, pmdec) });
+      }
+      let shown = inView;
+      if (limit !== null && inView.length > limit) {
+        const bright = new Set([...inView].sort((a, b) => a.mag - b.mag).slice(0, limit));
+        shown = inView.filter((s) => bright.has(s) || s.pm > 100);
+      }
+      for (const { sx, sy, ra, dec, pmra, pmdec } of shown) {
         g.beginPath();
         if (square) g.rect(sx - rCirc, sy - rCirc, rCirc * 2, rCirc * 2); else g.arc(sx, sy, rCirc, 0, Math.PI * 2);
         g.stroke();
@@ -114,8 +124,8 @@ export function Player(p: PlayerProps) {
         }
       }
     };
-    if (p.overlay.includes("gaia") && p.catalogs.gaia) drawCat(p.catalogs.gaia, "rgba(124,252,154,0.75)", false);
-    if (p.overlay.includes("catwise") && p.catalogs.catwise) drawCat(p.catalogs.catwise, "#c792ea", true);
+    if (p.overlay.includes("gaia") && p.catalogs.gaia) drawCat(p.catalogs.gaia, "rgba(124,252,154,0.6)", false, p.overlay.includes("gaiaall") ? null : 40);
+    if (p.overlay.includes("catwise") && p.catalogs.catwise) drawCat(p.catalogs.catwise, "rgba(199,146,234,0.7)", true, p.overlay.includes("gaiaall") ? null : 40);
 
     if (p.overlay.includes("track") && p.track && p.track.length > 1) {
       g.strokeStyle = "rgba(255,93,143,0.55)"; g.lineWidth = 1.5; g.setLineDash([4, 4]);

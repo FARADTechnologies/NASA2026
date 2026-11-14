@@ -1,23 +1,39 @@
 import { useState } from "react";
 import type { Candidates, Frame, Manifest, ObjectInfo } from "../lib/bundle";
 import { mjdToYear } from "../lib/bundle";
-import { ScatterChart } from "./ScatterChart";
+import { ScatterChart, type Series } from "./ScatterChart";
 
 const pct = (x: number) => (x * 100).toFixed(x < 0.01 ? 2 : 1) + "%";
 const NA = <span className="muted">not available yet</span>;
+
+const SPEC_BANDS = [
+  { x0: 3.2, x1: 3.45, label: "CH₄ 3.3", color: "rgba(255,93,143,0.12)" },
+  { x0: 4.4, x1: 4.85, label: "W2 / D6 4.6", color: "rgba(76,201,240,0.12)" },
+];
+/** Binned spectrum = main curve (line + points + error bars); single measurements faint, coloured by epoch; flagged hidden unless asked. */
+function spectrumSeries(sp: NonNullable<ObjectInfo["spectrum"]>, showFlagged: boolean): Series[] {
+  const pts = (sp.points ?? []).filter((p) => showFlagged || !p.flagged);
+  if (sp.binned?.length) {
+    return [
+      { name: "single measurements", color: "var(--muted)", faint: true, points: pts.map((p) => ({ x: p.lambda_um, y: p.flux, hollow: p.flagged || p.saturated })) },
+      { name: "SPHEREx (binned)", color: "var(--spherex)", connect: true, points: sp.binned.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.saturated })) },
+    ];
+  }
+  return spectrumByEpoch(pts as SpecPt[]);
+}
 
 const EPOCH_COLORS = ["#4cc9f0", "#ffd166", "#ff5d8f", "#7cfc9a", "#c792ea", "#f4a259"];
 type SpecPt = NonNullable<ObjectInfo["spectrum"]>["points"][number];
 /** Group spectrum points into epochs (gap > 30 d) so each epoch gets its own colour (LVF: one star, different λ per visit). */
 function spectrumByEpoch(points: SpecPt[]) {
-  const sorted = [...points].sort((a, b) => a.mjd - b.mjd);
+  const sorted = [...points].sort((a, b) => (a.mjd ?? 0) - (b.mjd ?? 0));
   const groups: SpecPt[][] = [];
-  for (const p of sorted) { const g = groups[groups.length - 1]; if (g && p.mjd - g[g.length - 1].mjd <= 30) g.push(p); else groups.push([p]); }
+  for (const p of sorted) { const g = groups[groups.length - 1]; if (g && (p.mjd ?? 0) - (g[g.length - 1].mjd ?? 0) <= 30) g.push(p); else groups.push([p]); }
   return groups.map((g, i) => {
-    const y = mjdToYear(g[0].mjd);
+    const y = mjdToYear(g[0].mjd ?? 61000);
     const name = `${Math.floor(y)} ${y % 1 < 0.5 ? "spring" : "autumn"}`;
     return { name: groups.length > 1 ? name : "SPHEREx", color: EPOCH_COLORS[i % EPOCH_COLORS.length],
-      points: g.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.flagged })) };
+      points: g.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.flagged || p.saturated })) };
   });
 }
 
@@ -27,7 +43,14 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
   objectIds?: string[]; objectId?: string; onObject?: (id: string) => void;
 }) {
   const [lang, setLang] = useState<"en" | "az">("en");
+  const [showFlagged, setShowFlagged] = useState(false);
   const m = obj?.motion;
+  const coming = [
+    !(m?.measured && m.measured.pm_total > 0) && !m?.reference ? "motion" : null,
+    !obj?.lightcurve?.points?.length ? "light curve" : null,
+    !obj?.spectrum ? "spectrum" : null,
+    !obj?.copilot ? "AI explanation (EN / AZ)" : null,
+  ].filter(Boolean) as string[];
   return (
     <aside className="panel side" ref={panelRef as React.Ref<HTMLElement>}>
       {isMock && <div className="mock-banner">Demo data (mock) — real survey frames replace this automatically.</div>}
@@ -76,58 +99,73 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
               </div>
             ) : m?.reference ? (
               <div className="motion">
+                <div className="muted small" style={{ marginBottom: 4 }}>Reference motion (published, not our measurement)</div>
                 <table className="pm">
                   <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
                   <tbody>
-                    <tr><td>Measured</td><td colSpan={3} className="muted" style={{ textAlign: "right", fontFamily: "var(--font)" }}>not available yet</td></tr>
-                    <tr><td title={m.reference.source}>Reference</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>
+                    <tr><td title={m.reference.source}>Published</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>
                   </tbody>
                 </table>
-                <div className="muted small ref-src">Reference: {m.reference.source} · mas/yr</div>
+                <div className="muted small ref-src">{m.reference.source} · mas/yr</div>
               </div>
-            ) : <div className="muted small">Motion not available yet.</div>}
+            ) : null}
             {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}>⚠ {w}</li>)}</ul> : null}
             {obj.flags?.saturated_in?.length ? <div className="warn small">⚠ Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
           </>
         ) : NA}
       </section>
 
-      <section className="card">
-        <div className="card-head">
-          <h3>AI Copilot</h3>
-          <div className="seg tiny">
-            <button className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
-            <button className={lang === "az" ? "on" : ""} onClick={() => setLang("az")}>AZ</button>
+      {obj?.copilot && (
+        <section className="card">
+          <div className="card-head">
+            <h3>AI Copilot</h3>
+            <div className="seg tiny">
+              <button className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
+              <button className={lang === "az" ? "on" : ""} onClick={() => setLang("az")}>AZ</button>
+            </div>
           </div>
+          <p className="copilot">{obj.copilot[lang]}</p>
+          <div className="muted small">Written by AI only from the measured facts above.</div>
+        </section>
+      )}
+
+      {obj?.spectrum && <section className="card">
+        <div className="card-head">
+          <h3>Spectrum <span className="muted small" style={{ textTransform: "none", letterSpacing: 0 }}>SPHEREx 0.75–5 µm</span></h3>
+          {obj?.spectrum?.points?.some((p) => p.flagged) && obj.spectrum.usable !== false && (
+            <label className="check tiny-check"><input type="checkbox" checked={showFlagged} onChange={(e) => setShowFlagged(e.target.checked)} /><span>flagged</span></label>
+          )}
         </div>
-        {obj?.copilot ? <p className="copilot">{obj.copilot[lang]}</p> : NA}
-        {obj?.copilot && <div className="muted small">Written by AI only from the measured facts above.</div>}
-      </section>
-
-      <section className="card">
-        <h3>Spectrum</h3>
-        {obj?.spectrum?.points?.length ? (
+        {!obj?.spectrum ? NA : obj.spectrum.usable === false ? (
+          <div className="honest-note">
+            <b>No reliable spectrum for this target.</b>
+            {(obj.spectrum.notes?.length ? obj.spectrum.notes : ["It is too bright for the SPHEREx detectors (saturated)."]).map((t) => <p key={t}>{t}</p>)}
+          </div>
+        ) : obj.spectrum.points?.length || obj.spectrum.binned?.length ? (
           <>
-            <ScatterChart xLabel="wavelength (µm)" yLabel={`flux (${obj.spectrum.unit_flux})`}
-              series={spectrumByEpoch(obj.spectrum.points)}
-              line={obj.spectrum.template ? { name: obj.spectrum.template.name, color: "var(--accent2)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined} />
-            {obj.spectrum.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
+            <ScatterChart xLabel="wavelength (µm)" yLabel={`flux (${obj.spectrum.unit_flux})`} xRange={[0.7, 5.05]}
+              bands={SPEC_BANDS}
+              series={spectrumSeries(obj.spectrum, showFlagged)}
+              line={obj.spectrum.template?.lambda_um?.length ? { name: obj.spectrum.template.name, color: "var(--accent2)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined}
+              hollowLabel="flagged / saturated" />
+            {obj.spectrum.method && <div className="muted small caption" title={obj.spectrum.method}>Method: {obj.spectrum.method}</div>}
+            {obj.spectrum.notes?.map((t) => <div key={t} className="muted small">{t}</div>)}
           </>
         ) : NA}
-      </section>
+      </section>}
 
-      <section className="card">
-        <h3>Light curve</h3>
-        {obj?.lightcurve?.points?.length ? (
-          <>
-            <ScatterChart xLabel="year" yLabel="magnitude" invertY
-              series={["WISE", "SPHEREx"].map((ins) => ({ name: ins, color: ins === "WISE" ? "var(--wise)" : "var(--spherex)",
-                points: obj.lightcurve!.points.filter((p) => p.instrument === ins).map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: p.saturated })) }))}
-              hollowLabel="saturated (less reliable)" />
-            {obj.lightcurve.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
-          </>
-        ) : NA}
-      </section>
+      {obj?.lightcurve?.points?.length ? (
+        <section className="card">
+          <h3>Light curve</h3>
+          <ScatterChart xLabel="year" yLabel="magnitude" invertY
+            series={["WISE", "SPHEREx"].map((ins) => ({ name: ins, color: ins === "WISE" ? "var(--wise)" : "var(--spherex)",
+              points: obj.lightcurve!.points.filter((p) => p.instrument === ins).map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: p.saturated })) }))}
+            hollowLabel="saturated (less reliable)" />
+          {obj.lightcurve.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
+        </section>
+      ) : null}
+
+      {obj && coming.length > 0 && <div className="coming muted small">Coming soon for this object: {coming.join(", ")}.</div>}
 
       {cands && (
         <section className="card">
