@@ -159,7 +159,7 @@ s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE
 
 // ---------- 6 Impact ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });
-s.addText("Anyone can discover", { placeholder: "title" });
+s.addText("Anyone can search the sky", { placeholder: "title" });
 card(s, 0.5, 1.25, 4.3, 3.65);
 tb(s, "Precedent", { x: 0.75, y: 1.45, w: 3.8, h: 0.35, fontSize: 15, bold: true, color: C.accent2 });
 tb(s, "In NASA's Backyard Worlds project, volunteers blinking WISE images found cold brown dwarfs that automated searches missed.", { x: 0.75, y: 1.9, w: 3.8, h: 1.5, fontSize: 15 });

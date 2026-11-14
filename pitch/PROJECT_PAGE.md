@@ -11,7 +11,7 @@ SkyLapse joins SPHEREx with 14 years of NASA WISE/NEOWISE images at the same 4.6
 grid and plays them as a single movie. Type a star name or coordinates, press play, and nearby brown dwarfs and fast stars visibly crawl
 across the screen. Click an object to see its SPHEREx spectrum — its infrared "fingerprint" — and a plain-language explanation in English
 or Azerbaijani, written only from our own measurements. We validated SkyLapse on all five NASA test targets: our measured motions agree
-with ESA Gaia and the literature to better than 99 percent. It brings citizen-science discovery to SPHEREx data.
+with ESA Gaia and the literature to better than 99 percent. It brings the citizen-science blink method to SPHEREx data.
 
 ## Link to Demo
 `[30-second video URL]` — file ready: `pitch/video/SkyLapse_30s.mp4` (0:31, captions, live-site recording). A human uploads it (YouTube unlisted or Google Drive "anyone with the link") and pastes the link here.
@@ -30,7 +30,7 @@ with ESA Gaia and the literature to better than 99 percent. It brings citizen-sc
   or flagged pixels; a metadata panel shows date, instrument, wavelength and quality for every frame.
 - **Spectral fingerprint:** SPHEREx's 102 bands as an RGB composite and as an on-the-fly spectrum, compared with templates
   (e.g. a cold brown dwarf is invisible below 3 µm and bright at 4.6 µm).
-- **Validation and discovery:** positions measured in every epoch give a proper motion, cross-matched with Gaia/CatWISE; objects are
+- **Validation and automatic search:** positions measured in every epoch give a proper motion, cross-matched with Gaia/CatWISE; objects are
   labelled "known mover", "new candidate" or "artifact". We never call anything a discovery — candidates go to scientists for follow-up.
 - **AI explanations** in English and Azerbaijani, generated only from computed facts.
 - **Shareable:** the full view state (position, field of view, frame, overlays) lives in the URL.
