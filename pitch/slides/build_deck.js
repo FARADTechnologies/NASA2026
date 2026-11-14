@@ -156,14 +156,14 @@ card(s, 0.5, 1.25, 4.3, 3.65);
 tb(s, "Precedent", { x: 0.75, y: 1.45, w: 3.8, h: 0.35, fontSize: 15, bold: true, color: C.accent2 });
 tb(s, "In NASA's Backyard Worlds project, volunteers blinking WISE images found cold brown dwarfs that automated searches missed.", { x: 0.75, y: 1.9, w: 3.8, h: 1.5, fontSize: 15 });
 tb(s, "SkyLapse brings that to SPHEREx — in a browser, free, in Azerbaijani and English.", { x: 0.75, y: 3.25, w: 3.8, h: 1.2, fontSize: 15, color: C.background2 });
-const users = [["Students", "universities & schools in Azerbaijan"], ["Community", "SRDA robotics/AI community [1000+]"], ["Citizen scientists", "anyone, worldwide"]];
+const users = [["University students", "first users, in Azerbaijan"], ["Space-agency school lessons", "a ready channel to young learners"], ["Citizen scientists", "anyone, worldwide"]];
 users.forEach((u, i) => {
   const y = 1.25 + i * 1.25;
   card(s, 5.2, y, 4.3, 1.1);
   s.addShape(pres.shapes.OVAL, { x: 5.4, y: y + 0.33, w: 0.44, h: 0.44, fill: { color: H.accent1 }, line: { type: "none" }, objectName: "user-dot" });
   tb(s, [{ text: u[0], options: { bold: true, fontSize: 15, breakLine: true } }, { text: u[1], options: { fontSize: 13, color: C.background2 } }], { x: 6.05, y: y + 0.15, w: 3.3, h: 0.8, valign: "middle" });
 });
-s.addNotes("0:30 — Why does it matter? With NASA's Backyard Worlds project, volunteers blinking sky images found cold brown dwarfs that computers missed. SkyLapse brings that power to SPHEREx — in a browser, free, for anyone. Our first users: students in Azerbaijan. We do not claim discoveries. We help people find candidates for scientists to follow up.");
+s.addNotes("0:30 — Why does it matter? With NASA's Backyard Worlds project, volunteers blinking sky images found cold brown dwarfs that computers missed. SkyLapse brings that power to SPHEREx — in a browser, free, for anyone. Our first users: university students in Azerbaijan — and, through space agencies' school lessons, young learners too. We do not claim discoveries. We help people find candidates for scientists to follow up.");
 
 // ---------- 7 Next steps + AI ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });
