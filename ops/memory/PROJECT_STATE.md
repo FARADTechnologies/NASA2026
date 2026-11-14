@@ -30,7 +30,7 @@ Next: **M4 FEATURE FREEZE Sun 10:30** (tag v1.0) · Sun 11:00 rehearsals (A6) ·
 
 ## Status of P0 / P1
 P0-1…P0-6 ✅ · P0-7 live ✅ (wise_ready 88 s after fix, D-020) · P0-8 ✅ · P0-9 ✅ in UI (99.8 / 99.0 / 99.9 %) · P0-10 ◐ (deck v2)
-P1-1 spectra ✅ · P1-2 RGB ✅ · P1-3 light curves ✅ data (R Dra 246 d vs 245.6 d), axis label fix #70 · P1-4 copilot ✅ EN+AZ live (D-018) · P1-5 Discover ◐ (recall 3/3, 0 false) · P1-6 About ✅
+P1-1 spectra ✅ · P1-2 RGB ✅ · P1-3 light curves ✅ data (R Dra 246 d vs 246.12 d (AAVSO VSX)), axis label fix #70 · P1-4 copilot ✅ EN+AZ live (D-018) · P1-5 Discover ◐ (recall 3/3, 0 false) · P1-6 About ✅
 Cut (D-019): P1-7 Aladin, all P2.
 
 ## Blockers / risks
