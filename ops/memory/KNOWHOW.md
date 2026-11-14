@@ -7,3 +7,6 @@
 [seed] Barnard's Star has moved ~4.5' since J2000: centre fields at the position propagated to 2018.0.
 [seed] LVF: same star in two SPHEREx images is usually at two different wavelengths → not variability.
 [seed] WISE 0855 is not in Gaia; use CatWISE2020 / literature for its reference proper motion.
+[science] unWISE epoch coadds write saturated cores as exact 0 (hole ~6 px for Barnard, 2016+ epochs); fit the wings (Moffat), never centroid the hole box.
+[science] Fitted WISE parallaxes are biased by seasonal scan-direction centroid offsets (~0.25" for bright sources); PM is fine. Do not quote WISE parallax.
+[science] Science Python env: science/.venv (pip install -r science/requirements.txt); system Python 3.14 has no astropy.
