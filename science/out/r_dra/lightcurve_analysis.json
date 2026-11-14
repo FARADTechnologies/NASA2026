@@ -268,13 +268,13 @@
   }
  ],
  "folded": {
-  "period_d": 245.6,
-  "source": "GCVS",
+  "period_d": 246.12,
+  "source": "AAVSO VSX",
   "W1": {
-   "variance_explained_at_lit": 0.7509772768920764,
-   "semi_amplitude_mag": 0.3070372388470274,
+   "variance_explained_at_lit": 0.7565812414150177,
+   "semi_amplitude_mag": 0.3140644978161798,
    "best_period_d": 246.20000000000002,
-   "best_variance_explained": 0.7566312412295382,
+   "best_variance_explained": 0.7566312412295383,
    "next_peaks": [
     [
      713.4,
@@ -289,11 +289,11 @@
      0.628
     ]
    ],
-   "frac_trials_as_good_as_lit": 0.0013331852016442618
+   "frac_trials_as_good_as_lit": 0.00011109876680368848
   },
   "W2": {
-   "variance_explained_at_lit": 0.7465408862363736,
-   "semi_amplitude_mag": 0.2331642076981233,
+   "variance_explained_at_lit": 0.7627841319148274,
+   "semi_amplitude_mag": 0.240257589468541,
    "best_period_d": 247.1,
    "best_variance_explained": 0.7758050822917345,
    "next_peaks": [
@@ -310,7 +310,7 @@
      0.62
     ]
    ],
-   "frac_trials_as_good_as_lit": 0.003221864237306966
+   "frac_trials_as_good_as_lit": 0.002110876569270081
   }
  },
  "bands": {

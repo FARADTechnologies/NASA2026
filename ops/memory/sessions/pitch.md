@@ -2,7 +2,7 @@
 Last update: Sun 15 Nov 00:30 Baku
 
 ## Current task
-#72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
+#93 A9 submitted (pitch/SLIDE_MARKET.md; own live timing 12 s; re-check vs science/IMPACT_NUMBERS.md when S9 #91 lands). #92 A8 submitted (pitch/SLIDE_TECH_READINESS.md: A/B/C→X→D + 72-word answer; re-align with docs/METHODOLOGY.md when S8 #90 merges). #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
 None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
@@ -24,12 +24,14 @@ All Saturday pitch deliverables done. Gaps depend on other agents: light curves 
 2. When target.json has `lightcurve`/`copilot` (check: curl https://skylapse.vercel.app/bundle/<field>/objects/target.json) → QA R3,
    DONE Sun 00:20: light curves + copilot EN/AZ live; deck v3 (pitch/slides/SkyLapse_FARAD_v3.pptx) + backup video pitch/video/SkyLapse_demo_backup.mp4 (1:22) sent to Amal.
 3. Sun 11:00 Tural Salmanov rehearsal (A3 session 2 + A6): full timed run ≤ 4:40 on the live site; fill MENTOR_NOTES session 2.
-4. A6 (#27, after `approved`): final PROJECT_PAGE fields, video link, repo public link, test every link in a private window, submit by 14:30 with Murad.
+4. A6 (#27, after `approved`): PROJECT_PAGE is filled except 3 links: 30-s video (file pitch/video/SkyLapse_30s.mp4 ready — a human uploads it), final deck link (Amal), repo public (Murad ~13:00). Test every link in a private window, submit by 14:30 with Murad.
 
 ## Files touched
 docs/LOCAL_RULES.md, docs/QA.md, pitch/* (STORY, FACTS, QA_ANSWERS, AI_USE, REFERENCES, VIDEO_STORYBOARD, PROJECT_PAGE, SLIDES, MENTOR_NOTES, slides/, qa/)
 
 ## Gotchas / know-how
+- Copilot texts were written in a Claude Code session (no API key, D-018) + automatic number check — never say "API call".
+- Judging (D-022): local criteria incl. Technical Readiness (validity inside it) + Market Potential (no money needed); methodology answer = A/B/C → X → D.
 - HARD LIMIT 5:00 pitch+demo (target 4:40). Never say "discovered"/"Planet X found".
 - Deck rebuild: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`, NODE_PATH), render check via PowerPoint COM; screenshots via headless Edge
   `msedge --headless=new --window-size=1600,900 --force-device-scale-factor=2 --virtual-time-budget=15000 --screenshot=out.png URL` (timeout ≥ 200 s).

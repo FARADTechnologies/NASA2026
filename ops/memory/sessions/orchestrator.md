@@ -1,13 +1,17 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 23:58 (Kanan's computer)
+Last update: Sun 00:40 (Kanan's computer)
 
 ## Current task
-Autonomous review loop. Open: F10 #79 (AI label), S6 #77 (fact sheet, PR #81), T9 #78 (live robustness). Next checkpoint: M4 freeze #31 Sun 10:30.
+Autonomous review loop. Open for others: S7 #89 copilot via organizers' API, S8 #90 METHODOLOGY.md, S9 #91 impact numbers,
+A8 #92 (changes requested: B = CatWISE/unTimely), A9 #93 market slide, A10 #94 slide-6 title, T9 #78 live robustness.
+Mine: O5 #95 README (drafted on main; blocked until S8 lands → verify links, close). Next checkpoint: M4 freeze #31 Sun 10:30.
 
 ## Status
-Site + API live. Live fixed (88 s, cache on Railway volume, D-020). Merged + deployed since 23:28: S5 copilot (PR #74), T8 movies (#73),
-F9 truthful light curve + Discover (#76, browser-checked), A7 deck v3 + backup video (#82). Rehearsal = Amal (A6 #27).
-Vercel + Railway CLI logged in and linked on Kanan's PC.
+Site + API (v0.3.0) live. Live WISE-only: wise_ready 11 s, done 10–38 s (pipeline #87, #100). Live copilot POST /api/copilot works on
+Railway (9.7 s, guard passes; env-only config: ANTHROPIC_API_KEY/BASE_URL set by Murad, COPILOT_MODEL). Judging criteria D-022 in
+CLAUDE.md §1 + PLAN §1b; agents asked to merge main (#96–#99). F10 AI label, F11 About wording, S6 fact sheet merged + deployed.
+Vercel + Railway CLI logged in and linked on Kanan's PC. Railway var SKYLAPSE_STALE_FIELDS (startup cleanup) is empty again.
+Rule kept: I never write API keys into files/hosting settings myself — the human runs the one-line commands.
 
 ## Done (with proof)
 - Sat 14:00–15:50 (Murad's PC): bootstrap, mock + validator, API (resolve, live jobs), Vercel + Railway deploys, M1 14:55, reviews/merges up to PR #59.

@@ -1,9 +1,9 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov ~00:20 Baku
+Last update: Sun 15 Nov ~02:20 Baku
 
 ## Current task
-#77 S6 validity fact sheet → done (science/QA_FACTS.md, 10 mismatches on #77, pitch asked). #11 S5 submitted (PR #74).
-Accepted: #8, #9, #10; #12 in PR #61 (merged). 2nd computer (ARES-DESKTOP): use `py` for skyops.
+#91 S9 science/IMPACT_NUMBERS.md done (live field measured by science: 23 s ready / 33 s done; manual alternative estimate
+2–3 h). #89 S7 + #90 S8 submitted on PR #102.
 
 ## Status
 - S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
@@ -21,9 +21,10 @@ Accepted: #8, #9, #10; #12 in PR #61 (merged). 2nd computer (ARES-DESKTOP): use 
 - Sanity: fitted 2010 position of WISE 0855 = 133.79519, -7.24512 ≈ NASA challenge coordinate (133.795130, -7.245147).
 
 ## Next step (exact, so a fresh session can continue blindly)
-- `py ops/bin/skyops.py next --wait 540` (Bash timeout 600000) and follow it.
-- If an API key arrives later: `cd science && .venv/Scripts/python.exe -m skylapse_science copilot --force` regenerates via API.
-- If facts change (new numbers), edit science/copilot_offline_texts.json and rerun `copilot --offline-texts copilot_offline_texts.json`.
+- When .env exists (ANTHROPIC_API_KEY + ANTHROPIC_BASE_URL [+ COPILOT_MODEL]): `cd science && .venv/Scripts/python.exe -m skylapse_science copilot --force`;
+  failed languages keep the offline text automatically; read all 10 texts, compare with copilot_offline_texts.json, keep the clearer;
+  commit, PR, `py ops/bin/skyops.py submit 89` with texts in the report.
+- Else `py ops/bin/skyops.py next --wait 540`.
 
 ## Files touched
 - science/skylapse_science/{__init__,__main__,config,astrometry,validate,spectra,photometry,copilot,discovery}.py,
@@ -48,6 +49,8 @@ Accepted: #8, #9, #10; #12 in PR #61 (merged). 2nd computer (ARES-DESKTOP): use 
 
 - CatWISE2020 high-pm lists are full of junk near bright stars/fast movers: use nb=1, ab_flags clean, w2mpro≈w2mpro_pm,
   par_pm not negative, outside saturated-star halos. Saturated movers: detect via zero holes + S1 wing fit.
+
+- Claude Code shells export ANTHROPIC_BASE_URL=https://api.anthropic.com: .env must override it (load_env does).
 
 ## Open questions / waiting on
 - S5 waits for ANTHROPIC_API_KEY in .env (Murad). Pipeline `merge-science` copies science/out into the bundle (D-009).
