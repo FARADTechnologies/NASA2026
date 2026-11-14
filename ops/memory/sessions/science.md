@@ -1,14 +1,14 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov ~15:00 Baku
+Last update: Sat 14 Nov ~17:00 Baku
 
 ## Current task
-#9 S2 — SPHEREx spectra (claimed Sat ~15:20). #8 S1 done + submitted (PR #44, status:review). Queue after: #10 S3, #11 S5, #12 S4.
+#10 S3 — light curves R Dra + RW Aur (claimed ~16:25). Done: #8 S1 (PR #44 merged), #9 S2 (PR #58, review). Queue: #11 S5 copilot, #12 S4.
 
 ## Status
-S2 nearly done: spectra.py works for all 5 targets; final full run + commit/PR/submit pending.
-- S2 results: WISE 0855 undetected <2.4 µm & CH4 band, detected 4.4–4.9 µm (30 clean May-2025 images; later images blended with a
-  G=16.3 star <9"). eps Indi B full T-dwarf spectrum (324 images). Barnard/R Dra/RW Aur saturated → usable:false, no points.
-- Flux scale: 9 CatWISE stars, D4/W1 = 1.01±0.03, D6/W2 = 1.03±0.03 (`spectra-calib`).
+S3 done locally: relative wing index (unWISE rings outside saturated core). RW Aur vs NEOWISE corr 0.93/0.98, control star 0.03 mag rms.
+R Dra period search 246/247 d vs GCVS 245.6 (alias ~713 d); 75 % variance folded. Commit/PR/submit pending at time of writing.
+- S2 results: WISE 0855 undetected <2.4 µm & CH4 band, detected 4.4–4.9 µm (30 clean May-2025 images). eps Indi B T-dwarf spectrum.
+  Barnard/R Dra/RW Aur saturated → usable:false. Flux scale 9 stars: D4/W1 1.01±0.03, D6/W2 1.03±0.03.
 
 ## Done (with proof)
 - `python -m skylapse_science validate` (run from `science/` with `science/.venv`) → 9 s, writes
@@ -19,13 +19,13 @@ S2 nearly done: spectra.py works for all 5 targets; final full run + commit/PR/s
 - Sanity: fitted 2010 position of WISE 0855 = 133.79519, -7.24512 ≈ NASA challenge coordinate (133.795130, -7.245147).
 
 ## Next step (exact, so a fresh session can continue blindly)
-- If S2 not yet submitted: `cd science && .venv/Scripts/python.exe -m skylapse_science spectra` (6 min), check out/png/*.png,
-  commit science/ + journal, push role/science (PR #44 updates automatically), `skyops.py submit 9 --file report.md --pr <PR #44 url>`.
-- Then `python ops/bin/skyops.py next --wait 540` → likely #10 S3 light curves (R Dra / RW Aur saturated: decide by M2 18:30;
-  options in SCIENCE_NOTES §7: NEOWISE single-exposure profile-fit photometry, wing index, or honest fallback).
+- If S3 not submitted: commit science/ (photometry.py, LIGHTCURVES.md, data_cache/, out/), push, PR, `skyops.py submit 10 --file … --pr …`.
+- Then `skyops.py next --wait 540` → #11 S5 copilot (anthropic SDK, model claude-sonnet-5-5, key in .env; facts JSON from target.json
+  blocks; EN + AZ ≤110 words; facts_hash; review by eye) and #12 S4 discovery (waits for #4).
 
 ## Files touched
-- science/skylapse_science/{__init__,__main__,config,astrometry,validate}.py, science/requirements.txt, science/VALIDATION.md, science/out/**
+- science/skylapse_science/{__init__,__main__,config,astrometry,validate,spectra,photometry}.py, science/{VALIDATION,SPECTRA,LIGHTCURVES}.md,
+  science/requirements.txt, science/data_cache/*.csv, science/out/**
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
 - Python: system Python 3.14 has no astropy → use `science/.venv/Scripts/python.exe` (created with pip install -r science/requirements.txt).
@@ -39,6 +39,9 @@ S2 nearly done: spectra.py works for all 5 targets; final full run + commit/PR/s
   → detector px. Neighbour search must use the target's SPHEREx-era position (movers!), not 2016. Aperture photometry of WISE 0855
   gave a FALSE short-wave detection (blend) — always forced-PSF + blend flag.
 - eps Indi B T-dwarf peak is 3.9–4.2 µm, not 4.6 (CO absorption at 4.6). Don't say "bright at 4.6" for T dwarfs.
+
+- unWISE R Dra: some epochs are all-zero (no coverage) or have coverage-edge zeros merging with the core → use the zero region
+  connected to the centre and a 90th-percentile radius. AllWISE MEP has no qual_frame column (NEOWISE L1b does).
 
 ## Open questions / waiting on
 - none. Pipeline `merge-science` copies science/out into the bundle (D-009).

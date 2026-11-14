@@ -17,6 +17,8 @@ def main(argv=None) -> int:
     sp = sub.add_parser("spectra", help="S2: SPHEREx spectra (spectrum block + PNG)")
     sp.add_argument("--field", action="append", help="limit to one field (repeatable)")
     sub.add_parser("spectra-calib", help="S2: check the SPHEREx flux scale against CatWISE W1/W2 for isolated stars")
+    lc = sub.add_parser("lightcurves", help="S3: saturation-aware light curves for R Dra and RW Aur")
+    lc.add_argument("--field", action="append", help="limit to one field (repeatable)")
     a = ap.parse_args(argv)
     if a.cmd == "validate":
         from . import validate
@@ -27,6 +29,9 @@ def main(argv=None) -> int:
     elif a.cmd == "spectra-calib":
         from . import spectra
         spectra.calibration_check()
+    elif a.cmd == "lightcurves":
+        from . import photometry
+        photometry.run(a.field)
     return 0
 
 
