@@ -1,0 +1,53 @@
+{
+ "method": "WISE W2 2010 vs 2023-24 stacks, detection 5 sigma, epoch-by-epoch track verification (>= 60 % of 23 epochs), proper-motion fit, >= 3 sigma movers, Gaia DR3 + CatWISE2020 cross-match",
+ "stats": {
+  "known_movers_in_field": 1,
+  "recovered": 1,
+  "catwise_raw_high_pm_in_frame": 92,
+  "catwise_raw_high_pm_confirmed_by_gaia": 0,
+  "new_candidates": 0,
+  "artifacts": 0,
+  "sources_early": 52,
+  "sources_late": 45,
+  "stationary": 41,
+  "trial_tracks": 1,
+  "verified_tracks": 1
+ },
+ "known_movers": [
+  {
+   "catalog": "gaia",
+   "id": "6412596012146801152",
+   "pm_catalog": 4684.2,
+   "recovered": true,
+   "pm_measured": 4712.9,
+   "item": "c001"
+  }
+ ],
+ "items": [
+  {
+   "id": "c001",
+   "ra": 331.080531,
+   "dec": -56.795257,
+   "epoch": 2018.0,
+   "pm_total": 4712.9,
+   "err": 2.3,
+   "pmra": 3990.2,
+   "pmdec": -2508.0,
+   "significance_sigma": 2020.0,
+   "class": "known",
+   "kind": "mover",
+   "is_nasa_target": true,
+   "match": {
+    "gaia": "6412596012146801152",
+    "catwise": "J220419.45-564743.4"
+   },
+   "catalog_pm": 4684.2,
+   "score": 1.0,
+   "n_epochs": 23,
+   "track_rms_arcsec": 0.04,
+   "notes": [],
+   "object_file": "objects/target.json"
+  }
+ ],
+ "caveat": "A 'candidate' is an unconfirmed moving source that is not in Gaia DR3 or CatWISE2020 with a matching motion. It needs follow-up; it is not a discovery."
+}

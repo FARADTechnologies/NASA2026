@@ -14,7 +14,9 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
+from pydantic import BaseModel, Field
 
+from . import live
 from . import resolve as resolver
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -22,10 +24,11 @@ CACHE = Path(os.environ.get("SKYLAPSE_CACHE", str(ROOT / "cache"))).resolve()
 FIELDS = CACHE / "fields"
 FIELD_ID = re.compile(r"^[A-Za-z0-9_.+-]{1,80}$")
 
-app = FastAPI(title="SkyLapse API", version="0.1.0")
+app = FastAPI(title="SkyLapse API", version="0.2.0")
 origins = [o.strip() for o in os.environ.get("CORS_ORIGINS", "*").split(",") if o.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"])
 resolver.init_cache(CACHE / "resolve.json")
+live.init(FIELDS)
 
 MEDIA = {".json": "application/json", ".f32": "application/octet-stream", ".u8": "application/octet-stream",
          ".png": "image/png", ".mp3": "audio/mpeg"}
@@ -50,16 +53,30 @@ def _field_dir(field_id: str) -> Path:
     return FIELDS / field_id
 
 
+class FieldRequest(BaseModel):
+    ra: float = Field(..., ge=0, lt=360)
+    dec: float = Field(..., ge=-90, le=90)
+    fov_arcmin: float | None = Field(None, gt=0, le=60)
+
+
+@app.post("/api/fields")
+def create_field(req: FieldRequest):
+    """Start (or reuse) a live WISE-only field build. Contract §7."""
+    try:
+        return live.submit(req.ra, req.dec, req.fov_arcmin)
+    except RuntimeError:
+        return JSONResponse({"error": "The live builder is busy. Please try again in a minute."}, status_code=503)
+
+
 @app.get("/api/fields/{field_id}/status")
 def field_status(field_id: str):
-    """Static-only fallback until O2 adds live jobs: a cached field is `done`, anything else is unknown."""
-    d = _field_dir(field_id)
-    st = d / "status.json"
-    if st.is_file():
-        return FileResponse(st, media_type="application/json")
-    if (d / "manifest.json").is_file():
-        return {"state": "done", "progress": 1.0, "manifest_url": f"/api/fields/{field_id}/manifest.json"}
-    raise HTTPException(404, "unknown field")
+    _field_dir(field_id)
+    st = live.read_status(field_id)
+    if st is None:
+        if (FIELDS / field_id / "manifest.json").is_file():
+            return {"state": "done", "progress": 1.0, "manifest_url": f"/api/fields/{field_id}/manifest.json"}
+        raise HTTPException(404, "unknown field")
+    return JSONResponse(st, headers={"Cache-Control": "no-cache"})
 
 
 @app.get("/api/fields/{field_id}/{path:path}")

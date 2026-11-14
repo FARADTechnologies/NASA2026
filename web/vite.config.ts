@@ -54,5 +54,9 @@ function fakeLiveApi(): Plugin {
 
 export default defineConfig({
   plugins: [react(), ...(process.env.SKYLAPSE_FAKE_API ? [fakeLiveApi()] : [])],
-  server: { port: 5173 },
+  server: {
+    port: 5173,
+    // dev: same /api as production (web/vercel.json rewrite) unless the fake live API is on
+    proxy: process.env.SKYLAPSE_FAKE_API ? undefined : { "/api": { target: "https://api-production-02611b3c.up.railway.app", changeOrigin: true } },
+  },
 });

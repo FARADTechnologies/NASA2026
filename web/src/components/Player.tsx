@@ -14,6 +14,20 @@ export interface PlayerProps {
   centerRaDec: [number, number] | null;
   loadingText?: string;
   onPick?: (ra: number, dec: number) => void;
+  targetLabel?: string;
+}
+
+/** Target position at `mjd`, linearly interpolated along the track (clamped at the ends). */
+export function trackAt(track: MotionTrackPoint[], mjd: number): [number, number] | null {
+  if (!track.length) return null;
+  const t = [...track].sort((a, b) => a.mjd - b.mjd);
+  if (mjd <= t[0].mjd) return [t[0].ra, t[0].dec];
+  if (mjd >= t[t.length - 1].mjd) return [t[t.length - 1].ra, t[t.length - 1].dec];
+  for (let i = 1; i < t.length; i++) if (mjd <= t[i].mjd) {
+    const a = t[i - 1], b = t[i], f = (mjd - a.mjd) / (b.mjd - a.mjd || 1);
+    return [a.ra + (b.ra - a.ra) * f, a.dec + (b.dec - a.dec) * f];
+  }
+  return null;
 }
 
 export function Player(p: PlayerProps) {
@@ -67,20 +81,30 @@ export function Player(p: PlayerProps) {
       g.drawImage(o, u0, v0, cropPx, cropPx, 0, 0, size, size);
     }
     const year = p.frame ? mjdToYear(p.frame.mjd_mid) : null;
-    const rCirc = Math.max(5, (6 / scale) * k);
+    const rCirc = Math.max(4, (4.5 / scale) * k); // catalogue circles stay smaller/thinner than the target ring
 
-    const drawCat = (cat: Catalog, color: string, square: boolean) => {
+    const drawCat = (cat: Catalog, color: string, square: boolean, limit: number | null) => {
       if (year === null) return;
       const ci = (n: string) => cat.columns.indexOf(n);
-      const [iRa, iDec, iPmra, iPmdec] = [ci("ra"), ci("dec"), ci("pmra"), ci("pmdec")];
-      g.lineWidth = 1.2; g.strokeStyle = color; g.fillStyle = color;
+      const [iRa, iDec, iPmra, iPmdec, iMag] = [ci("ra"), ci("dec"), ci("pmra"), ci("pmdec"), ci("mag")];
+      g.lineWidth = 1; g.strokeStyle = color; g.fillStyle = color;
+      // project everything in view first, then keep the brightest `limit` + every fast mover (µ > 100 mas/yr)
+      const inView: { sx: number; sy: number; ra: number; dec: number; pmra: number; pmdec: number; mag: number; pm: number }[] = [];
       for (const row of cat.rows) {
         const ra = Number(row[iRa]), dec = Number(row[iDec]);
         const pmra = Number(row[iPmra]) || 0, pmdec = Number(row[iPmdec]) || 0;
         const [r1, d1] = propagate(ra, dec, pmra, pmdec, year, cat.ref_epoch);
-        const [x, y] = world2pix(wcs, r1, d1);
-        const [sx, sy] = toScreen(x, y);
+        const [sx, sy] = toScreen(...world2pix(wcs, r1, d1));
         if (sx < -20 || sy < -20 || sx > size + 20 || sy > size + 20) continue;
+        const m = iMag >= 0 && row[iMag] !== null ? Number(row[iMag]) : 99;
+        inView.push({ sx, sy, ra, dec, pmra, pmdec, mag: Number.isFinite(m) ? m : 99, pm: Math.hypot(pmra, pmdec) });
+      }
+      let shown = inView;
+      if (limit !== null && inView.length > limit) {
+        const bright = new Set([...inView].sort((a, b) => a.mag - b.mag).slice(0, limit));
+        shown = inView.filter((s) => bright.has(s) || s.pm > 100);
+      }
+      for (const { sx, sy, ra, dec, pmra, pmdec } of shown) {
         g.beginPath();
         if (square) g.rect(sx - rCirc, sy - rCirc, rCirc * 2, rCirc * 2); else g.arc(sx, sy, rCirc, 0, Math.PI * 2);
         g.stroke();
@@ -100,8 +124,8 @@ export function Player(p: PlayerProps) {
         }
       }
     };
-    if (p.overlay.includes("gaia") && p.catalogs.gaia) drawCat(p.catalogs.gaia, "rgba(124,252,154,0.75)", false);
-    if (p.overlay.includes("catwise") && p.catalogs.catwise) drawCat(p.catalogs.catwise, "#c792ea", true);
+    if (p.overlay.includes("gaia") && p.catalogs.gaia) drawCat(p.catalogs.gaia, "rgba(124,252,154,0.6)", false, p.overlay.includes("gaiaall") ? null : 40);
+    if (p.overlay.includes("catwise") && p.catalogs.catwise) drawCat(p.catalogs.catwise, "rgba(199,146,234,0.7)", true, p.overlay.includes("gaiaall") ? null : 40);
 
     if (p.overlay.includes("track") && p.track && p.track.length > 1) {
       g.strokeStyle = "rgba(255,93,143,0.55)"; g.lineWidth = 1.5; g.setLineDash([4, 4]);
@@ -115,13 +139,19 @@ export function Player(p: PlayerProps) {
         else { g.fillStyle = "rgba(255,93,143,0.75)"; g.fill(); }
       }
       if (p.frame) {
-        let best = p.track[0];
-        for (const t of p.track) if (Math.abs(t.mjd - p.frame.mjd_mid) < Math.abs(best.mjd - p.frame.mjd_mid)) best = t;
-        const [sx, sy] = toScreen(...world2pix(wcs, best.ra, best.dec));
-        g.strokeStyle = "#ff5d8f"; g.lineWidth = 2;
-        const r = rCirc + 6;
-        for (const [a, b] of [[0, 1], [0, -1], [1, 0], [-1, 0]]) { // open tick marks around the target
-          g.beginPath(); g.moveTo(sx + a * r, sy + b * r); g.lineTo(sx + a * (r + 8), sy + b * (r + 8)); g.stroke();
+        const pos = trackAt(p.track, p.frame.mjd_mid);
+        if (pos) {
+          const [sx, sy] = toScreen(...world2pix(wcs, pos[0], pos[1]));
+          const r = Math.max(14, rCirc + 8);
+          g.strokeStyle = "#ff5d8f"; g.lineWidth = 2.5;
+          g.beginPath(); g.arc(sx, sy, r, 0, Math.PI * 2); g.stroke();
+          if (p.targetLabel) {
+            g.font = "700 13px Inter, system-ui";
+            const tw = g.measureText(p.targetLabel).width;
+            const lx = Math.min(size - tw - 14, Math.max(6, sx + r + 6)), ly = Math.max(18, sy - r - 4);
+            g.fillStyle = "rgba(5,7,13,0.75)"; g.fillRect(lx - 5, ly - 14, tw + 10, 19);
+            g.fillStyle = "#ff8fb1"; g.fillText(p.targetLabel, lx, ly);
+          }
         }
       }
     }
@@ -137,7 +167,7 @@ export function Player(p: PlayerProps) {
     g.fillText("N", size - 26, 20); g.fillText(flipX ? "E" : "E", flipX ? size - 12 : size - 52, 44);
     g.strokeStyle = "rgba(232,236,245,0.85)"; g.lineWidth = 1.5; g.beginPath();
     g.moveTo(size - 22, 40); g.lineTo(size - 22, 26); g.moveTo(size - 22, 40); g.lineTo(flipX ? size - 8 : size - 36, 40); g.stroke();
-  }, [p.image, p.frame, p.overlay, p.catalogs, p.track, size, u0, v0, cropPx]);
+  }, [p.image, p.frame, p.overlay, p.catalogs, p.track, p.targetLabel, size, u0, v0, cropPx]);
 
   return (
     <div className="player-wrap" ref={wrapRef}>

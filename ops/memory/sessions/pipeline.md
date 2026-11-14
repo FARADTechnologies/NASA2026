@@ -1,11 +1,11 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov 14:35 Baku
+Last update: Sat 14 Nov 23:30 Baku (2nd computer, user knany)
 
 ## Current task
-#2 T1 + #3 T2 done locally (wise0855 real bundle). Next: #4 T3 build-all 5 targets.
+#71 T8 offline movies: done, submitted (status:review), PR #73; pitch told in #75. T1–T6 merged (PR #59).
 
 ## Status
-T1/T2 done, committed on role/pipeline. GitHub API was timing out at 14:20 (TLS handshake) → issue claim/submit may lag.
+Autonomous loop ON. Movies: pitch/video/<field>_thermal46.{mp4,gif}, 20 MB total; ring = catalogue PM until science fills motion.track.
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -15,9 +15,8 @@ T1/T2 done, committed on role/pipeline. GitHub API was timing out at 14:20 (TLS 
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- `cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline build-all` (r_dra = 2493 images, expect ~5 min) → validate →
-  GIFs barnard + eps_indi_b → saturation fractions report → commit/PR → T4/T5/T6.
-- Watch total bundle size (limit 80 MB incl. _mock 12.6 MB). wise0855 = 11 MB.
+- `.venv/Scripts/python.exe ops/bin/skyops.py next --wait 540` (plain `python` is broken on this computer).
+- When science writes motion.track into the bundle: rerun `cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline movies`.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py
@@ -29,6 +28,8 @@ T1/T2 done, committed on role/pipeline. GitHub API was timing out at 14:20 (TLS 
 - Reprojection is our own (all_world2pix map + scipy map_coordinates), not reproject_interp — faster, SIP-aware.
 - Frames: NaN → 0 and mask bit0; mask file only written when non-empty (mask_file null otherwise).
 - Scaling: bg-subtract, then match Gaia ref-star aperture fluxes to the WISE epoch nearest 2018.0 (D1–D4→W1, D5–D6→W2).
+- unWISE: exact 0 = no coverage (r_dra has 7 empty epochs → skipped, listed in manifest build.skipped_frames); small 0 islands = blanked saturated cores → sat bit.
+- byw.tools was slow on Sat (~4–6 s/request) → live fetches W2 first, then rest of W2 + W1 in background.
 - Science handoff: data/derived/<field>/spherex_images.csv + data/derived/<field>/frames/<id>.fits (grid WCS + MASK ext).
 
 ## Open questions / waiting on
