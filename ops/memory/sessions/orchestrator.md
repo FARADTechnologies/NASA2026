@@ -1,10 +1,12 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 00:40 (Kanan's computer)
+Last update: Sun 00:32 (Kanan's computer)
 
 ## Current task
-Autonomous review loop. Open for others: S7 #89 copilot via organizers' API, S8 #90 METHODOLOGY.md, S9 #91 impact numbers,
-A8 #92 (changes requested: B = CatWISE/unTimely), A9 #93 market slide, A10 #94 slide-6 title, T9 #78 live robustness.
-Mine: O5 #95 README (drafted on main; blocked until S8 lands → verify links, close). Next checkpoint: M4 freeze #31 Sun 10:30.
+Autonomous review loop. Open: A9 #93 (changes requested: title 'Seconds, not hours', range 11–33 s, SRDA confirmed),
+A10 #94 slide-6 title, #103 pitch: 245.6 → 246.12 d (AAVSO VSX) in all pitch files. Next checkpoint: M4 freeze #31 Sun 10:30.
+Closed since 00:00: S7 #89 (API AZ texts in bundle), S8 #90 METHODOLOGY.md (refs spot-checked), S9 #91 impact numbers,
+A8 #92, T9 #78 (live 15–33 s, 3 demo fields pre-warmed), F12 #108 ('Try a live field', 149 ms first frame), O5 #95 README.
+R Dra known period corrected to 246.12 d (AAVSO VSX) on site + README (GCVS 245.6 was unverifiable).
 
 ## Status
 Site + API (v0.3.0) live. Live WISE-only: wise_ready 11 s, done 10–38 s (pipeline #87, #100). Live copilot POST /api/copilot works on
