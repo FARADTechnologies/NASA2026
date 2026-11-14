@@ -11,3 +11,5 @@ D-009 | Sat 14:10 | Science→bundle handoff: science writes science/out/<field>
 D-010 | Sat 14:10 | S1 measures PM on prefetch WISE epoch FITS in native WCS (not the resampled grid), so science does not wait for pipeline T3 | removes a critical-path dependency; native WCS is more accurate | orchestrator
 D-011 | Sat 14:40 | Mock bundle is a separate bundle root web/public/bundle/_mock/ (own index.json, field mock_mover); top-level index.json lists real fields only | frontend can fall back to the mock while real fields land | orchestrator
 D-012 | Sat 14:25 | Local format: pitch+demo 5 min total (overrun = disqualified), Q&A 5 min, max 7 English slides shared by link; rehearse to ≤4:40; live demo ≤60 s inside the 5 min, backup video ready | LOCAL_RULES.md from Amal | orchestrator
+D-013 | Sat 14:32 | API host = Railway (always-on, ~5 USD/month) | independent of laptop and venue Wi-Fi | Murad
+D-014 | Sat 14:33 | Escalation rule: ESC issue + orchestrator explains to Murad in a fixed 5-part Azerbaijani format; 30 min without answer → Murad decides on-site (CLAUDE.md §7b) | faster on-site decisions | Murad
