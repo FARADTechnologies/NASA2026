@@ -36,9 +36,65 @@ export function Viewer({ search }: { search: string }) {
   }, [objectId, base]);
   const update = useCallback((patch: Partial<ViewState>) => setView((v) => ({ ...v, ...patch })), []);
 
-  // resolve field: explicit field, or nearest bundled field to ra/dec
+  // apply a (new or refreshed) manifest. `fresh` = a different field → clear frame cache.
+  const fieldRef = useRef("");
+  const applyManifest = useCallback(async (m: Manifest, b: string, mock: boolean, alive: () => boolean) => {
+    const fresh = fieldRef.current !== m.field_id;
+    fieldRef.current = m.field_id;
+    if (fresh) { store.current.clear(); setLoadedVer((x) => x + 1); setFailed(new Set()); }
+    setManifest(m); setBase(b); setIsMock(mock); setError(null);
+    setView((v) => ({ ...v, seq: m.sequences.some((s) => s.id === v.seq) ? v.seq : (m.sequences.find((s) => s.default) ?? m.sequences[0])?.id ?? "" }));
+    if (!fresh) return;
+    const c = m.catalogs ?? {};
+    const [gaia, catwise] = await Promise.all([c.gaia ? loadOptional<Catalog>(b + c.gaia) : null, c.catwise ? loadOptional<Catalog>(b + c.catwise) : null]);
+    if (!alive()) return;
+    setCats({ gaia, catwise });
+    const wanted = new URLSearchParams(location.search).get("obj");
+    setObjectId(wanted && m.objects?.includes(wanted) ? wanted : m.objects?.includes("target") ? "target" : m.objects?.[0] ?? "");
+    if (m.candidates) loadOptional<Candidates>(b + m.candidates).then((x) => alive() && setCands(x));
+  }, []);
+
+  // live job for coordinates without a precomputed field (DATA_CONTRACT §7)
+  const [live, setLive] = useState<{ state: string; progress: number } | null>(null);
+  const runLive = useCallback(async (ra: number, dec: number, fov: number, alive: () => boolean) => {
+    setLive({ state: "queued", progress: 0 });
+    let job: { field_id: string; status_url: string } | null = null;
+    try {
+      const r = await fetch("/api/fields", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ra, dec, fov_arcmin: fov }) });
+      if (r.ok && (r.headers.get("content-type") || "").includes("json")) job = await r.json();
+    } catch { /* API offline */ }
+    if (!job?.status_url) {
+      setLive(null);
+      setError(`Live fetching is not available right now, so RA ${ra.toFixed(4)}°, Dec ${dec.toFixed(4)}° cannot be built on the fly. The NASA targets on the home page always work.`);
+      return;
+    }
+    let lastKey = ""; let misses = 0;
+    while (alive()) {
+      let st: { state: string; progress: number; manifest_url?: string } | null = null;
+      try { const r = await fetch(job.status_url, { cache: "no-store" }); if (r.ok) st = await r.json(); } catch { /* retry */ }
+      if (!st) { if (++misses > 15) { setError("The live job stopped answering. Please try again in a minute."); return; } }
+      else {
+        misses = 0;
+        setLive({ state: st.state, progress: st.progress ?? 0 });
+        if (st.state === "error") { setError("We could not build this field (the survey servers may be busy). Please try again, or pick a NASA target."); return; }
+        if (st.manifest_url && st.state !== "queued") {
+          const key = `${st.state}|${st.progress}`;
+          if (key !== lastKey) {
+            lastKey = key;
+            const m = await loadOptional<Manifest>(st.manifest_url);
+            if (m && alive()) await applyManifest(m, st.manifest_url.replace(/manifest\.json.*$/, ""), false, alive);
+          }
+        }
+        if (st.state === "done") { setLive(null); return; }
+      }
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }, [applyManifest]);
+
+  // resolve field: explicit field, nearest bundled field to ra/dec, or a live job
   useEffect(() => {
     let alive = true;
+    const isAlive = () => alive;
     (async () => {
       try {
         let fieldId = view.field;
@@ -47,20 +103,12 @@ export function Viewer({ search }: { search: string }) {
           if (view.ra !== null && view.dec !== null && Number.isFinite(view.ra) && Number.isFinite(view.dec)) {
             const near = index.fields.map((f) => ({ f, d: sepDeg(f.ra, f.dec, view.ra!, view.dec!) })).sort((a, b) => a.d - b.d)[0];
             if (near && near.d < 0.1) fieldId = near.f.field_id;
-            else { setError(`No precomputed field near RA ${view.ra.toFixed(4)}°, Dec ${view.dec.toFixed(4)}° yet. Live fetching for any position is coming next — try one of the NASA targets.`); return; }
+            else return runLive(view.ra, view.dec, view.fov ?? 8.8, isAlive);
           } else fieldId = index.fields[0].field_id;
           if (alive) update({ field: fieldId });
         }
         const { manifest, base, isMock } = await loadField(fieldId);
-        if (!alive) return;
-        store.current.clear(); setLoadedVer((x) => x + 1); setFailed(new Set());
-        setManifest(manifest); setBase(base); setIsMock(isMock); setError(null);
-        setView((v) => ({ ...v, seq: manifest.sequences.some((s) => s.id === v.seq) ? v.seq : (manifest.sequences.find((s) => s.default) ?? manifest.sequences[0]).id }));
-        const c = manifest.catalogs ?? {};
-        const [gaia, catwise] = await Promise.all([c.gaia ? loadOptional<Catalog>(base + c.gaia) : null, c.catwise ? loadOptional<Catalog>(base + c.catwise) : null]);
-        if (alive) setCats({ gaia, catwise });
-        setObjectId(manifest.objects?.includes("target") ? "target" : manifest.objects?.[0] ?? "");
-        if (manifest.candidates) loadOptional<Candidates>(base + manifest.candidates).then((x) => alive && setCands(x));
+        if (alive) await applyManifest(manifest, base, isMock, isAlive);
       } catch (e) {
         if (alive) setError("This field could not be loaded. Please pick another target.");
         console.error(e);
@@ -87,11 +135,12 @@ export function Viewer({ search }: { search: string }) {
     want.sort((a, b) => (a === seqFrames[start] ? -1 : b === seqFrames[start] ? 1 : 0));
     const queue = want.filter((f, i, arr) => arr.indexOf(f) === i && !store.current.has(f.id));
     let inflight = 0;
+    const fieldAtStart = fieldRef.current;
     const pump = () => {
       while (alive && inflight < 6 && queue.length) {
         const f = queue.shift()!; inflight++;
         loadFrame(base, f, W, H)
-          .then((d) => { if (alive) { store.current.set(f.id, d); setLoadedVer((x) => x + 1); } })
+          .then((d) => { if (fieldRef.current === fieldAtStart) { store.current.set(f.id, d); setLoadedVer((x) => x + 1); } })
           .catch(() => alive && setFailed((s) => new Set(s).add(f.id)))
           .finally(() => { inflight--; pump(); });
       }
@@ -206,11 +255,19 @@ export function Viewer({ search }: { search: string }) {
             ) : <div className="fl-date skeleton-text">Loading…</div>}
             {note && <div className="fl-note">{note}</div>}
           </div>
+          {live && (
+            <div className="live-banner">
+              <span className="pulse" />
+              <b>{live.state === "queued" ? "Live job queued — fetching WISE epochs…" : live.state === "wise_ready" ? "WISE frames ready · SPHEREx frames streaming…" : "SPHEREx frames streaming…"}</b>
+              <div className="bar"><i style={{ width: `${Math.round((live.progress || 0) * 100)}%` }} /></div>
+              <span className="mono">{Math.round((live.progress || 0) * 100)}%</span>
+            </div>
+          )}
           {manifest ? (
             <Player manifest={manifest} image={image} frame={shownFrame} catalogs={cats} track={obj?.motion?.track ?? null}
               overlay={view.overlay} fovArcmin={view.fov} centerRaDec={view.ra !== null && view.dec !== null ? [view.ra, view.dec] : null}
               loadingText={!image ? "Loading frames…" : undefined} />
-          ) : <div className="player-wrap"><div className="skeleton-box" /></div>}
+          ) : <div className="player-wrap"><div className="skeleton-box">{live && <div className="skeleton-msg">Building this field from WISE and SPHEREx archives — the first frames usually appear in under a minute.</div>}</div></div>}
           <div className="transport">
             <button className="btn icon" title="Previous frame (←)" onClick={() => { setPlaying(false); update({ frame: (idx - 1 + n) % Math.max(1, n) }); }}>⏮</button>
             <button className="btn primary play" title="Play / pause (space)" onClick={() => setPlaying((p) => !p)}>{playing ? "❚❚ Pause" : "▶ Play"}</button>
