@@ -30,7 +30,7 @@ All Saturday pitch deliverables done. Gaps depend on other agents: light curves 
 docs/LOCAL_RULES.md, docs/QA.md, pitch/* (STORY, FACTS, QA_ANSWERS, AI_USE, REFERENCES, VIDEO_STORYBOARD, PROJECT_PAGE, SLIDES, MENTOR_NOTES, slides/, qa/)
 
 ## Gotchas / know-how
-- Copilot texts were written in a Claude Code session (no API key, D-018) + automatic number check — never say "API call".
+- Copilot: EN ×5 + AZ ε Indi B = Claude Code offline (D-018); AZ ×4 = claude-opus-5-5 via organizers' API gateway (S7). Source: target.json copilot.served_by. (#114)
 - Judging (D-022): local criteria incl. Technical Readiness (validity inside it) + Market Potential (no money needed); methodology answer = A/B/C → X → D.
 - HARD LIMIT 5:00 pitch+demo (target 4:40). Never say "discovered"/"Planet X found".
 - Deck rebuild: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`, NODE_PATH), render check via PowerPoint COM; screenshots via headless Edge
