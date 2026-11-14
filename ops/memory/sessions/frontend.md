@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~20:00 Baku
+Last update: Sat ~20:30 Baku
 
 ## Current task
-#60 F8 spectrum submitted (PR #63). F7 (#57) merged. Real bundle on main has all 5 targets with merged science (motion, track, spectra); all 5 smoke-tested OK.
+#62 crowded Gaia fix + #60 F8 both submitted, both in PR #63. All 5 real fields smoke-tested.
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
@@ -27,6 +27,7 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
 - Real-data geometry verified numerically (python, bundle frames): ring ≤1 px, Gaia median 0.4 px → WCS/flip correct.
+- DOM test gotcha: innerText of content inside a closed <details> is "" → use textContent. Same-field URL change does not remount Viewer (viewKey) → toggle UI instead.
 - Target ring uses motion.track, else model path from measured/reference PM (Viewer `track` memo).
 - Speed test: scratchpad throttle/serve.mjs (9 Mbit/s + 150 ms) on web/dist, port 5181; read performance marks skylapse:first-frame / skylapse:playing.
 - Frames: global cache in bundle.ts (getBuf); masks lazy (only with mask overlay); live manifests via loadFresh (uncached).
