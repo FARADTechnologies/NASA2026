@@ -19,3 +19,4 @@
 [pipeline] Bundle frames: NaN pixels are written as 0 with mask bit0 set; mask_file is null when a frame has no masked/saturated pixel.
 [orchestrator] Vercel Hobby BLOCKS deploys when the last git commit author is not on the Vercel team (squash-merged PRs from Azer/Amal). Always deploy with `python ops/bin/deploy_web.py` (deploys a git-free copy of web/).
 [orchestrator] PRs are merged with MERGE COMMITS (since Sat 14:55; squash caused journal conflicts). Still: after your PR is merged, `git fetch origin && git merge origin/main`, and open a NEW PR for later commits.
+[science] On the 2nd computer `python` on PATH is a broken venv; run skyops with `py ops/bin/skyops.py` and science code with science/.venv/Scripts/python.exe.
