@@ -1,9 +1,11 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 00:32 (Kanan's computer)
+Last update: Sun 01:00 (Kanan's computer)
 
 ## Current task
-Autonomous review loop. Open: A9 #93 (changes requested: title 'Seconds, not hours', range 11–33 s, SRDA confirmed),
-A10 #94 slide-6 title, #103 pitch: 245.6 → 246.12 d (AAVSO VSX) in all pitch files. Next checkpoint: M4 freeze #31 Sun 10:30.
+Autonomous review loop; queue empty at 01:00 except scheduled M4 #31 (Sun 10:30) and SUB #32 (14:00); A6 #27 is human (Amal).
+Closed 00:30–01:00: A9 #93 (market slide, 'Seconds, not hours', 11–33 s range, SRDA confirmed), A10 #94 (no discovery wording),
+#113 period 246.12 d in pitch + 30-s video pitch/video/SkyLapse_30s.mp4, A11 #114 accurate AI-use (EN offline / AZ via gateway).
+Human items for the morning: Amal's final deck (slide 6 title, R Dra 246.12 d) checked anonymously at A6; timed rehearsal; repo public ~13:00.
 Closed since 00:00: S7 #89 (API AZ texts in bundle), S8 #90 METHODOLOGY.md (refs spot-checked), S9 #91 impact numbers,
 A8 #92, T9 #78 (live 15–33 s, 3 demo fields pre-warmed), F12 #108 ('Try a live field', 149 ms first frame), O5 #95 README.
 R Dra known period corrected to 246.12 d (AAVSO VSX) on site + README (GCVS 245.6 was unverifiable).

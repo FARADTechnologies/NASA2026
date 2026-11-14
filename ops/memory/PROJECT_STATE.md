@@ -1,5 +1,5 @@
 # PROJECT STATE — written ONLY by the orchestrator. Keep under ~70 lines. Update at every checkpoint and after big changes.
-Last update: Sun 00:32 by orchestrator
+Last update: Sun 01:00 by orchestrator
 
 ## Milestone
 M0 14:20 · M1 14:55 · M2+M3 checkpoint posted late (Sat 23:25, issue #30) — agents stalled ~16:00–23:00 (shared usage limit).
