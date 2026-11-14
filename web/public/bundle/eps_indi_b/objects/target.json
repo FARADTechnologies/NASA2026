@@ -5069,10 +5069,15 @@
  "copilot": {
   "en": "ε Indi B is a pair of brown dwarfs (types T1 and T6) that orbit the star epsilon Indi A, about 12.1 light-years away. In 46 WISE images over 14 years we measured that it moves 4.72 arcseconds per year; the ESA Gaia DR3 catalogue gives 4.68, a 99.0 % agreement. The pair also moves like its star epsilon Indi A to 99.3 %, showing that they travel through space together. Its SPHEREx spectrum shows deep water and methane bands, the classic shape of a T dwarf. In the movie, watch a dot move down and to the left (south-east) by about 66 arcseconds between 2010 and 2024.",
   "az": "ε Indi B epsilon Indi A ulduzunun ətrafında fırlanan iki qəhvəyi cırtdandan (T1 və T6 tipli) ibarət cütdür, bizdən təxminən 12,1 işıq ili uzaqdadır. 14 il ərzindəki 46 WISE şəklində onun ildə 4,72 qövs saniyəsi hərəkət etdiyini ölçdük; ESA-nın Gaia DR3 kataloqu 4,68 verir, uyğunluq 99,0 %-dir. Cüt öz ulduzu epsilon Indi A ilə də 99,3 % eyni hərəkət edir: deməli, onlar kosmosda birlikdə səyahət edirlər. SPHEREx spektrində su və metanın dərin udulma zolaqları görünür, bu, T tipli cırtdanın klassik formasıdır. Filmdə bir nöqtənin 2010-cu ildən 2024-cü ilə qədər təxminən 66 qövs saniyəsi aşağı və sola (cənub-şərqə) getməsinə baxın.",
-  "model": "claude-opus-5-5 (Claude Code, offline from facts)",
+  "model": "claude-opus-5-5",
   "facts_hash": "afd2cd6401546d34",
+  "served_by": {
+   "en": "claude-opus-5-5 (Claude Code, offline from facts)",
+   "az": "claude-opus-5-5 (Claude Code, offline from facts)"
+  },
   "generated_from": "science/out/eps_indi_b/copilot_facts.json",
   "ai_generated": true,
+  "selection": "API text kept if guard-clean, <= 110 words and no claim outside the facts; else the offline text (issue #89)",
   "audio_en": null,
   "audio_az": null
  },
