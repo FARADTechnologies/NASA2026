@@ -11,7 +11,7 @@ model **only from numbers our pipeline computed**. Any AI-generated image or aud
 | Where | AI tool | What it did | Human control |
 |---|---|---|---|
 | Software development | Claude Code (Anthropic Claude models) as coding agents, one per role (orchestrator, pipeline, science, frontend, pitch) | Wrote and debugged code, ran tests, drafted docs and task issues | Team members assigned tasks, reviewed results, made all concept and scope decisions; every change merged by the orchestrator after review |
-| Object explanations ("AI Copilot") | Anthropic Claude Sonnet 5.5 (`claude-sonnet-5-5`, science/skylapse_science/copilot.py) with a number guard | Turns computed facts (proper motion, agreement with Gaia, saturation flags, spectrum class) into short EN + AZ text | Prompt forbids any fact not in the input; texts are precomputed and spot-checked by the team before shipping |
+| Object explanations ("AI Copilot") | Anthropic Claude (written in a Claude Code session — no API key at the venue, decision D-018; `science/copilot_offline_texts.json`) | Turns computed facts (proper motion, agreement with Gaia, saturation flags, spectrum class) into short EN + AZ text Only computed facts (`copilot_facts.json`) as input; every number is checked automatically against those facts, forbidden words ("discovery", "Planet X") blocked, ≤ 110 words; read by the team; labelled "Written by AI" in the UI (science/QA_FACTS.md #15) |
 | Pitch preparation | Claude Code (pitch agent) | Drafted script, Q&A answers, this statement | Amal edited wording; all numbers come from repo files (`pitch/FACTS.md`) |
 | Images / video / audio | none — the backup demo video is a plain screen recording of the live site | — | — |
 
