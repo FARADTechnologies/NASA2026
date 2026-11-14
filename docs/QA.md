@@ -10,3 +10,6 @@
 | Sat ~17:00 R2 | same | R Draconis | ✅ 47 frames | n/a | ✅ | – | saturated (labelled) | ❌ not yet (S3 #10) | ✅ | Panel shows 4× "not available yet" → #66. **Risk: NASA variability target has no variability shown yet.** |
 | Sat ~17:00 R2 | same | RW Aurigae | ✅ 26 frames | n/a | ⚠ clutter → #65 | – | saturated (labelled) | ❌ not yet (S3 #10) | ✅ | Same as R Dra. |
 | Sat ~17:00 R2 | same | random 10.68 +41.27 | – | – | – | – | – | – | – | Clear "Live fetching is not available right now… NASA targets always work" ✅ (API host O3b #36 pending). Phone layout #45 still open. |
+| Sat ~17:45 R2b | deployed | phone 375×812, WISE 0855 | ✅ | ✅ | ✅ | – | – | – | ✅ | **#45 fixed**: single column, image + Pause + Controls + timeline on first screen (`pitch/qa/r2_mobile_375_wise0855_fixed.jpg`). |
+| Sat ~17:45 R2b | deployed | fresh profile (headless Edge, = private window), wise0855 + eps_indi_b | ✅ | ✅ | ✅ | – | ✅ | – | – | Full page renders with no cookies/cache; used for the deck screenshots. |
+| Sat ~17:45 R2b | deployed | demo path timing | – | – | – | – | – | – | – | WISE 0855 fully loaded 3.4 s after opening; one movie loop = 26 frames at 3.3 fps ≈ 8 s. Demo steps (0855 play → fingerprint/spectrum → Barnard card) ≈ 60–70 s incl. talking; copilot step not possible yet (S5). Fits 1:30. |
