@@ -2,7 +2,7 @@
 Last update: Sun 15 Nov 00:30 Baku
 
 ## Current task
-#93 A9 submitted (pitch/SLIDE_MARKET.md; own live timing 12 s; re-check vs science/IMPACT_NUMBERS.md when S9 #91 lands). #92 A8 v2 submitted (PR #110): B = CatWISE2020/unTimely with eps Indi B 1.1 vs 4.7″/yr, Gaia = reference only, aligned with docs/METHODOLOGY.md. Open: METHODOLOGY uses R Dra VSX 246.12 d vs our GCVS 245.6 d — pitch keeps 245.6. #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
+#93 A9 v2 submitted: 'Seconds, not hours', range 20–33 s, estimate labelled, SRDA 1000+ ✅. #92 A8 v2 submitted (PR #110): B = CatWISE2020/unTimely with eps Indi B 1.1 vs 4.7″/yr, Gaia = reference only, aligned with docs/METHODOLOGY.md. Open: METHODOLOGY uses R Dra VSX 246.12 d vs our GCVS 245.6 d — pitch keeps 245.6. #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
 None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
@@ -36,6 +36,7 @@ docs/LOCAL_RULES.md, docs/QA.md, pitch/* (STORY, FACTS, QA_ANSWERS, AI_USE, REFE
 - Deck rebuild: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`, NODE_PATH), render check via PowerPoint COM; screenshots via headless Edge
   `msedge --headless=new --window-size=1600,900 --force-device-scale-factor=2 --virtual-time-budget=15000 --screenshot=out.png URL` (timeout ≥ 200 s).
 - Drive: upload new deck as NEW VERSION of the same file → link unchanged (file name stays "v1", cosmetic).
+- NEVER `git pull --rebase` on role/pitch after merging main (replays others' merged commits → conflicts). Use `git fetch && git merge origin/role/pitch` / `git pull --no-rebase`.
 - git fetch can take minutes (bundle files); merges of main conflict on journal/KNOWHOW → keep ours / keep both.
 - skyops sometimes "error connecting to api.github.com" → transient, just re-run.
 - Messages to Amal: Azerbaijani (Latin), bold italic, action first.
