@@ -58,8 +58,10 @@ Canvas 2D, Vercel hosting, GitHub. AI coding assistants (Claude Code) — see "U
 ## Use of AI
 We used AI openly. AI coding assistants (Claude Code, Anthropic) helped our team write the data pipeline, web app and documentation;
 team members set the concept, checked the science and reviewed every change before it was merged. The plain-language object explanations
-(English and Azerbaijani) are written by Anthropic's Claude (in a Claude Code session) only from numbers our pipeline computed; every number in the 10 texts is checked automatically against those computed facts, and words like "discovery" are blocked, and were
-checked by the team. All scientific data comes from NASA and ESA, not from AI. No AI-generated images, video or voice are used; our demo video is a plain screen recording of the live site. No AI-generated NASA logos, flags or mission symbols are used.
+(English and Azerbaijani, ≤ 110 words each) are written by Anthropic's Claude Opus 5.5 only from numbers our pipeline computed: the English
+texts and one Azerbaijani text in a Claude Code session, the other four Azerbaijani texts through the organizers' Claude API gateway. Every number
+in the 10 texts is checked automatically against our computed facts, words like "discovery" are blocked, the team read them, and the site labels
+them "AI-generated from our measured facts". All scientific data comes from NASA and ESA, not from AI. No AI-generated images, video or voice are used; our demo video is a plain screen recording of the live site. No AI-generated NASA logos, flags or mission symbols are used.
 
 ## NASA Data
 - SPHEREx spectral images, Data Release 1 + Quick Release 3 (NASA/JPL-Caltech, via NASA/IPAC IRSA).
