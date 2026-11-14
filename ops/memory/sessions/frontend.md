@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~16:00 Baku
+Last update: Sat ~16:30 Baku
 
 ## Current task
-F0–F5 submitted (#13–#18). PR #35 squash-merged at the F4 commit; F5 is in PR #42. Deployed: https://skylapse.vercel.app (F1–F4 verified live on mock_mover).
+#45 phone layout fixed + submitted (in PR #42). F0–F5 submitted. #40 answered (merged main). Waiting on #43 (API routing) + real bundle.
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
