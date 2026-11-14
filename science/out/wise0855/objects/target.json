@@ -1,0 +1,253 @@
+{
+ "id": "target",
+ "name": "WISE 0855−0714",
+ "kind": "brown_dwarf",
+ "ra": 133.777963,
+ "dec": -7.2436802,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": {
+   "pmra": -8129.3,
+   "pmdec": 672.7,
+   "pm_total": 8157.0,
+   "err": 15.1,
+   "pmra_err": 15.3,
+   "pmdec_err": 7.4,
+   "parallax": 371.4,
+   "parallax_err": 49.1,
+   "unit": "mas/yr",
+   "n_epochs": 23,
+   "n_epochs_w1": 0,
+   "n_epochs_w2": 23,
+   "baseline_yr": 13.95,
+   "rms_arcsec": 0.174,
+   "method": "unWISE time-resolved epochs (W1+W2, native WCS), centroid_2dg, WLS fit of position + proper motion + parallax, 3-sigma clipping, 1000x bootstrap"
+  },
+  "reference": {
+   "source": "Kirkpatrick et al. 2021, ApJS 253, 7 (via SIMBAD)",
+   "pmra": -8123.7,
+   "pmdec": 673.2,
+   "pm_total": 8151.5,
+   "unit": "mas/yr",
+   "parallax": 439.0
+  },
+  "agreement_pct": 99.9,
+  "track": [
+   {
+    "mjd": 55320.9194,
+    "ra": 133.7951883,
+    "dec": -7.2451247,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 55511.917,
+    "ra": 133.794385,
+    "dec": -7.2450694,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 56784.3455,
+    "ra": 133.7862557,
+    "dec": -7.2443251,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 56975.279,
+    "ra": 133.7851026,
+    "dec": -7.2443089,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57144.8449,
+    "ra": 133.7838462,
+    "dec": -7.244191,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57338.6773,
+    "ra": 133.7829634,
+    "dec": -7.2441172,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57503.7012,
+    "ra": 133.7816361,
+    "dec": -7.2439557,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57702.9685,
+    "ra": 133.7806871,
+    "dec": -7.2438429,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57864.2339,
+    "ra": 133.7794158,
+    "dec": -7.2438117,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58068.5389,
+    "ra": 133.7784062,
+    "dec": -7.2437266,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58227.8768,
+    "ra": 133.7771905,
+    "dec": -7.2436341,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58434.1113,
+    "ra": 133.776033,
+    "dec": -7.2436047,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58591.8173,
+    "ra": 133.7748661,
+    "dec": -7.2434197,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58801.8405,
+    "ra": 133.7736561,
+    "dec": -7.2432824,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58955.9626,
+    "ra": 133.7726113,
+    "dec": -7.2432953,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59164.02,
+    "ra": 133.7714714,
+    "dec": -7.2431879,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59322.4251,
+    "ra": 133.7703758,
+    "dec": -7.2430698,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59529.6103,
+    "ra": 133.7692376,
+    "dec": -7.2429877,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59687.251,
+    "ra": 133.7680832,
+    "dec": -7.2429437,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59896.013,
+    "ra": 133.7669693,
+    "dec": -7.242858,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 60051.3953,
+    "ra": 133.7658138,
+    "dec": -7.2426846,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 60260.9382,
+    "ra": 133.7646791,
+    "dec": -7.2426683,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 60417.0147,
+    "ra": 133.7635528,
+    "dec": -7.2424478,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 60800.7672,
+    "ra": 133.7611242,
+    "dec": -7.2422922,
+    "instrument": "SPHEREx",
+    "band": "D6",
+    "kind": "model"
+   },
+   {
+    "mjd": 61005.663,
+    "ra": 133.7600388,
+    "dec": -7.2422561,
+    "instrument": "SPHEREx",
+    "band": "D6",
+    "kind": "model"
+   },
+   {
+    "mjd": 61161.1471,
+    "ra": 133.7588784,
+    "dec": -7.2421112,
+    "instrument": "SPHEREx",
+    "band": "D6",
+    "kind": "model"
+   }
+  ]
+ },
+ "spectrum": null,
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [],
+  "warnings": []
+ }
+}
