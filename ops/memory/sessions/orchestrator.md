@@ -1,11 +1,11 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14:46
+Last update: Sat 15:00
 
 ## Current task
 Phase 1 autonomous loop (`skyops next`). Next: CHECKPOINT M1 #28 at 16:00 (needs pipeline T2 real wise0855).
 
 ## Status
-M0 done 14:20 (3 h late, D-008). Web live at https://skylapse.vercel.app (mock data). API code done, not hosted.
+M1 reached 14:55. Web + API live. Waiting on pipeline T3 (5 fields + merge-science).
 Pipeline (T1 #2, not claimed yet but writing code) and science (S1 #8 claimed) are running in their worktrees.
 
 ## Done (with proof)
@@ -19,7 +19,10 @@ Pipeline (T1 #2, not claimed yet but writing code) and science (S1 #8 claimed) a
 - O0 #1 closed: mock.py + validate_bundle.py + _mock bundle on main; validator PASS; negative test FAIL as expected.
 - PR #35 (frontend F0–F3) merged after `npm ci && npm run build` + browser check on mock; #13–#16 closed.
 - PR #34 (pitch A1) merged; #22 closed. PR #44 S1 merged (#8 closed: 99.8/99.0/99.9 %). PR #42 F4+F5 merged (#17,#18). PR #37 pitch A2+A5 merged (#23,#26).
-- O3b #36 closed: Railway API online, /api/* proxied via web/vercel.json. Local format: 5 min pitch+demo, overrun = disqualified (D-012).
+- O3b #36 closed: Railway API online, /api/* proxied via web/vercel.json.
+- 15:00: #45 #47 (frontend bugs) merged via PR #48 #50; pitch A4 #25 (PR #46), A3 #24 (PR #55) merged; Q #33 #43 #49 #52 answered.
+- PR #53 pipeline T1+T2 merged, #2 #3 closed → M1 reached 14:55 (wise0855 real movie live). New tasks: F6 #51 demo speed, F7 #54 clarity.
+- skyops accept now uses merge commits (D-016); validator sizes nested roots separately; deploy_web.py skips _mock once real fields exist. Local format: 5 min pitch+demo, overrun = disqualified (D-012).
 - O3 #20 closed: Vercel project 'skylapse' → https://skylapse.vercel.app (200 on /, /view, /bundle/_mock/...).
 - O1 #19 closed: api/skylapse_api (resolve + field files + CORS), TestClient proof in the issue.
 - Hooks work here (RECOVERY BRIEF appeared at session start).
