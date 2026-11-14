@@ -1,13 +1,12 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov 15:00 Baku
+Last update: Sat 14 Nov 15:40 Baku
 
 ## Current task
-#4 T3 build-all (+ #5 T4, #6 T5, #7 T6 implemented in the same code) — final rebuild running, then one PR for T1–T6.
+All of T1–T6 (#2–#7) submitted → status:review. PR #59 (role/pipeline → main). Waiting: orchestrator review + #49 (bundle size).
 
 ## Status
-All 5 fields build and PASS per field (wise0855 64, barnard 64, eps_indi_b 68, r_dra 112, rw_aur 64 frames). Root FAILs only on size
-(~83 MB incl. orchestrator _mock 12.6 MB) → asked orchestrator in #49. #38 answered (merged main d15eeee).
-Live runner: WISE-ready in 83 s on a fresh coordinate (M101 area), SPHEREx frames then stream in per detector.
+5 fields built and every field PASSes; the root FAILs only on size (~83 MB incl. _mock 12.6 MB) → #49.
+Live runner: WISE-ready 73 s (bisection epoch order, byw.tools ~13 s/req), SPHEREx capped at 4/bin/detector, done ~815 s.
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -17,9 +16,8 @@ Live runner: WISE-ready in 83 s on a fresh coordinate (M101 area), SPHEREx frame
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- After build-all + validate: commit bundle + code, push (`git -c http.postBuffer=524288000 push`), open PR role/pipeline→main,
-  submit #2–#7 reports (inventory output, validation, GIFs in pipeline/qa/, saturation fractions, live timing).
-- Then: answer to #49 (size), help science with data/derived/<field>/ products, T7 only when asked.
+- `python ops/bin/skyops.py next --wait 540`; read the answer to #49 (if "drop D2/D5": add a --detectors option to build-all, default D1,D3,D4,D6).
+- On review changes: fix them, rebuild (`cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline build-all`, ~6 min), validate, push.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py
