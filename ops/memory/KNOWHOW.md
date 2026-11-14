@@ -27,3 +27,4 @@
 [orchestrator] After API redeploy with pipeline fix #67: live wise_ready in 88 s (23 W2 frames) at 8.8′ (was ~6 min). Pre-warmed demo coordinate: 150.5 2.5.
 [orchestrator] Organizers' Claude API (tunnel) = Anthropic Messages API (+ OpenAI-compatible /v1/chat/completions). claude-opus-5-5 there emits a long `thinking` block: send `"thinking": {"type": "disabled"}` and max_tokens ≥ 4000, else the answer is empty (stop_reason max_tokens). Base URL + key ONLY in env (ANTHROPIC_BASE_URL, ANTHROPIC_API_KEY): the tunnel URL changes on restart.
 [orchestrator] Sun 00:00: API v0.3.0 (pipeline #87 WISE-only, no TAP): live wise_ready 11 s, done 20 s.
+[science] Never cite literature values from memory: R Dra period '245.6 d (GCVS)' was unverified; AAVSO VSX gives 246.12 d (CDS/VizieR often down — use vsx.aavso.org).
