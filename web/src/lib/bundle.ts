@@ -41,7 +41,7 @@ export interface ObjectInfo {
   lightcurve: null | { points: { mjd: number; instrument: string; band: string; mag: number; err: number; saturated: boolean; kind?: string }[]; notes: string[];
     unit?: string; method?: string; period_days?: number | null;
     validation?: { folded?: null | { period_d?: number; source?: string; W1?: { best_period_d?: number }; W2?: { best_period_d?: number } } } | null };
-  copilot: null | { en: string; az: string; model: string };
+  copilot: null | { en: string; az: string; model: string; ai_generated?: boolean; generated_from?: string; facts_hash?: string };
   flags: null | { saturated_in: string[]; warnings: string[] };
 }
 export interface Candidates {
