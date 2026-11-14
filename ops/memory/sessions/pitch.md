@@ -2,7 +2,7 @@
 Last update: Sun 15 Nov 00:30 Baku
 
 ## Current task
-#93 A9 v2 submitted: 'Seconds, not hours', range 20–33 s, estimate labelled, SRDA 1000+ ✅. #92 A8 v2 submitted (PR #110): B = CatWISE2020/unTimely with eps Indi B 1.1 vs 4.7″/yr, Gaia = reference only, aligned with docs/METHODOLOGY.md. #104 answered: 3 pre-warmed live positions (Luhman 16, Teegarden, Kapteyn; 3–5 s) added as optional demo step in STORY. R Dra reference = 246.12 d (AAVSO VSX) everywhere now (#103, PR #113); videos re-recorded. #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
+#93 A9 v2 submitted: 'Seconds, not hours', range 20–33 s, estimate labelled, SRDA 1000+ ✅. #92 A8 v2 submitted (PR #110): B = CatWISE2020/unTimely with eps Indi B 1.1 vs 4.7″/yr, Gaia = reference only, aligned with docs/METHODOLOGY.md. Amal asked (Sun 02:35) for 'What powers SkyLapse?' slide info → pitch/SLIDE_DATA_TECH.md sent. #94 A10 partial: pitch files clean of 'discover' claims; Drive link still shows old slide-6 title — Amal says she changed her deck and said 'leave it' (don't ask again; check the FINAL deck link at A6). #104 answered: 3 pre-warmed live positions (Luhman 16, Teegarden, Kapteyn; 3–5 s) added as optional demo step in STORY. R Dra reference = 246.12 d (AAVSO VSX) everywhere now (#103, PR #113); videos re-recorded. #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
 None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
@@ -30,7 +30,7 @@ All Saturday pitch deliverables done. Gaps depend on other agents: light curves 
 docs/LOCAL_RULES.md, docs/QA.md, pitch/* (STORY, FACTS, QA_ANSWERS, AI_USE, REFERENCES, VIDEO_STORYBOARD, PROJECT_PAGE, SLIDES, MENTOR_NOTES, slides/, qa/)
 
 ## Gotchas / know-how
-- Copilot texts were written in a Claude Code session (no API key, D-018) + automatic number check — never say "API call".
+- Copilot: EN ×5 + AZ ε Indi B = Claude Code offline (D-018); AZ ×4 = claude-opus-5-5 via organizers' API gateway (S7). Source: target.json copilot.served_by. (#114)
 - Judging (D-022): local criteria incl. Technical Readiness (validity inside it) + Market Potential (no money needed); methodology answer = A/B/C → X → D.
 - HARD LIMIT 5:00 pitch+demo (target 4:40). Never say "discovered"/"Planet X found".
 - Deck rebuild: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`, NODE_PATH), render check via PowerPoint COM; screenshots via headless Edge
