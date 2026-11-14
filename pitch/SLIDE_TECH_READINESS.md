@@ -28,7 +28,7 @@ Aligned with `docs/METHODOLOGY.md` (science S8, merged Sun ~01:15) and `science/
 ---
 
 ## Speaker notes / 30-second answer to "What is your methodology?"
-(73 words — plain English, ≈ 29 s at a calm 150 words/min. Amal: read it once with a stopwatch; cut the last sentence if over 30 s.)
+(72 words — plain English, ≈ 29 s at a calm 150 words/min. Amal: read it once with a stopwatch; cut the last sentence if over 30 s.)
 
 > "We looked at three ways people find moving objects today. Volunteers blink WISE images — but only by eye, with no spectra. Automated catalogues like CatWISE measure motion — but can be wrong: for one brown dwarf they say a quarter of the true speed. SPHEREx has spectra — but only one year of data. Nobody joins the long WISE record with SPHEREx spectra. SkyLapse does — and our motions match Gaia to 99 percent."
 
