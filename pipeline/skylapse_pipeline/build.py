@@ -51,6 +51,7 @@ class FieldBuilder:
         self.per_image: list[dict] = []
         self.releases: set[str] = set()
         self.objects: list[str] = []
+        self.skipped: list[dict] = []
         self.fdir.mkdir(parents=True, exist_ok=True)
 
     # ------------------------------------------------------------------ inputs
@@ -128,6 +129,11 @@ class FieldBuilder:
                 fr = reproject_wise(r["path"], r["band"], self.wcs, self.shape)
             except Exception as e:  # noqa: BLE001
                 log.warning("%s %s: %s", self.field_id, fid, e)
+                continue
+            cover = float(np.isfinite(fr["data"]).mean())
+            if cover < 0.5:
+                log.info("%s %s: skipped, only %.0f%% of the grid covered", self.field_id, fid, cover * 100)
+                self.skipped.append({"id": fid, "reason": f"unWISE epoch covers {cover:.0%} of the field"})
                 continue
             data, bkg, _ = subtract_background(fr["data"])
             raw[fid] = (band, r, fr, data, bkg)
@@ -291,6 +297,7 @@ class FieldBuilder:
                "credits": CREDITS,
                "build": {"pipeline_version": PIPELINE_VERSION, "generated_utc": utcnow(), "spherex_releases": sorted(self.releases),
                          "status": status, "grid_note": "SPHEREx pixels are 6.15\"; resampled to 2.75\"/px for comparison",
+                         "skipped_frames": self.skipped,
                          "spherex_epochs": [[round(a, 3), round(b, 3)] for a, b in self.intervals],
                          "wise_source": "byw.tools time-resolved unWISE (neo7-style epochs)",
                          "scaling": "per-frame sigma-clipped background subtracted; scaled to the WISE epoch nearest 2018.0 "

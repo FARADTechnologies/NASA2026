@@ -74,11 +74,12 @@ def _get(ra, dec, size, band, epoch, dest: Path, deadline: float | None):
     return "fail"
 
 
-def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), deadline: float | None = None) -> list[dict]:
+def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), deadline: float | None = None,
+          refresh: bool = False) -> list[dict]:
     """Download all epochs of each band (one band after the other, 2 workers sharing an epoch counter; HTTP 500 = end) into
     CACHE/wise/<field>/, merge into index.csv, return read_index(). Bands already in the index are not fetched again."""
     have = {r["band"] for r in read_index(field)}
-    todo = [b for b in bands if b not in have]
+    todo = list(bands) if refresh else [b for b in bands if b not in have]
     if not todo:
         return read_index(field)
     d = CACHE / "wise" / field
@@ -115,7 +116,7 @@ def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), d
         results[:] = [r for r in results if not (r[1] == band and r[0] >= state["end"])]
     from astropy.io import fits
 
-    rows = [(r["epoch"], r["band"], r["path"]) for r in read_index(field)] + results
+    rows = [(r["epoch"], r["band"], Path(r["path"])) for r in read_index(field)] + [(e, b, Path(p)) for e, b, p in results]
     with (d / "index.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["epoch", "band", "MJDMIN", "MJDMAX", "file"])

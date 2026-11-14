@@ -81,14 +81,19 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
         report("error", 0.0, f"WISE stage failed: {e}")
         ex.shutdown(wait=False)
         return status
-    fw1 = ex.submit(fetch_wise.fetch, fid, ra, dec, size_px, (1,), t0 + total_limit_s)
+    n_w2 = len(rows)
+    fw1 = ex.submit(fetch_wise.fetch, fid, ra, dec, size_px, (2, 1), t0 + total_limit_s, True)  # rest of W2 + W1
 
     # ---- 2. SPHEREx
     try:
         size_deg = round(n_px * PIX_ARCSEC / 3600 * 1.05 + 0.01, 3)
         idx = fetch_spherex.query_index(fid, ra, dec, size_deg, timeout=min(180, max(30, total_limit_s - (time.time() - t0))))
         try:  # W1 frames (fetched while TAP was running)
-            w1 = [r for r in fw1.result(timeout=max(1.0, min(120.0, t0 + total_limit_s - time.time()))) if r["band"] == 1]
+            allw = fw1.result(timeout=max(1.0, min(180.0, t0 + total_limit_s - time.time())))
+            w2 = [r for r in allw if r["band"] == 2]
+            w1 = [r for r in allw if r["band"] == 1]
+            if len(w2) > n_w2:
+                b.add_wise(w2)
             if w1:
                 b.add_wise(w1)
                 b.write(status="spherex_partial")

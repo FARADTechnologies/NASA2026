@@ -1,0 +1,40 @@
+{
+ "id": "target",
+ "name": "RW Aurigae",
+ "kind": "variable_star",
+ "ra": 76.95656795,
+ "dec": 30.40133652,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2007A&A...474..653V)",
+   "pmra": 7.23,
+   "pmdec": -20.33,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": null,
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [
+   "D1",
+   "D2",
+   "D3",
+   "D4",
+   "D5",
+   "D6",
+   "W1",
+   "W2"
+  ],
+  "warnings": [
+   "target saturated in some frames"
+  ]
+ },
+ "simbad_id": "V* RW Aur",
+ "sp_type": "K1/5e+K5e",
+ "parallax_mas": 15.42
+}
