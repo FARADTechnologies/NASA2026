@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~18:50 Baku
+Last update: Sat ~20:00 Baku
 
 ## Current task
-#54 F7 clarity submitted (PR #57). Waiting: Azer 10-second check answer → comment on #54. Real wise0855 bundle landed (measured motion still null in bundle; science out/ has it).
+#60 F8 spectrum submitted (PR #63). F7 (#57) merged. Real bundle on main has all 5 targets with merged science (motion, track, spectra); all 5 smoke-tested OK.
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
@@ -42,5 +42,5 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
 ## Open questions / waiting on
 - #43 resolved: web/vercel.json proxies /api/* to Railway (orchestrator).
 - Real bundle (barnard, eps_indi_b, wise0855, rw_aur, r_dra) not on main yet → re-verify F3/F4 when it lands.
-- Azer cosmetic feedback pending.
+- Azer cosmetic feedback + 10-second clarity check pending (note answer on #54).
 - Gotcha: PRs are squash-merged → after a merge, `git merge origin/main` conflicts on my own files; take ours (check main's blob equals one of my commits first).
