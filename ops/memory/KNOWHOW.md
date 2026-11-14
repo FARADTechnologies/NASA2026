@@ -13,5 +13,9 @@
 [pitch] LOCAL RULE Baku: presentation+demo = 5:00 TOTAL (overtime = disqualified), Q&A 5:00, max 7 English slides shared by link; AI media need watermark.
 [orchestrator] Web deploy = Vercel CLI from Murad's PC: `cd web && npx vercel deploy --prod --yes` → https://skylapse.vercel.app (project 'skylapse'; Git auto-deploy NOT connected: Vercel GitHub app is not installed on FARADTechnologies). Redeploy after every merge to main.
 [orchestrator] API = Railway project skylapse-api, service api, volume /data. Redeploy: `npx @railway/cli up --detach --service api` from repo root. Git Bash: set MSYS_NO_PATHCONV=1 for '/data'-style args. Dockerfile path is set by service var RAILWAY_DOCKERFILE_PATH=api/Dockerfile (railway.json dockerfilePath was ignored). Web reaches it via the /api/* rewrite in web/vercel.json.
+[pipeline] System Python 3.14 has no astropy: pipeline uses repo-local `.venv` (gitignored); run `cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline …`.
+[pipeline] Venue network: `git push` of an 11 MB bundle gave HTTP 408; `git -c http.postBuffer=524288000 push` works better. GitHub API had TLS timeouts at 14:20.
+[pipeline] SPHEREx IMAGE header WCS has SIP; use WCS(IMAGE header).all_world2pix. Wavelength: WCS(hdr, fobj=hdul, key="W") with .sip=None.
+[pipeline] Bundle frames: NaN pixels are written as 0 with mask bit0 set; mask_file is null when a frame has no masked/saturated pixel.
 [orchestrator] Vercel Hobby BLOCKS deploys when the last git commit author is not on the Vercel team (squash-merged PRs from Azer/Amal). Always deploy with `python ops/bin/deploy_web.py` (deploys a git-free copy of web/).
 [orchestrator] PRs are merged with MERGE COMMITS (since Sat 14:55; squash caused journal conflicts). Still: after your PR is merged, `git fetch origin && git merge origin/main`, and open a NEW PR for later commits.

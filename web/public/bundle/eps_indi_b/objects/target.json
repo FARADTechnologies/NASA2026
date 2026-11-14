@@ -1,0 +1,29 @@
+{
+ "id": "target",
+ "name": "Epsilon Indi B",
+ "kind": "brown_dwarf",
+ "ra": 331.0805028,
+ "dec": -56.79517307,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2020yCat.1350....0G)",
+   "pmra": 3981.977,
+   "pmdec": -2466.832,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": null,
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [],
+  "warnings": []
+ },
+ "simbad_id": "* eps Ind B",
+ "sp_type": "T1V+T6V",
+ "parallax_mas": 270.658
+}

@@ -5,8 +5,8 @@ byw.tools: <1 s per request, HTTP 500 = past the last epoch, max 2 concurrent re
 from __future__ import annotations
 
 import csv
+import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import requests
@@ -74,33 +74,54 @@ def _get(ra, dec, size, band, epoch, dest: Path, deadline: float | None):
     return "fail"
 
 
-def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), deadline: float | None = None) -> list[dict]:
-    """Download all epochs for the bands into CACHE/wise/<field>/ (2 workers, one per band), write index.csv, return read_index()."""
-    if read_index(field):
+def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), deadline: float | None = None,
+          refresh: bool = False) -> list[dict]:
+    """Download all epochs of each band (one band after the other, 2 workers sharing an epoch counter; HTTP 500 = end) into
+    CACHE/wise/<field>/, merge into index.csv, return read_index(). Bands already in the index are not fetched again."""
+    have = {r["band"] for r in read_index(field)}
+    todo = list(bands) if refresh else [b for b in bands if b not in have]
+    if not todo:
         return read_index(field)
     d = CACHE / "wise" / field
     d.mkdir(parents=True, exist_ok=True)
+    results = []
+    for band in todo:
+        state = {"next": 0, "end": MAX_EPOCHS, "fails": 0, "ok": 0}
+        lock = threading.Lock()
 
-    def one_band(band):
-        rows = []
-        for ep in range(MAX_EPOCHS):
-            dest = d / f"w{band}_e{ep:02d}.fits"
-            st = _get(ra, dec, size_px, band, ep, dest, deadline)
-            if st == "end":
-                break
-            if st == "ok":
-                rows.append((ep, band, dest))
-        return rows
+        def worker():
+            while True:
+                with lock:
+                    ep = state["next"]
+                    if ep >= state["end"] or (state["fails"] >= 2 and state["ok"] == 0) or state["fails"] >= 6:
+                        return
+                    state["next"] += 1
+                dest = d / f"w{band}_e{ep:02d}.fits"
+                st = _get(ra, dec, size_px, band, ep, dest, deadline)
+                with lock:
+                    if st == "end":
+                        state["end"] = min(state["end"], ep)
+                    elif st == "ok":
+                        state["ok"] += 1
+                        results.append((ep, band, dest))
+                    else:
+                        state["fails"] += 1
 
-    with ThreadPoolExecutor(max_workers=2) as ex:
-        results = [r for rows in ex.map(one_band, bands) for r in rows]
+        ths = [threading.Thread(target=worker) for _ in range(2)]
+        for t in ths:
+            t.start()
+        for t in ths:
+            t.join()
+        # drop anything at/after the detected end (a worker may have raced past it)
+        results[:] = [r for r in results if not (r[1] == band and r[0] >= state["end"])]
     from astropy.io import fits
 
+    rows = [(r["epoch"], r["band"], Path(r["path"])) for r in read_index(field)] + [(e, b, Path(p)) for e, b, p in results]
     with (d / "index.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["epoch", "band", "MJDMIN", "MJDMAX", "file"])
-        for ep, band, p in sorted(results, key=lambda x: (x[1], x[0])):
+        for ep, band, p in sorted(set(rows), key=lambda x: (x[1], x[0])):
             h = fits.getheader(p)
-            w.writerow([ep, band, h["MJDMIN"], h["MJDMAX"], p.name])
-    log.info("WISE %s: %d files fetched", field, len(results))
+            w.writerow([ep, band, h["MJDMIN"], h["MJDMAX"], Path(p).name])
+    log.info("WISE %s: %d files fetched for bands %s", field, len(results), todo)
     return read_index(field)

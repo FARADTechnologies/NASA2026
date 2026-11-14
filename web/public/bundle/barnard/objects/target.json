@@ -1,0 +1,40 @@
+{
+ "id": "target",
+ "name": "Barnard's Star",
+ "kind": "star",
+ "ra": 269.44805096,
+ "dec": 4.74523443,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2020yCat.1350....0G)",
+   "pmra": -801.551,
+   "pmdec": 10362.394,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": null,
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [
+   "D1",
+   "D2",
+   "D3",
+   "D4",
+   "D5",
+   "D6",
+   "W1",
+   "W2"
+  ],
+  "warnings": [
+   "target saturated in some frames"
+  ]
+ },
+ "simbad_id": "NAME Barnard's star",
+ "sp_type": "M4V",
+ "parallax_mas": 546.9759
+}
