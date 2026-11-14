@@ -18,12 +18,12 @@ Next: **M4 FEATURE FREEZE Sun 10:30** (tag v1.0) · Sun 11:00 rehearsals (A6) ·
 
 ## Bundle
 - 5 real fields, validator PASS 8/8, 70 MB. Science S1 motion, S2 spectra, S3 light curves, S4 candidates merged via `python3 ops/bin/merge_science.py` (D-017).
-- Copilot (S5) not yet in the bundle.
+- Copilot (S5) EN+AZ in the bundle (merged 23:35). Backup movies: pitch/video/ (T8 #71 ✅).
 
 ## Who is doing what (open issues)
-- orchestrator: live-mode speed (redeploy API with PR #67), checkpoints M4 #31, SUB #32
-- pipeline (Kanan's PC, `skylapse-pipeline`): T8 #71 backup movies (P1)
-- science (Kanan's PC, `skylapse-science`): S5 #11 copilot (unblocked, offline fallback D-018)
+- orchestrator: review loop; M4 freeze #31 Sun 10:30 (tag v1.0); SUB #32
+- pipeline (Kanan's PC, `skylapse-pipeline`): all done (T1–T8); idle
+- science (Kanan's PC, `skylapse-science`): all done (S1–S5); idle
 - frontend (Azer, home): F9 #70 truthful light-curve axis + period line, Discover recall, ε heading (P0)
 - pitch (Amal, home): A7 #72 deck v3 + backup recording + timed rehearsal (P0) · A6 #27 Sun 11:00 (human)
 - captain Deneme: FARADTechnologies
@@ -41,5 +41,5 @@ Cut (D-019): P1-7 Aladin, all P2.
 
 ## Next 3 priorities (tonight)
 1. ✅ done 23:40: API redeployed, live 88 s, cache on volume. Backup movies on main (pitch/video).
-2. Frontend #70 (truthful light-curve axis — validity) + science #11 copilot → merge, deploy, QA.
-3. Pitch #72 deck v3 + backup recording + one timed rehearsal; pipeline #71 backup movies.
+2. Frontend #70 (truthful light-curve axis — validity) → merge, deploy, QA round 3.
+3. Pitch #72 deck v3 + backup recording + one timed rehearsal.
