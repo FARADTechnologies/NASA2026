@@ -4,7 +4,7 @@
  "motion": {
   "measured_arcsec_per_year": 10.4,
   "reference_arcsec_per_year": 10.39,
-  "reference_source": "Gaia DR3 4472832130942575872",
+  "reference_source": "ESA Gaia DR3 catalogue",
   "agreement_percent": 99.8,
   "wise_epochs_used": 36,
   "years_of_wise_data": 14,
