@@ -149,39 +149,79 @@ def check_text(text: str, facts: dict) -> list[str]:
 
 
 # ------------------------------------------------------------------ generation
+ENV_KEYS = ("ANTHROPIC_API_KEY", "ANTHROPIC_BASE_URL", "COPILOT_MODEL")
+
+
+def load_env() -> None:
+    """Copy ANTHROPIC_API_KEY / ANTHROPIC_BASE_URL / COPILOT_MODEL from the repo-root .env (gitignored) into os.environ.
+    The .env wins over the shell (a Claude Code shell already exports ANTHROPIC_BASE_URL=https://api.anthropic.com).
+    Values are never printed. The organizers' tunnel URL can change: it is read only from .env / env."""
+    env = config.REPO_DIR / ".env"
+    if not env.exists():
+        return
+    for line in env.read_text(encoding="utf-8").splitlines():
+        k, _, v = line.partition("=")
+        k, v = k.strip(), v.strip().strip('"').strip("'")
+        if k in ENV_KEYS and v:
+            os.environ[k] = v
+
+
+def custom_gateway() -> bool:
+    """True when ANTHROPIC_BASE_URL points somewhere other than Anthropic's own API (the organizers' gateway)."""
+    url = os.environ.get("ANTHROPIC_BASE_URL", "").strip().lower()
+    return bool(url) and "api.anthropic.com" not in url
+
+
+def current_model() -> str:
+    """COPILOT_MODEL from env; with a custom base URL (organizers' gateway, issue #89) the default is claude-opus-5-5."""
+    if os.environ.get("COPILOT_MODEL"):
+        return os.environ["COPILOT_MODEL"]
+    return "claude-opus-5-5" if custom_gateway() else MODEL
+
+
 def _client():
     import anthropic
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        env = config.REPO_DIR / ".env"
-        if env.exists():
-            for line in env.read_text(encoding="utf-8").splitlines():
-                k, _, v = line.partition("=")
-                if k.strip() == "ANTHROPIC_API_KEY" and v.strip():
-                    os.environ["ANTHROPIC_API_KEY"] = v.strip().strip('"').strip("'")
-    return anthropic.Anthropic()
+    load_env()
+    return anthropic.Anthropic(timeout=120.0, max_retries=3)    # SDK reads ANTHROPIC_API_KEY + ANTHROPIC_BASE_URL from env
+
+
+def _call(client, model, msg):
+    """Anthropic's own API: beta fallbacks + low effort. Organizers' gateway (custom base URL): plain Messages call with
+    thinking disabled and max_tokens >= 4000 (otherwise their claude-opus-5-5 spends the budget thinking, issue #89);
+    if the gateway rejects the thinking field, retry with low effort and a large max_tokens instead."""
+    import anthropic
+    if not custom_gateway():
+        return client.beta.messages.create(model=model, max_tokens=4000, system=SYSTEM,
+                                           betas=["server-side-fallback-2026-07-01"], fallbacks="default",
+                                           output_config={"effort": "low"}, messages=[{"role": "user", "content": msg}])
+    try:
+        return client.messages.create(model=model, max_tokens=6000, system=SYSTEM, thinking={"type": "disabled"},
+                                      messages=[{"role": "user", "content": msg}])
+    except anthropic.BadRequestError:
+        return client.messages.create(model=model, max_tokens=16000, system=SYSTEM, output_config={"effort": "low"},
+                                      messages=[{"role": "user", "content": msg}])
 
 
 def generate(client, facts: dict, lang: str) -> tuple[str | None, list[str], str]:
     import anthropic
     user = f"FACTS JSON:\n{json.dumps(facts, ensure_ascii=False, indent=1)}\n\n{LANG_INSTRUCTION[lang]}"
-    last_problems, served_by = [], MODEL
+    model = current_model()
+    last_problems, served_by = [], model
     for attempt in range(2):
         msg = user if attempt == 0 else user + "\n\nYour previous draft broke a rule: " + "; ".join(last_problems) + ". Fix it."
         try:
-            r = client.beta.messages.create(
-                model=MODEL, max_tokens=4000, system=SYSTEM,
-                betas=["server-side-fallback-2026-07-01"], fallbacks="default",
-                output_config={"effort": "low"},
-                messages=[{"role": "user", "content": msg}],
-            )
+            r = _call(client, model, msg)
         except anthropic.APIStatusError as e:
-            return None, [f"API error {e.status_code}: {e.message}"], served_by
+            return None, [f"API error {e.status_code}"], served_by
         except anthropic.APIConnectionError:
             return None, ["network error"], served_by
         if r.stop_reason == "refusal":
             return None, ["refused"], served_by
-        served_by = r.model
+        served_by = r.model or model
         text = " ".join(b.text for b in r.content if b.type == "text").strip()
+        if not text:
+            last_problems = [f"empty answer (stop_reason {r.stop_reason})"]
+            continue
         last_problems = check_text(text, facts)
         if not last_problems:
             return text, [], served_by
@@ -208,11 +248,14 @@ def run(fields=None, dry_run=False, force=False):
         res = {}
         for lang in ("en", "az"):
             text, problems, served = generate(client, facts, lang)
+            if problems or not text:
+                # keep the existing (guard-checked) text for this language, with its own model label
+                print(f"{f} [{lang}] PROBLEMS: {problems} -> kept existing text")
+                text, served = old.get(lang), (old.get("served_by") or {}).get(lang) or old.get("model")
             res[lang] = text
             res[lang + "_model"] = served
-            if problems:
-                print(f"{f} [{lang}] PROBLEMS: {problems}")
-        obj["copilot"] = {"en": res["en"], "az": res["az"], "model": MODEL, "facts_hash": h,
+        models = {res["en_model"], res["az_model"]}
+        obj["copilot"] = {"en": res["en"], "az": res["az"], "model": " + ".join(sorted(m for m in models if m)), "facts_hash": h,
                           "served_by": {"en": res["en_model"], "az": res["az_model"]},
                           "generated_from": f"science/out/{f}/copilot_facts.json", "ai_generated": True,
                           "audio_en": None, "audio_az": None}
