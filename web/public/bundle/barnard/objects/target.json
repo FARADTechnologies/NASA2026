@@ -267,7 +267,16 @@
   "method": "SPHEREx L2 cutouts, IMAGE−ZODI; forced EPSF fit of target + Gaia/CatWISE neighbours + constant within 4 px (aperture r=2 px fallback), VARIANCE errors, blends < 1.5 px flagged, per-pixel wavelength from WCS-WAVE (quick-look), moving position per image"
  },
  "lightcurve": null,
- "copilot": null,
+ "copilot": {
+  "en": "Barnard's Star is a red dwarf, one of the closest stars to the Sun, about 6.0 light-years away. It is so bright that it saturates the WISE and SPHEREx detectors, so SPHEREx cannot give us its spectrum. Its position can still be measured: in 36 WISE images spanning 14 years we found that it moves 10.4 arcseconds per year. The ESA Gaia DR3 catalogue gives 10.39, a 99.8 % agreement. In the movie, watch the bright star slide upward (north) by about 146 arcseconds between 2010 and 2024.",
+  "az": "Barnard ulduzu Günəşə ən yaxın ulduzlardan biri olan qırmızı cırtdandır, bizdən təxminən 6,0 işıq ili uzaqdadır. O, WISE və SPHEREx detektorları üçün həddindən artıq parlaqdır, buna görə SPHEREx onun spektrini verə bilmir. Amma mövqeyini ölçmək mümkündür: 14 il ərzində çəkilmiş 36 WISE şəklində onun ildə 10,4 qövs saniyəsi yerini dəyişdiyini tapdıq. ESA-nın Gaia DR3 kataloqu 10,39 göstərir, yəni uyğunluq 99,8 %-dir. Filmdə parlaq ulduzun 2010-cu ildən 2024-cü ilə qədər təxminən 146 qövs saniyəsi yuxarı (şimala) sürüşməsinə baxın.",
+  "model": "claude-opus-5-5 (Claude Code, offline from facts)",
+  "facts_hash": "36e7968886db0aa8",
+  "generated_from": "science/out/barnard/copilot_facts.json",
+  "ai_generated": true,
+  "audio_en": null,
+  "audio_az": null
+ },
  "flags": {
   "saturated_in": [
    "WISE",

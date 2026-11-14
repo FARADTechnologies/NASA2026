@@ -218,3 +218,31 @@ def run(fields=None, dry_run=False, force=False):
                           "audio_en": None, "audio_az": None}
         save_object(f, obj)
         print(f"== {f} ==\nEN: {res['en']}\nAZ: {res['az']}\n")
+
+
+# ------------------------------------------------------------------ offline texts (decision D-018: no API key at the venue)
+OFFLINE_MODEL = "claude-opus-5-5 (Claude Code, offline from facts)"
+
+
+def apply_offline(path, fields=None) -> bool:
+    """Store pre-written EN/AZ texts (written in a Claude Code session from copilot_facts.json) after the same automatic guard.
+    Returns False (and stores nothing for that field) if any text fails the guard."""
+    from .validate import load_object, save_object
+    texts = json.loads(open(path, encoding="utf-8").read())
+    ok_all = True
+    for f in fields or config.ALL_TARGETS:
+        facts = build_facts(f)
+        (config.OUT_DIR / f / "copilot_facts.json").write_text(json.dumps(facts, indent=1, ensure_ascii=False), encoding="utf-8")
+        problems = {lang: check_text(texts[f][lang], facts) for lang in ("en", "az")}
+        words = {lang: len(texts[f][lang].split()) for lang in ("en", "az")}
+        if any(problems.values()):
+            ok_all = False
+            print(f"{f}: REJECTED {problems}")
+            continue
+        obj = load_object(f)
+        obj["copilot"] = {"en": texts[f]["en"], "az": texts[f]["az"], "model": OFFLINE_MODEL, "facts_hash": facts_hash(facts),
+                          "generated_from": f"science/out/{f}/copilot_facts.json", "ai_generated": True,
+                          "audio_en": None, "audio_az": None}
+        save_object(f, obj)
+        print(f"{f}: stored (words en {words['en']}, az {words['az']}; facts_hash {facts_hash(facts)})")
+    return ok_all

@@ -774,7 +774,16 @@
    }
   }
  },
- "copilot": null,
+ "copilot": {
+  "en": "R Draconis is a Mira variable: a cool giant star that pulsates, growing brighter and fainter with a regular period. It is too bright for the WISE and SPHEREx detectors, so instead of real magnitudes we measured a relative brightness index from the star's outer glow in WISE images. A period search on this index finds 246 days, matching the known period of 245.6 days. WISE visits only about every 6 months, so an alias near 713 days fits almost as well: our data agree with the known period but could not single it out alone. In the movie, the star stays in place while its glow swells and shrinks.",
+  "az": "R Draconis Mira tipli dəyişən ulduzdur: müntəzəm dövrlə parlaqlaşıb sönükləşən, pulsasiya edən soyuq nəhəng ulduz. O, WISE və SPHEREx detektorlarının mərkəzi hissəsi üçün çox parlaqdır, buna görə əsl ulduz ölçüsünü (maqnitudu) və SPHEREx spektrini verə bilmirik. Bunun əvəzinə WISE şəkillərində ulduzun xarici işıltısından nisbi parlaqlıq indeksi ölçdük. Bu indeksdə dövr axtarışı 246 gün tapır və bu, məlum 245,6 günlük dövrlə üst-üstə düşür. WISE ulduzu yalnız təxminən 6 aydan bir görür, ona görə 713 gün yaxınlığındakı yalançı dövr də demək olar eyni dərəcədə uyğun gəlir: məlumatlarımız məlum dövrlə uzlaşır, amma onu təkbaşına seçə bilməzdi. Filmdə ulduz yerində qalır, işıltısı isə böyüyüb kiçilir.",
+  "model": "claude-opus-5-5 (Claude Code, offline from facts)",
+  "facts_hash": "c31dafadbd3ff706",
+  "generated_from": "science/out/r_dra/copilot_facts.json",
+  "ai_generated": true,
+  "audio_en": null,
+  "audio_az": null
+ },
  "flags": {
   "saturated_in": [
    "SPHEREx",
