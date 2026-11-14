@@ -42,4 +42,4 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 ## Update ~16:20
 - A3 #24 submitted partial: Vugar notes in MENTOR_NOTES.md, orchestrator told (#52). Tural Salmanov Sun ~11:00 (full rehearsal).
 - Slide 6 users changed (generator updated) → Drive copy is OUTDATED until next rebuild (do it together with real screenshots; Amal re-uploads).
-- Next: `next --wait 540`; QA R2 + screenshots when real fields land.
+- Drafted pitch/PROJECT_PAGE.md (A6 prep, all Space Apps fields). Next: `next --wait 540`; QA R2 + screenshots when real fields land.
