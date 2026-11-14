@@ -323,7 +323,9 @@ def validate_root(root: Path, args, results):
             if not (root / str(f.get("field_id")) / "manifest.json").is_file():
                 idx_rep.err(f"index field {f.get('field_id')}: folder/manifest missing")
             listed[f.get("field_id")] = f
-    size_mb = dir_size(root) / 1e6
+    # nested bundle roots (e.g. _mock/ with its own index.json) are validated and sized separately
+    sub_roots = [d for d in root.iterdir() if d.is_dir() and (d / "index.json").is_file()]
+    size_mb = (dir_size(root) - sum(dir_size(d) for d in sub_roots)) / 1e6
     if size_mb > args.max_mb and root.name != "_mock":
         idx_rep.err(f"bundle size {size_mb:.1f} MB > {args.max_mb} MB")
     idx_rep.info = f"{len(listed)} fields listed, {size_mb:.1f} MB total"

@@ -108,6 +108,12 @@ export function Player(p: PlayerProps) {
       g.beginPath();
       p.track.forEach((t, i) => { const [sx, sy] = toScreen(...world2pix(wcs, t.ra, t.dec)); if (i) g.lineTo(sx, sy); else g.moveTo(sx, sy); });
       g.stroke(); g.setLineDash([]);
+      for (const t of p.track) { // measured positions = small dots, model/predicted = hollow
+        const [sx, sy] = toScreen(...world2pix(wcs, t.ra, t.dec));
+        g.beginPath(); g.arc(sx, sy, 2.2, 0, Math.PI * 2);
+        if (t.kind && t.kind !== "measured") { g.strokeStyle = "rgba(255,93,143,0.8)"; g.lineWidth = 1; g.stroke(); }
+        else { g.fillStyle = "rgba(255,93,143,0.75)"; g.fill(); }
+      }
       if (p.frame) {
         let best = p.track[0];
         for (const t of p.track) if (Math.abs(t.mjd - p.frame.mjd_mid) < Math.abs(best.mjd - p.frame.mjd_mid)) best = t;

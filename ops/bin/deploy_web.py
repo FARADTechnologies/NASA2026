@@ -19,7 +19,9 @@ SKIP = {"node_modules", "dist", ".vercel", "public/devmock"}
 
 def ignore(src, names):
     rel = Path(src).relative_to(WEB).as_posix()
-    return [n for n in names if n in ("node_modules", "dist") or (rel == "public" and n == "devmock") or n.endswith(".tsbuildinfo")]
+    real = (WEB / "public" / "bundle" / "index.json").is_file()  # once real fields exist, do not ship the 12.6 MB mock
+    return [n for n in names if n in ("node_modules", "dist") or (rel == "public" and n == "devmock")
+            or (real and rel == "public/bundle" and n == "_mock") or n.endswith(".tsbuildinfo")]
 
 
 def main():

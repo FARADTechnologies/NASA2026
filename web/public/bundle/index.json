@@ -1,0 +1,19 @@
+{
+ "schema_version": "1.0",
+ "generated_utc": "2026-11-14T10:30:29Z",
+ "fields": [
+  {
+   "field_id": "wise0855",
+   "title": "WISE 0855−0714",
+   "kind": "nasa_test_target",
+   "ra": 133.777963,
+   "dec": -7.24368,
+   "thumb": "wise0855/previews/wise_w2_e00.png",
+   "tags": [
+    "motion",
+    "brown dwarf",
+    "coldest known"
+   ]
+  }
+ ]
+}
