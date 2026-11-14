@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~22:00 Baku (paused)
+Last update: Sat ~23:30 Baku
 
 ## Current task
 #60, #62, #65, #66 all submitted, all in PR #63 (open). Next: `next` loop.
 
 ## Status
-PAUSED by human (Azer) at ~21:45. No work in progress; queue was empty. #60/#62/#65/#66 submitted, all in PR #63 (open, awaiting orchestrator review).
+Resumed by Azer ~23:10, autonomous ON. PR #63 (F8, #62/#65, #66 + live-mode polish + Discover S4 compat) open, not yet reviewed (orchestrator hit usage limit).
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
@@ -18,7 +18,8 @@ PAUSED by human (Azer) at ~21:45. No work in progress; queue was empty. #60/#62/
 ## Next step (exact, so a fresh session can continue blindly)
 - When resumed: `python ops/bin/skyops.py auto on` (if wanted) → `git fetch && git merge origin/role/frontend origin/main` → `skyops.py next --wait 540`.
 - Check PR #63 review comments; re-verify on skylapse.vercel.app after deploy (barnard Gaia clutter, r_dra panel, wise0855 spectrum).
-- Live mode: O2 (POST /api/fields, WISE-only) landed on main (33ff744) → test /view?ra=…&dec=… on the deployed site against the real API.
+- Live mode verified against real API locally (dev proxy /api → Railway): /view?ra=10.68&dec=41.27&fov=4 → 25 WISE frames. Re-check on deploy after PR #63.
+- When pipeline merges science candidates.json into bundle: open /discover on deploy.
 - Azer: cosmetic feedback + 10-second clarity check still pending (note answer on #54).
 
 ## Files touched
