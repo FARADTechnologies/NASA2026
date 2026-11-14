@@ -1,0 +1,55 @@
+{
+ "id": "target",
+ "name": "R Draconis",
+ "kind": "variable_star",
+ "ra": 248.1673493,
+ "dec": 66.7550102,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2020yCat.1350....0G)",
+   "pmra": -20.643,
+   "pmdec": 6.149,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": {
+  "unit_flux": "mJy",
+  "usable": false,
+  "points": [],
+  "binned": [],
+  "template": null,
+  "notes": [
+   "2493 SPHEREx images examined.",
+   "Saturated in 2471 of 2471 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ],
+  "stats": {
+   "images": 2493,
+   "measured": 7,
+   "unflagged": 0,
+   "saturated": 2471,
+   "nan_core": 2464,
+   "edge": 22,
+   "blended": 6,
+   "psf_fit": 7,
+   "saturated_or_empty_core": 2471
+  },
+  "method": "SPHEREx L2 cutouts, IMAGE−ZODI; forced EPSF fit of target + Gaia/CatWISE neighbours + constant within 4 px (aperture r=2 px fallback), VARIANCE errors, blends < 1.5 px flagged, per-pixel wavelength from WCS-WAVE (quick-look), moving position per image"
+ },
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [
+   "SPHEREx"
+  ],
+  "warnings": [
+   "SPHEREx: saturated — spectrum not usable"
+  ]
+ },
+ "simbad_id": "V* R Dra",
+ "sp_type": "M4.5-6+e",
+ "parallax_mas": 1.2509
+}

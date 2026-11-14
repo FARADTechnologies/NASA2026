@@ -1,6 +1,6 @@
 {
  "schema_version": "1.0",
- "generated_utc": "2026-11-14T10:30:29Z",
+ "generated_utc": "2026-11-14T11:09:37Z",
  "fields": [
   {
    "field_id": "wise0855",
@@ -13,6 +13,56 @@
     "motion",
     "brown dwarf",
     "coldest known"
+   ]
+  },
+  {
+   "field_id": "barnard",
+   "title": "Barnard's Star",
+   "kind": "nasa_test_target",
+   "ra": 269.448051,
+   "dec": 4.745234,
+   "thumb": "barnard/previews/wise_w2_e00.png",
+   "tags": [
+    "motion",
+    "red dwarf",
+    "fastest star"
+   ]
+  },
+  {
+   "field_id": "eps_indi_b",
+   "title": "Epsilon Indi B",
+   "kind": "nasa_test_target",
+   "ra": 331.080503,
+   "dec": -56.795173,
+   "thumb": "eps_indi_b/previews/wise_w2_e00.png",
+   "tags": [
+    "motion",
+    "brown dwarf",
+    "binary"
+   ]
+  },
+  {
+   "field_id": "r_dra",
+   "title": "R Draconis",
+   "kind": "nasa_test_target",
+   "ra": 248.167349,
+   "dec": 66.75501,
+   "thumb": "r_dra/previews/wise_w2_e00.png",
+   "tags": [
+    "variability",
+    "Mira variable"
+   ]
+  },
+  {
+   "field_id": "rw_aur",
+   "title": "RW Aurigae",
+   "kind": "nasa_test_target",
+   "ra": 76.956568,
+   "dec": 30.401337,
+   "thumb": "rw_aur/previews/wise_w2_e00.png",
+   "tags": [
+    "variability",
+    "young star"
    ]
   }
  ]

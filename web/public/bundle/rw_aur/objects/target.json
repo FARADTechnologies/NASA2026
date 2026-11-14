@@ -1,0 +1,55 @@
+{
+ "id": "target",
+ "name": "RW Aurigae",
+ "kind": "young_star",
+ "ra": 76.9565679,
+ "dec": 30.4013365,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2007A&A...474..653V)",
+   "pmra": 7.23,
+   "pmdec": -20.33,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": {
+  "unit_flux": "mJy",
+  "usable": false,
+  "points": [],
+  "binned": [],
+  "template": null,
+  "notes": [
+   "335 SPHEREx images examined.",
+   "Saturated in 304 of 333 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ],
+  "stats": {
+   "images": 335,
+   "measured": 330,
+   "unflagged": 17,
+   "saturated": 304,
+   "nan_core": 1,
+   "edge": 2,
+   "blended": 17,
+   "psf_fit": 330,
+   "saturated_or_empty_core": 304
+  },
+  "method": "SPHEREx L2 cutouts, IMAGE−ZODI; forced EPSF fit of target + Gaia/CatWISE neighbours + constant within 4 px (aperture r=2 px fallback), VARIANCE errors, blends < 1.5 px flagged, per-pixel wavelength from WCS-WAVE (quick-look), moving position per image"
+ },
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [
+   "SPHEREx"
+  ],
+  "warnings": [
+   "SPHEREx: saturated — spectrum not usable"
+  ]
+ },
+ "simbad_id": "V* RW Aur",
+ "sp_type": "K1/5e+K5e",
+ "parallax_mas": 15.42
+}
