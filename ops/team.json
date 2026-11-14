@@ -1,0 +1,10 @@
+{
+  "captain": "<deneme_github_username>",
+  "roles": {
+    "orchestrator": "<murad_github_username>",
+    "pipeline": "<murad_github_username>",
+    "science": "<kanan_github_username>",
+    "frontend": "<azer_github_username>",
+    "pitch": "<amal_github_username>"
+  }
+}

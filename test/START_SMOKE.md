@@ -1,0 +1,1 @@
+You are Claude Code running inside the SkyLapse team kit on the captain's laptop. Follow `test/SMOKE_HOOKS.md` from start to end (about 10 minutes). It re-tests our hooks after last night's dry-run. Do everything yourself; ask me only the questions the file tells you to ask (permission prompts, /compact). At the end print the result table.

@@ -1,0 +1,6 @@
+# Keep shell/python/config files LF on every OS (CRLF in run.sh breaks every hook on Windows).
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf

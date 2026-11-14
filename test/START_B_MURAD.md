@@ -1,0 +1,3 @@
+You are Claude Code running inside the unzipped SkyLapse team kit on Murad's computer. Tonight we run a dry-run of our autonomous multi-agent system, and on this computer you are the agent `frontend`.
+Open and follow `test/TEST_B_WORKER.md` from start to end; it tells you which other files to read.
+Do everything yourself. Ask me only for: installing/logging in to GitHub CLI if needed, and the two checks the test file describes (/compact and pause/resume). The captain's agent will give my GitHub account access to the test repo `FARADTechnologies/NASA2026-ops-test`; if access is not there yet, wait for it as the file says.

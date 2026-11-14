@@ -1,0 +1,3 @@
+You are Claude Code running inside the unzipped SkyLapse team kit on the captain's laptop. Tonight we run a dry-run of our autonomous multi-agent system, and on this laptop you are the agent `orchestrator`.
+Open and follow `test/TEST_A_ORCHESTRATOR.md` from start to end; it tells you which other files to read (CLAUDE.md, docs/OPS_PROTOCOL.md, test/TEST_PLAN.md).
+Do everything yourself. Ask me only for: installing/logging in to GitHub CLI if needed, Murad's GitHub username, the TEST-3 approval, and anything that needs a browser. Keep my questions short. At the end give me the summary from test/TEST_RESULTS.md.
