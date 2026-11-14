@@ -47,5 +47,5 @@ Slide-friendly version of the result (one line):
 - **Speed:** any sky position becomes a 14-year WISE movie in about **half a minute** — hours of expert work, by our estimate. [F17, F21]
 - **Trust:** 99.0–99.9 % agreement on NASA's three moving targets; blind search 3 / 3, 0 false alarms. [F6, F15]
 
-## Speaker notes (≈ 30 s, 75 words)
+## Speaker notes (≈ 28 s, 70 words)
 > "What powers SkyLapse? NASA data: SPHEREx from 0.75 to 5 microns, 2025 to 2026, and fourteen years of WISE at 3.4 and 4.6 microns, with ESA Gaia as reference. Our code removes zodiacal light, masks bad and saturated pixels, and measures motion with error bars. Example: WISE 0855 — 8.16 arcseconds a year, a 99.9 percent match, and SPHEREx sees it only at long wavelengths, exactly like a 250-kelvin world."
