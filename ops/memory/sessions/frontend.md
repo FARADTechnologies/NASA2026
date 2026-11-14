@@ -1,5 +1,5 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~21:45 Baku
+Last update: Sat ~22:00 Baku (paused)
 
 ## Current task
 #60, #62, #65, #66 all submitted, all in PR #63 (open). Next: `next` loop.
@@ -18,11 +18,8 @@ PAUSED by human (Azer) at ~21:45. No work in progress; queue was empty. #60/#62/
 ## Next step (exact, so a fresh session can continue blindly)
 - When resumed: `python ops/bin/skyops.py auto on` (if wanted) → `git fetch && git merge origin/role/frontend origin/main` → `skyops.py next --wait 540`.
 - Check PR #63 review comments; re-verify on skylapse.vercel.app after deploy (barnard Gaia clutter, r_dra panel, wise0855 spectrum).
-- Submit #18 if not yet submitted (report: live mode tested against fake API `SKYLAPSE_FAKE_API=1 npx vite --port 5174`).
-- `python ops/bin/skyops.py next --wait 540`; if an issue for F1–F5 appears, claim it and submit the existing PR against it.
-- Show Azer screenshots; apply cosmetic feedback.
-- When web/public/bundle/index.json appears on main: merge main into role/frontend, check real frames render (stretch defaults!).
-- F5: Discover page (candidates.json across fields), About page, live mode (POST /api/fields + poll).
+- Live mode: O2 (POST /api/fields, WISE-only) landed on main (33ff744) → test /view?ra=…&dec=… on the deployed site against the real API.
+- Azer: cosmetic feedback + 10-second clarity check still pending (note answer on #54).
 
 ## Files touched
 - web/** (all), ops/memory/sessions/frontend.md
