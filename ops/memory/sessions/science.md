@@ -1,9 +1,9 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov ~02:00 Baku
+Last update: Sun 15 Nov ~02:20 Baku
 
 ## Current task
-#89 S7 done: gateway texts generated (10/10 guard-clean); kept API AZ for wise0855/barnard/rw_aur/r_dra, offline for all EN
-(API EN 113–116 words) and eps AZ (112). Guard now strict 110 words. #90 S8 submitted (PR #102, incl. R Dra period fix 246.12 d).
+#91 S9 science/IMPACT_NUMBERS.md done (live field measured by science: 23 s ready / 33 s done; manual alternative estimate
+2–3 h). #89 S7 + #90 S8 submitted on PR #102.
 
 ## Status
 - S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
