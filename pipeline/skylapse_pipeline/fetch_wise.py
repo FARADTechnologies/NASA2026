@@ -58,8 +58,9 @@ def _get(ra, dec, size, band, epoch, dest: Path, deadline: float | None):
         if deadline and time.time() > deadline:
             return "fail"
         try:
+            tmo = 30.0 if not deadline else max(2.0, min(30.0, deadline - time.time()))
             r = requests.get(URL, params=dict(ra=f"{ra:.6f}", dec=f"{dec:.6f}", size=size, band=band, epoch=epoch),
-                             timeout=30, headers={"User-Agent": UA})
+                             timeout=tmo, headers={"User-Agent": UA})
             if r.status_code == 500:
                 return "end"
             if r.status_code == 200 and r.content[:6] == b"SIMPLE":
@@ -74,10 +75,27 @@ def _get(ra, dec, size, band, epoch, dest: Path, deadline: float | None):
     return "fail"
 
 
+def bisection_order(n: int = 23) -> list[int]:
+    """0, n-1, middle, quarters, ... — every prefix spans the full time range."""
+    out, seen, spans = [0, n - 1], {0, n - 1}, [(0, n - 1)]
+    while spans:
+        nxt = []
+        for a, b in spans:
+            if b - a > 1:
+                m = (a + b) // 2
+                if m not in seen:
+                    out.append(m)
+                    seen.add(m)
+                nxt += [(a, m), (m, b)]
+        spans = nxt
+    return out
+
+
 def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), deadline: float | None = None,
-          refresh: bool = False) -> list[dict]:
+          refresh: bool = False, order: list[int] | None = None) -> list[dict]:
     """Download all epochs of each band (one band after the other, 2 workers sharing an epoch counter; HTTP 500 = end) into
-    CACHE/wise/<field>/, merge into index.csv, return read_index(). Bands already in the index are not fetched again."""
+    CACHE/wise/<field>/, merge into index.csv, return read_index(). Bands already in the index are not fetched again.
+    order: epochs to try, in this order (e.g. bisection_order() so a deadline-cut fetch still spans 2010-2024)."""
     have = {r["band"] for r in read_index(field)}
     todo = list(bands) if refresh else [b for b in bands if b not in have]
     if not todo:
@@ -86,15 +104,18 @@ def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), d
     d.mkdir(parents=True, exist_ok=True)
     results = []
     for band in todo:
+        seq = list(order) if order else list(range(MAX_EPOCHS))
         state = {"next": 0, "end": MAX_EPOCHS, "fails": 0, "ok": 0}
         lock = threading.Lock()
 
         def worker():
             while True:
                 with lock:
-                    ep = state["next"]
-                    if ep >= state["end"] or (state["fails"] >= 2 and state["ok"] == 0) or state["fails"] >= 6:
+                    while state["next"] < len(seq) and seq[state["next"]] >= state["end"]:
+                        state["next"] += 1
+                    if state["next"] >= len(seq) or (state["fails"] >= 2 and state["ok"] == 0) or state["fails"] >= 6:
                         return
+                    ep = seq[state["next"]]
                     state["next"] += 1
                 dest = d / f"w{band}_e{ep:02d}.fits"
                 st = _get(ra, dec, size_px, band, ep, dest, deadline)

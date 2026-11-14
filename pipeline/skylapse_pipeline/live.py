@@ -28,9 +28,23 @@ def live_id(ra: float, dec: float, fov: float) -> str:
     return f"live_{ra:08.4f}_{'p' if dec >= 0 else 'm'}{abs(dec):07.4f}_{h}".replace(".", "d")
 
 
+def pick_per_bin(rows: list[dict], intervals, k: int) -> list[dict]:
+    """At most k images per time bin, spread evenly in time (IRSA cutouts take 10-60 s each; a full field can be 400 images)."""
+    from .epochs import assign
+
+    out = []
+    for ti in range(len(intervals)):
+        rs = sorted((r for r in rows if assign(0.5 * (r["t_start"] + r["t_end"]), intervals) == ti), key=lambda r: r["t_start"])
+        if len(rs) > k:
+            step = len(rs) / k
+            rs = [rs[int(i * step)] for i in range(k)]
+        out += rs
+    return out
+
+
 def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Path | str = BUNDLE / "_live", progress_cb=None,
-                     field_id: str | None = None, wise_limit_s: float = 80.0, total_limit_s: float = 900.0,
-                     detectors=DET_ORDER, title: str | None = None) -> dict:
+                     field_id: str | None = None, wise_limit_s: float = 70.0, total_limit_s: float = 900.0,
+                     detectors=DET_ORDER, title: str | None = None, max_per_bin: int = 4) -> dict:
     t0 = time.time()
     out_dir = Path(out_dir)
     fid = field_id or live_id(ra, dec, fov_arcmin)
@@ -64,7 +78,8 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
     size_px = n_px + 24
     try:
         fcat = ex.submit(b.load_catalogs, True)
-        rows = fetch_wise.fetch(fid, ra, dec, size_px=size_px, bands=(2,), deadline=t0 + wise_limit_s)
+        rows = fetch_wise.fetch(fid, ra, dec, size_px=size_px, bands=(2,), deadline=t0 + wise_limit_s,
+                                order=fetch_wise.bisection_order(23))
         try:
             fcat.result(timeout=max(3.0, t0 + wise_limit_s - time.time()))
         except Exception as e:  # noqa: BLE001  (timeout: frames stay unscaled; catalogs land later)
@@ -106,7 +121,7 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
             if time.time() - t0 > total_limit_s:
                 report("spherex_partial", 0.35 + 0.65 * k / max(len(dets), 1), "time limit reached; stopping SPHEREx")
                 break
-            rows = [r for r in idx if r["band"] == det]
+            rows = pick_per_bin([r for r in idx if r["band"] == det], b.intervals, max_per_bin)
             n_ok = fetch_spherex.download(rows, deadline=t0 + total_limit_s)
             b.add_spherex([det])
             b.write(status="spherex_partial")
@@ -115,6 +130,15 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
         log.error("live %s SPHEREx stage failed: %s\n%s", fid, e, traceback.format_exc())
         status["spherex_error"] = str(e)
 
+    try:  # late WISE epochs (slow byw.tools): add whatever the background pass has finished by now
+        allw = fw1.result(timeout=max(1.0, min(60.0, t0 + total_limit_s + 60 - time.time())))
+        have = set(b.frames)
+        new = [r for r in allw if f"wise_w{r['band']}_e{r['epoch']:02d}" not in have]
+        for band in (2, 1):
+            if any(r["band"] == band for r in new):
+                b.add_wise([r for r in allw if r["band"] == band])
+    except Exception as e:  # noqa: BLE001
+        log.warning("live %s late WISE: %r", fid, e)
     ex.shutdown(wait=False)
     try:
         b.write(status="done")

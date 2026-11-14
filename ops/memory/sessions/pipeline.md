@@ -1,13 +1,12 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov 15:00 Baku
+Last update: Sat 14 Nov 16:45 Baku
 
 ## Current task
-#4 T3 build-all (+ #5 T4, #6 T5, #7 T6 implemented in the same code) — final rebuild running, then one PR for T1–T6.
+None. T1–T6 (#2–#7) submitted; PR #59 MERGED into main (11:20 UTC). #49 answered: _mock is sized separately; keep D1–D6.
+Human asked to pause: `skyops.py pause` was run (Sat ~16:45). Queue was empty (3× NO_TASK).
 
 ## Status
-All 5 fields build and PASS per field (wise0855 64, barnard 64, eps_indi_b 68, r_dra 112, rw_aur 64 frames). Root FAILs only on size
-(~83 MB incl. orchestrator _mock 12.6 MB) → asked orchestrator in #49. #38 answered (merged main d15eeee).
-Live runner: WISE-ready in 83 s on a fresh coordinate (M101 area), SPHEREx frames then stream in per detector.
+PAUSED. validate_bundle 8/8 PASS (5 real fields + _mock). Live runner tested on 4 fresh coordinates (all PASS).
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -17,9 +16,8 @@ Live runner: WISE-ready in 83 s on a fresh coordinate (M101 area), SPHEREx frame
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- After build-all + validate: commit bundle + code, push (`git -c http.postBuffer=524288000 push`), open PR role/pipeline→main,
-  submit #2–#7 reports (inventory output, validation, GIFs in pipeline/qa/, saturation fractions, live timing).
-- Then: answer to #49 (size), help science with data/derived/<field>/ products, T7 only when asked.
+- When the human says continue: `python ops/bin/skyops.py resume`, then `python ops/bin/skyops.py next --wait 540` and follow it.
+- On review changes: fix, rebuild (`cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline build-all`, ~6 min), validate, push.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py
