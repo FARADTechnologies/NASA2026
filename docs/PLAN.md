@@ -8,6 +8,18 @@
   We listen and learn; we only change direction through the escalation protocol.
 - Local organizers allow AI tools for everything, on condition that the presentation explains how AI was used.
 - Real working time ≈ 16–17 h: Sat 11:00–24:00 (minus meals), Sun 07:30–13:30. Venue: Baku Engineering University (Xırdalan).
+- Format (LOCAL_RULES): pitch + live demo = 5 min total (overrun = disqualified), Q&A 5 min, max 7 English slides.
+
+### 1b. Judging criteria — we must score on BOTH lists (updated Sun 00:05, permanent)
+| LOCAL (Baku, 20 % each) | how we score it | GLOBAL (NASA) |
+|---|---|---|
+| Market Potential / Scalability | value as **time saved, people reached, cost per user** (money only with stated inputs): live field in seconds vs manual download + alignment; any sky position, free; users = citizen scientists, students/teachers, SRDA 1000+; ~0 cost/user on NASA open data + free hosting | Impact |
+| Presentation | 5-min story, live demo, backup video | Presentation |
+| Innovation | first public tool joining the 16-yr WISE baseline with SPHEREx spectra | Creativity |
+| Technical Readiness (includes scientific validity) | live prototype + `docs/METHODOLOGY.md` (A/B/C → gap X → D) + README + validation 99.0–99.9 %, 3/3 blind recovery, 0 false alarms | Validity |
+| Relevance of the problem | NASA challenge; SPHEREx's 1-yr baseline problem; volunteer science precedent | Relevance |
+Mentor (Tural Salmanov, in writing): Market Potential needs no money; validity is judged inside Technical Readiness. Expected methodology answer:
+"We reviewed recent methods (NASA/ESA/IAC literature): approaches A, B, C; their gap X; we propose D; and here is the working prototype."
 
 ## 2. What NASA asks for (challenge "Planet X and SPHEREx") — our checklist
 Objective (mandatory): public web tool; user enters RA/Dec; tool shows a series of SPHEREx images of that patch like a little video,
