@@ -88,6 +88,17 @@ Who answers: Amal by default; Murad for deep technical questions (pipeline, data
     Making two very different telescopes agree: different pixel sizes, colours and units, plus saturated bright stars. We solved it
     with a common grid, relative brightness and honest saturation flags.
 
+## F. Questions the real results invite (added Sat ~18:10 from science/VALIDATION.md)
+26. **Do you also measure distance (parallax)?**
+    Not reliably yet, and we say so: WISE was built to map, not to measure tiny yearly wobbles, so our parallax is only a helper in the fit.
+    Speed across the sky is what we validate — and that agrees with Gaia to better than 99 %.
+27. **Why is ε Indi B "only" 99.0 %?**
+    ε Indi B is really two brown dwarfs orbiting each other every ~11 years. Gaia watched for under 3 years and caught part of that orbit;
+    our 14-year baseline averages over it — and B moves with its star ε Indi A to 99.3 %.
+28. **Barnard's Star is saturated — how can you measure it?**
+    The centre is too bright, so we fit the shape of the unsaturated edges of the star in every image. The result, 10.40″ per year,
+    matches Gaia to 99.8 %.
+
 ## Rules
 - Never "we discovered", never "Planet X found". Use "candidate for follow-up".
 - If you don't know: "Good question — we haven't measured that yet; here is what we do know: …". Never invent a number.
