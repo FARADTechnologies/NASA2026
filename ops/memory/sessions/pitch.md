@@ -31,5 +31,5 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - Unknowns at venue: HDMI/Wi-Fi, submission mechanics, Global Nominee count.
 ## Update ~15:35 — A5 #26 in progress
 - Done: QA_ANSWERS (25), AI_USE, REFERENCES, VIDEO_STORYBOARD, slides v1 (pitch/slides/SkyLapse_FARAD_v1.pptx, validated + rendered via PowerPoint COM).
-- Next: Amal uploads pptx to Google Drive → shared link into pitch/SLIDES.md; after deploy: real screenshots on slide 4; then submit #26.
+- Slides link (Drive, public view): see pitch/SLIDES.md. Next: after deploy → real screenshots on slide 4, then re-submit #26 as done.
 - Tooling: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`); no LibreOffice → render PNGs with PowerPoint COM (powershell Slides.Item(i).Export).
