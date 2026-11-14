@@ -28,6 +28,7 @@ export function Viewer({ search }: { search: string }) {
   const [failed, setFailed] = useState<Set<string>>(new Set());
 
   const [objectId, setObjectId] = useState("");
+  const [showControls, setShowControls] = useState(false); // phone layout only
   useEffect(() => {
     if (!objectId || !base) { setObj(null); return; }
     let alive = true;
@@ -240,7 +241,8 @@ export function Viewer({ search }: { search: string }) {
     <div className="page viewer">
       <TopBar title={manifest?.title} isMock={isMock} />
       <div className="viewer-grid">
-        <ControlsPanel view={view} update={update} manifest={manifest} seqFrames={seqFrames} idx={idx} playing={playing} />
+        <ControlsPanel view={view} update={update} manifest={manifest} seqFrames={seqFrames} idx={idx} playing={playing}
+          open={showControls} onClose={() => setShowControls(false)} />
         <main className="stage">
           <div className="frame-label">
             {shownFrame ? (
@@ -277,6 +279,7 @@ export function Viewer({ search }: { search: string }) {
               <input type="range" min={40} max={1500} step={10} value={1540 - view.speed} onChange={(e) => update({ speed: 1540 - +e.target.value })} />
               <span className="mono">{(1000 / view.speed).toFixed(1)} fps</span>
             </label>
+            <button className="btn controls-toggle" onClick={() => setShowControls((x) => !x)}>⚙ Controls</button>
             <div className="span-label"><b className="mono">{span}</b> <span className="muted">{nLoaded < n ? `· loading ${nLoaded}/${n}` : `· ${n} frames`}{failed.size ? ` · ${failed.size} unavailable` : ""}</span></div>
           </div>
           <Timeline frames={seqFrames} index={idx} loaded={loaded} onSelect={(i) => { setPlaying(false); update({ frame: i }); }} range={coaddRange}
