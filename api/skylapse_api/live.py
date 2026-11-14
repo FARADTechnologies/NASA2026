@@ -29,6 +29,15 @@ def init(fields_dir: Path) -> None:
     global FIELDS
     FIELDS = fields_dir
     FIELDS.mkdir(parents=True, exist_ok=True)
+    # Stale live fields (built by an older live runner) listed in env SKYLAPSE_STALE_FIELDS (comma-separated ids) are removed
+    # at startup, so the next request rebuilds them. Only plain live_* ids inside FIELDS are accepted.
+    import os
+    import shutil
+    for fid in filter(None, (x.strip() for x in os.environ.get("SKYLAPSE_STALE_FIELDS", "").split(","))):
+        d = (FIELDS / fid).resolve()
+        if fid.startswith("live_") and "/" not in fid and "\\" not in fid and d.parent == FIELDS.resolve() and d.is_dir():
+            shutil.rmtree(d, ignore_errors=True)
+            print(f"removed stale live field {fid}", flush=True)
 
 
 def field_id(ra: float, dec: float, fov: float) -> str:

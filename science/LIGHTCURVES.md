@@ -20,9 +20,9 @@ R Draconis and RW Aurigae are far too bright: their cores are saturated in every
   rms for RW Aur.
 - **RW Aur vs NEOWISE profile-fit photometry** (per-visit medians; the profile fit uses the unsaturated wings of moderately saturated
   stars): correlation 0.93 (W1) and 0.98 (W2) over 23 visits.
-- **R Dra period:** a period search (100–1000 d) on the index finds 246 d (W1) and 247 d (W2); the GCVS period is 245.6 d.
+- **R Dra period:** a period search (100–1000 d) on the index finds 246 d (W1) and 247 d (W2); the AAVSO VSX period is 246.12 d.
   WISE visits the star about every 6 months, so an alias near 710 d fits almost as well: the data are consistent with the known
-  period but could not single it out alone. Folded on 245.6 d, one sine wave explains 75 % of the W1 index variation.
+  period but could not single it out alone. Folded on 246.12 d, one sine wave explains 76 % of the W1 index variation.
 - R Dra's NEOWISE profile-fit magnitudes (W1 ≈ 0, W2 ≈ −1) scatter by up to ~2 mag within single visits: beyond the saturation
   correction, not used.
 
