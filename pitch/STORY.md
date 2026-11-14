@@ -41,7 +41,8 @@ Pre-open the site in a browser tab, on WISE 0855, paused at 2010. Zoom set. No t
 | 0:55 | Click Barnard's Star → validation card | "Is the motion real? For Barnard's Star we measure 10.4 arcseconds per year. Gaia says the same: 99.8 percent agreement." |
 | 1:15 | Open the AI explanation, Azerbaijani first | "And every object is explained in plain language — in Azerbaijani and English — written only from our own measurements." |
 | 1:30 | Back to slides | — |
-Fallback: if Wi-Fi or the site fails → play the backup video (same steps) from the laptop, no apology longer than one sentence.
+Fallback: if Wi-Fi or the site fails → play `pitch/video/SkyLapse_demo_backup.mp4` (1:22, same story, captions) from the laptop, no apology longer than one sentence.
+Status Sun 00:20: copilot EN/AZ is LIVE (step at 1:15 works); R Dra light curve live (optional swap for the Barnard step if time allows).
 Steps cut for time (mention only if asked): live arbitrary coordinates, Discover tab, difference/co-add modes, Gaia overlay.
 
 ## 4. Script (read aloud; short sentences; ≈ 140 words/min)

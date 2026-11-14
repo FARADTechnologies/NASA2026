@@ -1,0 +1,9 @@
+# Backup demo recording
+- `SkyLapse_demo_backup.mp4` — 1:22.6, 1600×900, H.264, 11.8 MB. Recorded Sun 15 Nov ~00:15 Baku from the LIVE site https://skylapse.vercel.app
+  (no edits, no AI-generated imagery or voice; English captions burned in; corner label "live site recording").
+- Scenes: WISE 0855 16-year movie → AZ AI explanation + 99.9 % → ε Indi B SPHEREx spectrum → Barnard's Star 99.8 % + saturation honesty →
+  R Draconis light curve (246 d vs 245.6 d) → blind search 3/3, URL.
+- Use: offline fallback if Wi-Fi or the site fails during the live demo (keep a copy on the presentation laptop + USB stick).
+- Re-record (after any UI change): `npm install playwright-core@1.48.2` in a temp folder, then
+  `NODE_PATH=<temp>/node_modules node pitch/video/record_demo.js <framesDir>` (uses installed Microsoft Edge, CDP screencast) and
+  `python pitch/video/make_mp4.py <framesDir> pitch/video/SkyLapse_demo_backup.mp4 3.8` (needs `pip install imageio-ffmpeg`).
