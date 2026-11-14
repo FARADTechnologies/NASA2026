@@ -1,11 +1,13 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 01:00 (Kanan's computer)
+Last update: Sun 02:05 (Kanan's computer)
 
 ## Current task
 Autonomous review loop; queue empty at 01:00 except scheduled M4 #31 (Sun 10:30) and SUB #32 (14:00); A6 #27 is human (Amal).
 Closed 00:30–01:00: A9 #93 (market slide, 'Seconds, not hours', 11–33 s range, SRDA confirmed), A10 #94 (no discovery wording),
 #113 period 246.12 d in pitch + 30-s video pitch/video/SkyLapse_30s.mp4, A11 #114 accurate AI-use (EN offline / AZ via gateway).
 Human items for the morning: Amal's final deck (slide 6 title, R Dra 246.12 d) checked anonymously at A6; timed rehearsal; repo public ~13:00.
+01:15 QA round 3 (#116) clean; 01:45 I fixed #117 (Discover '14 years') myself — frontend idle overnight; deployed + verified.
+3 live demo fields cached (POST → cached=true ~0.6 s). Pre-judging checklist posted on M4 #31.
 Closed since 00:00: S7 #89 (API AZ texts in bundle), S8 #90 METHODOLOGY.md (refs spot-checked), S9 #91 impact numbers,
 A8 #92, T9 #78 (live 15–33 s, 3 demo fields pre-warmed), F12 #108 ('Try a live field', 149 ms first frame), O5 #95 README.
 R Dra known period corrected to 246.12 d (AAVSO VSX) on site + README (GCVS 245.6 was unverifiable).
