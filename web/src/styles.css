@@ -309,3 +309,4 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .caption { margin-top: 4px; font-style: italic; }
 .tiny-check { margin: 0; font-size: 11.5px; color: var(--muted); }
 .caption { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.coming { padding: 12px 2px; border-top: 1px solid rgba(31, 39, 64, .6); }

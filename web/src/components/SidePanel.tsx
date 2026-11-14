@@ -45,6 +45,12 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
   const [lang, setLang] = useState<"en" | "az">("en");
   const [showFlagged, setShowFlagged] = useState(false);
   const m = obj?.motion;
+  const coming = [
+    !(m?.measured && m.measured.pm_total > 0) && !m?.reference ? "motion" : null,
+    !obj?.lightcurve?.points?.length ? "light curve" : null,
+    !obj?.spectrum ? "spectrum" : null,
+    !obj?.copilot ? "AI explanation (EN / AZ)" : null,
+  ].filter(Boolean) as string[];
   return (
     <aside className="panel side" ref={panelRef as React.Ref<HTMLElement>}>
       {isMock && <div className="mock-banner">Demo data (mock) — real survey frames replace this automatically.</div>}
@@ -93,35 +99,37 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
               </div>
             ) : m?.reference ? (
               <div className="motion">
+                <div className="muted small" style={{ marginBottom: 4 }}>Reference motion (published, not our measurement)</div>
                 <table className="pm">
                   <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
                   <tbody>
-                    <tr><td>Measured</td><td colSpan={3} className="muted" style={{ textAlign: "right", fontFamily: "var(--font)" }}>not available yet</td></tr>
-                    <tr><td title={m.reference.source}>Reference</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>
+                    <tr><td title={m.reference.source}>Published</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>
                   </tbody>
                 </table>
-                <div className="muted small ref-src">Reference: {m.reference.source} · mas/yr</div>
+                <div className="muted small ref-src">{m.reference.source} · mas/yr</div>
               </div>
-            ) : <div className="muted small">Motion not available yet.</div>}
+            ) : null}
             {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}>⚠ {w}</li>)}</ul> : null}
             {obj.flags?.saturated_in?.length ? <div className="warn small">⚠ Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
           </>
         ) : NA}
       </section>
 
-      <section className="card">
-        <div className="card-head">
-          <h3>AI Copilot</h3>
-          <div className="seg tiny">
-            <button className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
-            <button className={lang === "az" ? "on" : ""} onClick={() => setLang("az")}>AZ</button>
+      {obj?.copilot && (
+        <section className="card">
+          <div className="card-head">
+            <h3>AI Copilot</h3>
+            <div className="seg tiny">
+              <button className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
+              <button className={lang === "az" ? "on" : ""} onClick={() => setLang("az")}>AZ</button>
+            </div>
           </div>
-        </div>
-        {obj?.copilot ? <p className="copilot">{obj.copilot[lang]}</p> : NA}
-        {obj?.copilot && <div className="muted small">Written by AI only from the measured facts above.</div>}
-      </section>
+          <p className="copilot">{obj.copilot[lang]}</p>
+          <div className="muted small">Written by AI only from the measured facts above.</div>
+        </section>
+      )}
 
-      <section className="card">
+      {obj?.spectrum && <section className="card">
         <div className="card-head">
           <h3>Spectrum <span className="muted small" style={{ textTransform: "none", letterSpacing: 0 }}>SPHEREx 0.75–5 µm</span></h3>
           {obj?.spectrum?.points?.some((p) => p.flagged) && obj.spectrum.usable !== false && (
@@ -144,20 +152,20 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
             {obj.spectrum.notes?.map((t) => <div key={t} className="muted small">{t}</div>)}
           </>
         ) : NA}
-      </section>
+      </section>}
 
-      <section className="card">
-        <h3>Light curve</h3>
-        {obj?.lightcurve?.points?.length ? (
-          <>
-            <ScatterChart xLabel="year" yLabel="magnitude" invertY
-              series={["WISE", "SPHEREx"].map((ins) => ({ name: ins, color: ins === "WISE" ? "var(--wise)" : "var(--spherex)",
-                points: obj.lightcurve!.points.filter((p) => p.instrument === ins).map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: p.saturated })) }))}
-              hollowLabel="saturated (less reliable)" />
-            {obj.lightcurve.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
-          </>
-        ) : NA}
-      </section>
+      {obj?.lightcurve?.points?.length ? (
+        <section className="card">
+          <h3>Light curve</h3>
+          <ScatterChart xLabel="year" yLabel="magnitude" invertY
+            series={["WISE", "SPHEREx"].map((ins) => ({ name: ins, color: ins === "WISE" ? "var(--wise)" : "var(--spherex)",
+              points: obj.lightcurve!.points.filter((p) => p.instrument === ins).map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: p.saturated })) }))}
+            hollowLabel="saturated (less reliable)" />
+          {obj.lightcurve.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
+        </section>
+      ) : null}
+
+      {obj && coming.length > 0 && <div className="coming muted small">Coming soon for this object: {coming.join(", ")}.</div>}
 
       {cands && (
         <section className="card">
