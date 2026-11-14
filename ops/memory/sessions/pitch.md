@@ -47,7 +47,7 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - Real bundle live (5 targets). QA R2 logged in docs/QA.md; bugs #65 (Gaia clutter, P1), #66 (empty panels, P2), #45 still open.
 - Validation: Barnard 99.8 %, ε Indi B 99.0 % (+99.3 % co-motion with A), WISE 0855 99.9 % → FACTS F6, STORY, QA_ANSWERS, PROJECT_PAGE, deck.
 - Deck v2 built (real screenshots). Screenshot recipe: headless Edge `msedge --headless=new --window-size=1600,900 --force-device-scale-factor=2 --virtual-time-budget=15000 --screenshot=out.png URL` (timeout ≥ 200 s), crop with PIL.
-- Waiting: Amal uploads v2 as new version on Drive → then re-submit #26 done. Risk: R Dra/RW Aur light curves (S3 #10) not yet; copilot (S5) not yet.
+- DONE: Amal uploaded v2 as a new Drive version; shared link serves v2 content (checked ~19:00). Drive file name still says v1 (cosmetic).
 ## Update ~17:50
-- #64 A4b submitted (QA R2/R2b, deck v2, FACTS). #45 fixed by frontend. Open: #65, #66. Waiting on Amal: v2 uploaded as new Drive version.
+- #64 A4b submitted (QA R2/R2b, deck v2, FACTS). #45 fixed by frontend. Open: #65, #66. v2 live on the Drive link.
 - Next: `next --wait 540`; when S3 (#10) / S5 (#11) land → QA R3, slide 5 RW Aur/R Dra row, demo copilot step, AZ copilot screenshot.
