@@ -1,5 +1,5 @@
 # PROJECT STATE — written ONLY by the orchestrator. Keep under ~70 lines. Update at every checkpoint and after big changes.
-Last update: Sat 23:28 by orchestrator (health check after the move to Kanan's computer)
+Last update: Sun 00:40 by orchestrator
 
 ## Milestone
 M0 14:20 · M1 14:55 · M2+M3 checkpoint posted late (Sat 23:25, issue #30) — agents stalled ~16:00–23:00 (shared usage limit).
@@ -12,7 +12,7 @@ Next: **M4 FEATURE FREEZE Sun 10:30** (tag v1.0) · Sun 11:00 rehearsals (A6) ·
 
 ## Deployed
 - Web: **https://skylapse.vercel.app** — deploy ONLY with `python3 ops/bin/deploy_web.py` (Vercel login OK on this computer).
-- API: https://api-production-02611b3c.up.railway.app (Railway trial, D-015), reached as `/api/*`. Railway CLI logged in + linked on this computer.
+- API v0.3.0: https://api-production-02611b3c.up.railway.app (Railway trial, D-015), reached as `/api/*`; live WISE-only 11–38 s; optional live copilot `/api/copilot` (env-only config, D-021). CLI logged in + linked on this computer.
   Redeploy: `MSYS_NO_PATHCONV=1 npx @railway/cli up --detach --service api` (needs `railway link` to project skylapse-api after login).
 - Repo: https://github.com/FARADTechnologies/NASA2026 — private until Sun ~13:00. PRs merged with merge commits (D-016).
 
