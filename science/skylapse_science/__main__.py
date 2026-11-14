@@ -23,6 +23,8 @@ def main(argv=None) -> int:
     cp.add_argument("--field", action="append", help="limit to one field (repeatable)")
     cp.add_argument("--dry-run", action="store_true", help="only build and print the facts JSON (no API call)")
     cp.add_argument("--force", action="store_true", help="regenerate even if facts_hash is unchanged")
+    dc = sub.add_parser("discover", help="S4: auto-discovery of movers + recall (candidates.json)")
+    dc.add_argument("--field", action="append", help="limit to one field (repeatable)")
     a = ap.parse_args(argv)
     if a.cmd == "validate":
         from . import validate
@@ -39,6 +41,9 @@ def main(argv=None) -> int:
     elif a.cmd == "copilot":
         from . import copilot
         copilot.run(a.field, dry_run=a.dry_run, force=a.force)
+    elif a.cmd == "discover":
+        from . import discovery
+        discovery.run(a.field)
     return 0
 
 
