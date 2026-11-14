@@ -29,3 +29,7 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - (names: Amal Mirzayev, Hasan Dadashzada, Murad Qaramollayev, Azer Valiyev, Kanan Pashazada)
 - Science: [X %] PM agreement (S1 #8) → FACTS F6. Orchestrator: deployed URL (for QA A4 + screenshots).
 - Unknowns at venue: HDMI/Wi-Fi, submission mechanics, Global Nominee count.
+## Update ~15:35 — A5 #26 in progress
+- Done: QA_ANSWERS (25), AI_USE, REFERENCES, VIDEO_STORYBOARD, slides v1 (pitch/slides/SkyLapse_FARAD_v1.pptx, validated + rendered via PowerPoint COM).
+- Slides link (Drive, public view): see pitch/SLIDES.md. Next: after deploy → real screenshots on slide 4, then re-submit #26 as done.
+- Tooling: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`); no LibreOffice → render PNGs with PowerPoint COM (powershell Slides.Item(i).Export).
