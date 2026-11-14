@@ -25,3 +25,4 @@ dist/
 .skylapse-pause
 .claude/.auto_cycles
 ops/tmp/
+.vercel/
