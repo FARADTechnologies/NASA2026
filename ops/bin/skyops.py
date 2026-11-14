@@ -504,7 +504,7 @@ def cmd_escalate(a):
 def cmd_accept(a):
     need_gh()
     if a.merge_pr:
-        code, out = run(["gh", "pr", "merge", a.merge_pr, "--squash", "--delete-branch=false"], timeout=60)
+        code, out = run(["gh", "pr", "merge", a.merge_pr, "--merge", "--delete-branch=false"], timeout=60)
         print(out.strip() or "PR merged")
         if code != 0:
             sys.exit("merge failed — fix conflicts or ask the owner; issue not closed")
