@@ -143,7 +143,7 @@ def check_text(text: str, facts: dict) -> list[str]:
     for bad in ("discover", "planet x", "kəşf"):
         if bad in low and "candidate" not in low:
             problems.append(f"forbidden word '{bad}'")
-    if len(text.split()) > MAX_WORDS + 10:
+    if len(text.split()) > MAX_WORDS:
         problems.append(f"too long ({len(text.split())} words)")
     return problems
 
