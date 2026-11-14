@@ -37,7 +37,7 @@ warnings.simplefilter("ignore", RuntimeWarning)
 VAR_TARGETS = ["r_dra", "rw_aur"]
 RING_WIDTH = 6
 BKG = (25, 35)
-LIT_PERIOD = {"r_dra": (245.6, "GCVS")}     # used only to fold the measured index, never as a result
+LIT_PERIOD = {"r_dra": (246.12, "AAVSO VSX")}     # vsx.aavso.org, checked 15 Nov 2026; only to fold the index, never a result
 
 
 def _epochs(field):

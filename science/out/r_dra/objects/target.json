@@ -703,9 +703,9 @@
   "notes": [
    "Too bright for normal photometry: the star's core is saturated in WISE and in SPHEREx. 'mag' here is a RELATIVE brightness index (0 = median; positive = fainter) from the unsaturated outer wings of the star image, not a magnitude.",
    "Index from rings 11–17 px (W1) and 13–19 px (W2) around the star in 37 + 37 unWISE epochs (2010–2024).",
-   "Period search (100–1000 d) on the index: best period 246 d (W1) and 247 d (W2), matching the known Mira period of 245.6 d (GCVS).",
+   "Period search (100–1000 d) on the index: best period 246 d (W1) and 247 d (W2), matching the known Mira period of 246.12 d (AAVSO VSX).",
    "WISE visits this star only about every 6 months, so an alias period near 713 d fits almost as well; the data are consistent with the known period but could not single it out without it.",
-   "Folded on 245.6 d, one sine wave explains 75 % of the W1 index variation (semi-amplitude 0.31 mag in the index).",
+   "Folded on 246.12 d, one sine wave explains 76 % of the W1 index variation (semi-amplitude 0.31 mag in the index).",
    "NEOWISE profile-fit magnitudes of R Dra scatter by up to ~2 mag within single visits (beyond the saturation-correction range) and are not used.",
    "SPHEREx points (synthesized at 3.4/4.6 µm from per-epoch spectra) are not possible: the star is saturated in SPHEREx."
   ],
@@ -717,13 +717,13 @@
    "neowise_corr_w1": 0.887,
    "neowise_corr_w2": 0.405,
    "folded": {
-    "period_d": 245.6,
-    "source": "GCVS",
+    "period_d": 246.12,
+    "source": "AAVSO VSX",
     "W1": {
-     "variance_explained_at_lit": 0.7509772768920764,
-     "semi_amplitude_mag": 0.3070372388470274,
+     "variance_explained_at_lit": 0.7565812414150177,
+     "semi_amplitude_mag": 0.3140644978161798,
      "best_period_d": 246.20000000000002,
-     "best_variance_explained": 0.7566312412295382,
+     "best_variance_explained": 0.7566312412295383,
      "next_peaks": [
       [
        713.4,
@@ -738,11 +738,11 @@
        0.628
       ]
      ],
-     "frac_trials_as_good_as_lit": 0.0013331852016442618
+     "frac_trials_as_good_as_lit": 0.00011109876680368848
     },
     "W2": {
-     "variance_explained_at_lit": 0.7465408862363736,
-     "semi_amplitude_mag": 0.2331642076981233,
+     "variance_explained_at_lit": 0.7627841319148274,
+     "semi_amplitude_mag": 0.240257589468541,
      "best_period_d": 247.1,
      "best_variance_explained": 0.7758050822917345,
      "next_peaks": [
@@ -759,16 +759,16 @@
        0.62
       ]
      ],
-     "frac_trials_as_good_as_lit": 0.003221864237306966
+     "frac_trials_as_good_as_lit": 0.002110876569270081
     }
    }
   }
  },
  "copilot": {
-  "en": "R Draconis is a Mira variable: a cool giant star that pulsates, growing brighter and fainter with a regular period. It is too bright for the WISE and SPHEREx detectors, so instead of real magnitudes we measured a relative brightness index from the star's outer glow in WISE images. A period search on this index finds 246 days, matching the known period of 245.6 days. WISE visits only about every 6 months, so an alias near 713 days fits almost as well: our data agree with the known period but could not single it out alone. In the movie, the star stays in place while its glow swells and shrinks.",
-  "az": "R Draconis Mira tipli dəyişən ulduzdur: müntəzəm dövrlə parlaqlaşıb sönükləşən, pulsasiya edən soyuq nəhəng ulduz. O, WISE və SPHEREx detektorlarının mərkəzi hissəsi üçün çox parlaqdır, buna görə əsl ulduz ölçüsünü (maqnitudu) və SPHEREx spektrini verə bilmirik. Bunun əvəzinə WISE şəkillərində ulduzun xarici işıltısından nisbi parlaqlıq indeksi ölçdük. Bu indeksdə dövr axtarışı 246 gün tapır və bu, məlum 245,6 günlük dövrlə üst-üstə düşür. WISE ulduzu yalnız təxminən 6 aydan bir görür, ona görə 713 gün yaxınlığındakı yalançı dövr də demək olar eyni dərəcədə uyğun gəlir: məlumatlarımız məlum dövrlə uzlaşır, amma onu təkbaşına seçə bilməzdi. Filmdə ulduz yerində qalır, işıltısı isə böyüyüb kiçilir.",
+  "en": "R Draconis is a Mira variable: a cool giant star that pulsates, growing brighter and fainter with a regular period. It is too bright for the WISE and SPHEREx detectors, so instead of real magnitudes we measured a relative brightness index from the star's outer glow in WISE images. A period search on this index finds 246 days, matching the known period of 246.12 days. WISE visits only about every 6 months, so an alias near 713 days fits almost as well: our data agree with the known period but could not single it out alone. In the movie, the star stays in place while its glow swells and shrinks.",
+  "az": "R Draconis Mira tipli dəyişən ulduzdur: müntəzəm dövrlə parlaqlaşıb sönükləşən, pulsasiya edən soyuq nəhəng ulduz. O, WISE və SPHEREx detektorlarının mərkəzi hissəsi üçün çox parlaqdır, buna görə əsl ulduz ölçüsünü (maqnitudu) və SPHEREx spektrini verə bilmirik. Bunun əvəzinə WISE şəkillərində ulduzun xarici işıltısından nisbi parlaqlıq indeksi ölçdük. Bu indeksdə dövr axtarışı 246 gün tapır və bu, məlum 246,12 günlük dövrlə üst-üstə düşür. WISE ulduzu yalnız təxminən 6 aydan bir görür, ona görə 713 gün yaxınlığındakı yalançı dövr də demək olar eyni dərəcədə uyğun gəlir: məlumatlarımız məlum dövrlə uzlaşır, amma onu təkbaşına seçə bilməzdi. Filmdə ulduz yerində qalır, işıltısı isə böyüyüb kiçilir.",
   "model": "claude-opus-5-5 (Claude Code, offline from facts)",
-  "facts_hash": "c31dafadbd3ff706",
+  "facts_hash": "ecdbe2405d56e7ae",
   "generated_from": "science/out/r_dra/copilot_facts.json",
   "ai_generated": true,
   "audio_en": null,
