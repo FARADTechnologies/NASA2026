@@ -1,12 +1,12 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov 15:40 Baku
+Last update: Sat 14 Nov 16:45 Baku
 
 ## Current task
-All of T1–T6 (#2–#7) submitted → status:review. PR #59 (role/pipeline → main). Waiting: orchestrator review + #49 (bundle size).
+None. T1–T6 (#2–#7) submitted; PR #59 MERGED into main (11:20 UTC). #49 answered: _mock is sized separately; keep D1–D6.
+Human asked to pause: `skyops.py pause` was run (Sat ~16:45). Queue was empty (3× NO_TASK).
 
 ## Status
-5 fields built and every field PASSes; the root FAILs only on size (~83 MB incl. _mock 12.6 MB) → #49.
-Live runner: WISE-ready 73 s (bisection epoch order, byw.tools ~13 s/req), SPHEREx capped at 4/bin/detector, done ~815 s.
+PAUSED. validate_bundle 8/8 PASS (5 real fields + _mock). Live runner tested on 4 fresh coordinates (all PASS).
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -16,8 +16,8 @@ Live runner: WISE-ready 73 s (bisection epoch order, byw.tools ~13 s/req), SPHER
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- `python ops/bin/skyops.py next --wait 540`; read the answer to #49 (if "drop D2/D5": add a --detectors option to build-all, default D1,D3,D4,D6).
-- On review changes: fix them, rebuild (`cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline build-all`, ~6 min), validate, push.
+- When the human says continue: `python ops/bin/skyops.py resume`, then `python ops/bin/skyops.py next --wait 540` and follow it.
+- On review changes: fix, rebuild (`cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline build-all`, ~6 min), validate, push.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py
