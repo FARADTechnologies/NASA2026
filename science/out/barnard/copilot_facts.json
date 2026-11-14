@@ -1,0 +1,27 @@
+{
+ "name": "Barnard's Star",
+ "what_it_is": "a red dwarf star (spectral type M4 V), one of the closest stars to the Sun",
+ "motion": {
+  "measured_arcsec_per_year": 10.4,
+  "reference_arcsec_per_year": 10.39,
+  "reference_source": "Gaia DR3 4472832130942575872",
+  "agreement_percent": 99.8,
+  "wise_epochs_used": 36,
+  "years_of_wise_data": 14,
+  "distance_moved_2010_to_2024_arcsec": 146,
+  "how_measured": "position measured in each WISE image, then a straight-line fit through time"
+ },
+ "distance_light_years": 6.0,
+ "spherex_spectrum": {
+  "usable": false,
+  "notes": [
+   "362 SPHEREx images examined.",
+   "Saturated in 356 of 357 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ]
+ },
+ "saturated_in": [
+  "WISE",
+  "SPHEREx"
+ ],
+ "what_to_look_for_in_the_movie": "the bright star slides upward (north) by about 146 arcseconds between 2010 and 2024"
+}

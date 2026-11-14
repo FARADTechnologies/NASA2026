@@ -1,0 +1,27 @@
+{
+ "name": "WISE 0855−0714",
+ "what_it_is": "a Y-type brown dwarf with a temperature of about 250 K (around -20 °C), the coldest known object of its kind",
+ "motion": {
+  "measured_arcsec_per_year": 8.16,
+  "reference_arcsec_per_year": 8.15,
+  "reference_source": "Kirkpatrick et al. 2021, ApJS 253, 7 (via SIMBAD)",
+  "agreement_percent": 99.9,
+  "wise_epochs_used": 23,
+  "years_of_wise_data": 14,
+  "distance_moved_2010_to_2024_arcsec": 114,
+  "how_measured": "position measured in each WISE image, then a straight-line fit through time"
+ },
+ "distance_light_years": 7.4,
+ "spherex_spectrum": {
+  "usable": true,
+  "notes": [
+   "220 images were left out because a catalogue star was closer than 9\" to the moving target (one SPHEREx pixel is 6.15\"; such blends cannot be separated).",
+   "Below 2.4 µm: -0.009 ± 0.009 mJy (S/N -1.0) — not detected: invisible at short wavelengths.",
+   "4.4–4.9 µm: 0.624 ± 0.083 mJy (S/N 7) — detected where the coldest brown dwarfs emit most.",
+   "3.2–3.5 µm (methane band): 0.016 ± 0.029 mJy — not detected: methane absorbs this band.",
+   "The flux rises steeply from 4 to 4.6 µm, as expected for an object of only ~250 K."
+  ]
+ },
+ "saturated_in": [],
+ "what_to_look_for_in_the_movie": "a faint dot that crawls to the right (west) by about 114 arcseconds between 2010 and 2024, visible at 4.6 micrometres but invisible at shorter wavelengths"
+}
