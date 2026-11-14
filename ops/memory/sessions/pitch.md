@@ -13,7 +13,7 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - A2: pitch/STORY.md (story, 7 slides in organizers' order, 1:30 demo, script 350 words), pitch/FACTS.md (F1–F12 with sources).
 
 ## Next step (exact, so a fresh session can continue blindly)
-- Get from Amal: full names of members for slide 1; her timed read-aloud of STORY.md §4 + demo → write time into STORY.md, submit #23.
+- DONE: names + timing (3:00 read-aloud) recorded; #23 submitted.
 - Then `python ops/bin/skyops.py next --wait 540` → likely A4 QA (#25) once a deployed URL exists, or A5 (#26: QA_ANSWERS, AI_USE, REFERENCES first — no site needed).
 
 ## Files touched
@@ -26,6 +26,6 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - Messages to Amal: Azerbaijani (Latin), bold italic, action first.
 
 ## Open questions / waiting on
-- Amal: member full names; timed read-aloud.
+- (names: Amal Mirzayev, Hasan Dadashzada, Murad Qaramollayev, Azer Valiyev, Kanan Pashazada)
 - Science: [X %] PM agreement (S1 #8) → FACTS F6. Orchestrator: deployed URL (for QA A4 + screenshots).
 - Unknowns at venue: HDMI/Wi-Fi, submission mechanics, Global Nominee count.

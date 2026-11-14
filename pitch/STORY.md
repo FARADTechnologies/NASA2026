@@ -22,7 +22,7 @@ deliver them — every number must also be in `pitch/FACTS.md` with its source f
 ## 2. Seven slides (follows the organizers' recommended order, so the jury can tick it off)
 | # | Organizer slot | Title on slide | What is on it (little text, big visual) | Time |
 |---|---|---|---|---|
-| 1 | Title | **SkyLapse** — *Watch 16 years of the infrared sky and catch what moves.* | Team FARAD · members `[full names]` · Challenge: "Planet X and SPHEREx" · NASA Space Apps 2026, Baku · one striking frame of the movie | 0:20 |
+| 1 | Title | **SkyLapse** — *Watch 16 years of the infrared sky and catch what moves.* | Team FARAD · Amal Mirzayev, Hasan Dadashzada, Murad Qaramollayev, Azer Valiyev, Kanan Pashazada · Challenge: "Planet X and SPHEREx" · NASA Space Apps 2026, Baku · one striking frame of the movie | 0:20 |
 | 2 | Challenge | **One year is too short** | Left: SPHEREx frame, a star moved 1–2 pixels. Right: "102 colours · whole sky · every 6 months · 1 year of data". One line: "Nearby worlds hide in plain sight." | 0:35 |
 | 3 | Solution | **A 16-year infrared time machine** | Timeline bar: WISE/NEOWISE 2010 → 2024 (23 epochs, 4.6 µm) + SPHEREx 2025 → 2026 (4.4–5.0 µm). WISE 0855 moves ≈ 2 arcmin (≈ 130″). | 0:30 |
 | 4 | How it works | **Type a position. Watch. Catch.** | 3 screenshots: movie player · spectral fingerprint · AI explanation in AZ/EN. → **switch to LIVE DEMO here (1:30)** | 0:10 + 1:30 demo |
@@ -81,7 +81,8 @@ SkyLapse — sixteen years of sky, for everyone. Thank you."
 
 Word count of spoken script (without demo) = 350 (counted with `wc -w`) → 2:30 at 140 wpm, 2:55 at a calm 120 wpm;
 demo narration = 107 words in 1:30. Estimated total 4:00–4:25 → 15–60 s buffer under the 5:00 hard limit.
-**Timing proof:** `[to be done: Amal reads it aloud once with a stopwatch — record the time here]`. Machine estimate only so far.
+**Timing proof:** Amal read §4 script + §3 demo narration aloud with a stopwatch on Sat 14 Nov ~14:40: **3:00**.
+Live clicking/loading will add time → rehearse with the real site (A6) and keep the total ≤ 4:40.
 
 ## 5. Rules for the stage
 - Never say "we discovered" or "Planet X found". Say "candidates for follow-up".
