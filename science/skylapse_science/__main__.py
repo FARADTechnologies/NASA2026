@@ -19,6 +19,10 @@ def main(argv=None) -> int:
     sub.add_parser("spectra-calib", help="S2: check the SPHEREx flux scale against CatWISE W1/W2 for isolated stars")
     lc = sub.add_parser("lightcurves", help="S3: saturation-aware light curves for R Dra and RW Aur")
     lc.add_argument("--field", action="append", help="limit to one field (repeatable)")
+    cp = sub.add_parser("copilot", help="S5: AI copilot texts EN + AZ from computed facts only")
+    cp.add_argument("--field", action="append", help="limit to one field (repeatable)")
+    cp.add_argument("--dry-run", action="store_true", help="only build and print the facts JSON (no API call)")
+    cp.add_argument("--force", action="store_true", help="regenerate even if facts_hash is unchanged")
     a = ap.parse_args(argv)
     if a.cmd == "validate":
         from . import validate
@@ -32,6 +36,9 @@ def main(argv=None) -> int:
     elif a.cmd == "lightcurves":
         from . import photometry
         photometry.run(a.field)
+    elif a.cmd == "copilot":
+        from . import copilot
+        copilot.run(a.field, dry_run=a.dry_run, force=a.force)
     return 0
 
 

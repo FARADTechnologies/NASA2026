@@ -1,0 +1,28 @@
+{
+ "name": "R Draconis",
+ "what_it_is": "a Mira variable: a cool giant star that pulsates, growing brighter and fainter with a regular period",
+ "spherex_spectrum": {
+  "usable": false,
+  "notes": [
+   "2493 SPHEREx images examined.",
+   "Saturated in 2471 of 2471 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ]
+ },
+ "light_curve": {
+  "what_is_plotted": "a relative brightness index from the outer glow of the star image (not a magnitude), because the star is too bright for the detectors' cores",
+  "notes": [
+   "Period search (100–1000 d) on the index: best period 246 d (W1) and 247 d (W2), matching the known Mira period of 245.6 d (GCVS).",
+   "WISE visits this star only about every 6 months, so an alias period near 713 d fits almost as well; the data are consistent with the known period but could not single it out without it.",
+   "Folded on 245.6 d, one sine wave explains 75 % of the W1 index variation (semi-amplitude 0.31 mag in the index).",
+   "NEOWISE profile-fit magnitudes of R Dra scatter by up to ~2 mag within single visits (beyond the saturation-correction range) and are not used.",
+   "SPHEREx points (synthesized at 3.4/4.6 µm from per-epoch spectra) are not possible: the star is saturated in SPHEREx."
+  ],
+  "period_found_days": 246,
+  "known_period_days": 245.6
+ },
+ "saturated_in": [
+  "SPHEREx",
+  "WISE"
+ ],
+ "what_to_look_for_in_the_movie": "the star stays in place but its glow swells and shrinks as it pulsates"
+}
