@@ -15,4 +15,8 @@ Rule: a fact is usable on stage only when Status = ✅ (source is a repo file wi
 | F9 | Backyard Worlds volunteers found brown dwarfs by blinking WISE images | NASA challenge text / backyardworlds.org | ⏳ verify exact wording in challenge text |
 | F10 | SRDA community 1000+ members | docs/PLAN.md §6 | ⏳ confirm with Murad/Amal |
 | F11 | New SPHEREx data weekly; field rebuild = one command | docs/PLAN.md §6; pipeline README (to confirm command) | ⏳ confirm command exists |
+| F13 | R Draconis: period from our brightness index 246 d (W1) / 247 d (W2) vs known 245.6 d (GCVS); index is a RELATIVE wing index (star saturated) — 6-month WISE sampling also allows a ~713 d alias | deployed web/public/bundle/r_dra/objects/target.json `lightcurve.notes`; science/out/png/r_dra_lightcurve.png | ✅ (say "matches the known period", never "we found the period") |
+| F14 | RW Aurigae varies 0.24 / 0.40 mag rms (W1/W2) vs 0.035 / 0.05 for a constant comparison star (7–8× noise); index follows NEOWISE photometry r = 0.93 / 0.98 | web/public/bundle/rw_aur/objects/target.json `lightcurve` | ✅ |
+| F15 | Blind auto-discovery recovered 3 / 3 NASA movers with 0 false candidates in 5 fields | science/DISCOVERY.md; candidates.json stats | ✅ |
+| F16 | AI copilot texts EN + AZ live for the targets, generated only from computed facts ("Written by AI only from the measured facts above") | deployed site panel; science S5 #11 | ✅ |
 | F12 | Data: NASA SPHEREx (DR1+QR3), NASA WISE/NEOWISE unWISE epochs, CatWISE2020; partner: ESA Gaia DR3 | docs/SCIENCE_NOTES.md §1–3 | ✅ |
