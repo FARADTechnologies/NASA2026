@@ -190,7 +190,8 @@ tb(s, [
   { text: "AI explanations are written only from numbers our code computed.", options: { bullet: true, breakLine: true } },
   { text: "Any AI image/audio is watermarked.", options: { bullet: true } },
 ], { x: 5.5, y: 1.8, w: 3.85, h: 1.8, fontSize: 13, paraSpaceAfter: 6 });
-tb(s, "Try it: [deployed URL]", { x: 5.3, y: 3.95, w: 4.2, h: 0.5, fontSize: 18, bold: true, color: C.accent2 });
+s.addImage({ path: path.join(__dirname, "img", "qr_skylapse.png"), x: 5.3, y: 3.85, w: 1.15, h: 1.15, altText: "QR code linking to https://skylapse.vercel.app", objectName: "qr" });
+tb(s, [{ text: "Try it now", options: { bold: true, fontSize: 16, color: C.accent2, breakLine: true } }, { text: "skylapse.vercel.app", options: { fontSize: 16, color: C.background1 } }], { x: 6.65, y: 4.05, w: 2.85, h: 0.75, valign: "middle" });
 s.addNotes("0:30 — SPHEREx sends new data every week. Updating a field is one command, and hosting costs almost nothing. Next: automatic candidate lists, more languages, and a class program for schools. We used AI openly: coding assistants helped us build it, and the AI explanations are written only from our own measurements. SkyLapse — sixteen years of sky, for everyone. Thank you.");
 
 (async () => {
