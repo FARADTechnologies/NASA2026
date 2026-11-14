@@ -55,15 +55,18 @@ class FieldBuilder:
         self.fdir.mkdir(parents=True, exist_ok=True)
 
     # ------------------------------------------------------------------ inputs
-    def load_catalogs(self, online: bool = False):
+    def load_catalogs(self, online: bool = False, parts=("gaia", "catwise"), timeout: float = 60):
         r = self.grid["width"] * self.grid["pixel_scale_arcsec"] / 3600 * 0.75
-        kw = dict(ra=self.ra, dec=self.dec, radius_deg=r) if online else {}
-        self.gaia_rows = cat.load_gaia(self.field_id, **kw)
-        self.catwise_rows = cat.load_catwise(self.field_id, **kw)
-        self.ref_xy = select_ref_stars(self.gaia_rows, self.wcs, self.shape)
+        kw = dict(ra=self.ra, dec=self.dec, radius_deg=r, timeout=timeout) if online else {}
+        if "gaia" in parts:
+            self.gaia_rows = cat.load_gaia(self.field_id, **kw)
+        if "catwise" in parts:
+            self.catwise_rows = cat.load_catwise(self.field_id, **kw)
+        if "gaia" in parts:
+            self.ref_xy = select_ref_stars(self.gaia_rows, self.wcs, self.shape)
         log.info("%s: Gaia %d rows, CatWISE %d rows, %d reference stars", self.field_id, len(self.gaia_rows), len(self.catwise_rows),
                  len(self.ref_xy[0]))
-        self._write_catalogs()
+        self._write_catalogs(parts)
 
     def _in_field(self, ra, dec, margin_px=20):
         from .grid import world_to_grid
@@ -72,9 +75,11 @@ class FieldBuilder:
         n = self.grid["width"]
         return (x > -margin_px) & (x < n + margin_px) & (y > -margin_px) & (y < n + margin_px)
 
-    def _write_catalogs(self):
+    def _write_catalogs(self, parts=("gaia", "catwise")):
         for name, rows, fn, rak, deck in (("gaia", self.gaia_rows, cat.gaia_json, "ra", "dec"),
                                          ("catwise", self.catwise_rows, cat.catwise_json, "ra", "dec")):
+            if name not in parts and (self.fdir / "catalogs" / f"{name}.json").is_file():
+                continue
             js = fn(rows)
             if js["rows"]:
                 ra = np.array([r[1] for r in js["rows"]])

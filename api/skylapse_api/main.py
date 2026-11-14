@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
-from . import live
+from . import copilot, live
 from . import resolve as resolver
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,7 +24,7 @@ CACHE = Path(os.environ.get("SKYLAPSE_CACHE", str(ROOT / "cache"))).resolve()
 FIELDS = CACHE / "fields"
 FIELD_ID = re.compile(r"^[A-Za-z0-9_.+-]{1,80}$")
 
-app = FastAPI(title="SkyLapse API", version="0.2.0")
+app = FastAPI(title="SkyLapse API", version="0.3.0")
 origins = [o.strip() for o in os.environ.get("CORS_ORIGINS", "*").split(",") if o.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"])
 resolver.init_cache(CACHE / "resolve.json")
@@ -36,7 +36,7 @@ MEDIA = {".json": "application/json", ".f32": "application/octet-stream", ".u8":
 
 @app.get("/api/health")
 def health():
-    return {"ok": True, "version": app.version, "fields_cached": len(list(FIELDS.glob("*/manifest.json"))) if FIELDS.exists() else 0}
+    return {"ok": True, "version": app.version, "copilot": copilot.configured(), "fields_cached": len(list(FIELDS.glob("*/manifest.json"))) if FIELDS.exists() else 0}
 
 
 @app.get("/api/resolve")
@@ -51,6 +51,17 @@ def _field_dir(field_id: str) -> Path:
     if not FIELD_ID.match(field_id):
         raise HTTPException(400, "bad field id")
     return FIELDS / field_id
+
+
+class CopilotRequest(BaseModel):
+    facts: dict
+
+
+@app.post("/api/copilot")
+def api_copilot(req: CopilotRequest):
+    """Optional live copilot (P2-1). Always answers; on any problem returns {fallback: true, message}."""
+    code, body = copilot.generate(req.facts)
+    return JSONResponse(body, status_code=code)
 
 
 class FieldRequest(BaseModel):

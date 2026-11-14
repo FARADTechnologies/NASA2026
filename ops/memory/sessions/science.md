@@ -1,9 +1,9 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov ~23:50 Baku
+Last update: Sun 15 Nov ~00:20 Baku
 
 ## Current task
-#11 S5 copilot → done via D-018 (texts written in Claude Code from copilot_facts.json, guard-checked, stored). PR + submit at
-time of writing. Accepted: #8, #9, #10; #12 S4 merged in PR #61 (review). Now on 2nd computer (ARES-DESKTOP): use `py` for skyops.
+#77 S6 validity fact sheet → done (science/QA_FACTS.md, 10 mismatches on #77, pitch asked). #11 S5 submitted (PR #74).
+Accepted: #8, #9, #10; #12 in PR #61 (merged). 2nd computer (ARES-DESKTOP): use `py` for skyops.
 
 ## Status
 - S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
