@@ -74,14 +74,15 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
                      n_px=n_px)
 
     # ---- 1. WISE W2 (default 4.6 um sequence) + catalogs in parallel; W1 follows in the background
-    ex = ThreadPoolExecutor(max_workers=2)
+    ex = ThreadPoolExecutor(max_workers=3)
     size_px = n_px + 24
     try:
-        fcat = ex.submit(b.load_catalogs, True)
+        fcat = ex.submit(b.load_catalogs, True, ("gaia",), 30)  # Gaia: needed for scaling
+        fcw = ex.submit(b.load_catalogs, True, ("catwise",), 30)  # CatWISE: overlay only, never waited for here
         rows = fetch_wise.fetch(fid, ra, dec, size_px=size_px, bands=(2,), deadline=t0 + wise_limit_s,
                                 order=fetch_wise.bisection_order(23))
         try:
-            fcat.result(timeout=max(3.0, t0 + wise_limit_s - time.time()))
+            fcat.result(timeout=max(3.0, min(t0 + wise_limit_s, time.time() + 15) - time.time()))
         except Exception as e:  # noqa: BLE001  (timeout: frames stay unscaled; catalogs land later)
             log.warning("live %s catalogs not ready: %r", fid, e)
         if not rows:
@@ -98,6 +99,30 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
         return status
     n_w2 = len(rows)
     fw1 = ex.submit(fetch_wise.fetch, fid, ra, dec, size_px, (2, 1), t0 + total_limit_s, True)  # rest of W2 + W1
+
+    def catwise_done():
+        try:
+            fcw.result(timeout=0.1)
+        except Exception:  # noqa: BLE001
+            pass
+
+    if not detectors:  # WISE-only mode (API, D-015): no SPHEREx TAP query at all; finish W1 / missing W2 within the time limit
+        try:
+            allw = fw1.result(timeout=max(1.0, t0 + total_limit_s - time.time()))
+            have = set(b.frames)
+            for band in (2, 1):
+                if any(r["band"] == band and f"wise_w{band}_e{r['epoch']:02d}" not in have for r in allw):
+                    b.add_wise([r for r in allw if r["band"] == band])
+        except Exception as e:  # noqa: BLE001  (timeout: keep what we have)
+            log.warning("live %s W1: %r", fid, e)
+        catwise_done()
+        ex.shutdown(wait=False)
+        try:
+            b.write(status="done")
+        except Exception as e:  # noqa: BLE001
+            log.error("live %s final write: %s", fid, e)
+        report("done", 1.0, f"{len(b.frames)} WISE frames in {time.time() - t0:.0f}s (SPHEREx live is off)")
+        return status
 
     # ---- 2. SPHEREx
     try:

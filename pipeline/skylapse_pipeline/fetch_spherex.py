@@ -60,7 +60,10 @@ def read_index(field: str, only_present: bool = True) -> list[dict]:
 
 def _tap_csv(query: str, timeout: float = 120) -> str:
     last = None
+    deadline = time.time() + 2.5 * timeout  # all retries together stay within ~2.5x one timeout
     for attempt in range(3):
+        if attempt and time.time() + 10 > deadline:
+            break
         try:
             r = requests.post(IRSA_TAP, data=dict(QUERY=query, FORMAT="csv", LANG="ADQL", REQUEST="doQuery"), timeout=timeout,
                               headers={"User-Agent": UA})
