@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~15:30 Baku
+Last update: Sat ~16:00 Baku
 
 ## Current task
-#18 F5 (live UI, Discover, About, polish) — implemented; F0–F4 submitted (#13–#17) on PR #35.
+F0–F5 submitted (#13–#18). PR #35 squash-merged at the F4 commit; F5 is in PR #42. Deployed: https://skylapse.vercel.app (F1–F4 verified live on mock_mover).
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
@@ -35,4 +35,7 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
 - .claude/launch.json (dev server for the browser pane) is local only, excluded via .git/info/exclude.
 
 ## Open questions / waiting on
-- No issues labelled agent:frontend yet; no mock/real bundle on main yet.
+- #43 asked orchestrator: /api on Vercel returns index.html → need vercel rewrite to Railway host or VITE_API_BASE.
+- Real bundle (barnard, eps_indi_b, wise0855, rw_aur, r_dra) not on main yet → re-verify F3/F4 when it lands.
+- Azer cosmetic feedback pending.
+- Gotcha: PRs are squash-merged → after a merge, `git merge origin/main` conflicts on my own files; take ours (check main's blob equals one of my commits first).
