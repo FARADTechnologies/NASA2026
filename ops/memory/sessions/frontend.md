@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~18:00 Baku
+Last update: Sat ~18:50 Baku
 
 ## Current task
-#51 F6 demo speed submitted (PR #56). Done before: #47 (PR #50 merged), #45, F0–F5.
+#54 F7 clarity submitted (PR #57). Waiting: Azer 10-second check answer → comment on #54. Real wise0855 bundle landed (measured motion still null in bundle; science out/ has it).
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
@@ -26,6 +26,8 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
 - web/** (all), ops/memory/sessions/frontend.md
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
+- Real-data geometry verified numerically (python, bundle frames): ring ≤1 px, Gaia median 0.4 px → WCS/flip correct.
+- Target ring uses motion.track, else model path from measured/reference PM (Viewer `track` memo).
 - Speed test: scratchpad throttle/serve.mjs (9 Mbit/s + 150 ms) on web/dist, port 5181; read performance marks skylapse:first-frame / skylapse:playing.
 - Frames: global cache in bundle.ts (getBuf); masks lazy (only with mask overlay); live manifests via loadFresh (uncached).
 - Orchestrator merges main into origin/role/frontend → always `git fetch && git merge origin/role/frontend` before push.

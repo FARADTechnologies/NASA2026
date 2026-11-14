@@ -88,11 +88,18 @@ export function loadIndex() {
 
 export async function loadField(fieldId: string) {
   const { index, root } = await loadIndex();
-  const entry = index.fields.find((f) => f.field_id === fieldId);
-  const base = entry?.base ?? root + fieldId + "/";
+  let entry = index.fields.find((f) => f.field_id === fieldId);
+  let base = entry?.base ?? root + fieldId + "/";
+  if (!entry && !bundleOverride()) { // e.g. an old link to the mock field after the real bundle landed
+    for (const r of ROOTS.filter((x) => x !== root)) {
+      const other = await loadOptional<BundleIndex>(r + "index.json");
+      const e = other?.fields?.find((f) => f.field_id === fieldId);
+      if (e) { entry = { ...e, root: r, base: r + fieldId + "/" }; base = entry.base!; break; }
+    }
+  }
   const manifest = await loadOptional<Manifest>(base + "manifest.json");
   if (!manifest) throw new Error(`no manifest for ${fieldId}`);
-  return { manifest, base, entry, isMock: root !== "/bundle/" || /mock/i.test(fieldId) };
+  return { manifest, base, entry, isMock: base.includes("_mock/") || base.startsWith("/devmock/") || /mock/i.test(fieldId) };
 }
 
 /** Uncached JSON (live manifests change while a job runs). */

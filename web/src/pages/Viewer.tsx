@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Candidates, Catalog, Frame, Manifest, ObjectInfo } from "../lib/bundle";
+import type { Candidates, Catalog, Frame, Manifest, MotionTrackPoint, ObjectInfo } from "../lib/bundle";
 import { loadField, loadFrame, loadFresh, loadIndex, loadMask, loadOptional } from "../lib/bundle";
 import { mean, percentiles, subtract, toImageData, toRgbImageData } from "../lib/render";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
 import { navigate } from "../lib/router";
 import { matchRadiusDeg, sepDeg } from "../lib/resolve";
-import { Player } from "../components/Player";
+import { propagate } from "../lib/wcs";
+import { Player, trackAt } from "../components/Player";
 import { Timeline } from "../components/Timeline";
 import { ControlsPanel } from "../components/ControlsPanel";
 import { SidePanel } from "../components/SidePanel";
@@ -117,6 +118,16 @@ export function Viewer({ search }: { search: string }) {
     })();
     return () => { alive = false; };
   }, [view.field]);
+
+  // target path: measured track if present, else a model path from the catalogue/measured proper motion
+  const track: MotionTrackPoint[] | null = useMemo(() => {
+    if (!obj) return null;
+    if (obj.motion?.track?.length) return obj.motion.track;
+    const pm = obj.motion?.measured ?? obj.motion?.reference;
+    if (!pm || !Number.isFinite(obj.ra) || !Number.isFinite(obj.dec)) return null;
+    const ep = obj.epoch || 2018.0;
+    return [2010.0, 2026.9].map((y) => { const [ra, dec] = propagate(obj.ra, obj.dec, pm.pmra, pm.pmdec, y, ep); return { mjd: 51544.5 + (y - 2000) * 365.25, ra, dec, instrument: "model", kind: "model" }; });
+  }, [obj]);
 
   const frameById = useMemo(() => new Map((manifest?.frames ?? []).map((f) => [f.id, f])), [manifest]);
   const seq = manifest?.sequences.find((s) => s.id === view.seq) ?? null;
@@ -251,8 +262,34 @@ export function Viewer({ search }: { search: string }) {
     return { image: toImageData(arr, W, H, { vmin, vmax, stretch: isDiff ? "linear" : view.stretch, invert: view.invert, mask, showMask: view.overlay.includes("mask"), flipX }), note: label };
   }, [manifest, cur, loadedVer, view.diff, view.ref, view.stretch, view.min, view.max, view.invert, view.overlay, coaddRange, rgb, idx]);
 
+  // click on the image: select the object under the cursor (target ring or a discovery candidate) and show its card
+  const sideRef = useRef<HTMLDivElement>(null);
+  const [flash, setFlash] = useState(0);
+  const pick = useCallback((ra: number, dec: number) => {
+    if (!manifest || !shownFrameRef.current) return;
+    const tol = Math.max(12, manifest.grid.pixel_scale_arcsec * 4) / 3600; // ~4 px
+    const hits: { id: string; d: number }[] = [];
+    if (obj && track?.length) {
+      const pos = trackAt(track, shownFrameRef.current.mjd_mid);
+      if (pos) hits.push({ id: obj.id, d: sepDeg(pos[0], pos[1], ra, dec) });
+    }
+    for (const c of cands?.items ?? []) {
+      const id = c.object_file?.match(/objects\/([^/]+)\.json$/)?.[1];
+      if (id && manifest.objects?.includes(id)) hits.push({ id, d: sepDeg(c.ra, c.dec, ra, dec) });
+    }
+    const best = hits.filter((h) => h.d < tol).sort((a, b) => a.d - b.d)[0];
+    if (!best) return;
+    setObjectId(best.id); setFlash((x) => x + 1);
+    sideRef.current?.querySelector(".obj-card")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [manifest, obj, cands, track]);
+
+  // first-visit hint (dismissible; storage may be blocked → just show it)
+  const [showHint, setShowHint] = useState(() => { try { return localStorage.getItem("skylapse.hint.v1") !== "done"; } catch { return true; } });
+  const closeHint = () => { setShowHint(false); try { localStorage.setItem("skylapse.hint.v1", "done"); } catch { /* ignore */ } };
+
   // timing marks for demo-speed checks (performance.getEntriesByType("mark"))
   const marked = useRef({ first: false, play: false });
+  const shownFrameRef = useRef<Frame | null>(null);
   useEffect(() => {
     if (image && !marked.current.first) { marked.current.first = true; performance.mark("skylapse:first-frame"); }
     if (canPlay && n > 1 && !marked.current.play) { marked.current.play = true; performance.mark("skylapse:playing"); }
@@ -265,6 +302,7 @@ export function Viewer({ search }: { search: string }) {
   const nLoaded = seqFrames.filter((f) => loaded.has(f.id)).length;
   const span = seqFrames.length ? `${seqFrames[0].date.slice(0, 4)}–${seqFrames[n - 1].date.slice(0, 4)}` : "";
   const shownFrame = rgb ? frameById.get(rgb.r) ?? null : cur;
+  shownFrameRef.current = shownFrame;
 
   return (
     <div className="page viewer">
@@ -286,6 +324,16 @@ export function Viewer({ search }: { search: string }) {
             ) : <div className="fl-date skeleton-text">Loading…</div>}
             {note && <div className="fl-note">{note}</div>}
           </div>
+          {showHint && manifest && (
+            <div className="hint-card" role="note">
+              <div className="hint-steps">
+                <span><b>1</b> Watch the movie — 16 years of the same patch of sky</span>
+                <span><b>2</b> Follow the <i className="ring-ico" /> circled target as it moves</span>
+                <span><b>3</b> Click it for its story</span>
+              </div>
+              <button className="btn small" onClick={closeHint}>Got it</button>
+            </div>
+          )}
           {live && (
             <div className="live-banner">
               <span className="pulse" />
@@ -295,9 +343,10 @@ export function Viewer({ search }: { search: string }) {
             </div>
           )}
           {manifest ? (
-            <Player manifest={manifest} image={image} frame={shownFrame} catalogs={cats} track={obj?.motion?.track ?? null}
+            <Player manifest={manifest} image={image} frame={shownFrame} catalogs={cats} track={track}
               overlay={view.overlay} fovArcmin={view.fov} centerRaDec={view.ra !== null && view.dec !== null ? [view.ra, view.dec] : null}
-              loadingText={!image ? "Loading frames…" : undefined} />
+              loadingText={!image ? "Loading frames…" : undefined}
+              targetLabel={view.overlay.includes("track") ? obj?.name : undefined} onPick={pick} />
           ) : <div className="player-wrap"><div className="skeleton-box">{live && <div className="skeleton-msg">Building this field from WISE and SPHEREx archives — the first frames usually appear in under a minute.</div>}</div></div>}
           <div className="transport">
             <button className="btn icon" title="Previous frame (←)" onClick={() => { setPlaying(false); update({ frame: (idx - 1 + n) % Math.max(1, n) }); }}>⏮</button>
@@ -315,7 +364,7 @@ export function Viewer({ search }: { search: string }) {
           <Timeline frames={seqFrames} index={idx} loaded={loaded} onSelect={(i) => { setPlaying(false); update({ frame: i }); }} range={coaddRange}
             refId={view.diff === "ref" ? view.ref : view.diff === "first" ? seqFrames[0]?.id : undefined} />
         </main>
-        <SidePanel frame={shownFrame} obj={obj} cands={cands} manifest={manifest} isMock={isMock}
+        <SidePanel panelRef={sideRef} flash={flash} frame={shownFrame} obj={obj} cands={cands} manifest={manifest} isMock={isMock}
           objectIds={manifest?.objects} objectId={objectId} onObject={setObjectId} />
       </div>
     </div>
