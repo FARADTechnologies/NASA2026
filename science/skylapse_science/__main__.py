@@ -23,6 +23,7 @@ def main(argv=None) -> int:
     cp.add_argument("--field", action="append", help="limit to one field (repeatable)")
     cp.add_argument("--dry-run", action="store_true", help="only build and print the facts JSON (no API call)")
     cp.add_argument("--force", action="store_true", help="regenerate even if facts_hash is unchanged")
+    cp.add_argument("--offline-texts", help="store pre-written texts from this JSON (decision D-018) instead of calling the API")
     dc = sub.add_parser("discover", help="S4: auto-discovery of movers + recall (candidates.json)")
     dc.add_argument("--field", action="append", help="limit to one field (repeatable)")
     a = ap.parse_args(argv)
@@ -40,6 +41,8 @@ def main(argv=None) -> int:
         photometry.run(a.field)
     elif a.cmd == "copilot":
         from . import copilot
+        if a.offline_texts:
+            return 0 if copilot.apply_offline(a.offline_texts, a.field) else 1
         copilot.run(a.field, dry_run=a.dry_run, force=a.force)
     elif a.cmd == "discover":
         from . import discovery

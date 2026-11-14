@@ -465,7 +465,16 @@
    "folded": null
   }
  },
- "copilot": null,
+ "copilot": {
+  "en": "RW Aurigae is a young star, a T Tauri star still surrounded by a disk of gas and dust, known for irregular dimming and brightening. It is too bright for the WISE and SPHEREx detectors, so we show a relative brightness index from the star's outer glow, not a magnitude. The index is trustworthy: a steady comparison star in the same images varies by only 0.03 magnitudes, while RW Aurigae varies by 0.24, and the index closely follows NEOWISE's own measurements (correlation 0.98 over 23 visits). In the movie, the star stays in place but its infrared glow changes from year to year.",
+  "az": "RW Aurigae gənc ulduzdur: hələ də qaz və tozdan ibarət disklə əhatələnmiş T Tauri tipli ulduz, nizamsız sönükləşmə və parlaqlaşmaları ilə tanınır. O, WISE və SPHEREx detektorlarının mərkəzi hissəsi üçün çox parlaqdır, ona görə maqnitud yox, ulduz təsvirinin xarici işıltısından alınan nisbi parlaqlıq indeksini göstəririk; SPHEREx spektri də yoxdur. Bu indeksə etibar etmək olar: eyni şəkillərdəki sabit müqayisə ulduzu cəmi 0,03 maqnitud dəyişir, RW Aurigae isə 0,24; indeks NEOWISE-ın öz ölçmələrini yaxından izləyir (23 müşahidədə korrelyasiya 0,98). Filmdə ulduz yerində qalır, amma infraqırmızı işıltısı ildən-ilə dəyişir.",
+  "model": "claude-opus-5-5 (Claude Code, offline from facts)",
+  "facts_hash": "55417f09d305e4b9",
+  "generated_from": "science/out/rw_aur/copilot_facts.json",
+  "ai_generated": true,
+  "audio_en": null,
+  "audio_az": null
+ },
  "flags": {
   "saturated_in": [
    "SPHEREx",
