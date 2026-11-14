@@ -6,7 +6,25 @@ import { ScatterChart } from "./ScatterChart";
 const pct = (x: number) => (x * 100).toFixed(x < 0.01 ? 2 : 1) + "%";
 const NA = <span className="muted">not available yet</span>;
 
-export function SidePanel({ frame, obj, cands, manifest, isMock }: { frame: Frame | null; obj: ObjectInfo | null; cands: Candidates | null; manifest: Manifest | null; isMock: boolean }) {
+const EPOCH_COLORS = ["#4cc9f0", "#ffd166", "#ff5d8f", "#7cfc9a", "#c792ea", "#f4a259"];
+type SpecPt = NonNullable<ObjectInfo["spectrum"]>["points"][number];
+/** Group spectrum points into epochs (gap > 30 d) so each epoch gets its own colour (LVF: one star, different λ per visit). */
+function spectrumByEpoch(points: SpecPt[]) {
+  const sorted = [...points].sort((a, b) => a.mjd - b.mjd);
+  const groups: SpecPt[][] = [];
+  for (const p of sorted) { const g = groups[groups.length - 1]; if (g && p.mjd - g[g.length - 1].mjd <= 30) g.push(p); else groups.push([p]); }
+  return groups.map((g, i) => {
+    const y = mjdToYear(g[0].mjd);
+    const name = `${Math.floor(y)} ${y % 1 < 0.5 ? "spring" : "autumn"}`;
+    return { name: groups.length > 1 ? name : "SPHEREx", color: EPOCH_COLORS[i % EPOCH_COLORS.length],
+      points: g.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.flagged })) };
+  });
+}
+
+export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, objectId, onObject }: {
+  frame: Frame | null; obj: ObjectInfo | null; cands: Candidates | null; manifest: Manifest | null; isMock: boolean;
+  objectIds?: string[]; objectId?: string; onObject?: (id: string) => void;
+}) {
   const [lang, setLang] = useState<"en" | "az">("en");
   const m = obj?.motion;
   return (
@@ -29,7 +47,14 @@ export function SidePanel({ frame, obj, cands, manifest, isMock }: { frame: Fram
       </section>
 
       <section className="card">
-        <h3>{obj?.name ?? manifest?.title ?? "Object"}</h3>
+        <div className="card-head">
+          <h3>{obj?.name ?? manifest?.title ?? "Object"}</h3>
+          {objectIds && objectIds.length > 1 && onObject && (
+            <select className="obj-pick" value={objectId} onChange={(e) => onObject(e.target.value)} aria-label="Choose object">
+              {objectIds.map((id) => <option key={id} value={id}>{id === "target" ? "Target" : id}</option>)}
+            </select>
+          )}
+        </div>
         {obj ? (
           <>
             <div className="muted kind">{obj.kind.replace(/_/g, " ")}</div>
@@ -71,7 +96,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock }: { frame: Fram
         {obj?.spectrum?.points?.length ? (
           <>
             <ScatterChart xLabel="wavelength (µm)" yLabel={`flux (${obj.spectrum.unit_flux})`}
-              series={[{ name: "SPHEREx", color: "var(--spherex)", points: obj.spectrum.points.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.flagged })) }]}
+              series={spectrumByEpoch(obj.spectrum.points)}
               line={obj.spectrum.template ? { name: obj.spectrum.template.name, color: "var(--accent2)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined} />
             {obj.spectrum.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
           </>

@@ -27,6 +27,13 @@ export function Viewer({ search }: { search: string }) {
   const [loadedVer, setLoadedVer] = useState(0);
   const [failed, setFailed] = useState<Set<string>>(new Set());
 
+  const [objectId, setObjectId] = useState("");
+  useEffect(() => {
+    if (!objectId || !base) { setObj(null); return; }
+    let alive = true;
+    loadOptional<ObjectInfo>(base + `objects/${objectId}.json`).then((o) => alive && setObj(o));
+    return () => { alive = false; };
+  }, [objectId, base]);
   const update = useCallback((patch: Partial<ViewState>) => setView((v) => ({ ...v, ...patch })), []);
 
   // resolve field: explicit field, or nearest bundled field to ra/dec
@@ -52,9 +59,7 @@ export function Viewer({ search }: { search: string }) {
         const c = manifest.catalogs ?? {};
         const [gaia, catwise] = await Promise.all([c.gaia ? loadOptional<Catalog>(base + c.gaia) : null, c.catwise ? loadOptional<Catalog>(base + c.catwise) : null]);
         if (alive) setCats({ gaia, catwise });
-        const objId = manifest.objects?.[0];
-        if (objId) loadOptional<ObjectInfo>(base + `objects/${objId}.json`).then((o) => alive && setObj(o));
-        else setObj(null);
+        setObjectId(manifest.objects?.includes("target") ? "target" : manifest.objects?.[0] ?? "");
         if (manifest.candidates) loadOptional<Candidates>(base + manifest.candidates).then((x) => alive && setCands(x));
       } catch (e) {
         if (alive) setError("This field could not be loaded. Please pick another target.");
@@ -220,7 +225,8 @@ export function Viewer({ search }: { search: string }) {
           <Timeline frames={seqFrames} index={idx} loaded={loaded} onSelect={(i) => { setPlaying(false); update({ frame: i }); }} range={coaddRange}
             refId={view.diff === "ref" ? view.ref : view.diff === "first" ? seqFrames[0]?.id : undefined} />
         </main>
-        <SidePanel frame={shownFrame} obj={obj} cands={cands} manifest={manifest} isMock={isMock} />
+        <SidePanel frame={shownFrame} obj={obj} cands={cands} manifest={manifest} isMock={isMock}
+          objectIds={manifest?.objects} objectId={objectId} onObject={setObjectId} />
       </div>
     </div>
   );

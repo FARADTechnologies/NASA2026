@@ -203,3 +203,5 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
   .viewer-grid { grid-template-columns: 248px 1fr 310px; }
   .fl-date { font-size: 36px; }
 }
+
+.obj-pick { width: auto; padding: 3px 8px; font-size: 12px; }
