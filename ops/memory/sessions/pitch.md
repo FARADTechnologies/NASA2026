@@ -37,3 +37,9 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - A4 #25 R1 done on mock (docs/QA.md), bug #45 (phone layout). #41 merged main (e4ca0d8; earlier "c3b3c4b" answer corrected).
 - Site: https://skylapse.vercel.app (mock only). API resolve works. Next: A3 Vugar Aliyev mentor ~16:00 (Amal), QA R2 + slide-4 screenshots when real fields land.
 - Gotcha: `git fetch` can take minutes (bundle files) → run merges in background / long timeout; journal + KNOWHOW conflict on merge → keep ours for journal, both sides for KNOWHOW.
+## Update ~16:05 — A3 #24 claimed
+- pitch/MENTOR_NOTES.md has 5+5 questions. Waiting for Amal's notes from Vugar Aliyev → fill notes, `ask --to orchestrator`, push. Tural session Sun 11:00.
+## Update ~16:20
+- A3 #24 submitted partial: Vugar notes in MENTOR_NOTES.md, orchestrator told (#52). Tural Salmanov Sun ~11:00 (full rehearsal).
+- Slide 6 users changed (generator updated) → Drive copy is OUTDATED until next rebuild (do it together with real screenshots; Amal re-uploads).
+- Next: `next --wait 540`; QA R2 + screenshots when real fields land.
