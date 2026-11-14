@@ -4,3 +4,7 @@
 *.py text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+# bundle binaries: never touch line endings
+*.f32 binary
+*.u8 binary
+*.png binary

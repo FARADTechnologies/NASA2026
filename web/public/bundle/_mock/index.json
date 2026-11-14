@@ -1,0 +1,19 @@
+{
+ "schema_version": "1.0",
+ "generated_utc": "2026-11-14T10:12:29Z",
+ "fields": [
+  {
+   "field_id": "mock_mover",
+   "title": "MOCK mover field (fake data)",
+   "kind": "showcase",
+   "ra": 150.1,
+   "dec": 2.2,
+   "thumb": "mock_mover/previews/wise_w2_e00.png",
+   "tags": [
+    "mock",
+    "motion",
+    "brown dwarf"
+   ]
+  }
+ ]
+}
