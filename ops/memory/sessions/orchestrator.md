@@ -1,11 +1,13 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 23:28 (Kanan's computer)
+Last update: Sat 23:58 (Kanan's computer)
 
 ## Current task
-Health check after the move to Kanan's computer (done), then the autonomous loop. Next checkpoint: M4 freeze #31 Sun 10:30.
+Autonomous review loop. Open: F10 #79 (AI label), S6 #77 (fact sheet, PR #81), T9 #78 (live robustness). Next checkpoint: M4 freeze #31 Sun 10:30.
 
 ## Status
-Site + API live; all 5 targets verified in the browser 23:20. Live mode works but slow (~6 min). Railway CLI login pending.
+Site + API live. Live fixed (88 s, cache on Railway volume, D-020). Merged + deployed since 23:28: S5 copilot (PR #74), T8 movies (#73),
+F9 truthful light curve + Discover (#76, browser-checked), A7 deck v3 + backup video (#82). Rehearsal = Amal (A6 #27).
+Vercel + Railway CLI logged in and linked on Kanan's PC.
 
 ## Done (with proof)
 - Sat 14:00–15:50 (Murad's PC): bootstrap, mock + validator, API (resolve, live jobs), Vercel + Railway deploys, M1 14:55, reviews/merges up to PR #59.
