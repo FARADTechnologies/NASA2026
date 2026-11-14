@@ -44,7 +44,9 @@ export interface ObjectInfo {
 }
 export interface Candidates {
   method: string; stats: { known_movers_in_field: number; recovered: number; new_candidates: number };
-  items: { id: string; ra: number; dec: number; pm_total: number; err: number; class: string; match: Record<string, string | null>; score: number; object_file: string | null }[];
+  items: { id: string; ra: number; dec: number; pm_total: number; err: number; class: string; match?: Record<string, string | null> | null; score?: number | null;
+    object_file?: string | null; significance_sigma?: number; is_nasa_target?: boolean; kind?: string }[];
+  caveat?: string;
 }
 
 // Bundle roots tried in order: real bundle, then the orchestrator's mock bundle.
