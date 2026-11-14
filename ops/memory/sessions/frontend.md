@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun ~00:15 Baku
+Last update: Sun ~01:10 Baku
 
 ## Current task
-#70 F9 (truthful light curve, period line, Discover headline, ε heading) submitted, PR #76. PR #63 merged.
+#84 F11 About wording submitted (PR #86). #79 F10 merged (PR #83), #70 merged (PR #76).
 
 ## Status
 Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze Sun 10:30.

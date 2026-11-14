@@ -26,8 +26,8 @@ deliver them — every number must also be in `pitch/FACTS.md` with its source f
 | 2 | Challenge | **One year is too short** | Left: SPHEREx frame, a star moved 1–2 pixels. Right: "102 colours · whole sky · every 6 months · 1 year of data". One line: "Nearby worlds hide in plain sight." | 0:35 |
 | 3 | Solution | **A 16-year infrared time machine** | Timeline bar: WISE/NEOWISE 2010 → 2024 (23 epochs, 4.6 µm) + SPHEREx 2025 → 2026 (4.4–5.0 µm). WISE 0855 moves ≈ 2 arcmin (≈ 130″). | 0:30 |
 | 4 | How it works | **Type a position. Watch. Catch.** | 3 screenshots: movie player · spectral fingerprint · AI explanation in AZ/EN. → **switch to LIVE DEMO here (1:30)** | 0:10 + 1:30 demo |
-| 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers, measured vs reference, 99.0–99.9 %; 2 variables RW Aur, R Dra. | 0:35 |
-| 6 | Impact | **Anyone can discover** | Backyard Worlds precedent; first users (mentor V. Aliyev, IDDA): **university students** + **space agencies' school lesson programs** as a channel; SRDA community (`[1000+ — confirm]`); free, browser, no install. | 0:30 |
+| 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers 99.0–99.9 %; R Dra period 246 d vs 245.6 d; RW Aur 7–8× above noise; blind search 3/3 movers, 0 false. | 0:35 |
+| 6 | Impact | **Anyone can spot a candidate** (was "Anyone can discover" — conflicts with our no-discovery rule, science #77) | Backyard Worlds precedent; first users (mentor V. Aliyev, IDDA): **university students** + **space agencies' school lesson programs** as a channel; SRDA community (`[1000+ — confirm]`); free, browser, no install. | 0:30 |
 | 7 | Next steps | **What's next + how we used AI** | Weekly SPHEREx updates · auto-candidates for follow-up · more languages. AI box: coding assistants; copilot text only from computed facts; AI media watermarked. Link/QR to the live site. | 0:30 |
 Total: 4:40 (3:10 talk + 1:30 demo).
 
@@ -36,12 +36,13 @@ Pre-open the site in a browser tab, on WISE 0855, paused at 2010. Zoom set. No t
 | t | Action | Say |
 |---|---|---|
 | 0:00 | Press play on WISE 0855 | "This is one patch of sky, 2010 to 2026. Watch the faint red dot." |
-| 0:15 | Let it loop once; point at the track line | "That is WISE 0855 — the coldest brown dwarf we know, as cold as the North Pole. In 16 years it crossed about two arcminutes. In SPHEREx alone, it barely moves." |
+| 0:15 | Let it loop once; point at the track line | "That is WISE 0855 — the coldest brown dwarf we know — about minus twenty degrees Celsius. In 16 years it crossed about two arcminutes. In SPHEREx alone, it barely moves." |
 | 0:35 | Toggle Spectral Fingerprint / spectrum panel | "SPHEREx sees 102 colours. This object is invisible at short wavelengths and bright at 4.6 microns — the fingerprint of a very cold brown dwarf." |
 | 0:55 | Click Barnard's Star → validation card | "Is the motion real? For Barnard's Star we measure 10.4 arcseconds per year. Gaia says the same: 99.8 percent agreement." |
 | 1:15 | Open the AI explanation, Azerbaijani first | "And every object is explained in plain language — in Azerbaijani and English — written only from our own measurements." |
 | 1:30 | Back to slides | — |
-Fallback: if Wi-Fi or the site fails → play the backup video (same steps) from the laptop, no apology longer than one sentence.
+Fallback: if Wi-Fi or the site fails → play `pitch/video/SkyLapse_demo_backup.mp4` (1:22, same story, captions) from the laptop, no apology longer than one sentence.
+Status Sun 00:20: copilot EN/AZ is LIVE (step at 1:15 works); R Dra light curve live (optional swap for the Barnard step if time allows).
 Steps cut for time (mention only if asked): live arbitrary coordinates, Discover tab, difference/co-add modes, Gaia overlay.
 
 ## 4. Script (read aloud; short sentences; ≈ 140 words/min)
@@ -66,7 +67,7 @@ objects move not one pixel, but minutes of arc. You can see them move."
 **Slide 5 — Space data (0:35)**
 "Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data.
 We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to
-better than ninety-nine percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector."
+better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is 245.6. And our blind search found all three NASA movers by itself, with zero false alarms."
 
 **Slide 6 — Impact (0:30)**
 "Why does it matter? With NASA's Backyard Worlds project, volunteers blinking sky images found cold brown dwarfs that computers missed.
@@ -85,6 +86,9 @@ demo narration = 107 words in 1:30. Estimated total 4:00–4:25 → 15–60 s bu
 Live clicking/loading will add time → rehearse with the real site (A6) and keep the total ≤ 4:40.
 
 ## 5. Rules for the stage
+- Years: "16 years" = the movie (2010→2026). Motion was MEASURED over 14 years of WISE (2010–2024). Never mix 130″ (16 yr, literature) with 114″ (14 yr, measured).
+- "Bright at 4.6 microns" is true for WISE 0855 only — ε Indi B (T dwarf) peaks near 4 µm and dips at 4.6 µm.
+- Full fact sheet with caveats for Q&A: `science/QA_FACTS.md`.
 - Never say "we discovered" or "Planet X found". Say "candidates for follow-up".
 - If asked "Can it find Planet X?": "No single tool can promise that. SkyLapse helps people find moving candidates in the infrared — where a cold, distant planet would have to be found."
 - If time is short: drop the slide 6 Backyard Worlds sentence first, then the slide 3 last sentence.

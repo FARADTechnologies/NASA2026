@@ -150,12 +150,12 @@ const rows = [
   ["Barnard's Star", "10.40″/yr", "Gaia DR3", "99.8 %"],
   ["ε Indi B", "4.72″/yr", "Gaia DR3", "99.0 %"],
   ["WISE 0855", "8.16″/yr", "Kirkpatrick+21", "99.9 %"],
-  ["RW Aurigae", "variability", "—", "in progress"],
-  ["R Draconis", "variability", "—", "in progress"],
+  ["RW Aurigae", "0.40 rms", "noise 0.05", "8× noise"],
+  ["R Draconis", "P = 246 d", "GCVS 245.6 d", "matches"],
 ];
 s.addTable(rows, { x: 5.0, y: 1.25, w: 4.5, colW: [1.45, 1.0, 1.2, 0.85], fontSize: 12, fontFace: "Calibri", color: H.lt1, fill: { color: H.dk2 }, border: { type: "solid", pt: 0.75, color: H.accent4 }, rowH: 0.42, valign: "middle", objectName: "validation-table" });
-tb(s, "Tools: Python · Astropy · React", { x: 5.0, y: 4.0, w: 4.5, h: 0.6, fontSize: 13, color: C.background2 });
-s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to better than ninety-nine percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector.");
+tb(s, [{ text: "Blind search: 3 / 3 NASA movers found, 0 false alarms", options: { bold: true, color: C.accent5, breakLine: true } }, { text: "Tools: Python · Astropy · React", options: { color: C.background2 } }], { x: 5.0, y: 4.1, w: 4.5, h: 0.75, fontSize: 13 });
+s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is 245.6. And our blind search found all three NASA movers by itself, with zero false alarms.");
 
 // ---------- 6 Impact ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });
@@ -190,7 +190,8 @@ tb(s, [
   { text: "AI explanations are written only from numbers our code computed.", options: { bullet: true, breakLine: true } },
   { text: "Any AI image/audio is watermarked.", options: { bullet: true } },
 ], { x: 5.5, y: 1.8, w: 3.85, h: 1.8, fontSize: 13, paraSpaceAfter: 6 });
-tb(s, "Try it: [deployed URL]", { x: 5.3, y: 3.95, w: 4.2, h: 0.5, fontSize: 18, bold: true, color: C.accent2 });
+s.addImage({ path: path.join(__dirname, "img", "qr_skylapse.png"), x: 5.3, y: 3.85, w: 1.15, h: 1.15, altText: "QR code linking to https://skylapse.vercel.app", objectName: "qr" });
+tb(s, [{ text: "Try it now", options: { bold: true, fontSize: 16, color: C.accent2, breakLine: true } }, { text: "skylapse.vercel.app", options: { fontSize: 16, color: C.background1 } }], { x: 6.65, y: 4.05, w: 2.85, h: 0.75, valign: "middle" });
 s.addNotes("0:30 — SPHEREx sends new data every week. Updating a field is one command, and hosting costs almost nothing. Next: automatic candidate lists, more languages, and a class program for schools. We used AI openly: coding assistants helped us build it, and the AI explanations are written only from our own measurements. SkyLapse — sixteen years of sky, for everyone. Thank you.");
 
 (async () => {
