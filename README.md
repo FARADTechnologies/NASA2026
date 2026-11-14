@@ -29,7 +29,7 @@ WISE in seconds (`api/`, WISE-only on the free tier; SPHEREx frames are precompu
 | Barnard's Star | proper motion 10 395 ± 17 mas/yr (36 WISE epochs, 14 yr) | Gaia DR3: 10 393 | **99.8 %** |
 | ε Indi B | 4 717 ± 10 mas/yr (46 epochs) | Gaia DR3: 4 684 | **99.0 %** (moves with ε Indi A: 99.3 %) |
 | WISE 0855−0714 | 8 157 ± 15 mas/yr (23 epochs) | Kirkpatrick et al. 2021: 8 152 | **99.9 %** |
-| R Draconis | pulsation period 246 d (W1) / 247 d (W2) from a relative brightness index (star saturates WISE and SPHEREx) | GCVS: 245.6 d | match |
+| R Draconis | pulsation period 246 d (W1) / 247 d (W2) from a relative brightness index (star saturates WISE and SPHEREx) | AAVSO VSX: 246.12 d | match |
 | RW Aurigae | variability 0.24 / 0.40 mag rms vs 0.03 / 0.05 for a constant comparison star | NEOWISE photometry (r = 0.93 / 0.98) | consistent |
 
 Blind search over the 5 fields: **3 of 3 known fast movers recovered, 0 false alarms.** SPHEREx spectrum of WISE 0855: dark below 3 µm,
