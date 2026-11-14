@@ -103,6 +103,16 @@ Ask the orchestrator (`skyops.py ask --to orchestrator`): interfaces, priorities
 Escalate to the captain (`skyops.py escalate`, ESCALATION REPORT template, and tell your human to ping him):
 concept or P0 scope changes, contract-breaking architecture changes, data contradicting a pitch claim,
 mentor/jury pressure to pivot, rule/eligibility doubts, or a P0 blocker > 45 min. Never sit idle: continue on the safest default.
+**ESCALATION RULE (permanent):** anything that needs the captain's decision still gets an ESC issue (`skyops.py escalate`), AND the
+orchestrator immediately tells Murad in its chat, in Azerbaijani, ***bold italic***, in this exact format:
+1. ***Nə baş verib:*** one or two simple sentences, no jargon.
+2. ***Niyə vacibdir:*** what changes for the demo/jury if we choose wrong.
+3. ***Seçimlər:*** A / B (max 3), each with one concrete example of what the user/jury would see on screen.
+4. ***Mənim tövsiyəm:*** which option and why, in one sentence.
+5. ***Kapitana göndər:*** one short line Murad can copy to WhatsApp for Deneme.
+Murad decides himself or asks Deneme; no decision within 30 min → Murad decides on-site. The orchestrator records every decision in
+`ops/memory/DECISIONS.md` and answers in the ESC issue. ESC issues from pipeline, science, frontend or pitch are explained to Murad by the
+orchestrator in this format (other agents: open the ESC issue, tell your own human in one line, and continue on the safest default).
 
 ## 8. Daily rhythm (Baku time)
 Integration checkpoints: Sat 13:30 (M1), 18:30 (M2), 22:30 (M3); Sun 10:30 FEATURE FREEZE (M4); Sun 14:30 submitted.

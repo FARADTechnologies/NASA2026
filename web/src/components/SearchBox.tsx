@@ -1,0 +1,32 @@
+import { useState } from "react";
+import { loadIndex } from "../lib/bundle";
+import { apiResolve, matchField, parseCoords } from "../lib/resolve";
+import { navigate } from "../lib/router";
+
+export function SearchBox({ compact }: { compact?: boolean }) {
+  const [q, setQ] = useState("");
+  const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const s = q.trim(); if (!s) return;
+    setBusy(true); setMsg("");
+    try {
+      const { index } = await loadIndex().catch(() => ({ index: { fields: [] as never[] } }));
+      const f = matchField(s, index.fields);
+      if (f) return navigate(`/view?field=${encodeURIComponent(f.field_id)}`);
+      const c = parseCoords(s);
+      if (c) return navigate(`/view?ra=${c.ra.toFixed(5)}&dec=${c.dec.toFixed(5)}`);
+      const r = await apiResolve(s);
+      if (r) return navigate(`/view?ra=${r.ra.toFixed(5)}&dec=${r.dec.toFixed(5)}`);
+      setMsg("Not found. Try a NASA target name or coordinates like “133.787 −7.245”.");
+    } finally { setBusy(false); }
+  };
+  return (
+    <form className={"search" + (compact ? " compact" : "")} onSubmit={submit}>
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={compact ? "Name or RA Dec…" : "Search a star name or RA Dec — e.g. Barnard's Star, 08h55m10.8s −07d14m42s"} aria-label="Search sky position" />
+      <button className="btn primary" disabled={busy}>{busy ? "…" : "Go"}</button>
+      {msg && <div className="search-msg">{msg}</div>}
+    </form>
+  );
+}
