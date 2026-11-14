@@ -24,6 +24,7 @@ export interface Manifest {
   objects?: string[]; catalogs?: Record<string, string>; candidates?: string; credits?: string[];
   build?: Record<string, unknown>;
 }
+export interface SpecPoint { lambda_um: number; flux: number; err?: number; mjd?: number; detector?: string; flagged?: boolean; saturated?: boolean }
 export interface Catalog { catalog: string; ref_epoch: number; columns: string[]; rows: (string | number | null)[][] }
 export interface MotionTrackPoint { mjd: number; ra: number; dec: number; instrument: string; kind?: string }
 export interface ObjectInfo {
@@ -33,8 +34,10 @@ export interface ObjectInfo {
     reference: null | { source: string; pmra: number; pmdec: number; unit: string };
     agreement_pct: number | null; track: MotionTrackPoint[] | null;
   };
-  spectrum: null | { unit_flux: string; points: { lambda_um: number; flux: number; err: number; mjd: number; detector: string; flagged: boolean }[];
-    template: null | { name: string; lambda_um: number[]; flux: number[] }; notes: string[] };
+  spectrum: null | { unit_flux: string; points: SpecPoint[];
+    template: null | { name: string; lambda_um: number[]; flux: number[] }; notes: string[];
+    // DATA_CONTRACT §8 (optional)
+    binned?: SpecPoint[] | null; usable?: boolean; method?: string; stats?: Record<string, unknown> };
   lightcurve: null | { points: { mjd: number; instrument: string; band: string; mag: number; err: number; saturated: boolean }[]; notes: string[] };
   copilot: null | { en: string; az: string; model: string };
   flags: null | { saturated_in: string[]; warnings: string[] };

@@ -1,23 +1,39 @@
 import { useState } from "react";
 import type { Candidates, Frame, Manifest, ObjectInfo } from "../lib/bundle";
 import { mjdToYear } from "../lib/bundle";
-import { ScatterChart } from "./ScatterChart";
+import { ScatterChart, type Series } from "./ScatterChart";
 
 const pct = (x: number) => (x * 100).toFixed(x < 0.01 ? 2 : 1) + "%";
 const NA = <span className="muted">not available yet</span>;
+
+const SPEC_BANDS = [
+  { x0: 3.2, x1: 3.45, label: "CH₄ 3.3", color: "rgba(255,93,143,0.12)" },
+  { x0: 4.4, x1: 4.85, label: "W2 / D6 4.6", color: "rgba(76,201,240,0.12)" },
+];
+/** Binned spectrum = main curve (line + points + error bars); single measurements faint, coloured by epoch; flagged hidden unless asked. */
+function spectrumSeries(sp: NonNullable<ObjectInfo["spectrum"]>, showFlagged: boolean): Series[] {
+  const pts = (sp.points ?? []).filter((p) => showFlagged || !p.flagged);
+  if (sp.binned?.length) {
+    return [
+      { name: "single measurements", color: "var(--muted)", faint: true, points: pts.map((p) => ({ x: p.lambda_um, y: p.flux, hollow: p.flagged || p.saturated })) },
+      { name: "SPHEREx (binned)", color: "var(--spherex)", connect: true, points: sp.binned.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.saturated })) },
+    ];
+  }
+  return spectrumByEpoch(pts as SpecPt[]);
+}
 
 const EPOCH_COLORS = ["#4cc9f0", "#ffd166", "#ff5d8f", "#7cfc9a", "#c792ea", "#f4a259"];
 type SpecPt = NonNullable<ObjectInfo["spectrum"]>["points"][number];
 /** Group spectrum points into epochs (gap > 30 d) so each epoch gets its own colour (LVF: one star, different λ per visit). */
 function spectrumByEpoch(points: SpecPt[]) {
-  const sorted = [...points].sort((a, b) => a.mjd - b.mjd);
+  const sorted = [...points].sort((a, b) => (a.mjd ?? 0) - (b.mjd ?? 0));
   const groups: SpecPt[][] = [];
-  for (const p of sorted) { const g = groups[groups.length - 1]; if (g && p.mjd - g[g.length - 1].mjd <= 30) g.push(p); else groups.push([p]); }
+  for (const p of sorted) { const g = groups[groups.length - 1]; if (g && (p.mjd ?? 0) - (g[g.length - 1].mjd ?? 0) <= 30) g.push(p); else groups.push([p]); }
   return groups.map((g, i) => {
-    const y = mjdToYear(g[0].mjd);
+    const y = mjdToYear(g[0].mjd ?? 61000);
     const name = `${Math.floor(y)} ${y % 1 < 0.5 ? "spring" : "autumn"}`;
     return { name: groups.length > 1 ? name : "SPHEREx", color: EPOCH_COLORS[i % EPOCH_COLORS.length],
-      points: g.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.flagged })) };
+      points: g.map((p) => ({ x: p.lambda_um, y: p.flux, err: p.err, hollow: p.flagged || p.saturated })) };
   });
 }
 
@@ -27,6 +43,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
   objectIds?: string[]; objectId?: string; onObject?: (id: string) => void;
 }) {
   const [lang, setLang] = useState<"en" | "az">("en");
+  const [showFlagged, setShowFlagged] = useState(false);
   const m = obj?.motion;
   return (
     <aside className="panel side" ref={panelRef as React.Ref<HTMLElement>}>
@@ -105,13 +122,26 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
       </section>
 
       <section className="card">
-        <h3>Spectrum</h3>
-        {obj?.spectrum?.points?.length ? (
+        <div className="card-head">
+          <h3>Spectrum <span className="muted small" style={{ textTransform: "none", letterSpacing: 0 }}>SPHEREx 0.75–5 µm</span></h3>
+          {obj?.spectrum?.points?.some((p) => p.flagged) && obj.spectrum.usable !== false && (
+            <label className="check tiny-check"><input type="checkbox" checked={showFlagged} onChange={(e) => setShowFlagged(e.target.checked)} /><span>flagged</span></label>
+          )}
+        </div>
+        {!obj?.spectrum ? NA : obj.spectrum.usable === false ? (
+          <div className="honest-note">
+            <b>No reliable spectrum for this target.</b>
+            {(obj.spectrum.notes?.length ? obj.spectrum.notes : ["It is too bright for the SPHEREx detectors (saturated)."]).map((t) => <p key={t}>{t}</p>)}
+          </div>
+        ) : obj.spectrum.points?.length || obj.spectrum.binned?.length ? (
           <>
-            <ScatterChart xLabel="wavelength (µm)" yLabel={`flux (${obj.spectrum.unit_flux})`}
-              series={spectrumByEpoch(obj.spectrum.points)}
-              line={obj.spectrum.template ? { name: obj.spectrum.template.name, color: "var(--accent2)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined} />
-            {obj.spectrum.notes.map((t) => <div key={t} className="muted small">{t}</div>)}
+            <ScatterChart xLabel="wavelength (µm)" yLabel={`flux (${obj.spectrum.unit_flux})`} xRange={[0.7, 5.05]}
+              bands={SPEC_BANDS}
+              series={spectrumSeries(obj.spectrum, showFlagged)}
+              line={obj.spectrum.template?.lambda_um?.length ? { name: obj.spectrum.template.name, color: "var(--accent2)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined}
+              hollowLabel="flagged / saturated" />
+            {obj.spectrum.method && <div className="muted small caption" title={obj.spectrum.method}>Method: {obj.spectrum.method}</div>}
+            {obj.spectrum.notes?.map((t) => <div key={t} className="muted small">{t}</div>)}
           </>
         ) : NA}
       </section>
