@@ -45,6 +45,14 @@ Fallback: if Wi-Fi or the site fails → play `pitch/video/SkyLapse_demo_backup.
 Status Sun 00:20: copilot EN/AZ is LIVE (step at 1:15 works); R Dra light curve live (optional swap for the Barnard step if time allows).
 Steps cut for time (mention only if asked): live arbitrary coordinates, Discover tab, difference/co-add modes, Gaia overlay.
 
+### Optional live step (only if the 5:00 clock allows — Q&A is the better place)
+Pre-warmed live positions (checked Sun ~02:15: each opens in 3–5 s, WISE-only, no target ring → point at the moving star yourself):
+- Luhman 16, nearest brown-dwarf pair (6.5 ly), ~40″ west 2010–2024: https://skylapse.vercel.app/view?ra=162.3057&dec=-53.3177&fov=8.8
+- Teegarden's Star, red dwarf with planets (12.5 ly), ~70″ south-east: https://skylapse.vercel.app/view?ra=43.2716&dec=16.8623&fov=8.8
+- Kapteyn's Star, fast halo star (13 ly), ~2′ south-east, saturated core: https://skylapse.vercel.app/view?ra=77.9651&dec=-45.0470&fov=8.8
+Say: "And this works for any position — here is Teegarden's Star, built live." A brand-new typed coordinate takes ~½ min (F17) — don't type one on stage.
+(Distances/motions from pipeline/qa/live_api_test.md — pipeline #104.)
+
 ## 4. Script (read aloud; short sentences; ≈ 140 words/min)
 **Slide 1 — Title (0:20)**
 "Good afternoon. We are team FARAD. Our challenge is Planet X and SPHEREx. This is SkyLapse: watch sixteen years of the infrared
