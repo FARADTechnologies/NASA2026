@@ -12,6 +12,7 @@ export function Discover() {
   const [stats, setStats] = useState({ known: 0, recovered: 0, cand: 0, fields: 0 });
   const [methods, setMethods] = useState<string[]>([]);
   const [caveats, setCaveats] = useState<string[]>([]);
+  const [perField, setPerField] = useState<{ f: FieldEntry; s: Candidates["stats"] }[]>([]);
   const [filter, setFilter] = useState<"all" | "candidate" | "known" | "artifact">("all");
   const [err, setErr] = useState(false);
 
@@ -25,15 +26,17 @@ export function Discover() {
           return { f, c };
         }));
         const all: Row[] = []; const st = { known: 0, recovered: 0, cand: 0, fields: 0 }; const ms = new Set<string>(); const cv = new Set<string>();
+        const pf: { f: FieldEntry; s: Candidates["stats"] }[] = [];
         for (const { f, c } of per) {
           if (!c) continue;
+          pf.push({ f, s: c.stats });
           st.fields++; st.known += c.stats.known_movers_in_field; st.recovered += c.stats.recovered; st.cand += c.stats.new_candidates;
           if (c.method) ms.add(c.method);
           if (c.caveat) cv.add(c.caveat);
           for (const it of c.items) all.push({ ...it, field: f });
         }
         all.sort((a, b) => (a.class === "candidate" ? -1 : 0) - (b.class === "candidate" ? -1 : 0) || (b.score ?? b.significance_sigma ?? 0) - (a.score ?? a.significance_sigma ?? 0));
-        setRows(all); setStats(st); setMethods([...ms]); setCaveats([...cv]);
+        setRows(all); setPerField(pf); setStats(st); setMethods([...ms]); setCaveats([...cv]);
       } catch { setErr(true); }
     })();
   }, []);
@@ -53,11 +56,36 @@ export function Discover() {
         <p className="lede-s">Every field is searched automatically: sources are detected in each epoch, linked across 16 years, and their motion is measured.
           Each mover is then cross-matched with Gaia DR3 and CatWISE2020 and labelled. Re-finding the <b>known</b> movers is our validation.</p>
         {err && <div className="empty-state small">Discovery results could not be loaded.</div>}
+        {stats.fields > 0 && (
+          <div className="headline">Blind search recovered <b>{stats.recovered} of {stats.known}</b> known fast movers · <b>{stats.cand}</b> false alarm{stats.cand === 1 ? "" : "s"}
+            <span className="muted small"> (new candidates in fields of known objects)</span></div>
+        )}
         <div className="stat-row">
           <div className="stat"><b>{recall === null ? "—" : `${recall.toFixed(0)}%`}</b><span>recall of known movers<br />({stats.recovered} of {stats.known} re-found)</span></div>
           <div className="stat"><b>{stats.cand}</b><span>candidates for follow-up</span></div>
           <div className="stat"><b>{stats.fields}</b><span>fields searched</span></div>
         </div>
+        {perField.length > 0 && (
+          <>
+            <h2>Per field</h2>
+            <table className="cand-table">
+              <thead><tr><th>Field</th><th>Known movers</th><th>Re-found</th><th>New candidates</th><th>Sources tracked</th><th /></tr></thead>
+              <tbody>
+                {perField.map(({ f, s }) => (
+                  <tr key={f.field_id} onClick={() => navigate(`/view?field=${encodeURIComponent(f.field_id)}`)}>
+                    <td><b>{f.title}</b></td>
+                    <td className="mono">{s.known_movers_in_field}</td>
+                    <td className="mono"><b className={s.recovered === s.known_movers_in_field ? "ok" : "warn"}>{s.recovered}</b></td>
+                    <td className="mono">{s.new_candidates}</td>
+                    <td className="mono muted">{(s as Record<string, number>).sources_early ?? "—"}</td>
+                    <td><button className="btn small">Watch →</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <h2>Detected movers</h2>
+          </>
+        )}
         <div className="seg filter">
           {(["all", "candidate", "known", "artifact"] as const).map((k) => (
             <button key={k} className={filter === k ? "on" : ""} onClick={() => setFilter(k)}>{k === "all" ? "All" : CLASS_LABEL[k]}</button>

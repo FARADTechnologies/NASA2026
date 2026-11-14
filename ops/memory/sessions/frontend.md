@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~23:30 Baku
+Last update: Sun ~00:15 Baku
 
 ## Current task
-#60, #62, #65, #66 all submitted, all in PR #63 (open). Next: `next` loop.
+#70 F9 (truthful light curve, period line, Discover headline, ε heading) submitted, PR #76. PR #63 merged.
 
 ## Status
-Resumed by Azer ~23:10, autonomous ON. PR #63 (F8, #62/#65, #66 + live-mode polish + Discover S4 compat) open, not yet reviewed (orchestrator hit usage limit).
+Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze Sun 10:30.
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
