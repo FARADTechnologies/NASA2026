@@ -43,3 +43,8 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - A3 #24 submitted partial: Vugar notes in MENTOR_NOTES.md, orchestrator told (#52). Tural Salmanov Sun ~11:00 (full rehearsal).
 - Slide 6 users changed (generator updated) → Drive copy is OUTDATED until next rebuild (do it together with real screenshots; Amal re-uploads).
 - Drafted pitch/PROJECT_PAGE.md (A6 prep, all Space Apps fields). Next: `next --wait 540`; QA R2 + screenshots when real fields land.
+## Update ~17:35
+- Real bundle live (5 targets). QA R2 logged in docs/QA.md; bugs #65 (Gaia clutter, P1), #66 (empty panels, P2), #45 still open.
+- Validation: Barnard 99.8 %, ε Indi B 99.0 % (+99.3 % co-motion with A), WISE 0855 99.9 % → FACTS F6, STORY, QA_ANSWERS, PROJECT_PAGE, deck.
+- Deck v2 built (real screenshots). Screenshot recipe: headless Edge `msedge --headless=new --window-size=1600,900 --force-device-scale-factor=2 --virtual-time-budget=15000 --screenshot=out.png URL` (timeout ≥ 200 s), crop with PIL.
+- Waiting: Amal uploads v2 as new version on Drive → then re-submit #26 done. Risk: R Dra/RW Aur light curves (S3 #10) not yet; copilot (S5) not yet.

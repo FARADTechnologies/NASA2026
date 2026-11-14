@@ -119,10 +119,18 @@ s.addNotes("0:30 — Our insight: NASA already watched this sky before. The WISE
 // ---------- 4 How it works ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });
 s.addText("Type a position. Watch. Catch.", { placeholder: "title" });
-const steps = [["1  Movie", "16-year blink movie of any sky position"], ["2  Fingerprint", "SPHEREx spectrum: 102 colours of one object"], ["3  Explain", "Plain-language AZ / EN, only from our measurements"]];
+const steps = [
+  ["1  Watch", "WISE 0855 crawls across 16 years of sky", "s4_movie_wise0855.png", 1040, 947],
+  ["2  Fingerprint", "ε Indi B in SPHEREx: methane dip of a T dwarf", "s4_spectrum_epsindib.png", 672, 592],
+  ["3  Check", "Measured motion vs published: 99.9 %", "s4_validation_wise0855.png", 672, 544],
+];
 steps.forEach((st, i) => {
   const x = 0.5 + i * 3.08;
-  shotSlot(s, x, 1.25, 2.85, 2.35, st[0] + " — from the deployed site");
+  card(s, x, 1.25, 2.85, 2.35);
+  // fit image inside the card (contain), centred, 0.06" inset
+  const bw = 2.73, bh = 2.23, r = st[3] / st[4];
+  let w = bw, h = bw / r; if (h > bh) { h = bh; w = bh * r; }
+  s.addImage({ path: path.join(__dirname, "img", st[2]), x: x + 0.06 + (bw - w) / 2, y: 1.31 + (bh - h) / 2, w, h, altText: st[0] + " — screenshot of the deployed SkyLapse site", objectName: "screenshot" });
   tb(s, st[0], { x, y: 3.75, w: 2.85, h: 0.35, fontSize: 16, bold: true, color: C.accent2 });
   tb(s, st[1], { x, y: 4.12, w: 2.85, h: 0.8, fontSize: 14, color: C.background2 });
 });
@@ -142,8 +150,8 @@ const rows = [
   ["Barnard's Star", "10.40″/yr", "Gaia DR3", "99.8 %"],
   ["ε Indi B", "4.72″/yr", "Gaia DR3", "99.0 %"],
   ["WISE 0855", "8.16″/yr", "Kirkpatrick+21", "99.9 %"],
-  ["RW Aurigae", "variability", "—", "[shown]"],
-  ["R Draconis", "variability", "—", "[shown]"],
+  ["RW Aurigae", "variability", "—", "in progress"],
+  ["R Draconis", "variability", "—", "in progress"],
 ];
 s.addTable(rows, { x: 5.0, y: 1.25, w: 4.5, colW: [1.45, 1.0, 1.2, 0.85], fontSize: 12, fontFace: "Calibri", color: H.lt1, fill: { color: H.dk2 }, border: { type: "solid", pt: 0.75, color: H.accent4 }, rowH: 0.42, valign: "middle", objectName: "validation-table" });
 tb(s, "Tools: Python · Astropy · React", { x: 5.0, y: 4.0, w: 4.5, h: 0.6, fontSize: 13, color: C.background2 });
