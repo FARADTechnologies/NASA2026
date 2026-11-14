@@ -205,3 +205,36 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 }
 
 .obj-pick { width: auto; padding: 3px 8px; font-size: 12px; }
+
+.live-banner { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid rgba(76, 201, 240, .35); background: rgba(76, 201, 240, .08); border-radius: 10px; font-size: 14px; }
+.live-banner .bar { flex: 1; height: 6px; background: #0d1220; border-radius: 3px; overflow: hidden; }
+.live-banner .bar i { display: block; height: 100%; background: var(--accent); transition: width .4s; }
+.pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+.skeleton-box { display: grid; place-items: center; }
+.skeleton-msg { color: var(--muted); max-width: 360px; text-align: center; padding: 20px; font-size: 14px; }
+
+/* doc pages (Discover, About) */
+.doc { max-width: 980px; width: 100%; margin: 0 auto; padding: 36px 24px 60px; }
+.doc h1 { font-size: 40px; letter-spacing: -1px; margin: 0 0 10px; }
+.doc h2 { font-size: 13px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin: 36px 0 12px; }
+.lede-s { font-size: 17px; color: #c3cbe0; max-width: 800px; }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+.stat { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.stat b { display: block; font-size: 44px; font-weight: 800; letter-spacing: -1px; color: var(--accent); line-height: 1.1; }
+.stat span { color: var(--muted); font-size: 13.5px; }
+.seg.filter { max-width: 520px; margin-bottom: 14px; }
+.cand-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.cand-table th { text-align: left; font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+.cand-table td { padding: 10px; border-bottom: 1px solid rgba(31, 39, 64, .6); vertical-align: top; }
+.cand-table tbody tr { cursor: pointer; transition: background .15s; }
+.cand-table tbody tr:hover { background: rgba(76, 201, 240, .06); }
+.cls { font-size: 11.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+.cls-candidate { color: var(--accent2); background: rgba(255, 209, 102, .12); }
+.cls-known { color: var(--ok); background: rgba(90, 209, 122, .12); }
+.cls-artifact { color: var(--muted); background: #1a2135; }
+.method { padding-left: 22px; font-size: 15.5px; }
+.method li { margin: 8px 0; }
+.credits { padding-left: 20px; }
+.credits li { margin: 4px 0; }
+.ok { color: var(--ok); }
