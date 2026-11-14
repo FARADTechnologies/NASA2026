@@ -1,9 +1,10 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov ~00:50 Baku
+Last update: Sun 15 Nov ~01:30 Baku
 
 ## Current task
-#89 S7 regenerate copilot via organizers' gateway → code ready (load_env, custom_gateway, thinking disabled), BLOCKED: .env
-missing. #77 S6 submitted (PR #81). #11 S5 merged (PR #74). 2nd computer (ARES-DESKTOP): use `py` for skyops.
+#90 S8 docs/METHODOLOGY.md → done (14 refs checked online; 2 wrong arXiv IDs from memory fixed). CORRECTION: R Dra reference period
+245.6 d (GCVS, from memory) was unverified → AAVSO VSX 246.12 d; propagated to science/ files + R Dra copilot texts; pitch/ files
+still say 245.6 (asked pitch). #89 S7 BLOCKED (.env missing; code ready). #77 S6 submitted (PR #81).
 
 ## Status
 - S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
