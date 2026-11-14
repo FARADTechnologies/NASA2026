@@ -29,3 +29,4 @@
 [orchestrator] Sun 00:00: API v0.3.0 (pipeline #87 WISE-only, no TAP): live wise_ready 11 s, done 20 s.
 [pipeline] Live unWISE epoch count varies by position (23 typical, ~427 at the NEP); HTTP 500 can mean one missing epoch, not the end. live.py probes the last epoch and fetches <=32 evenly spaced.
 [science] Never cite literature values from memory: R Dra period '245.6 d (GCVS)' was unverified; AAVSO VSX gives 246.12 d (CDS/VizieR often down — use vsx.aavso.org).
+[orchestrator] GitHub's PR merge ignores .gitattributes merge=union → KNOWHOW.md conflicts on PRs; fix: merge origin/main into the role branch locally (union applies) and push, then merge the PR.
