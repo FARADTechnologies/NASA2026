@@ -1,0 +1,257 @@
+{
+ "id": "target",
+ "name": "Barnard's Star",
+ "kind": "star",
+ "ra": 269.448051,
+ "dec": 4.7452344,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": {
+   "pmra": -784.5,
+   "pmdec": 10365.7,
+   "pm_total": 10395.4,
+   "err": 17.1,
+   "pmra_err": 14.7,
+   "pmdec_err": 16.7,
+   "parallax": 574.6,
+   "parallax_err": 38.1,
+   "unit": "mas/yr",
+   "n_epochs": 36,
+   "n_epochs_w1": 20,
+   "n_epochs_w2": 16,
+   "baseline_yr": 14.0,
+   "rms_arcsec": 0.368,
+   "method": "unWISE time-resolved epochs (W1+W2, native WCS), centroid_2dg, WLS fit of position + proper motion + parallax, 3-sigma clipping, 1000x bootstrap"
+  },
+  "reference": {
+   "source": "Gaia DR3 4472832130942575872",
+   "pmra": -801.6,
+   "pmdec": 10362.4,
+   "pm_total": 10393.3,
+   "unit": "mas/yr",
+   "parallax": 547.0
+  },
+  "agreement_pct": 99.8,
+  "track": [
+   {
+    "mjd": 55274.9063,
+    "ra": 269.4498446,
+    "dec": 4.7226818,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 55455.7367,
+    "ra": 269.4494667,
+    "dec": 4.7242155,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 56738.3001,
+    "ra": 269.4491419,
+    "dec": 4.7341512,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 56919.1557,
+    "ra": 269.4484011,
+    "dec": 4.7360428,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57101.6143,
+    "ra": 269.4487999,
+    "dec": 4.7371817,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 57281.78,
+    "ra": 269.4484985,
+    "dec": 4.738662,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57465.724,
+    "ra": 269.4483596,
+    "dec": 4.7396906,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57638.7395,
+    "ra": 269.4481345,
+    "dec": 4.7414199,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 57831.5909,
+    "ra": 269.4484124,
+    "dec": 4.7429915,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58000.4879,
+    "ra": 269.4478834,
+    "dec": 4.7443028,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58197.0846,
+    "ra": 269.4481359,
+    "dec": 4.7458411,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58360.9857,
+    "ra": 269.4476611,
+    "dec": 4.7472059,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58564.9946,
+    "ra": 269.4479502,
+    "dec": 4.748688,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58728.8375,
+    "ra": 269.4475277,
+    "dec": 4.7500627,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 58926.8921,
+    "ra": 269.4477756,
+    "dec": 4.7516063,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59090.6822,
+    "ra": 269.4473022,
+    "dec": 4.7528923,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 59292.6168,
+    "ra": 269.4475083,
+    "dec": 4.7543143,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59456.3858,
+    "ra": 269.4470832,
+    "dec": 4.7557749,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 59659.3389,
+    "ra": 269.4473214,
+    "dec": 4.7572598,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 59823.323,
+    "ra": 269.446862,
+    "dec": 4.7586658,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 60023.8053,
+    "ra": 269.4470524,
+    "dec": 4.7602183,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 60187.6435,
+    "ra": 269.4466447,
+    "dec": 4.7615392,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "model"
+   },
+   {
+    "mjd": 60387.9258,
+    "ra": 269.4467509,
+    "dec": 4.7631595,
+    "instrument": "WISE",
+    "band": "W2",
+    "kind": "measured"
+   },
+   {
+    "mjd": 60908.6744,
+    "ra": 269.4462235,
+    "dec": 4.7672345,
+    "instrument": "SPHEREx",
+    "band": "D6",
+    "kind": "model"
+   },
+   {
+    "mjd": 61141.6961,
+    "ra": 269.4463714,
+    "dec": 4.7690595,
+    "instrument": "SPHEREx",
+    "band": "D6",
+    "kind": "model"
+   },
+   {
+    "mjd": 61270.7685,
+    "ra": 269.4460108,
+    "dec": 4.7700924,
+    "instrument": "SPHEREx",
+    "band": "D6",
+    "kind": "model"
+   }
+  ]
+ },
+ "spectrum": null,
+ "lightcurve": null,
+ "copilot": null,
+ "flags": {
+  "saturated_in": [
+   "WISE"
+  ],
+  "warnings": [
+   "Saturated core in 46 of 46 WISE epochs; positions from the unsaturated wings."
+  ]
+ }
+}

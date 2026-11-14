@@ -1,0 +1,7 @@
+astropy>=7
+numpy>=2
+scipy>=1.13
+photutils>=2
+astroquery
+matplotlib
+anthropic
