@@ -61,16 +61,17 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
             {m?.measured && m.measured.pm_total > 0 ? (
               <div className="motion">
                 {m.agreement_pct != null && (
-                  <div className="big-stat"><b>{m.agreement_pct.toFixed(1)}%</b><span>agreement with {m.reference?.source ?? "reference"}</span></div>
+                  <div className="big-stat"><b>{m.agreement_pct.toFixed(1)}%</b><span>agreement with the published motion</span></div>
                 )}
                 <table className="pm">
                   <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
                   <tbody>
-                    <tr><td>Measured</td><td>{m.measured.pmra}</td><td>{m.measured.pmdec}</td><td><b>{m.measured.pm_total}</b> ± {m.measured.err}</td></tr>
-                    {m.reference && <tr><td>{m.reference.source}</td><td>{m.reference.pmra}</td><td>{m.reference.pmdec}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>}
+                    <tr><td>Measured</td><td>{Math.round(m.measured.pmra)}</td><td>{Math.round(m.measured.pmdec)}</td><td><b>{Math.round(m.measured.pm_total)}</b> ± {Math.round(m.measured.err)}</td></tr>
+                    {m.reference && <tr><td title={m.reference.source}>Reference</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>}
                   </tbody>
                 </table>
-                <div className="muted small">mas/yr · fitted over {m.measured.n_epochs} epochs</div>
+                {m.reference && <div className="muted small ref-src">Reference: {m.reference.source}</div>}
+                <div className="muted small">mas/yr · fitted over {m.measured.n_epochs} epochs{m.measured.baseline_yr ? ` spanning ${m.measured.baseline_yr.toFixed(1)} years` : ""}</div>
               </div>
             ) : <div className="muted small">No significant motion measured.</div>}
             {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}>⚠ {w}</li>)}</ul> : null}

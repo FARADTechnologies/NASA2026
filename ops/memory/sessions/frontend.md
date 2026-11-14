@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~16:30 Baku
+Last update: Sat ~17:10 Baku
 
 ## Current task
-#45 phone layout fixed + submitted (in PR #42). F0–F5 submitted. #40 answered (merged main). Waiting on #43 (API routing) + real bundle.
+#47 search→field fixed, PR #50 (also: motion card verified with real science/out/wise0855/objects/target.json). #42 F5 + #45 mobile merged to main. /api proxied by Vercel to Railway (works).
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
@@ -35,7 +35,7 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
 - .claude/launch.json (dev server for the browser pane) is local only, excluded via .git/info/exclude.
 
 ## Open questions / waiting on
-- #43 asked orchestrator: /api on Vercel returns index.html → need vercel rewrite to Railway host or VITE_API_BASE.
+- #43 resolved: web/vercel.json proxies /api/* to Railway (orchestrator).
 - Real bundle (barnard, eps_indi_b, wise0855, rw_aur, r_dra) not on main yet → re-verify F3/F4 when it lands.
 - Azer cosmetic feedback pending.
 - Gotcha: PRs are squash-merged → after a merge, `git merge origin/main` conflicts on my own files; take ours (check main's blob equals one of my commits first).
