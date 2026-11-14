@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun ~01:10 Baku
+Last update: Sun ~02:00 Baku
 
 ## Current task
-#84 F11 About wording submitted (PR #86). #79 F10 merged (PR #83), #70 merged (PR #76).
+#108 F12 live-field buttons + pre-warm submitted (PR #111). F9–F11 merged & deployed (verified in live JS bundle).
 
 ## Status
 Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze Sun 10:30.
@@ -26,6 +26,7 @@ Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze S
 - web/** (all), ops/memory/sessions/frontend.md
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
+- Railway API round trip ≈ 0.8 s → live fields pre-warmed from home (src/lib/live.ts); warm open ≈ 0.1 s, cold ≈ 3.3 s.
 - Real-data geometry verified numerically (python, bundle frames): ring ≤1 px, Gaia median 0.4 px → WCS/flip correct.
 - DOM test gotcha: innerText of content inside a closed <details> is "" → use textContent. Same-field URL change does not remount Viewer (viewKey) → toggle UI instead.
 - Target ring uses motion.track, else model path from measured/reference PM (Viewer `track` memo).
