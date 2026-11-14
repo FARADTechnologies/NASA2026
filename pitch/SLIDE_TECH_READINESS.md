@@ -20,7 +20,7 @@ Aligned with `docs/METHODOLOGY.md` (science S8, merged Sun ~01:15) and `science/
 
 **Proof — tested on NASA's 5 targets, checked against ESA Gaia DR3 and the literature:**
 - Motion: Barnard's Star **99.8 %**, ε Indi B **99.0 %**, WISE 0855 **99.9 %** [F6]
-- R Draconis pulsation period **246 d** — known **245.6 d** [F13]
+- R Draconis pulsation period **246 d** — known **246.12 d** (AAVSO VSX) [F13]
 - Blind search: **3 / 3** NASA movers found, **0** false alarms [F15]
 
 **Prototype is live: skylapse.vercel.app**

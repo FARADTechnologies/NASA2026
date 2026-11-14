@@ -42,7 +42,7 @@ TypeScript web app renders the frames on a canvas in the browser. A small FastAP
 The five NASA targets are precomputed, so the demo never depends on a live archive.
 
 **Validation.** Barnard's Star, ε Indi B and WISE 0855−0714: measured proper motion vs reference: Barnard 10395 ± 17 vs 10393 mas/yr (99.8 %), ε Indi B 4717 ± 10 vs 4684 (99.0 %), WISE 0855−0714 8157 ± 15 vs 8152 (99.9 %), fitted over up to 46 WISE epochs spanning 14.0 years.
-ε Indi B moves together with ε Indi A (~400″ apart), confirming a bound system. RW Aurigae and R Draconis are too bright for normal photometry, so we built a relative brightness index from the unsaturated outer wings of the star: R Draconis pulses with a period of 246 days (known: 245.6 days), and RW Aurigae varies 8× above the noise of a constant comparison star, tracking NEOWISE photometry (r = 0.93/0.98). A blind search that knew nothing about the targets recovered all 3 NASA movers with 0 false candidates in 5 fields.
+ε Indi B moves together with ε Indi A (~400″ apart), confirming a bound system. RW Aurigae and R Draconis are too bright for normal photometry, so we built a relative brightness index from the unsaturated outer wings of the star: R Draconis pulses with a period of 246 days (known: 246.12 days, AAVSO VSX), and RW Aurigae varies 8× above the noise of a constant comparison star, tracking NEOWISE photometry (r = 0.93/0.98). A blind search that knew nothing about the targets recovered all 3 NASA movers with 0 false candidates in 5 fields.
 We flag honestly where a star is too bright: Barnard's Star and R Draconis saturate SPHEREx in nearly every image.
 
 **Benefits.** Makes the newest NASA mission data understandable in one minute, in a browser, at no cost. Gives students and citizen
