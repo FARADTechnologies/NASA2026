@@ -1,9 +1,9 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov ~19:00 Baku
+Last update: Sat 14 Nov ~20:45 Baku
 
 ## Current task
-#12 S4 discovery (claimed ~18:00) → done, PR + submit pending at time of writing. #11 S5 copilot BLOCKED: waiting for
-ANTHROPIC_API_KEY in C:/Users/Murad/Downloads/skylapse-science/.env (asked Murad ~18:00). Done: S1 #8, S2 #9, S3 #10 (PRs #44, #58, #61).
+PAUSED by Murad (Sat ~20:45 Baku). Accepted: #8 S1, #9 S2, #10 S3. In review: #12 S4 (PR #61). BLOCKED: #11 S5 copilot —
+waiting for ANTHROPIC_API_KEY in C:/Users/Murad/Downloads/skylapse-science/.env (still missing at pause time).
 
 ## Status
 - S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
@@ -21,10 +21,10 @@ ANTHROPIC_API_KEY in C:/Users/Murad/Downloads/skylapse-science/.env (asked Murad
 - Sanity: fitted 2010 position of WISE 0855 = 133.79519, -7.24512 ≈ NASA challenge coordinate (133.795130, -7.245147).
 
 ## Next step (exact, so a fresh session can continue blindly)
-- If S4 not submitted: commit, push, PR, `skyops.py submit 12 --file … --pr …`.
-- When Murad says the .env is ready: `cd science && .venv/Scripts/python.exe -m skylapse_science copilot`, read every EN/AZ
-  text against out/<field>/copilot_facts.json, commit, PR, `skyops.py submit 11` (paste all 10 texts in the report).
-- Then `skyops.py next --wait 540`.
+- On resume: `python ops/bin/skyops.py auto on` (only if Murad says so), then `skyops.py next --wait 540`.
+- If .env exists: `cd science && .venv/Scripts/python.exe -m skylapse_science copilot`, read every EN/AZ text against
+  out/<field>/copilot_facts.json, commit, push (PR #61 or new PR), `skyops.py submit 11` with all 10 texts in the report.
+- If #12 gets review comments: fix in science/skylapse_science/discovery.py, rerun `discover` for all 5 fields, resubmit.
 
 ## Files touched
 - science/skylapse_science/{__init__,__main__,config,astrometry,validate,spectra,photometry,copilot,discovery}.py,
