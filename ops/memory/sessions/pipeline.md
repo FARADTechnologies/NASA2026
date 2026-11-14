@@ -1,12 +1,11 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov 16:45 Baku
+Last update: Sat 14 Nov 23:30 Baku (2nd computer, user knany)
 
 ## Current task
-None. T1–T6 (#2–#7) submitted; PR #59 MERGED into main (11:20 UTC). #49 answered: _mock is sized separately; keep D1–D6.
-Human asked to pause: `skyops.py pause` was run (Sat ~16:45). Queue was empty (3× NO_TASK).
+#71 T8 offline movies: done, submitted (status:review), PR #73; pitch told in #75. T1–T6 merged (PR #59).
 
 ## Status
-PAUSED. validate_bundle 8/8 PASS (5 real fields + _mock). Live runner tested on 4 fresh coordinates (all PASS).
+Autonomous loop ON. Movies: pitch/video/<field>_thermal46.{mp4,gif}, 20 MB total; ring = catalogue PM until science fills motion.track.
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -16,8 +15,8 @@ PAUSED. validate_bundle 8/8 PASS (5 real fields + _mock). Live runner tested on 
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- When the human says continue: `python ops/bin/skyops.py resume`, then `python ops/bin/skyops.py next --wait 540` and follow it.
-- On review changes: fix, rebuild (`cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline build-all`, ~6 min), validate, push.
+- `.venv/Scripts/python.exe ops/bin/skyops.py next --wait 540` (plain `python` is broken on this computer).
+- When science writes motion.track into the bundle: rerun `cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline movies`.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py

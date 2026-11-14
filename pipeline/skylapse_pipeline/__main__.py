@@ -57,6 +57,13 @@ def cmd_gif(a):
         print(make_gif(fid, a.sequence, root=a.out))
 
 
+def cmd_movies(a):
+    from .movies import make_movie
+
+    for fid in a.field or TARGET_ORDER:
+        print(make_movie(fid, a.sequence, root=a.out, fps=a.fps))
+
+
 def cmd_live(a):
     from .live import build_live_field
 
@@ -92,6 +99,12 @@ def main(argv=None):
     p.add_argument("--sequence", default="thermal46")
     p.add_argument("--out", default=str(BUNDLE))
     p.set_defaults(fn=cmd_gif)
+    p = sub.add_parser("movies")
+    p.add_argument("--field", action="append", default=None)
+    p.add_argument("--sequence", default="thermal46")
+    p.add_argument("--fps", type=float, default=4.0)
+    p.add_argument("--out", default=str(BUNDLE))
+    p.set_defaults(fn=cmd_movies)
     p = sub.add_parser("live")
     p.add_argument("ra", type=float)
     p.add_argument("dec", type=float)
