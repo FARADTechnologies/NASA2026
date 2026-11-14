@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Candidates, Catalog, Frame, Manifest, ObjectInfo } from "../lib/bundle";
-import { loadField, loadFrame, loadIndex, loadOptional } from "../lib/bundle";
+import { loadField, loadFrame, loadFresh, loadIndex, loadMask, loadOptional } from "../lib/bundle";
 import { mean, percentiles, subtract, toImageData, toRgbImageData } from "../lib/render";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
 import { navigate } from "../lib/router";
@@ -82,7 +82,7 @@ export function Viewer({ search }: { search: string }) {
           const key = `${st.state}|${st.progress}`;
           if (key !== lastKey) {
             lastKey = key;
-            const m = await loadOptional<Manifest>(st.manifest_url);
+            const m = await loadFresh<Manifest>(st.manifest_url);
             if (m && alive()) await applyManifest(m, st.manifest_url.replace(/manifest\.json.*$/, ""), false, alive);
           }
         }
@@ -138,10 +138,12 @@ export function Viewer({ search }: { search: string }) {
     let inflight = 0;
     const fieldAtStart = fieldRef.current;
     const pump = () => {
-      while (alive && inflight < 6 && queue.length) {
+      // the first frame goes alone (full bandwidth → visible sooner), then up to 6 in parallel
+      const limit = store.current.size === 0 && inflight === 0 ? 1 : store.current.size === 0 ? 1 : 6;
+      while (alive && inflight < limit && queue.length) {
         const f = queue.shift()!; inflight++;
         loadFrame(base, f, W, H)
-          .then((d) => { if (fieldRef.current === fieldAtStart) { store.current.set(f.id, d); setLoadedVer((x) => x + 1); } })
+          .then((data) => { if (fieldRef.current === fieldAtStart) { store.current.set(f.id, { data, mask: store.current.get(f.id)?.mask ?? null }); setLoadedVer((x) => x + 1); } })
           .catch(() => alive && setFailed((s) => new Set(s).add(f.id)))
           .finally(() => { inflight--; pump(); });
       }
@@ -150,14 +152,34 @@ export function Viewer({ search }: { search: string }) {
     return () => { alive = false; };
   }, [manifest, base, seqFrames, rgb, view.ref]);
 
+  // masks only when the mask overlay is on (halves the requests for the default view)
+  const wantMask = view.overlay.includes("mask");
+  useEffect(() => {
+    if (!manifest || !wantMask) return;
+    const { width: W, height: H } = manifest.grid;
+    const fieldAtStart = fieldRef.current;
+    let alive = true;
+    (async () => {
+      for (const f of seqFrames) {
+        const e = store.current.get(f.id);
+        if (!alive || !e || e.mask || !f.mask_file) continue;
+        const m = await loadMask(base, f, W, H);
+        if (m && fieldRef.current === fieldAtStart) { e.mask = m; setLoadedVer((x) => x + 1); }
+      }
+    })();
+    return () => { alive = false; };
+  }, [manifest, base, seqFrames, wantMask, loadedVer > 0 && seqFrames.every((f) => store.current.has(f.id))]);
+
   const loaded = useMemo(() => new Set(store.current.keys()), [loadedVer]);
   const n = seqFrames.length;
   const idx = n ? Math.min(view.frame, n - 1) : 0;
   const cur = seqFrames[idx] ?? null;
 
-  // playback: advance to the next loaded frame
+  // playback: starts once ≥ 4 frames (or all, if fewer) are ready; advances to the next loaded frame
+  const nReady = seqFrames.reduce((k, f) => k + (loaded.has(f.id) ? 1 : 0), 0);
+  const canPlay = nReady >= Math.min(4, n);
   useEffect(() => {
-    if (!playing || n < 2 || view.coadd || rgb) return;
+    if (!playing || !canPlay || n < 2 || view.coadd || rgb) return;
     const t = setInterval(() => {
       setView((v) => {
         for (let s = 1; s <= n; s++) { const j = (v.frame + s) % n; if (store.current.has(seqFrames[j].id)) return { ...v, frame: j }; }
@@ -165,7 +187,7 @@ export function Viewer({ search }: { search: string }) {
       });
     }, view.speed);
     return () => clearInterval(t);
-  }, [playing, n, view.speed, seqFrames, view.coadd, rgb]);
+  }, [playing, canPlay, n, view.speed, seqFrames, view.coadd, rgb]);
 
   // keyboard
   useEffect(() => {
@@ -229,6 +251,13 @@ export function Viewer({ search }: { search: string }) {
     return { image: toImageData(arr, W, H, { vmin, vmax, stretch: isDiff ? "linear" : view.stretch, invert: view.invert, mask, showMask: view.overlay.includes("mask"), flipX }), note: label };
   }, [manifest, cur, loadedVer, view.diff, view.ref, view.stretch, view.min, view.max, view.invert, view.overlay, coaddRange, rgb, idx]);
 
+  // timing marks for demo-speed checks (performance.getEntriesByType("mark"))
+  const marked = useRef({ first: false, play: false });
+  useEffect(() => {
+    if (image && !marked.current.first) { marked.current.first = true; performance.mark("skylapse:first-frame"); }
+    if (canPlay && n > 1 && !marked.current.play) { marked.current.play = true; performance.mark("skylapse:playing"); }
+  }, [image, canPlay, n]);
+
   if (error) return (
     <div className="page"><TopBar /><div className="empty-state"><h2>Not available yet</h2><p>{error}</p><a className="btn" href="/" onClick={(e) => { e.preventDefault(); navigate("/"); }}>Back to targets</a></div></div>
   );
@@ -282,6 +311,7 @@ export function Viewer({ search }: { search: string }) {
             <button className="btn controls-toggle" onClick={() => setShowControls((x) => !x)}>⚙ Controls</button>
             <div className="span-label"><b className="mono">{span}</b> <span className="muted">{nLoaded < n ? `· loading ${nLoaded}/${n}` : `· ${n} frames`}{failed.size ? ` · ${failed.size} unavailable` : ""}</span></div>
           </div>
+          {n > 0 && nReady < n && <div className="load-bar" title={`loading frames ${nReady}/${n}`}><i style={{ width: `${(100 * nReady) / n}%` }} /></div>}
           <Timeline frames={seqFrames} index={idx} loaded={loaded} onSelect={(i) => { setPlaying(false); update({ frame: i }); }} range={coaddRange}
             refId={view.diff === "ref" ? view.ref : view.diff === "first" ? seqFrames[0]?.id : undefined} />
         </main>

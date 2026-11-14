@@ -279,3 +279,6 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
   .cand-table { display: block; overflow-x: auto; }
   .doc h1 { font-size: 30px; }
 }
+
+.load-bar { height: 3px; margin: 0 6px -4px; background: #0d1220; border-radius: 2px; overflow: hidden; }
+.load-bar i { display: block; height: 100%; background: var(--accent); transition: width .2s; }
