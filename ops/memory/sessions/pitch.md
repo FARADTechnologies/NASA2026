@@ -33,3 +33,7 @@ A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushe
 - Done: QA_ANSWERS (25), AI_USE, REFERENCES, VIDEO_STORYBOARD, slides v1 (pitch/slides/SkyLapse_FARAD_v1.pptx, validated + rendered via PowerPoint COM).
 - Slides link (Drive, public view): see pitch/SLIDES.md. Next: after deploy → real screenshots on slide 4, then re-submit #26 as done.
 - Tooling: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`); no LibreOffice → render PNGs with PowerPoint COM (powershell Slides.Item(i).Export).
+## Update ~16:00
+- A4 #25 R1 done on mock (docs/QA.md), bug #45 (phone layout). #41 merged main (e4ca0d8; earlier "c3b3c4b" answer corrected).
+- Site: https://skylapse.vercel.app (mock only). API resolve works. Next: A3 Vugar Aliyev mentor ~16:00 (Amal), QA R2 + slide-4 screenshots when real fields land.
+- Gotcha: `git fetch` can take minutes (bundle files) → run merges in background / long timeout; journal + KNOWHOW conflict on merge → keep ours for journal, both sides for KNOWHOW.
