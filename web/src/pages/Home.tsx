@@ -27,13 +27,13 @@ export function Home() {
         </div>
       </section>
       <section className="targets">
-        <h2>NASA test targets</h2>
+        {(fields === null || targets.length > 0) && <h2>NASA test targets</h2>}
         {err && <div className="empty-state small">The sky data could not be loaded. Please refresh in a moment.</div>}
         <div className="cards">
           {fields === null && !err && Array.from({ length: 5 }).map((_, i) => <div key={i} className="tcard skeleton-box" />)}
           {targets.map((f) => <TargetCard key={f.field_id} f={f} onOpen={() => open(f)} />)}
         </div>
-        {others.length > 0 && (<><h2>Showcase fields</h2><div className="cards">{others.map((f) => <TargetCard key={f.field_id} f={f} onOpen={() => open(f)} />)}</div></>)}
+        {others.length > 0 && (<><h2>{targets.length ? "Showcase fields" : "Fields"}</h2><div className="cards">{others.map((f) => <TargetCard key={f.field_id} f={f} onOpen={() => open(f)} />)}</div></>)}
       </section>
       <footer className="foot muted">
         Data: NASA/IPAC IRSA (SPHEREx), unWISE time-resolved coadds via byw.tools, ESA Gaia DR3, CatWISE2020. Built by team FARAD (Baku) with AI assistance — see About.
@@ -44,7 +44,7 @@ export function Home() {
 
 function TargetCard({ f, onOpen }: { f: FieldEntry; onOpen: () => void }) {
   const [broken, setBroken] = useState(false);
-  const thumb = f.thumb && f.base ? f.base.replace(new RegExp(f.field_id + "/$"), "") + f.thumb : null;
+  const thumb = f.thumb && f.root ? f.root + f.thumb : null;
   return (
     <button className="tcard" onClick={onOpen}>
       <div className="tthumb">

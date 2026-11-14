@@ -7,7 +7,7 @@ export interface ViewState {
   ra: number | null; dec: number | null;
 }
 export const DEFAULTS: ViewState = {
-  field: "", seq: "", speed: 300, stretch: "asinh", min: 1, max: 99.5, invert: false, diff: "none", ref: "",
+  field: "", seq: "", speed: 300, stretch: "asinh", min: 30, max: 99.8, invert: false, diff: "none", ref: "",
   coadd: "", fov: null, overlay: ["gaia", "track"], frame: 0, rgb: "", ra: null, dec: null,
 };
 

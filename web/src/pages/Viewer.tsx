@@ -22,7 +22,7 @@ export function Viewer({ search }: { search: string }) {
   const [cats, setCats] = useState<{ gaia: Catalog | null; catwise: Catalog | null }>({ gaia: null, catwise: null });
   const [obj, setObj] = useState<ObjectInfo | null>(null);
   const [cands, setCands] = useState<Candidates | null>(null);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(() => !new URLSearchParams(search).has("frame")); // shared link with a frame opens paused there
   const store = useRef(new Map<string, FrameData>());
   const [loadedVer, setLoadedVer] = useState(0);
   const [failed, setFailed] = useState<Set<string>>(new Set());

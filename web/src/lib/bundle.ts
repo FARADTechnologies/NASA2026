@@ -2,6 +2,7 @@
 export interface FieldEntry {
   field_id: string; title: string; kind: string; ra: number; dec: number; thumb: string | null; tags: string[];
   base?: string; // resolved base URL of this field's folder (added by the loader)
+  root?: string; // bundle root the entry came from
 }
 export interface BundleIndex { schema_version: string; generated_utc: string; fields: FieldEntry[] }
 export interface Wcs { CRVAL1: number; CRVAL2: number; CRPIX1: number; CRPIX2: number; CD1_1: number; CD1_2: number; CD2_1: number; CD2_2: number; [k: string]: unknown }
@@ -43,8 +44,18 @@ export interface Candidates {
   items: { id: string; ra: number; dec: number; pm_total: number; err: number; class: string; match: Record<string, string | null>; score: number; object_file: string | null }[];
 }
 
-// Bundle roots tried in order: real bundle, orchestrator mock, local dev mock.
-const ROOTS = ["/bundle/", "/bundle/_mock/", "/devmock/"];
+// Bundle roots tried in order: real bundle, then the orchestrator's mock bundle.
+// `?bundle=_mock` (or `?bundle=devmock` for the local generator output) forces one root; it sticks for the browser tab.
+const ROOTS = ["/bundle/", "/bundle/_mock/"];
+export function bundleOverride(): string | null {
+  let b = new URLSearchParams(location.search).get("bundle");
+  try {
+    if (b !== null) { if (b) sessionStorage.setItem("skylapse.bundle", b); else sessionStorage.removeItem("skylapse.bundle"); }
+    else b = sessionStorage.getItem("skylapse.bundle");
+  } catch { /* storage blocked */ }
+  if (!b || !/^[\w-]+$/.test(b)) return null;
+  return b === "devmock" ? "/devmock/" : `/bundle/${b}/`;
+}
 
 async function getJson<T>(url: string): Promise<T> {
   const r = await fetch(url);
@@ -58,11 +69,12 @@ let indexPromise: Promise<{ index: BundleIndex; root: string }> | null = null;
 export function loadIndex() {
   if (!indexPromise) {
     indexPromise = (async () => {
-      for (const root of ROOTS) {
+      const ov = bundleOverride();
+      for (const root of ov ? [ov] : ROOTS) {
         try {
           const index = await getJson<BundleIndex>(root + "index.json");
           if (index.fields?.length) {
-            index.fields.forEach((f) => (f.base = root + f.field_id + "/"));
+            index.fields.forEach((f) => { f.root = root; f.base = root + f.field_id + "/"; });
             return { index, root };
           }
         } catch { /* try next root */ }
@@ -79,7 +91,7 @@ export async function loadField(fieldId: string) {
   const entry = index.fields.find((f) => f.field_id === fieldId);
   const base = entry?.base ?? root + fieldId + "/";
   const manifest = await getJson<Manifest>(base + "manifest.json");
-  return { manifest, base, entry, isMock: root !== "/bundle/" };
+  return { manifest, base, entry, isMock: root !== "/bundle/" || /mock/i.test(fieldId) };
 }
 
 export async function loadOptional<T>(url: string): Promise<T | null> {
