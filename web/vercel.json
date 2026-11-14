@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/((?!bundle/|devmock/|assets/|favicon).*)", "destination": "/index.html" }]
+}
