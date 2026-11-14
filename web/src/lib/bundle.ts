@@ -90,28 +90,64 @@ export async function loadField(fieldId: string) {
   const { index, root } = await loadIndex();
   const entry = index.fields.find((f) => f.field_id === fieldId);
   const base = entry?.base ?? root + fieldId + "/";
-  const manifest = await getJson<Manifest>(base + "manifest.json");
+  const manifest = await loadOptional<Manifest>(base + "manifest.json");
+  if (!manifest) throw new Error(`no manifest for ${fieldId}`);
   return { manifest, base, entry, isMock: root !== "/bundle/" || /mock/i.test(fieldId) };
 }
 
+/** Uncached JSON (live manifests change while a job runs). */
+export async function loadFresh<T>(url: string): Promise<T | null> {
+  try { return await getJson<T>(url + (url.includes("?") ? "&" : "?") + "t=" + Date.now()); } catch { return null; }
+}
+const jsonCache = new Map<string, Promise<unknown>>();
 export async function loadOptional<T>(url: string): Promise<T | null> {
-  try { return await getJson<T>(url); } catch { return null; }
+  let p = jsonCache.get(url);
+  if (!p) { p = getJson<T>(url); jsonCache.set(url, p); p.catch(() => jsonCache.delete(url)); }
+  try { return (await p) as T; } catch { return null; }
 }
 
-export async function loadFrame(base: string, f: Frame, w: number, h: number) {
-  const r = await fetch(base + f.file);
-  if (!r.ok) throw new Error(`${r.status} ${f.file}`);
-  const buf = await r.arrayBuffer();
-  const data = new Float32Array(buf);
-  if (data.length !== w * h) throw new Error(`frame ${f.id}: size ${data.length} != ${w}x${h}`);
-  let mask: Uint8Array | null = null;
-  if (f.mask_file) {
-    try {
-      const m = await fetch(base + f.mask_file);
-      if (m.ok) { const mb = new Uint8Array(await m.arrayBuffer()); if (mb.length === w * h) mask = mb; }
-    } catch { /* optional */ }
+// Global binary cache (survives navigation; the home page pre-fills it in idle time). Keyed by URL.
+const bufCache = new Map<string, Promise<ArrayBuffer>>();
+function getBuf(url: string): Promise<ArrayBuffer> {
+  let p = bufCache.get(url);
+  if (!p) {
+    p = fetch(url).then((r) => { if (!r.ok) throw new Error(`${r.status} ${url}`); return r.arrayBuffer(); });
+    p.catch(() => bufCache.delete(url));
+    bufCache.set(url, p);
   }
-  return { data, mask };
+  return p;
+}
+export const isCached = (url: string) => bufCache.has(url);
+
+/** Frame pixels (Float32, FITS order). Masks are loaded separately (only when the mask overlay is on). */
+export async function loadFrame(base: string, f: Frame, w: number, h: number) {
+  const data = new Float32Array(await getBuf(base + f.file));
+  if (data.length !== w * h) throw new Error(`frame ${f.id}: size ${data.length} != ${w}x${h}`);
+  return data;
+}
+export async function loadMask(base: string, f: Frame, w: number, h: number): Promise<Uint8Array | null> {
+  if (!f.mask_file) return null;
+  try { const m = new Uint8Array(await getBuf(base + f.mask_file)); return m.length === w * h ? m : null; } catch { return null; }
+}
+
+/** Idle-time warm-up: fetch the default sequence of the given fields into the cache, 2 requests at a time. */
+export function prefetchFields(fields: FieldEntry[]) {
+  const idle = (cb: () => void) => ((window as unknown as { requestIdleCallback?: (c: () => void, o?: object) => void }).requestIdleCallback
+    ? (window as unknown as { requestIdleCallback: (c: () => void, o?: object) => void }).requestIdleCallback(cb, { timeout: 3000 })
+    : setTimeout(cb, 800));
+  idle(async () => {
+    const urls: string[] = [];
+    for (const f of fields) {
+      const m = await loadOptional<Manifest>(f.base + "manifest.json");
+      if (!m) continue;
+      const seq = m.sequences.find((s) => s.default) ?? m.sequences[0];
+      const byId = new Map(m.frames.map((x) => [x.id, x]));
+      seq?.frames.forEach((id) => { const fr = byId.get(id); if (fr) urls.push(f.base + fr.file); });
+    }
+    let i = 0;
+    const worker = async () => { while (i < urls.length) { const u = urls[i++]; try { await getBuf(u); } catch { /* ignore */ } } };
+    await Promise.all([worker(), worker()]);
+  });
 }
 
 export const mjdToYear = (mjd: number) => 2000.0 + (mjd - 51544.5) / 365.25;

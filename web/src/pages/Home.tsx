@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { FieldEntry } from "../lib/bundle";
-import { loadIndex } from "../lib/bundle";
+import { loadIndex, prefetchFields } from "../lib/bundle";
 import { navigate } from "../lib/router";
 import { SearchBox } from "../components/SearchBox";
 import { TopBar } from "../components/TopBar";
@@ -8,7 +8,14 @@ import { TopBar } from "../components/TopBar";
 export function Home() {
   const [fields, setFields] = useState<FieldEntry[] | null>(null);
   const [err, setErr] = useState(false);
-  useEffect(() => { loadIndex().then(({ index }) => setFields(index.fields)).catch(() => setErr(true)); }, []);
+  useEffect(() => {
+    loadIndex().then(({ index }) => {
+      setFields(index.fields);
+      // warm the cache so a target's movie starts instantly (NASA targets first, then the rest)
+      const t = index.fields.filter((f) => f.kind === "nasa_test_target");
+      prefetchFields(t.length ? t : index.fields.slice(0, 5));
+    }).catch(() => setErr(true));
+  }, []);
   const targets = fields?.filter((f) => f.kind === "nasa_test_target") ?? [];
   const others = fields?.filter((f) => f.kind !== "nasa_test_target") ?? [];
   const open = (f: FieldEntry) => navigate(`/view?field=${encodeURIComponent(f.field_id)}`);
