@@ -87,6 +87,9 @@ class FieldBuilder:
         data = data.astype(np.float32)
         valid = np.isfinite(data) & (mask & 1 == 0)
         meta["display"] = display_percentiles(data, mask)
+        if 1 - valid.mean() > 0.05:
+            notes = notes + [f"{(1 - valid.mean()):.0%} of the field masked or not covered"
+                             + (" (cutouts clipped at a detector edge)" if meta["instrument"] == "SPHEREx" else "")]
         meta["quality"] = {"masked_frac": round(float(1 - valid.mean()), 4),
                            "saturated_frac": round(float(((mask & 2) != 0).mean()), 5), "notes": notes}
         rel, mrel = write_frame(self.fdir, fid, data, mask)
@@ -242,7 +245,10 @@ class FieldBuilder:
         if not t:
             return
         info = TARGETS.get(self.field_id, {})
-        sat_in = sorted({self.frames[f]["band"] for f in self.frames if self._target_saturated(f)})
+        sat_frames = [f for f in self.frames if self._target_saturated(f)]
+        for f in sat_frames:
+            self.frames[f]["quality"]["notes"].append("target saturated")
+        sat_in = sorted({self.frames[f]["band"] for f in sat_frames})
         obj = {"id": "target", "name": info.get("title", self.title), "kind": info.get("obj_kind", "star"),
                "ra": t["ra_2018"], "dec": t["dec_2018"], "epoch": 2018.0,
                "motion": {"measured": None,

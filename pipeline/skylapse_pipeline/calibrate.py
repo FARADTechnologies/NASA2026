@@ -17,8 +17,10 @@ from astropy import log as _alog  # noqa: E402
 
 _alog.setLevel("WARNING")
 
-BAD_FLAGS = {"TRANSIENT", "NONFUNC", "MISSING_DATA", "HOT", "COLD", "PERSIST", "OUTLIER"}
-SAT_FLAGS = {"OVERFLOW", "NONLINEAR"}
+# Reject list = the one NASA used for the all-sky cube (docs/SCIENCE_NOTES.md §1). SOURCE and OUTLIER are NOT masked.
+BAD_FLAGS = {"TRANSIENT", "SUR_ERROR", "NONFUNC", "DICHROIC", "MISSING_DATA", "HOT", "COLD", "PHANMISS", "NONLINEAR", "PERSIST",
+             "CROSSTALK", "STREAK", "BLOOM", "SNOWBALL", "HALO", "SATELLITE_HALO"}
+SAT_FLAGS = {"OVERFLOW"}  # saturation: marked (mask bit1); the pixel is kept for display when its value is finite
 # unWISE nanomaggies per pixel: peak of a PSF (FWHM ~6") at 2.75"/px is ~18% of total flux.
 # W1 = 8.0 -> 10**((22.5-8)/2.5) = 6.3e5 nmgy -> peak ~1.1e5; W2 = 6.7 -> 2.1e6 -> peak ~3.8e5. Use 0.6x as a safe threshold.
 WISE_SAT = {1: 6.5e4, 2: 2.2e5}
