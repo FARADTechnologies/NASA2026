@@ -7,3 +7,4 @@
 [seed] Barnard's Star has moved ~4.5' since J2000: centre fields at the position propagated to 2018.0.
 [seed] LVF: same star in two SPHEREx images is usually at two different wavelengths → not variability.
 [seed] WISE 0855 is not in Gaia; use CatWISE2020 / literature for its reference proper motion.
+[pitch] LOCAL RULE Baku: presentation+demo = 5:00 TOTAL (overtime = disqualified), Q&A 5:00, max 7 English slides shared by link; AI media need watermark.
