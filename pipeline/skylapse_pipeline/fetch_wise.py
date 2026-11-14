@@ -16,7 +16,8 @@ from .config import CACHE, WISE_DIR, get_logger
 log = get_logger("fetch_wise")
 URL = "http://byw.tools/cutout"
 UA = "skylapse-pipeline/0.2 (NASA Space Apps 2026 hackathon)"
-MAX_EPOCHS = 80
+MAX_EPOCHS = 2000  # near the ecliptic poles unWISE has hundreds of epochs (NEP: 400-800)
+MAX_LIVE_EPOCHS = 32
 
 
 def wise_dir(field: str) -> Path:
@@ -75,8 +76,48 @@ def _get(ra, dec, size, band, epoch, dest: Path, deadline: float | None):
     return "fail"
 
 
-def bisection_order(n: int = 23) -> list[int]:
-    """0, n-1, middle, quarters, ... — every prefix spans the full time range."""
+def _status(ra, dec, band, epoch, timeout=20.0) -> int:
+    try:
+        r = requests.get(URL, params=dict(ra=f"{ra:.6f}", dec=f"{dec:.6f}", size=8, band=band, epoch=epoch), timeout=timeout,
+                         headers={"User-Agent": UA})
+        return r.status_code
+    except requests.RequestException:
+        return 0
+
+
+def last_epoch(ra: float, dec: float, band: int = 2, guess: int = 22) -> int | None:
+    """Index of the last unWISE epoch at this position (tiny 8 px probes; gallop then bisect). None if byw.tools fails."""
+    ok = lambda e: _status(ra, dec, band, e) == 200  # noqa: E731
+    if _status(ra, dec, band, 0) != 200:
+        return None
+    lo, hi = 0, None
+    e = guess
+    while e < MAX_EPOCHS:
+        if ok(e):
+            lo, e = e, e * 2 + 1
+        else:
+            hi = e
+            break
+    if hi is None:
+        return lo
+    while hi - lo > 1:
+        m = (lo + hi) // 2
+        lo, hi = (m, hi) if ok(m) else (lo, m)
+    return lo
+
+
+def select_epochs(last: int, nmax: int = MAX_LIVE_EPOCHS) -> list[int]:
+    """All epochs 0..last, or nmax evenly spaced ones (always including the first and the last)."""
+    if last + 1 <= nmax:
+        return list(range(last + 1))
+    return sorted({int(round(i * last / (nmax - 1))) for i in range(nmax)})
+
+
+def bisection_order(n=23) -> list[int]:
+    """0, n-1, middle, quarters, ... — every prefix spans the full time range. n may be an int or an explicit epoch list."""
+    if not isinstance(n, int):
+        lst = list(n)
+        return [lst[i] for i in bisection_order(len(lst))] if lst else []
     out, seen, spans = [0, n - 1], {0, n - 1}, [(0, n - 1)]
     while spans:
         nxt = []
@@ -104,7 +145,7 @@ def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), d
     d.mkdir(parents=True, exist_ok=True)
     results = []
     for band in todo:
-        seq = list(order) if order else list(range(MAX_EPOCHS))
+        seq = list(order) if order else list(range(80))
         state = {"next": 0, "end": MAX_EPOCHS, "fails": 0, "ok": 0}
         lock = threading.Lock()
 
@@ -119,12 +160,20 @@ def fetch(field: str, ra: float, dec: float, size_px: int = 256, bands=(2, 1), d
                     state["next"] += 1
                 dest = d / f"w{band}_e{ep:02d}.fits"
                 st = _get(ra, dec, size_px, band, ep, dest, deadline)
+                if st == "end" and not order:  # sequential mode: is it really the end, or one missing epoch?
+                    nxt = d / f"w{band}_e{ep + 1:02d}.fits"
+                    if _get(ra, dec, size_px, band, ep + 1, nxt, deadline) == "ok":
+                        st = "missing"
+                elif st == "end":  # explicit epoch list (live): epochs come from last_epoch(), so 500 = missing epoch
+                    st = "missing"
                 with lock:
                     if st == "end":
                         state["end"] = min(state["end"], ep)
                     elif st == "ok":
                         state["ok"] += 1
                         results.append((ep, band, dest))
+                    elif st == "missing":
+                        log.info("WISE %s band %s epoch %s: no data (HTTP 500), skipped", field, band, ep)
                     else:
                         state["fails"] += 1
 

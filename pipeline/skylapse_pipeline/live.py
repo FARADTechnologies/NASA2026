@@ -79,8 +79,11 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
     try:
         fcat = ex.submit(b.load_catalogs, True, ("gaia",), 30)  # Gaia: needed for scaling
         fcw = ex.submit(b.load_catalogs, True, ("catwise",), 30)  # CatWISE: overlay only, never waited for here
+        last = fetch_wise.last_epoch(ra, dec, 2)
+        epochs = fetch_wise.select_epochs(last if last is not None else 22)
+        log.info("live %s: last unWISE epoch %s -> fetching %d epochs", fid, last, len(epochs))
         rows = fetch_wise.fetch(fid, ra, dec, size_px=size_px, bands=(2,), deadline=t0 + wise_limit_s,
-                                order=fetch_wise.bisection_order(23))
+                                order=fetch_wise.bisection_order(epochs))
         try:
             fcat.result(timeout=max(3.0, min(t0 + wise_limit_s, time.time() + 15) - time.time()))
         except Exception as e:  # noqa: BLE001  (timeout: frames stay unscaled; catalogs land later)
@@ -98,7 +101,7 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
         ex.shutdown(wait=False)
         return status
     n_w2 = len(rows)
-    fw1 = ex.submit(fetch_wise.fetch, fid, ra, dec, size_px, (2, 1), t0 + total_limit_s, True)  # rest of W2 + W1
+    fw1 = ex.submit(fetch_wise.fetch, fid, ra, dec, size_px, (2, 1), t0 + total_limit_s, True, epochs)  # rest of W2 + W1
 
     def catwise_done():
         try:
