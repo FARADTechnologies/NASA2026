@@ -1,10 +1,11 @@
 {
-  "captain": "<deneme_github_username>",
+  "captain": "FARADTechnologies",
   "roles": {
-    "orchestrator": "<murad_github_username>",
-    "pipeline": "<murad_github_username>",
-    "science": "<kanan_github_username>",
-    "frontend": "<azer_github_username>",
-    "pitch": "<amal_github_username>"
-  }
+    "orchestrator": "MuradGaramollayev",
+    "pipeline": "MuradGaramollayev",
+    "science": "MuradGaramollayev",
+    "frontend": "AzarValiyev",
+    "pitch": "JustEyml"
+  },
+  "notes": "Science runs on Murad's computer today (Kanan absent, no GitHub account in the repo yet). If Kanan takes over, set roles.science to his login."
 }
