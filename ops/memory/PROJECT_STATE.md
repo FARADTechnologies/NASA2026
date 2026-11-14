@@ -1,5 +1,5 @@
 # PROJECT STATE — written ONLY by the orchestrator. Keep under ~70 lines. Update at every checkpoint and after big changes.
-Last update: Sat 14:55 by orchestrator
+Last update: Sat 14:30 by orchestrator
 
 ## Milestone
 Current: M0 Kickoff (done 14:20, 3 h late — see D-008). Next: M1 Walking skeleton at **16:00** (re-planned).
