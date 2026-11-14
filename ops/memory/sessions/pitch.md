@@ -2,7 +2,7 @@
 Last update: Sun 15 Nov 00:30 Baku
 
 ## Current task
-#93 A9 submitted (pitch/SLIDE_MARKET.md; own live timing 12 s; re-check vs science/IMPACT_NUMBERS.md when S9 #91 lands). #92 A8 submitted (pitch/SLIDE_TECH_READINESS.md: A/B/C→X→D + 72-word answer; re-align with docs/METHODOLOGY.md when S8 #90 merges). #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
+#93 A9 submitted (pitch/SLIDE_MARKET.md; own live timing 12 s; re-check vs science/IMPACT_NUMBERS.md when S9 #91 lands). #92 A8 v2 submitted (PR #110): B = CatWISE2020/unTimely with eps Indi B 1.1 vs 4.7″/yr, Gaia = reference only, aligned with docs/METHODOLOGY.md. Open: METHODOLOGY uses R Dra VSX 246.12 d vs our GCVS 245.6 d — pitch keeps 245.6. #80 answered (science S6 fixes, PR #85; told Amal: slide 6 title → "Anyone can spot a candidate"). #75 answered (pipeline movies in pitch/video). #72 A7 submitted partial (deck v3 built, backup video done; rehearsal = Amal). **AMAL OWNS THE SLIDES NOW — never edit/regenerate the deck** (she said so Sun 00:25).
 None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
