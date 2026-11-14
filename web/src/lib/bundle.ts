@@ -38,7 +38,9 @@ export interface ObjectInfo {
     template: null | { name: string; lambda_um: number[]; flux: number[] }; notes: string[];
     // DATA_CONTRACT §8 (optional)
     binned?: SpecPoint[] | null; usable?: boolean; method?: string; stats?: Record<string, unknown> };
-  lightcurve: null | { points: { mjd: number; instrument: string; band: string; mag: number; err: number; saturated: boolean }[]; notes: string[] };
+  lightcurve: null | { points: { mjd: number; instrument: string; band: string; mag: number; err: number; saturated: boolean; kind?: string }[]; notes: string[];
+    unit?: string; method?: string; period_days?: number | null;
+    validation?: { folded?: null | { period_d?: number; source?: string; W1?: { best_period_d?: number }; W2?: { best_period_d?: number } } } | null };
   copilot: null | { en: string; az: string; model: string };
   flags: null | { saturated_in: string[]; warnings: string[] };
 }
