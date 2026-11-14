@@ -119,10 +119,18 @@ s.addNotes("0:30 — Our insight: NASA already watched this sky before. The WISE
 // ---------- 4 How it works ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });
 s.addText("Type a position. Watch. Catch.", { placeholder: "title" });
-const steps = [["1  Movie", "16-year blink movie of any sky position"], ["2  Fingerprint", "SPHEREx spectrum: 102 colours of one object"], ["3  Explain", "Plain-language AZ / EN, only from our measurements"]];
+const steps = [
+  ["1  Watch", "WISE 0855 crawls across 16 years of sky", "s4_movie_wise0855.png", 1040, 947],
+  ["2  Fingerprint", "ε Indi B in SPHEREx: methane dip of a T dwarf", "s4_spectrum_epsindib.png", 672, 592],
+  ["3  Check", "Measured motion vs published: 99.9 %", "s4_validation_wise0855.png", 672, 544],
+];
 steps.forEach((st, i) => {
   const x = 0.5 + i * 3.08;
-  shotSlot(s, x, 1.25, 2.85, 2.35, st[0] + " — from the deployed site");
+  card(s, x, 1.25, 2.85, 2.35);
+  // fit image inside the card (contain), centred, 0.06" inset
+  const bw = 2.73, bh = 2.23, r = st[3] / st[4];
+  let w = bw, h = bw / r; if (h > bh) { h = bh; w = bh * r; }
+  s.addImage({ path: path.join(__dirname, "img", st[2]), x: x + 0.06 + (bw - w) / 2, y: 1.31 + (bh - h) / 2, w, h, altText: st[0] + " — screenshot of the deployed SkyLapse site", objectName: "screenshot" });
   tb(s, st[0], { x, y: 3.75, w: 2.85, h: 0.35, fontSize: 16, bold: true, color: C.accent2 });
   tb(s, st[1], { x, y: 4.12, w: 2.85, h: 0.8, fontSize: 14, color: C.background2 });
 });
@@ -139,15 +147,15 @@ data.forEach((d, i) => {
 });
 const rows = [
   [{ text: "NASA target", options: { bold: true, color: H.lt2 } }, { text: "Measured", options: { bold: true, color: H.lt2 } }, { text: "Reference", options: { bold: true, color: H.lt2 } }, { text: "Result", options: { bold: true, color: H.lt2 } }],
-  ["Barnard's Star", "[μ]″/yr", "Gaia", "[X %]"],
-  ["ε Indi B", "[μ]″/yr", "Gaia (ε Indi A)", "[X %]"],
-  ["WISE 0855", "[μ]″/yr", "literature", "[X %]"],
-  ["RW Aurigae", "variability", "—", "[shown]"],
-  ["R Draconis", "variability", "—", "[shown]"],
+  ["Barnard's Star", "10.40″/yr", "Gaia DR3", "99.8 %"],
+  ["ε Indi B", "4.72″/yr", "Gaia DR3", "99.0 %"],
+  ["WISE 0855", "8.16″/yr", "Kirkpatrick+21", "99.9 %"],
+  ["RW Aurigae", "variability", "—", "in progress"],
+  ["R Draconis", "variability", "—", "in progress"],
 ];
 s.addTable(rows, { x: 5.0, y: 1.25, w: 4.5, colW: [1.45, 1.0, 1.2, 0.85], fontSize: 12, fontFace: "Calibri", color: H.lt1, fill: { color: H.dk2 }, border: { type: "solid", pt: 0.75, color: H.accent4 }, rowH: 0.42, valign: "middle", objectName: "validation-table" });
 tb(s, "Tools: Python · Astropy · React", { x: 5.0, y: 4.0, w: 4.5, h: 0.6, fontSize: 13, color: C.background2 });
-s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to [X] percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector.");
+s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to better than ninety-nine percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector.");
 
 // ---------- 6 Impact ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });

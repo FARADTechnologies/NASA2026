@@ -300,3 +300,14 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .how span { color: var(--accent); margin: 0 4px; }
 .obj-card.flash { animation: flash 1.2s ease-out; border-radius: 10px; }
 @keyframes flash { 0% { background: rgba(255, 93, 143, .25); } 100% { background: transparent; } }
+
+/* F8 spectrum */
+.chart .band-label { fill: var(--muted); font: 8.5px var(--mono); }
+.honest-note { border: 1px solid rgba(255, 204, 77, .35); background: rgba(255, 204, 77, .07); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; }
+.honest-note b { color: var(--warn); }
+.honest-note p { margin: 6px 0 0; color: #c3cbe0; }
+.caption { margin-top: 4px; font-style: italic; }
+.tiny-check { margin: 0; font-size: 11.5px; color: var(--muted); }
+.caption { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.coming { padding: 12px 2px; border-top: 1px solid rgba(31, 39, 64, .6); }
+.live-msg { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }

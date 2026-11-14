@@ -1,45 +1,41 @@
 # Journal — role: pitch  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 14 Nov ~14:35 Baku
+Last update: Sat 14 Nov 23:20 Baku
 
 ## Current task
-#23 A2 — pitch/STORY.md (story, 7-slide outline, 5-min script). Submitted once Amal times a read-aloud.
+None claimed. Waiting for the queue; #64 (QA R2) and #24 (mentors, partial) in review. #27 A6 needs a human `approved` label (Sun).
 
 ## Status
-A1 #22 submitted (PR #34). A2 #23 claimed; STORY.md + FACTS.md written and pushed to PR #34; waiting for Amal's timed read-aloud + member full names.
+All Saturday pitch deliverables done. Gaps depend on other agents: light curves R Dra/RW Aur (S3 #10), AI copilot texts (S5 #11), Gaia clutter fix deploy (#65 / #62).
 
 ## Done (with proof)
-- Joined repo: folder = working copy on role/pitch (origin FARADTechnologies/NASA2026). gh login JustEyml.
-- A1: docs/LOCAL_RULES.md filled from Amal's notes (commit fdcbe32), PR #34, submitted #22. Orchestrator told in #33.
-- A2: pitch/STORY.md (story, 7 slides in organizers' order, 1:30 demo, script 350 words), pitch/FACTS.md (F1–F12 with sources).
+- A1 #22 LOCAL_RULES (5:00 total pitch+demo, overtime = DQ; 7 English slides via link; AI disclosed; AI media watermarked).
+- A2 #23 pitch/STORY.md (7 slides, 1:30 demo, script 350 words, Amal read-aloud 3:00), pitch/FACTS.md (F1–F12, sources).
+- A5 #26 QA_ANSWERS (28), AI_USE, REFERENCES, VIDEO_STORYBOARD, PROJECT_PAGE draft, SLIDES.md.
+- Deck v2 = pitch/slides/SkyLapse_FARAD_v2.pptx (real screenshots slide 4, validation table slide 5). LIVE on Drive link (same link, uploaded as new version):
+  https://docs.google.com/presentation/d/1IdgZwwna3FG_qA31ovPNDHE3TScZNbb8/edit?usp=sharing
+- QA: R1 (mock) #25, R2/R2b real targets #64 → docs/QA.md. Bugs: #45 fixed, #65 (Gaia clutter, fix on role/frontend not deployed), #66 (empty panels).
+- Validation: Barnard 99.8 %, ε Indi B 99.0 % (+99.3 % co-motion with A), WISE 0855 99.9 % (science/VALIDATION.md).
+- A3 #24: Vugar Aliyev notes in pitch/MENTOR_NOTES.md, sent to orchestrator #52.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- DONE: names + timing (3:00 read-aloud) recorded; #23 submitted.
-- Then `python ops/bin/skyops.py next --wait 540` → likely A4 QA (#25) once a deployed URL exists, or A5 (#26: QA_ANSWERS, AI_USE, REFERENCES first — no site needed).
+1. `python ops/bin/skyops.py next --wait 540` loop.
+2. When target.json has `lightcurve`/`copilot` (check: curl https://skylapse.vercel.app/bundle/<field>/objects/target.json) → QA R3,
+   slide 5 RW Aur/R Dra row ("in progress" → real result), demo step 4 (AZ copilot) back into STORY §3, new deck v3 (Amal re-uploads as new version).
+3. Sun 11:00 Tural Salmanov rehearsal (A3 session 2 + A6): full timed run ≤ 4:40 on the live site; fill MENTOR_NOTES session 2.
+4. A6 (#27, after `approved`): final PROJECT_PAGE fields, video link, repo public link, test every link in a private window, submit by 14:30 with Murad.
 
 ## Files touched
-- docs/LOCAL_RULES.md, pitch/STORY.md, pitch/FACTS.md, ops/memory/sessions/pitch.md
+docs/LOCAL_RULES.md, docs/QA.md, pitch/* (STORY, FACTS, QA_ANSWERS, AI_USE, REFERENCES, VIDEO_STORYBOARD, PROJECT_PAGE, SLIDES, MENTOR_NOTES, slides/, qa/)
 
-## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
-- HARD LIMIT: 5:00 for presentation + demo together, over time = disqualified. Target 4:40. Q&A 5:00 separate.
-- Max 7 slides, English, shared via link. AI images/videos need watermark; never AI NASA logos/flags/patches.
-- Push may be rejected (orchestrator commits to role/pitch, e.g. team.json) → `git pull --rebase origin role/pitch` then push.
+## Gotchas / know-how
+- HARD LIMIT 5:00 pitch+demo (target 4:40). Never say "discovered"/"Planet X found".
+- Deck rebuild: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`, NODE_PATH), render check via PowerPoint COM; screenshots via headless Edge
+  `msedge --headless=new --window-size=1600,900 --force-device-scale-factor=2 --virtual-time-budget=15000 --screenshot=out.png URL` (timeout ≥ 200 s).
+- Drive: upload new deck as NEW VERSION of the same file → link unchanged (file name stays "v1", cosmetic).
+- git fetch can take minutes (bundle files); merges of main conflict on journal/KNOWHOW → keep ours / keep both.
+- skyops sometimes "error connecting to api.github.com" → transient, just re-run.
 - Messages to Amal: Azerbaijani (Latin), bold italic, action first.
 
 ## Open questions / waiting on
-- (names: Amal Mirzayev, Hasan Dadashzada, Murad Qaramollayev, Azer Valiyev, Kanan Pashazada)
-- Science: [X %] PM agreement (S1 #8) → FACTS F6. Orchestrator: deployed URL (for QA A4 + screenshots).
-- Unknowns at venue: HDMI/Wi-Fi, submission mechanics, Global Nominee count.
-## Update ~15:35 — A5 #26 in progress
-- Done: QA_ANSWERS (25), AI_USE, REFERENCES, VIDEO_STORYBOARD, slides v1 (pitch/slides/SkyLapse_FARAD_v1.pptx, validated + rendered via PowerPoint COM).
-- Slides link (Drive, public view): see pitch/SLIDES.md. Next: after deploy → real screenshots on slide 4, then re-submit #26 as done.
-- Tooling: pptxgenjs in scratchpad (`npm install pptxgenjs@3.12.0`); no LibreOffice → render PNGs with PowerPoint COM (powershell Slides.Item(i).Export).
-## Update ~16:00
-- A4 #25 R1 done on mock (docs/QA.md), bug #45 (phone layout). #41 merged main (e4ca0d8; earlier "c3b3c4b" answer corrected).
-- Site: https://skylapse.vercel.app (mock only). API resolve works. Next: A3 Vugar Aliyev mentor ~16:00 (Amal), QA R2 + slide-4 screenshots when real fields land.
-- Gotcha: `git fetch` can take minutes (bundle files) → run merges in background / long timeout; journal + KNOWHOW conflict on merge → keep ours for journal, both sides for KNOWHOW.
-## Update ~16:05 — A3 #24 claimed
-- pitch/MENTOR_NOTES.md has 5+5 questions. Waiting for Amal's notes from Vugar Aliyev → fill notes, `ask --to orchestrator`, push. Tural session Sun 11:00.
-## Update ~16:20
-- A3 #24 submitted partial: Vugar notes in MENTOR_NOTES.md, orchestrator told (#52). Tural Salmanov Sun ~11:00 (full rehearsal).
-- Slide 6 users changed (generator updated) → Drive copy is OUTDATED until next rebuild (do it together with real screenshots; Amal re-uploads).
-- Next: `next --wait 540`; QA R2 + screenshots when real fields land.
+- Science: S3 #10 light curves, S5 #11 copilot. Frontend: #62 deploy (fixes #65), #66.
+- Venue unknowns: HDMI/Wi-Fi, 15:30 submission mechanics, Global Nominee count. F9 Backyard Worlds wording, F10 SRDA 1000+, F11 rebuild command.

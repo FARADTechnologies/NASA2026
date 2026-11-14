@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~18:50 Baku
+Last update: Sat ~23:30 Baku
 
 ## Current task
-#54 F7 clarity submitted (PR #57). Waiting: Azer 10-second check answer → comment on #54. Real wise0855 bundle landed (measured motion still null in bundle; science out/ has it).
+#60, #62, #65, #66 all submitted, all in PR #63 (open). Next: `next` loop.
 
 ## Status
-All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
+Resumed by Azer ~23:10, autonomous ON. PR #63 (F8, #62/#65, #66 + live-mode polish + Discover S4 compat) open, not yet reviewed (orchestrator hit usage limit).
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
@@ -16,17 +16,18 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
   and light-curve charts, discovery stats). Verified in browser pane on devmock (screenshots in session). `npm run build` OK.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- Submit #18 if not yet submitted (report: live mode tested against fake API `SKYLAPSE_FAKE_API=1 npx vite --port 5174`).
-- `python ops/bin/skyops.py next --wait 540`; if an issue for F1–F5 appears, claim it and submit the existing PR against it.
-- Show Azer screenshots; apply cosmetic feedback.
-- When web/public/bundle/index.json appears on main: merge main into role/frontend, check real frames render (stretch defaults!).
-- F5: Discover page (candidates.json across fields), About page, live mode (POST /api/fields + poll).
+- When resumed: `python ops/bin/skyops.py auto on` (if wanted) → `git fetch && git merge origin/role/frontend origin/main` → `skyops.py next --wait 540`.
+- Check PR #63 review comments; re-verify on skylapse.vercel.app after deploy (barnard Gaia clutter, r_dra panel, wise0855 spectrum).
+- Live mode verified against real API locally (dev proxy /api → Railway): /view?ra=10.68&dec=41.27&fov=4 → 25 WISE frames. Re-check on deploy after PR #63.
+- When pipeline merges science candidates.json into bundle: open /discover on deploy.
+- Azer: cosmetic feedback + 10-second clarity check still pending (note answer on #54).
 
 ## Files touched
 - web/** (all), ops/memory/sessions/frontend.md
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
 - Real-data geometry verified numerically (python, bundle frames): ring ≤1 px, Gaia median 0.4 px → WCS/flip correct.
+- DOM test gotcha: innerText of content inside a closed <details> is "" → use textContent. Same-field URL change does not remount Viewer (viewKey) → toggle UI instead.
 - Target ring uses motion.track, else model path from measured/reference PM (Viewer `track` memo).
 - Speed test: scratchpad throttle/serve.mjs (9 Mbit/s + 150 ms) on web/dist, port 5181; read performance marks skylapse:first-frame / skylapse:playing.
 - Frames: global cache in bundle.ts (getBuf); masks lazy (only with mask overlay); live manifests via loadFresh (uncached).
@@ -42,5 +43,5 @@ All F0–F5 features exist on mock; waiting for orchestrator review + real bundl
 ## Open questions / waiting on
 - #43 resolved: web/vercel.json proxies /api/* to Railway (orchestrator).
 - Real bundle (barnard, eps_indi_b, wise0855, rw_aur, r_dra) not on main yet → re-verify F3/F4 when it lands.
-- Azer cosmetic feedback pending.
+- Azer cosmetic feedback + 10-second clarity check pending (note answer on #54).
 - Gotcha: PRs are squash-merged → after a merge, `git merge origin/main` conflicts on my own files; take ours (check main's blob equals one of my commits first).

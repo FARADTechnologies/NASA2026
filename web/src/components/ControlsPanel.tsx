@@ -16,7 +16,7 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
   const co = /^(\d+)-(\d+)$/.exec(view.coadd);
   const coA = co ? +co[1] : 0, coB = co ? +co[2] : Math.max(0, n - 1);
   const toggleOverlay = (k: string) => update({ overlay: view.overlay.includes(k) ? view.overlay.filter((x) => x !== k) : [...view.overlay, k] });
-  const advancedActive = !!view.coadd || view.min !== 30 || view.max !== 99.8 || view.overlay.includes("catwise") || view.overlay.includes("mask");
+  const advancedActive = !!view.coadd || view.min !== 30 || view.max !== 99.8 || view.overlay.includes("catwise") || view.overlay.includes("mask") || view.overlay.includes("gaiaall");
 
   return (
     <aside className={"panel controls" + (open ? " open" : "")}>
@@ -110,6 +110,9 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
         </section>
         <section>
           <h3>More overlays</h3>
+          <label className="check" title="By default only the 40 brightest Gaia stars in view and all fast-moving stars are circled, so crowded fields stay readable.">
+            <input type="checkbox" checked={view.overlay.includes("gaiaall")} onChange={() => toggleOverlay("gaiaall")} /><span>All Gaia stars (crowded fields get busy)</span>
+          </label>
           <label className="check"><input type="checkbox" checked={view.overlay.includes("catwise")} onChange={() => toggleOverlay("catwise")} /><span><i className="dot sq" style={{ borderColor: "var(--catwise)" }} />CatWISE2020 infrared catalogue</span></label>
           <label className="check" title="Pixels the instrument flagged: orange = too bright (saturated), grey = bad/masked. Data quality flags from the archive.">
             <input type="checkbox" checked={view.overlay.includes("mask")} onChange={() => toggleOverlay("mask")} /><span><i className="sw" style={{ background: "var(--sat)" }} />Saturated / <i className="sw" style={{ background: "#80808c" }} />flagged pixels</span>

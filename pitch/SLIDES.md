@@ -7,9 +7,13 @@ Rules (docs/LOCAL_RULES.md): max 7 slides, English, shared by link (Google Drive
 - **Shared link (opens without login, checked Sat ~15:45 with an anonymous request):** https://docs.google.com/presentation/d/1IdgZwwna3FG_qA31ovPNDHE3TScZNbb8/edit?usp=sharing
   (Google Drive, uploaded by Amal. It is still a .pptx inside Drive — for easier editing: File → "Save as Google Slides"; then update this link.)
 
+- **v2 (Sat ~17:30):** `pitch/slides/SkyLapse_FARAD_v2.pptx` — real screenshots on slide 4 (headless Edge 2× captures of the deployed site,
+  crops in `pitch/slides/img/`), real validation numbers on slide 5 (science/VALIDATION.md), mentor-updated users on slide 6.
+  Upload to Drive as a NEW VERSION of the same file (Manage versions) so the link stays the same.
+
 ## Still to replace before final (A5/A6)
-- Slide 4: three SCREENSHOT slots → real screenshots from the deployed site (movie, fingerprint/spectrum, AZ/EN explanation).
-- Slide 5: `[μ]` and `[X %]` → `science/VALIDATION.md`; `[shown]` → light-curve status from S3 (#10).
+- ~~Slide 4 screenshots~~ done in v2 (movie, ε Indi B spectrum, validation card). Optional: AZ copilot shot once S5 lands.
+- ~~Slide 5 numbers~~ done in v2. RW Aur / R Dra say "in progress" → update when light curves (S3 #10) land.
 - Slide 6: `[1000+]` SRDA number → confirm.
 - Slide 7: `[deployed URL]` → live URL (+ QR code).
 

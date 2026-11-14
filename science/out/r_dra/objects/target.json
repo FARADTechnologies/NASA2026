@@ -29,14 +29,759 @@
   },
   "method": "SPHEREx L2 cutouts, IMAGE−ZODI; forced EPSF fit of target + Gaia/CatWISE neighbours + constant within 4 px (aperture r=2 px fallback), VARIANCE errors, blends < 1.5 px flagged, per-pixel wavelength from WCS-WAVE (quick-look), moving position per image"
  },
- "lightcurve": null,
- "copilot": null,
+ "lightcurve": {
+  "points": [
+   {
+    "mjd": 55348.557,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.206,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55348.557,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.083,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55357.024,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.18,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55357.024,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.02,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55540.203,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.095,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55540.203,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.118,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56645.707,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.27,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56645.707,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.303,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56811.246,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.106,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56811.246,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.009,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56820.983,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.039,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56820.983,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.044,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57001.389,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.246,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57001.389,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.163,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57010.721,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.316,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57010.721,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.23,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57170.163,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.268,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57170.163,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.294,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57179.94,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.366,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57179.94,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.341,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57363.282,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.407,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57363.282,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.38,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57372.528,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.37,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57372.528,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.392,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57531.142,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.386,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57531.142,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.187,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57539.332,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.284,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57539.332,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.174,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57730.165,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.286,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57730.231,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.332,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57892.833,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.278,
+    "err": 0.009,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57892.833,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.275,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58094.541,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.2,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58094.606,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.24,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58103.836,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.212,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58103.836,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.209,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58253.189,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.332,
+    "err": 0.009,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58253.189,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.301,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58460.692,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.056,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58460.692,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.126,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58468.543,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.165,
+    "err": 0.014,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58468.543,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.182,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58617.382,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.262,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58617.382,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.226,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58626.998,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.45,
+    "err": 0.014,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58626.998,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.247,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58825.795,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.145,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58825.795,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.032,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58984.592,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.088,
+    "err": 0.009,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58984.592,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.055,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59190.124,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.23,
+    "err": 0.015,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59190.124,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.013,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59199.278,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.0,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59199.278,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.034,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59348.393,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.375,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59348.393,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.178,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59557.852,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.052,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59557.917,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.033,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59712.694,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.166,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59712.759,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.145,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59722.417,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.048,
+    "err": 0.009,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59722.417,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.104,
+    "err": 0.009,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59921.568,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.263,
+    "err": 0.014,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59921.568,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.101,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60079.828,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.494,
+    "err": 0.013,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60079.828,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.316,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60285.441,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.22,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60285.441,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.0,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60294.74,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.076,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60294.74,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.031,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60443.888,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.086,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60443.888,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.224,
+    "err": 0.011,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60453.564,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.058,
+    "err": 0.012,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60453.564,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.198,
+    "err": 0.01,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   }
+  ],
+  "unit": "relative mag (wing index; 0 = median)",
+  "method": "unWISE epoch coadds, background-subtracted median of 1-px rings in the unsaturated PSF wings, ratio to the all-epoch median",
+  "notes": [
+   "Too bright for normal photometry: the star's core is saturated in WISE and in SPHEREx. 'mag' here is a RELATIVE brightness index (0 = median; positive = fainter) from the unsaturated outer wings of the star image, not a magnitude.",
+   "Index from rings 11–17 px (W1) and 13–19 px (W2) around the star in 37 + 37 unWISE epochs (2010–2024).",
+   "Period search (100–1000 d) on the index: best period 246 d (W1) and 247 d (W2), matching the known Mira period of 245.6 d (GCVS).",
+   "WISE visits this star only about every 6 months, so an alias period near 713 d fits almost as well; the data are consistent with the known period but could not single it out without it.",
+   "Folded on 245.6 d, one sine wave explains 75 % of the W1 index variation (semi-amplitude 0.31 mag in the index).",
+   "NEOWISE profile-fit magnitudes of R Dra scatter by up to ~2 mag within single visits (beyond the saturation-correction range) and are not used.",
+   "SPHEREx points (synthesized at 3.4/4.6 µm from per-epoch spectra) are not possible: the star is saturated in SPHEREx."
+  ],
+  "validation": {
+   "control_rms_w1": null,
+   "control_rms_w2": null,
+   "target_rms_w1": 0.249,
+   "target_rms_w2": 0.201,
+   "neowise_corr_w1": 0.887,
+   "neowise_corr_w2": 0.405,
+   "folded": {
+    "period_d": 245.6,
+    "source": "GCVS",
+    "W1": {
+     "variance_explained_at_lit": 0.7509772768920764,
+     "semi_amplitude_mag": 0.3070372388470274,
+     "best_period_d": 246.20000000000002,
+     "best_variance_explained": 0.7566312412295382,
+     "next_peaks": [
+      [
+       713.4,
+       0.71
+      ],
+      [
+       104.7,
+       0.675
+      ],
+      [
+       103.6,
+       0.628
+      ]
+     ],
+     "frac_trials_as_good_as_lit": 0.0013331852016442618
+    },
+    "W2": {
+     "variance_explained_at_lit": 0.7465408862363736,
+     "semi_amplitude_mag": 0.2331642076981233,
+     "best_period_d": 247.1,
+     "best_variance_explained": 0.7758050822917345,
+     "next_peaks": [
+      [
+       704.0,
+       0.74
+      ],
+      [
+       104.8,
+       0.668
+      ],
+      [
+       103.6,
+       0.62
+      ]
+     ],
+     "frac_trials_as_good_as_lit": 0.003221864237306966
+    }
+   }
+  }
+ },
+ "copilot": {
+  "en": "R Draconis is a Mira variable: a cool giant star that pulsates, growing brighter and fainter with a regular period. It is too bright for the WISE and SPHEREx detectors, so instead of real magnitudes we measured a relative brightness index from the star's outer glow in WISE images. A period search on this index finds 246 days, matching the known period of 245.6 days. WISE visits only about every 6 months, so an alias near 713 days fits almost as well: our data agree with the known period but could not single it out alone. In the movie, the star stays in place while its glow swells and shrinks.",
+  "az": "R Draconis Mira tipli dəyişən ulduzdur: müntəzəm dövrlə parlaqlaşıb sönükləşən, pulsasiya edən soyuq nəhəng ulduz. O, WISE və SPHEREx detektorlarının mərkəzi hissəsi üçün çox parlaqdır, buna görə əsl ulduz ölçüsünü (maqnitudu) və SPHEREx spektrini verə bilmirik. Bunun əvəzinə WISE şəkillərində ulduzun xarici işıltısından nisbi parlaqlıq indeksi ölçdük. Bu indeksdə dövr axtarışı 246 gün tapır və bu, məlum 245,6 günlük dövrlə üst-üstə düşür. WISE ulduzu yalnız təxminən 6 aydan bir görür, ona görə 713 gün yaxınlığındakı yalançı dövr də demək olar eyni dərəcədə uyğun gəlir: məlumatlarımız məlum dövrlə uzlaşır, amma onu təkbaşına seçə bilməzdi. Filmdə ulduz yerində qalır, işıltısı isə böyüyüb kiçilir.",
+  "model": "claude-opus-5-5 (Claude Code, offline from facts)",
+  "facts_hash": "c31dafadbd3ff706",
+  "generated_from": "science/out/r_dra/copilot_facts.json",
+  "ai_generated": true,
+  "audio_en": null,
+  "audio_az": null
+ },
  "flags": {
   "saturated_in": [
-   "SPHEREx"
+   "SPHEREx",
+   "WISE"
   ],
   "warnings": [
-   "SPHEREx: saturated — spectrum not usable"
+   "SPHEREx: saturated — spectrum not usable",
+   "WISE: saturated — light curve is a relative wing index, not magnitudes"
   ]
  }
 }

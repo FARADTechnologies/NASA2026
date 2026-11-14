@@ -57,12 +57,18 @@ export function Viewer({ search }: { search: string }) {
   }, []);
 
   // live job for coordinates without a precomputed field (DATA_CONTRACT §7)
-  const [live, setLive] = useState<{ state: string; progress: number } | null>(null);
+  const [live, setLive] = useState<{ state: string; progress: number; message?: string; queue?: number } | null>(null);
+  const [liveNote, setLiveNote] = useState<string>(""); // final message of a finished live job (e.g. "SPHEREx only for NASA targets")
   const runLive = useCallback(async (ra: number, dec: number, fov: number, alive: () => boolean) => {
     setLive({ state: "queued", progress: 0 });
     let job: { field_id: string; status_url: string } | null = null;
     try {
       const r = await fetch("/api/fields", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ra, dec, fov_arcmin: fov }) });
+      if (r.status === 503) {
+        setLive(null);
+        setError("The live builder is busy with another field right now. Please try again in a minute — the NASA targets on the home page always work.");
+        return;
+      }
       if (r.ok && (r.headers.get("content-type") || "").includes("json")) job = await r.json();
     } catch { /* API offline */ }
     if (!job?.status_url) {
@@ -72,12 +78,12 @@ export function Viewer({ search }: { search: string }) {
     }
     let lastKey = ""; let misses = 0;
     while (alive()) {
-      let st: { state: string; progress: number; manifest_url?: string } | null = null;
+      let st: { state: string; progress: number; manifest_url?: string | null; message?: string; queue_position?: number } | null = null;
       try { const r = await fetch(job.status_url, { cache: "no-store" }); if (r.ok) st = await r.json(); } catch { /* retry */ }
       if (!st) { if (++misses > 15) { setError("The live job stopped answering. Please try again in a minute."); return; } }
       else {
         misses = 0;
-        setLive({ state: st.state, progress: st.progress ?? 0 });
+        setLive({ state: st.state, progress: st.progress ?? 0, message: st.message, queue: st.queue_position });
         if (st.state === "error") { setError("We could not build this field (the survey servers may be busy). Please try again, or pick a NASA target."); return; }
         if (st.manifest_url && st.state !== "queued") {
           const key = `${st.state}|${st.progress}`;
@@ -87,7 +93,7 @@ export function Viewer({ search }: { search: string }) {
             if (m && alive()) await applyManifest(m, st.manifest_url.replace(/manifest\.json.*$/, ""), false, alive);
           }
         }
-        if (st.state === "done") { setLive(null); return; }
+        if (st.state === "done") { setLive(null); setLiveNote(st.message || ""); return; }
       }
       await new Promise((r) => setTimeout(r, 2000));
     }
@@ -323,6 +329,7 @@ export function Viewer({ search }: { search: string }) {
               </>
             ) : <div className="fl-date skeleton-text">Loading…</div>}
             {note && <div className="fl-note">{note}</div>}
+            {!note && liveNote && <div className="fl-note">Live field · {liveNote}</div>}
           </div>
           {showHint && manifest && (
             <div className="hint-card" role="note">
@@ -337,7 +344,9 @@ export function Viewer({ search }: { search: string }) {
           {live && (
             <div className="live-banner">
               <span className="pulse" />
-              <b>{live.state === "queued" ? "Live job queued — fetching WISE epochs…" : live.state === "wise_ready" ? "WISE frames ready · SPHEREx frames streaming…" : "SPHEREx frames streaming…"}</b>
+              <b>{live.state === "queued" ? `Live job queued${live.queue && live.queue > 1 ? ` (#${live.queue} in line)` : ""} — fetching WISE epochs…`
+                : live.state === "wise_ready" ? "WISE frames ready — finishing the field…" : "SPHEREx frames streaming…"}</b>
+              {live.message && <span className="muted small live-msg">{live.message}</span>}
               <div className="bar"><i style={{ width: `${Math.round((live.progress || 0) * 100)}%` }} /></div>
               <span className="mono">{Math.round((live.progress || 0) * 100)}%</span>
             </div>
@@ -347,7 +356,7 @@ export function Viewer({ search }: { search: string }) {
               overlay={view.overlay} fovArcmin={view.fov} centerRaDec={view.ra !== null && view.dec !== null ? [view.ra, view.dec] : null}
               loadingText={!image ? "Loading frames…" : undefined}
               targetLabel={view.overlay.includes("track") ? obj?.name : undefined} onPick={pick} />
-          ) : <div className="player-wrap"><div className="skeleton-box">{live && <div className="skeleton-msg">Building this field from WISE and SPHEREx archives — the first frames usually appear in under a minute.</div>}</div></div>}
+          ) : <div className="player-wrap"><div className="skeleton-box">{live && <div className="skeleton-msg">Building this field from the WISE archive — the first frames usually appear within 1–2 minutes.</div>}</div></div>}
           <div className="transport">
             <button className="btn icon" title="Previous frame (←)" onClick={() => { setPlaying(false); update({ frame: (idx - 1 + n) % Math.max(1, n) }); }}>⏮</button>
             <button className="btn primary play" title="Play / pause (space)" onClick={() => setPlaying((p) => !p)}>{playing ? "❚❚ Pause" : "▶ Play"}</button>

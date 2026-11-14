@@ -1,1 +1,2525 @@
-{"schema_version": "1.0", "field_id": "barnard", "title": "Barnard's Star", "center": {"ra": 269.448051, "dec": 4.7452344, "epoch": 2018.0}, "grid": {"width": 192, "height": 192, "pixel_scale_arcsec": 2.75, "wcs": {"CTYPE1": "RA---TAN", "CTYPE2": "DEC--TAN", "CRVAL1": 269.448051, "CRVAL2": 4.7452344, "CRPIX1": 96.5, "CRPIX2": 96.5, "CD1_1": -0.0007638889, "CD1_2": 0.0, "CD2_1": 0.0, "CD2_2": 0.0007638889}}, "frames": [{"id": "wise_w1_e00", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 55273.5498, "mjd_end": 55276.26273, "mjd_mid": 55274.90626, "date": "2010-03-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 0 band 1"], "display": {"p01": -18.9516, "p50": 2.60852, "p99": 2026.47892, "p999": 12567.41087}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00125, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e00.f32", "mask_file": "frames/wise_w1_e00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e00", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 55273.5498, "mjd_end": 55276.26273, "mjd_mid": 55274.90626, "date": "2010-03-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 0 band 2"], "display": {"p01": -33.60955, "p50": 2.80477, "p99": 2507.57128, "p999": 22029.58742}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00109, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e00.f32", "mask_file": "frames/wise_w2_e00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e01", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 55452.99195, "mjd_end": 55458.48149, "mjd_mid": 55455.73672, "date": "2010-09-16", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 1 band 1"], "display": {"p01": -19.14663, "p50": 2.8073, "p99": 2109.26234, "p999": 15343.8337}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00073, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e01.f32", "mask_file": "frames/wise_w1_e01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e01", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 55452.99195, "mjd_end": 55458.48149, "mjd_mid": 55455.73672, "date": "2010-09-16", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 1 band 2"], "display": {"p01": -33.79604, "p50": 2.98427, "p99": 2512.44751, "p999": 22800.28797}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.0009, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e01.f32", "mask_file": "frames/wise_w2_e01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e02", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 56735.50164, "mjd_end": 56741.09865, "mjd_mid": 56738.30014, "date": "2014-03-22", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 2 band 1"], "display": {"p01": -18.61568, "p50": 2.91823, "p99": 1963.12215, "p999": 14035.46771}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00157, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e02.f32", "mask_file": "frames/wise_w1_e02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e02", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 56735.50164, "mjd_end": 56741.09865, "mjd_mid": 56738.30014, "date": "2014-03-22", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 2 band 2"], "display": {"p01": -36.48363, "p50": 3.10142, "p99": 2689.3283, "p999": 129135.63087}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00027, "notes": ["scaled on 40 Gaia stars", "saturated pixels present"]}, "file": "frames/wise_w2_e02.f32", "mask_file": "frames/wise_w2_e02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e03", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 56917.80729, "mjd_end": 56920.50418, "mjd_mid": 56919.15574, "date": "2014-09-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 3 band 1"], "display": {"p01": -19.16437, "p50": 2.83438, "p99": 1913.26782, "p999": 13757.36745}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00176, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e03.f32", "mask_file": "frames/wise_w1_e03.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e03", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 56917.80729, "mjd_end": 56920.50418, "mjd_mid": 56919.15574, "date": "2014-09-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 3 band 2"], "display": {"p01": -33.28212, "p50": 3.0256, "p99": 2582.17673, "p999": 115366.69931}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00073, "notes": ["scaled on 40 Gaia stars", "saturated pixels present"]}, "file": "frames/wise_w2_e03.f32", "mask_file": "frames/wise_w2_e03.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e04", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 57100.33375, "mjd_end": 57102.8949, "mjd_mid": 57101.61432, "date": "2015-03-20", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 4 band 1"], "display": {"p01": -19.06968, "p50": 2.83889, "p99": 2022.66053, "p999": 19790.43022}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00125, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e04.f32", "mask_file": "frames/wise_w1_e04.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e04", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 57100.33375, "mjd_end": 57102.8949, "mjd_mid": 57101.61432, "date": "2015-03-20", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 4 band 2"], "display": {"p01": -34.3894, "p50": 3.08843, "p99": 2647.69958, "p999": 112173.15193}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00027, "notes": ["scaled on 40 Gaia stars", "saturated pixels present"]}, "file": "frames/wise_w2_e04.f32", "mask_file": "frames/wise_w2_e04.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e05", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 57276.63082, "mjd_end": 57286.92916, "mjd_mid": 57281.77999, "date": "2015-09-16", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 5 band 1"], "display": {"p01": -18.89778, "p50": 2.79542, "p99": 1963.11493, "p999": 14575.21902}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00163, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e05.f32", "mask_file": "frames/wise_w1_e05.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e05", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 57276.63082, "mjd_end": 57286.92916, "mjd_mid": 57281.77999, "date": "2015-09-16", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 5 band 2"], "display": {"p01": -33.56693, "p50": 3.11994, "p99": 2683.42523, "p999": 115428.12664}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00022, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e05.f32", "mask_file": "frames/wise_w2_e05.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e06", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 57464.38034, "mjd_end": 57467.06769, "mjd_mid": 57465.72401, "date": "2016-03-18", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 6 band 1"], "display": {"p01": -19.6426, "p50": 2.82881, "p99": 1964.8656, "p999": 13278.86073}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00179, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e06.f32", "mask_file": "frames/wise_w1_e06.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e06", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 57464.38034, "mjd_end": 57467.06769, "mjd_mid": 57465.72401, "date": "2016-03-18", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 6 band 2"], "display": {"p01": -34.56867, "p50": 3.02865, "p99": 2538.24009, "p999": 102243.39488}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00076, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e06.f32", "mask_file": "frames/wise_w2_e06.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e07", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 57635.56207, "mjd_end": 57641.91703, "mjd_mid": 57638.73955, "date": "2016-09-07", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 7 band 2"], "display": {"p01": -34.87883, "p50": 3.07262, "p99": 2329.3374, "p999": 25358.91133}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00165, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e07.f32", "mask_file": "frames/wise_w2_e07.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e07", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 57635.5622, "mjd_end": 57641.91703, "mjd_mid": 57638.73961, "date": "2016-09-07", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 7 band 1"], "display": {"p01": -18.89581, "p50": 2.98311, "p99": 1977.24669, "p999": 14097.63805}, "quality": {"masked_frac": 0.0011, "saturated_frac": 0.00179, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e07.f32", "mask_file": "frames/wise_w1_e07.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e08", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 57828.87321, "mjd_end": 57834.30866, "mjd_mid": 57831.59093, "date": "2017-03-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 8 band 1"], "display": {"p01": -18.24473, "p50": 2.95973, "p99": 1946.3192, "p999": 13343.94727}, "quality": {"masked_frac": 0.0011, "saturated_frac": 0.00184, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e08.f32", "mask_file": "frames/wise_w1_e08.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e08", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 57828.87321, "mjd_end": 57834.30866, "mjd_mid": 57831.59093, "date": "2017-03-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 8 band 2"], "display": {"p01": -35.14056, "p50": 3.02378, "p99": 2396.89037, "p999": 39313.09154}, "quality": {"masked_frac": 0.0011, "saturated_frac": 0.00141, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e08.f32", "mask_file": "frames/wise_w2_e08.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e09", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 57999.14558, "mjd_end": 58001.83012, "mjd_mid": 58000.48785, "date": "2017-09-04", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 9 band 1"], "display": {"p01": -19.05405, "p50": 2.93797, "p99": 1900.36731, "p999": 13982.89684}, "quality": {"masked_frac": 0.001, "saturated_frac": 0.00198, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e09.f32", "mask_file": "frames/wise_w1_e09.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e09", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 57999.14558, "mjd_end": 58001.83012, "mjd_mid": 58000.48785, "date": "2017-09-04", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 9 band 2"], "display": {"p01": -35.20364, "p50": 3.03323, "p99": 2307.54436, "p999": 30977.28884}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00163, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e09.f32", "mask_file": "frames/wise_w2_e09.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e10", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 58195.74282, "mjd_end": 58198.42647, "mjd_mid": 58197.08464, "date": "2018-03-20", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 10 band 1"], "display": {"p01": -18.91291, "p50": 3.13384, "p99": 1957.78042, "p999": 13962.46964}, "quality": {"masked_frac": 0.0014, "saturated_frac": 0.00203, "notes": ["reference frame for W1 scaling", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e10.f32", "mask_file": "frames/wise_w1_e10.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e10", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 58195.74282, "mjd_end": 58198.42647, "mjd_mid": 58197.08464, "date": "2018-03-20", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 10 band 2"], "display": {"p01": -36.65805, "p50": 3.3922, "p99": 2292.90969, "p999": 23142.13845}, "quality": {"masked_frac": 0.0015, "saturated_frac": 0.00174, "notes": ["reference frame for W2 scaling", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e10.f32", "mask_file": "frames/wise_w2_e10.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e11", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 58359.64402, "mjd_end": 58362.32728, "mjd_mid": 58360.98565, "date": "2018-08-30", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 11 band 1"], "display": {"p01": -18.84476, "p50": 2.81046, "p99": 1861.74332, "p999": 11292.95899}, "quality": {"masked_frac": 0.0011, "saturated_frac": 0.00228, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e11.f32", "mask_file": "frames/wise_w1_e11.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e11", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 58359.64402, "mjd_end": 58362.32728, "mjd_mid": 58360.98565, "date": "2018-08-30", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 11 band 2"], "display": {"p01": -34.24609, "p50": 3.08654, "p99": 2252.37344, "p999": 21132.97153}, "quality": {"masked_frac": 0.0014, "saturated_frac": 0.00184, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e11.f32", "mask_file": "frames/wise_w2_e11.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e12", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 58559.95667, "mjd_end": 58570.03254, "mjd_mid": 58564.9946, "date": "2019-03-22", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 12 band 1"], "display": {"p01": -19.08853, "p50": 2.91866, "p99": 1947.3048, "p999": 13348.70519}, "quality": {"masked_frac": 0.001, "saturated_frac": 0.00195, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e12.f32", "mask_file": "frames/wise_w1_e12.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e12", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 58559.95667, "mjd_end": 58570.03254, "mjd_mid": 58564.9946, "date": "2019-03-22", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 12 band 2"], "display": {"p01": -35.06237, "p50": 3.12968, "p99": 2272.67634, "p999": 23416.19532}, "quality": {"masked_frac": 0.0014, "saturated_frac": 0.00165, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e12.f32", "mask_file": "frames/wise_w2_e12.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e13", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 58723.80063, "mjd_end": 58733.87445, "mjd_mid": 58728.83754, "date": "2019-09-02", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 13 band 1"], "display": {"p01": -18.77019, "p50": 2.79625, "p99": 1841.76197, "p999": 9707.70492}, "quality": {"masked_frac": 0.0006, "saturated_frac": 0.00228, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e13.f32", "mask_file": "frames/wise_w1_e13.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e13", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 58723.80063, "mjd_end": 58733.87445, "mjd_mid": 58728.83754, "date": "2019-09-02", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 13 band 2"], "display": {"p01": -34.67225, "p50": 2.95837, "p99": 2299.56379, "p999": 33577.84942}, "quality": {"masked_frac": 0.001, "saturated_frac": 0.00163, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e13.f32", "mask_file": "frames/wise_w2_e13.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e14", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 58924.04681, "mjd_end": 58929.73742, "mjd_mid": 58926.89211, "date": "2020-03-18", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 14 band 1"], "display": {"p01": -19.19701, "p50": 2.89466, "p99": 1930.6225, "p999": 12405.30724}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00214, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e14.f32", "mask_file": "frames/wise_w1_e14.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e14", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 58924.04681, "mjd_end": 58929.73742, "mjd_mid": 58926.89211, "date": "2020-03-18", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 14 band 2"], "display": {"p01": -36.87371, "p50": 2.97451, "p99": 2331.9455, "p999": 37039.3198}, "quality": {"masked_frac": 0.0009, "saturated_frac": 0.00163, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e14.f32", "mask_file": "frames/wise_w2_e14.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e15", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 59087.83762, "mjd_end": 59093.52669, "mjd_mid": 59090.68215, "date": "2020-08-29", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 15 band 1"], "display": {"p01": -19.21525, "p50": 2.82463, "p99": 1863.69262, "p999": 10616.45435}, "quality": {"masked_frac": 0.0007, "saturated_frac": 0.00236, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e15.f32", "mask_file": "frames/wise_w1_e15.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e15", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 59087.83762, "mjd_end": 59093.52669, "mjd_mid": 59090.68215, "date": "2020-08-29", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 15 band 2"], "display": {"p01": -34.53371, "p50": 3.01071, "p99": 2387.02415, "p999": 48697.1754}, "quality": {"masked_frac": 0.0003, "saturated_frac": 0.00133, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e15.f32", "mask_file": "frames/wise_w2_e15.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e16", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 59291.27654, "mjd_end": 59293.95713, "mjd_mid": 59292.61684, "date": "2021-03-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 16 band 1"], "display": {"p01": -18.85518, "p50": 2.99042, "p99": 1946.22818, "p999": 15031.50469}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00203, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e16.f32", "mask_file": "frames/wise_w1_e16.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e16", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 59291.27654, "mjd_end": 59293.95713, "mjd_mid": 59292.61684, "date": "2021-03-19", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 16 band 2"], "display": {"p01": -35.73213, "p50": 3.08813, "p99": 2262.17449, "p999": 22184.38477}, "quality": {"masked_frac": 0.0013, "saturated_frac": 0.0019, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e16.f32", "mask_file": "frames/wise_w2_e16.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e17", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 59454.98023, "mjd_end": 59457.79121, "mjd_mid": 59456.38572, "date": "2021-08-30", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 17 band 1"], "display": {"p01": -19.03713, "p50": 2.92954, "p99": 1872.88254, "p999": 11484.68638}, "quality": {"masked_frac": 0.001, "saturated_frac": 0.00239, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e17.f32", "mask_file": "frames/wise_w1_e17.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e17", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 59454.98023, "mjd_end": 59457.79134, "mjd_mid": 59456.38578, "date": "2021-08-30", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 17 band 2"], "display": {"p01": -35.78324, "p50": 2.95493, "p99": 2322.94967, "p999": 31280.47713}, "quality": {"masked_frac": 0.0006, "saturated_frac": 0.00152, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e17.f32", "mask_file": "frames/wise_w2_e17.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e18", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 59655.38793, "mjd_end": 59663.28989, "mjd_mid": 59659.33891, "date": "2022-03-21", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 18 band 1"], "display": {"p01": -18.96612, "p50": 2.97561, "p99": 1953.98103, "p999": 16118.48212}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00198, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e18.f32", "mask_file": "frames/wise_w1_e18.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e18", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 59655.38793, "mjd_end": 59663.28989, "mjd_mid": 59659.33891, "date": "2022-03-21", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 18 band 2"], "display": {"p01": -35.68849, "p50": 3.14735, "p99": 2269.64737, "p999": 22767.61257}, "quality": {"masked_frac": 0.0011, "saturated_frac": 0.00179, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e18.f32", "mask_file": "frames/wise_w2_e18.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e19", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 59819.21446, "mjd_end": 59827.43157, "mjd_mid": 59823.32302, "date": "2022-09-01", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 19 band 1"], "display": {"p01": -18.78008, "p50": 2.82739, "p99": 1921.40397, "p999": 13978.18786}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00217, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e19.f32", "mask_file": "frames/wise_w1_e19.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e19", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 59819.21446, "mjd_end": 59827.43157, "mjd_mid": 59823.32302, "date": "2022-09-01", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 19 band 2"], "display": {"p01": -34.24214, "p50": 2.82153, "p99": 2311.83055, "p999": 34146.37883}, "quality": {"masked_frac": 0.0006, "saturated_frac": 0.0016, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e19.f32", "mask_file": "frames/wise_w2_e19.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e20", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 60022.53717, "mjd_end": 60025.0735, "mjd_mid": 60023.80533, "date": "2023-03-20", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 20 band 1"], "display": {"p01": -19.38233, "p50": 3.00455, "p99": 1964.60979, "p999": 15283.58344}, "quality": {"masked_frac": 0.0012, "saturated_frac": 0.00184, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e20.f32", "mask_file": "frames/wise_w1_e20.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e20", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 60022.53717, "mjd_end": 60025.0735, "mjd_mid": 60023.80533, "date": "2023-03-20", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 20 band 2"], "display": {"p01": -37.65777, "p50": 3.11236, "p99": 2237.47844, "p999": 16614.66073}, "quality": {"masked_frac": 0.0008, "saturated_frac": 0.00176, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e20.f32", "mask_file": "frames/wise_w2_e20.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e21", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 60186.25042, "mjd_end": 60189.03657, "mjd_mid": 60187.6435, "date": "2023-08-31", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 21 band 1"], "display": {"p01": -20.20327, "p50": 2.87559, "p99": 1832.89919, "p999": 11172.61}, "quality": {"masked_frac": 0.0011, "saturated_frac": 0.00258, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e21.f32", "mask_file": "frames/wise_w1_e21.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e21", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 60186.25042, "mjd_end": 60189.03657, "mjd_mid": 60187.6435, "date": "2023-08-31", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 21 band 2"], "display": {"p01": -36.20535, "p50": 3.0141, "p99": 2288.05489, "p999": 31816.07708}, "quality": {"masked_frac": 0.0007, "saturated_frac": 0.0016, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e21.f32", "mask_file": "frames/wise_w2_e21.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w2_e22", "instrument": "WISE", "band": "W2", "lambda_um": [4.6, 4.6], "mjd_start": 60386.54243, "mjd_end": 60389.30923, "mjd_mid": 60387.92583, "date": "2024-03-18", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 22 band 2"], "display": {"p01": -37.47555, "p50": 3.06676, "p99": 2272.96388, "p999": 19770.31779}, "quality": {"masked_frac": 0.0013, "saturated_frac": 0.00182, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w2_e22.f32", "mask_file": "frames/wise_w2_e22.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "wise_w1_e22", "instrument": "WISE", "band": "W1", "lambda_um": [3.4, 3.4], "mjd_start": 60386.67117, "mjd_end": 60389.30923, "mjd_mid": 60387.9902, "date": "2024-03-18", "n_inputs": 1, "source_files": ["byw.tools unWISE epoch 22 band 1"], "display": {"p01": -19.98885, "p50": 2.8901, "p99": 1914.44379, "p999": 13858.37196}, "quality": {"masked_frac": 0.0015, "saturated_frac": 0.00212, "notes": ["scaled on 40 Gaia stars", "saturated pixels present", "target saturated"]}, "file": "frames/wise_w1_e22.f32", "mask_file": "frames/wise_w1_e22.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d3_t00", "instrument": "SPHEREx", "band": "D3", "lambda_um": [1.6174, 2.4212], "mjd_start": 60902.86472, "mjd_end": 60914.48542, "mjd_mid": 60908.00734, "date": "2025-08-21", "n_inputs": 18, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x18"], "display": {"p01": -16.66086, "p50": 3.96298, "p99": 1305.21949, "p999": 4976.21748}, "quality": {"masked_frac": 0.01, "saturated_frac": 0.00071, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d3_t00.f32", "mask_file": "frames/spx_d3_t00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d6_t00", "instrument": "SPHEREx", "band": "D6", "lambda_um": [4.4028, 5.0114], "mjd_start": 60902.86472, "mjd_end": 60914.48542, "mjd_mid": 60908.13384, "date": "2025-08-21", "n_inputs": 17, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x17"], "display": {"p01": -37.75501, "p50": 3.43162, "p99": 2489.37383, "p999": 139152.51088}, "quality": {"masked_frac": 0.0049, "saturated_frac": 0.0003, "notes": ["co-add of 17 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W2 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d6_t00.f32", "mask_file": "frames/spx_d6_t00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d2_t00", "instrument": "SPHEREx", "band": "D2", "lambda_um": [1.0884, 1.6404], "mjd_start": 60908.98193, "mjd_end": 60917.67527, "mjd_mid": 60913.73623, "date": "2025-08-26", "n_inputs": 18, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x18"], "display": {"p01": -15.50891, "p50": 3.4795, "p99": 1061.49856, "p999": 4847.62683}, "quality": {"masked_frac": 0.0043, "saturated_frac": 0.00065, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 39 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d2_t00.f32", "mask_file": "frames/spx_d2_t00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d5_t00", "instrument": "SPHEREx", "band": "D5", "lambda_um": [3.8051, 4.4179], "mjd_start": 60908.98193, "mjd_end": 60917.67527, "mjd_mid": 60913.73623, "date": "2025-08-26", "n_inputs": 18, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x18"], "display": {"p01": -23.86821, "p50": 3.58408, "p99": 2047.73794, "p999": 28057.468}, "quality": {"masked_frac": 0.0022, "saturated_frac": 0.00016, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W2 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d5_t00.f32", "mask_file": "frames/spx_d5_t00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d1_t00", "instrument": "SPHEREx", "band": "D1", "lambda_um": [0.7412, 1.1143], "mjd_start": 60914.21253, "mjd_end": 60949.26725, "mjd_mid": 60923.99948, "date": "2025-09-05", "n_inputs": 24, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x24"], "display": {"p01": -16.02058, "p50": 3.5422, "p99": 950.18909, "p999": 4798.87202}, "quality": {"masked_frac": 0.0044, "saturated_frac": 0.00046, "notes": ["co-add of 24 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d1_t00.f32", "mask_file": "frames/spx_d1_t00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d4_t00", "instrument": "SPHEREx", "band": "D4", "lambda_um": [2.4185, 3.8281], "mjd_start": 60914.21253, "mjd_end": 60949.26725, "mjd_mid": 60924.26251, "date": "2025-09-06", "n_inputs": 23, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x23"], "display": {"p01": -20.44999, "p50": 4.54141, "p99": 1644.883, "p999": 6385.34293}, "quality": {"masked_frac": 0.008, "saturated_frac": 0.00065, "notes": ["co-add of 23 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d4_t00.f32", "mask_file": "frames/spx_d4_t00.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d1_t01", "instrument": "SPHEREx", "band": "D1", "lambda_um": [0.7398, 1.1047], "mjd_start": 61110.0914, "mjd_end": 61110.77171, "mjd_mid": 61110.47093, "date": "2026-03-11", "n_inputs": 18, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x18"], "display": {"p01": -17.31947, "p50": 3.56569, "p99": 980.27537, "p999": 4530.13343}, "quality": {"masked_frac": 0.0075, "saturated_frac": 0.00049, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d1_t01.f32", "mask_file": "frames/spx_d1_t01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d4_t01", "instrument": "SPHEREx", "band": "D4", "lambda_um": [2.4166, 3.7886], "mjd_start": 61110.0914, "mjd_end": 61110.77171, "mjd_mid": 61110.47093, "date": "2026-03-11", "n_inputs": 18, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x18"], "display": {"p01": -20.09639, "p50": 4.218, "p99": 1661.27111, "p999": 8447.76556}, "quality": {"masked_frac": 0.01, "saturated_frac": 0.00071, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 39 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d4_t01.f32", "mask_file": "frames/spx_d4_t01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d2_t01", "instrument": "SPHEREx", "band": "D2", "lambda_um": [1.0935, 1.6483], "mjd_start": 61114.032, "mjd_end": 61121.22954, "mjd_mid": 61116.38577, "date": "2026-03-17", "n_inputs": 19, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x19"], "display": {"p01": -15.71611, "p50": 3.5061, "p99": 1038.4178, "p999": 4759.35579}, "quality": {"masked_frac": 0.0047, "saturated_frac": 0.00084, "notes": ["co-add of 19 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d2_t01.f32", "mask_file": "frames/spx_d2_t01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d5_t01", "instrument": "SPHEREx", "band": "D5", "lambda_um": [3.8077, 4.4261], "mjd_start": 61114.032, "mjd_end": 61121.22954, "mjd_mid": 61116.38577, "date": "2026-03-17", "n_inputs": 19, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x19"], "display": {"p01": -24.35402, "p50": 3.4351, "p99": 2085.63315, "p999": 41183.46348}, "quality": {"masked_frac": 0.0019, "saturated_frac": 0.00038, "notes": ["co-add of 19 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W2 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d5_t01.f32", "mask_file": "frames/spx_d5_t01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d3_t01", "instrument": "SPHEREx", "band": "D3", "lambda_um": [1.6184, 2.4242], "mjd_start": 61118.30923, "mjd_end": 61165.0843, "mjd_mid": 61128.6273, "date": "2026-03-29", "n_inputs": 24, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x24"], "display": {"p01": -17.26844, "p50": 4.03893, "p99": 1349.15407, "p999": 5115.74979}, "quality": {"masked_frac": 0.0041, "saturated_frac": 0.00073, "notes": ["co-add of 24 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d3_t01.f32", "mask_file": "frames/spx_d3_t01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d6_t01", "instrument": "SPHEREx", "band": "D6", "lambda_um": [4.4033, 5.0129], "mjd_start": 61118.30923, "mjd_end": 61165.0843, "mjd_mid": 61128.6273, "date": "2026-03-29", "n_inputs": 24, "source_files": ["IRSA SPHEREx dr1 L2 cutouts x24"], "display": {"p01": -36.62808, "p50": 3.14662, "p99": 2403.84796, "p999": 115730.89455}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00046, "notes": ["co-add of 24 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W2 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d6_t01.f32", "mask_file": "frames/spx_d6_t01.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d6_t02", "instrument": "SPHEREx", "band": "D6", "lambda_um": [4.4173, 4.9874], "mjd_start": 61268.63081, "mjd_end": 61272.90751, "mjd_mid": 61270.28243, "date": "2026-08-18", "n_inputs": 17, "source_files": ["IRSA SPHEREx qr3 L2 cutouts x17"], "display": {"p01": -37.33591, "p50": 3.06164, "p99": 2371.33129, "p999": 140796.41097}, "quality": {"masked_frac": 0.0046, "saturated_frac": 0.00038, "notes": ["co-add of 17 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W2 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d6_t02.f32", "mask_file": "frames/spx_d6_t02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d3_t02", "instrument": "SPHEREx", "band": "D3", "lambda_um": [1.6306, 2.4238], "mjd_start": 61268.63081, "mjd_end": 61303.1868, "mjd_mid": 61272.00938, "date": "2026-08-20", "n_inputs": 19, "source_files": ["IRSA SPHEREx qr3 L2 cutouts x19"], "display": {"p01": -16.92717, "p50": 4.09785, "p99": 1373.44978, "p999": 5012.23751}, "quality": {"masked_frac": 0.0102, "saturated_frac": 0.00068, "notes": ["co-add of 19 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 39 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d3_t02.f32", "mask_file": "frames/spx_d3_t02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d2_t02", "instrument": "SPHEREx", "band": "D2", "lambda_um": [1.0859, 1.6658], "mjd_start": 61270.86712, "mjd_end": 61305.62935, "mjd_mid": 61274.85046, "date": "2026-08-22", "n_inputs": 25, "source_files": ["IRSA SPHEREx qr3 L2 cutouts x25"], "display": {"p01": -17.78911, "p50": 4.00147, "p99": 1111.04815, "p999": 4914.48475}, "quality": {"masked_frac": 0.0056, "saturated_frac": 0.00087, "notes": ["co-add of 25 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 39 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d2_t02.f32", "mask_file": "frames/spx_d2_t02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d5_t02", "instrument": "SPHEREx", "band": "D5", "lambda_um": [3.7984, 4.4404], "mjd_start": 61270.86712, "mjd_end": 61305.62935, "mjd_mid": 61274.85046, "date": "2026-08-22", "n_inputs": 25, "source_files": ["IRSA SPHEREx qr3 L2 cutouts x25"], "display": {"p01": -24.12293, "p50": 2.92951, "p99": 2411.99061, "p999": 159634.06727}, "quality": {"masked_frac": 0.0, "saturated_frac": 0.00049, "notes": ["co-add of 25 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W2 on 40 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d5_t02.f32", "mask_file": "frames/spx_d5_t02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d1_t02", "instrument": "SPHEREx", "band": "D1", "lambda_um": [0.7368, 1.1041], "mjd_start": 61275.95919, "mjd_end": 61285.25837, "mjd_mid": 61278.32877, "date": "2026-08-26", "n_inputs": 18, "source_files": ["IRSA SPHEREx qr3 L2 cutouts x18"], "display": {"p01": -16.25721, "p50": 3.36604, "p99": 934.606, "p999": 4853.84805}, "quality": {"masked_frac": 0.0047, "saturated_frac": 0.00046, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 39 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d1_t02.f32", "mask_file": "frames/spx_d1_t02.mask.u8", "dtype": "float32", "units": "relative"}, {"id": "spx_d4_t02", "instrument": "SPHEREx", "band": "D4", "lambda_um": [2.4017, 3.7891], "mjd_start": 61275.95919, "mjd_end": 61285.25837, "mjd_mid": 61278.32877, "date": "2026-08-26", "n_inputs": 18, "source_files": ["IRSA SPHEREx qr3 L2 cutouts x18"], "display": {"p01": -19.95543, "p50": 4.63305, "p99": 1527.71985, "p999": 5372.0652}, "quality": {"masked_frac": 0.0089, "saturated_frac": 0.00071, "notes": ["co-add of 18 images (inverse-variance)", "SPHEREx 6.15\"/px resampled to 2.75\"/px", "scaled to W1 on 39 Gaia stars", "saturated pixels (OVERFLOW) present", "target saturated"]}, "file": "frames/spx_d4_t02.f32", "mask_file": "frames/spx_d4_t02.mask.u8", "dtype": "float32", "units": "relative"}], "sequences": [{"id": "thermal46", "label": "4.6 µm — WISE W2 + SPHEREx D6", "default": true, "frames": ["wise_w2_e00", "wise_w2_e01", "wise_w2_e02", "wise_w2_e03", "wise_w2_e04", "wise_w2_e05", "wise_w2_e06", "wise_w2_e07", "wise_w2_e08", "wise_w2_e09", "wise_w2_e10", "wise_w2_e11", "wise_w2_e12", "wise_w2_e13", "wise_w2_e14", "wise_w2_e15", "wise_w2_e16", "wise_w2_e17", "wise_w2_e18", "wise_w2_e19", "wise_w2_e20", "wise_w2_e21", "wise_w2_e22", "spx_d6_t00", "spx_d6_t01", "spx_d6_t02"]}, {"id": "w1d4", "label": "3.4 µm — WISE W1 + SPHEREx D4", "default": false, "frames": ["wise_w1_e00", "wise_w1_e01", "wise_w1_e02", "wise_w1_e03", "wise_w1_e04", "wise_w1_e05", "wise_w1_e06", "wise_w1_e07", "wise_w1_e08", "wise_w1_e09", "wise_w1_e10", "wise_w1_e11", "wise_w1_e12", "wise_w1_e13", "wise_w1_e14", "wise_w1_e15", "wise_w1_e16", "wise_w1_e17", "wise_w1_e18", "wise_w1_e19", "wise_w1_e20", "wise_w1_e21", "wise_w1_e22", "spx_d4_t00", "spx_d4_t01", "spx_d4_t02"]}, {"id": "spherex6", "label": "SPHEREx only — D1…D6", "default": false, "frames": ["spx_d3_t00", "spx_d6_t00", "spx_d2_t00", "spx_d5_t00", "spx_d1_t00", "spx_d4_t00", "spx_d1_t01", "spx_d4_t01", "spx_d2_t01", "spx_d5_t01", "spx_d3_t01", "spx_d6_t01", "spx_d6_t02", "spx_d3_t02", "spx_d2_t02", "spx_d5_t02", "spx_d1_t02", "spx_d4_t02"]}], "rgb_composites": [{"id": "fingerprint_t00", "label": "Spectral fingerprint (D1/D3/D6), 2025-08", "r": "spx_d6_t00", "g": "spx_d3_t00", "b": "spx_d1_t00"}, {"id": "fingerprint_t01", "label": "Spectral fingerprint (D1/D3/D6), 2026-03", "r": "spx_d6_t01", "g": "spx_d3_t01", "b": "spx_d1_t01"}, {"id": "fingerprint_t02", "label": "Spectral fingerprint (D1/D3/D6), 2026-08", "r": "spx_d6_t02", "g": "spx_d3_t02", "b": "spx_d1_t02"}], "objects": ["target"], "catalogs": {"gaia": "catalogs/gaia.json", "catwise": "catalogs/catwise.json"}, "candidates": null, "credits": ["NASA/IPAC IRSA SPHEREx DR1+QR3", "unWISE time-resolved coadds via byw.tools (Backyard Worlds/AMNH)", "NASA WISE/NEOWISE", "ESA Gaia DR3", "CatWISE2020 (IRSA)", "SIMBAD (CDS)"], "build": {"pipeline_version": "0.2.0", "generated_utc": "2026-11-14T11:04:28Z", "spherex_releases": ["dr1", "qr3"], "status": "done", "grid_note": "SPHEREx pixels are 6.15\"; resampled to 2.75\"/px for comparison", "skipped_frames": [], "spherex_epochs": [[60902.865, 60949.267], [61110.092, 61165.084], [61268.631, 61305.629]], "wise_source": "byw.tools time-resolved unWISE (neo7-style epochs)", "scaling": "per-frame sigma-clipped background subtracted; scaled to the WISE epoch nearest 2018.0 on bright unsaturated low-PM Gaia stars (D1-D4 -> W1, D5-D6 -> W2)"}}
+{
+ "schema_version": "1.0",
+ "field_id": "barnard",
+ "title": "Barnard's Star",
+ "center": {
+  "ra": 269.448051,
+  "dec": 4.7452344,
+  "epoch": 2018.0
+ },
+ "grid": {
+  "width": 192,
+  "height": 192,
+  "pixel_scale_arcsec": 2.75,
+  "wcs": {
+   "CTYPE1": "RA---TAN",
+   "CTYPE2": "DEC--TAN",
+   "CRVAL1": 269.448051,
+   "CRVAL2": 4.7452344,
+   "CRPIX1": 96.5,
+   "CRPIX2": 96.5,
+   "CD1_1": -0.0007638889,
+   "CD1_2": 0.0,
+   "CD2_1": 0.0,
+   "CD2_2": 0.0007638889
+  }
+ },
+ "frames": [
+  {
+   "id": "wise_w1_e00",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 55273.5498,
+   "mjd_end": 55276.26273,
+   "mjd_mid": 55274.90626,
+   "date": "2010-03-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 0 band 1"
+   ],
+   "display": {
+    "p01": -18.9516,
+    "p50": 2.60852,
+    "p99": 2026.47892,
+    "p999": 12567.41087
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00125,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e00.f32",
+   "mask_file": "frames/wise_w1_e00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e00",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 55273.5498,
+   "mjd_end": 55276.26273,
+   "mjd_mid": 55274.90626,
+   "date": "2010-03-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 0 band 2"
+   ],
+   "display": {
+    "p01": -33.60955,
+    "p50": 2.80477,
+    "p99": 2507.57128,
+    "p999": 22029.58742
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00109,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e00.f32",
+   "mask_file": "frames/wise_w2_e00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e01",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 55452.99195,
+   "mjd_end": 55458.48149,
+   "mjd_mid": 55455.73672,
+   "date": "2010-09-16",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 1 band 1"
+   ],
+   "display": {
+    "p01": -19.14663,
+    "p50": 2.8073,
+    "p99": 2109.26234,
+    "p999": 15343.8337
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00073,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e01.f32",
+   "mask_file": "frames/wise_w1_e01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e01",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 55452.99195,
+   "mjd_end": 55458.48149,
+   "mjd_mid": 55455.73672,
+   "date": "2010-09-16",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 1 band 2"
+   ],
+   "display": {
+    "p01": -33.79604,
+    "p50": 2.98427,
+    "p99": 2512.44751,
+    "p999": 22800.28797
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.0009,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e01.f32",
+   "mask_file": "frames/wise_w2_e01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e02",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 56735.50164,
+   "mjd_end": 56741.09865,
+   "mjd_mid": 56738.30014,
+   "date": "2014-03-22",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 2 band 1"
+   ],
+   "display": {
+    "p01": -18.61568,
+    "p50": 2.91823,
+    "p99": 1963.12215,
+    "p999": 14035.46771
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00157,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e02.f32",
+   "mask_file": "frames/wise_w1_e02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e02",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 56735.50164,
+   "mjd_end": 56741.09865,
+   "mjd_mid": 56738.30014,
+   "date": "2014-03-22",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 2 band 2"
+   ],
+   "display": {
+    "p01": -36.48363,
+    "p50": 3.10142,
+    "p99": 2689.3283,
+    "p999": 129135.63087
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00027,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present"
+    ]
+   },
+   "file": "frames/wise_w2_e02.f32",
+   "mask_file": "frames/wise_w2_e02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e03",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 56917.80729,
+   "mjd_end": 56920.50418,
+   "mjd_mid": 56919.15574,
+   "date": "2014-09-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 3 band 1"
+   ],
+   "display": {
+    "p01": -19.16437,
+    "p50": 2.83438,
+    "p99": 1913.26782,
+    "p999": 13757.36745
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00176,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e03.f32",
+   "mask_file": "frames/wise_w1_e03.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e03",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 56917.80729,
+   "mjd_end": 56920.50418,
+   "mjd_mid": 56919.15574,
+   "date": "2014-09-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 3 band 2"
+   ],
+   "display": {
+    "p01": -33.28212,
+    "p50": 3.0256,
+    "p99": 2582.17673,
+    "p999": 115366.69931
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00073,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present"
+    ]
+   },
+   "file": "frames/wise_w2_e03.f32",
+   "mask_file": "frames/wise_w2_e03.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e04",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57100.33375,
+   "mjd_end": 57102.8949,
+   "mjd_mid": 57101.61432,
+   "date": "2015-03-20",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 4 band 1"
+   ],
+   "display": {
+    "p01": -19.06968,
+    "p50": 2.83889,
+    "p99": 2022.66053,
+    "p999": 19790.43022
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00125,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e04.f32",
+   "mask_file": "frames/wise_w1_e04.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e04",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57100.33375,
+   "mjd_end": 57102.8949,
+   "mjd_mid": 57101.61432,
+   "date": "2015-03-20",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 4 band 2"
+   ],
+   "display": {
+    "p01": -34.3894,
+    "p50": 3.08843,
+    "p99": 2647.69958,
+    "p999": 112173.15193
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00027,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present"
+    ]
+   },
+   "file": "frames/wise_w2_e04.f32",
+   "mask_file": "frames/wise_w2_e04.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e05",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57276.63082,
+   "mjd_end": 57286.92916,
+   "mjd_mid": 57281.77999,
+   "date": "2015-09-16",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 5 band 1"
+   ],
+   "display": {
+    "p01": -18.89778,
+    "p50": 2.79542,
+    "p99": 1963.11493,
+    "p999": 14575.21902
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00163,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e05.f32",
+   "mask_file": "frames/wise_w1_e05.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e05",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57276.63082,
+   "mjd_end": 57286.92916,
+   "mjd_mid": 57281.77999,
+   "date": "2015-09-16",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 5 band 2"
+   ],
+   "display": {
+    "p01": -33.56693,
+    "p50": 3.11994,
+    "p99": 2683.42523,
+    "p999": 115428.12664
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00022,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e05.f32",
+   "mask_file": "frames/wise_w2_e05.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e06",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57464.38034,
+   "mjd_end": 57467.06769,
+   "mjd_mid": 57465.72401,
+   "date": "2016-03-18",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 6 band 1"
+   ],
+   "display": {
+    "p01": -19.6426,
+    "p50": 2.82881,
+    "p99": 1964.8656,
+    "p999": 13278.86073
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00179,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e06.f32",
+   "mask_file": "frames/wise_w1_e06.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e06",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57464.38034,
+   "mjd_end": 57467.06769,
+   "mjd_mid": 57465.72401,
+   "date": "2016-03-18",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 6 band 2"
+   ],
+   "display": {
+    "p01": -34.56867,
+    "p50": 3.02865,
+    "p99": 2538.24009,
+    "p999": 102243.39488
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00076,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e06.f32",
+   "mask_file": "frames/wise_w2_e06.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e07",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57635.56207,
+   "mjd_end": 57641.91703,
+   "mjd_mid": 57638.73955,
+   "date": "2016-09-07",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 7 band 2"
+   ],
+   "display": {
+    "p01": -34.87883,
+    "p50": 3.07262,
+    "p99": 2329.3374,
+    "p999": 25358.91133
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00165,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e07.f32",
+   "mask_file": "frames/wise_w2_e07.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e07",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57635.5622,
+   "mjd_end": 57641.91703,
+   "mjd_mid": 57638.73961,
+   "date": "2016-09-07",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 7 band 1"
+   ],
+   "display": {
+    "p01": -18.89581,
+    "p50": 2.98311,
+    "p99": 1977.24669,
+    "p999": 14097.63805
+   },
+   "quality": {
+    "masked_frac": 0.0011,
+    "saturated_frac": 0.00179,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e07.f32",
+   "mask_file": "frames/wise_w1_e07.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e08",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57828.87321,
+   "mjd_end": 57834.30866,
+   "mjd_mid": 57831.59093,
+   "date": "2017-03-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 8 band 1"
+   ],
+   "display": {
+    "p01": -18.24473,
+    "p50": 2.95973,
+    "p99": 1946.3192,
+    "p999": 13343.94727
+   },
+   "quality": {
+    "masked_frac": 0.0011,
+    "saturated_frac": 0.00184,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e08.f32",
+   "mask_file": "frames/wise_w1_e08.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e08",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57828.87321,
+   "mjd_end": 57834.30866,
+   "mjd_mid": 57831.59093,
+   "date": "2017-03-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 8 band 2"
+   ],
+   "display": {
+    "p01": -35.14056,
+    "p50": 3.02378,
+    "p99": 2396.89037,
+    "p999": 39313.09154
+   },
+   "quality": {
+    "masked_frac": 0.0011,
+    "saturated_frac": 0.00141,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e08.f32",
+   "mask_file": "frames/wise_w2_e08.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e09",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 57999.14558,
+   "mjd_end": 58001.83012,
+   "mjd_mid": 58000.48785,
+   "date": "2017-09-04",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 9 band 1"
+   ],
+   "display": {
+    "p01": -19.05405,
+    "p50": 2.93797,
+    "p99": 1900.36731,
+    "p999": 13982.89684
+   },
+   "quality": {
+    "masked_frac": 0.001,
+    "saturated_frac": 0.00198,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e09.f32",
+   "mask_file": "frames/wise_w1_e09.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e09",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 57999.14558,
+   "mjd_end": 58001.83012,
+   "mjd_mid": 58000.48785,
+   "date": "2017-09-04",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 9 band 2"
+   ],
+   "display": {
+    "p01": -35.20364,
+    "p50": 3.03323,
+    "p99": 2307.54436,
+    "p999": 30977.28884
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00163,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e09.f32",
+   "mask_file": "frames/wise_w2_e09.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e10",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58195.74282,
+   "mjd_end": 58198.42647,
+   "mjd_mid": 58197.08464,
+   "date": "2018-03-20",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 10 band 1"
+   ],
+   "display": {
+    "p01": -18.91291,
+    "p50": 3.13384,
+    "p99": 1957.78042,
+    "p999": 13962.46964
+   },
+   "quality": {
+    "masked_frac": 0.0014,
+    "saturated_frac": 0.00203,
+    "notes": [
+     "reference frame for W1 scaling",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e10.f32",
+   "mask_file": "frames/wise_w1_e10.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e10",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58195.74282,
+   "mjd_end": 58198.42647,
+   "mjd_mid": 58197.08464,
+   "date": "2018-03-20",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 10 band 2"
+   ],
+   "display": {
+    "p01": -36.65805,
+    "p50": 3.3922,
+    "p99": 2292.90969,
+    "p999": 23142.13845
+   },
+   "quality": {
+    "masked_frac": 0.0015,
+    "saturated_frac": 0.00174,
+    "notes": [
+     "reference frame for W2 scaling",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e10.f32",
+   "mask_file": "frames/wise_w2_e10.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e11",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58359.64402,
+   "mjd_end": 58362.32728,
+   "mjd_mid": 58360.98565,
+   "date": "2018-08-30",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 11 band 1"
+   ],
+   "display": {
+    "p01": -18.84476,
+    "p50": 2.81046,
+    "p99": 1861.74332,
+    "p999": 11292.95899
+   },
+   "quality": {
+    "masked_frac": 0.0011,
+    "saturated_frac": 0.00228,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e11.f32",
+   "mask_file": "frames/wise_w1_e11.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e11",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58359.64402,
+   "mjd_end": 58362.32728,
+   "mjd_mid": 58360.98565,
+   "date": "2018-08-30",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 11 band 2"
+   ],
+   "display": {
+    "p01": -34.24609,
+    "p50": 3.08654,
+    "p99": 2252.37344,
+    "p999": 21132.97153
+   },
+   "quality": {
+    "masked_frac": 0.0014,
+    "saturated_frac": 0.00184,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e11.f32",
+   "mask_file": "frames/wise_w2_e11.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e12",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58559.95667,
+   "mjd_end": 58570.03254,
+   "mjd_mid": 58564.9946,
+   "date": "2019-03-22",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 12 band 1"
+   ],
+   "display": {
+    "p01": -19.08853,
+    "p50": 2.91866,
+    "p99": 1947.3048,
+    "p999": 13348.70519
+   },
+   "quality": {
+    "masked_frac": 0.001,
+    "saturated_frac": 0.00195,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e12.f32",
+   "mask_file": "frames/wise_w1_e12.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e12",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58559.95667,
+   "mjd_end": 58570.03254,
+   "mjd_mid": 58564.9946,
+   "date": "2019-03-22",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 12 band 2"
+   ],
+   "display": {
+    "p01": -35.06237,
+    "p50": 3.12968,
+    "p99": 2272.67634,
+    "p999": 23416.19532
+   },
+   "quality": {
+    "masked_frac": 0.0014,
+    "saturated_frac": 0.00165,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e12.f32",
+   "mask_file": "frames/wise_w2_e12.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e13",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58723.80063,
+   "mjd_end": 58733.87445,
+   "mjd_mid": 58728.83754,
+   "date": "2019-09-02",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 13 band 1"
+   ],
+   "display": {
+    "p01": -18.77019,
+    "p50": 2.79625,
+    "p99": 1841.76197,
+    "p999": 9707.70492
+   },
+   "quality": {
+    "masked_frac": 0.0006,
+    "saturated_frac": 0.00228,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e13.f32",
+   "mask_file": "frames/wise_w1_e13.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e13",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58723.80063,
+   "mjd_end": 58733.87445,
+   "mjd_mid": 58728.83754,
+   "date": "2019-09-02",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 13 band 2"
+   ],
+   "display": {
+    "p01": -34.67225,
+    "p50": 2.95837,
+    "p99": 2299.56379,
+    "p999": 33577.84942
+   },
+   "quality": {
+    "masked_frac": 0.001,
+    "saturated_frac": 0.00163,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e13.f32",
+   "mask_file": "frames/wise_w2_e13.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e14",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 58924.04681,
+   "mjd_end": 58929.73742,
+   "mjd_mid": 58926.89211,
+   "date": "2020-03-18",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 14 band 1"
+   ],
+   "display": {
+    "p01": -19.19701,
+    "p50": 2.89466,
+    "p99": 1930.6225,
+    "p999": 12405.30724
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00214,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e14.f32",
+   "mask_file": "frames/wise_w1_e14.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e14",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 58924.04681,
+   "mjd_end": 58929.73742,
+   "mjd_mid": 58926.89211,
+   "date": "2020-03-18",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 14 band 2"
+   ],
+   "display": {
+    "p01": -36.87371,
+    "p50": 2.97451,
+    "p99": 2331.9455,
+    "p999": 37039.3198
+   },
+   "quality": {
+    "masked_frac": 0.0009,
+    "saturated_frac": 0.00163,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e14.f32",
+   "mask_file": "frames/wise_w2_e14.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e15",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59087.83762,
+   "mjd_end": 59093.52669,
+   "mjd_mid": 59090.68215,
+   "date": "2020-08-29",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 15 band 1"
+   ],
+   "display": {
+    "p01": -19.21525,
+    "p50": 2.82463,
+    "p99": 1863.69262,
+    "p999": 10616.45435
+   },
+   "quality": {
+    "masked_frac": 0.0007,
+    "saturated_frac": 0.00236,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e15.f32",
+   "mask_file": "frames/wise_w1_e15.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e15",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59087.83762,
+   "mjd_end": 59093.52669,
+   "mjd_mid": 59090.68215,
+   "date": "2020-08-29",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 15 band 2"
+   ],
+   "display": {
+    "p01": -34.53371,
+    "p50": 3.01071,
+    "p99": 2387.02415,
+    "p999": 48697.1754
+   },
+   "quality": {
+    "masked_frac": 0.0003,
+    "saturated_frac": 0.00133,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e15.f32",
+   "mask_file": "frames/wise_w2_e15.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e16",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59291.27654,
+   "mjd_end": 59293.95713,
+   "mjd_mid": 59292.61684,
+   "date": "2021-03-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 16 band 1"
+   ],
+   "display": {
+    "p01": -18.85518,
+    "p50": 2.99042,
+    "p99": 1946.22818,
+    "p999": 15031.50469
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00203,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e16.f32",
+   "mask_file": "frames/wise_w1_e16.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e16",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59291.27654,
+   "mjd_end": 59293.95713,
+   "mjd_mid": 59292.61684,
+   "date": "2021-03-19",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 16 band 2"
+   ],
+   "display": {
+    "p01": -35.73213,
+    "p50": 3.08813,
+    "p99": 2262.17449,
+    "p999": 22184.38477
+   },
+   "quality": {
+    "masked_frac": 0.0013,
+    "saturated_frac": 0.0019,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e16.f32",
+   "mask_file": "frames/wise_w2_e16.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e17",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59454.98023,
+   "mjd_end": 59457.79121,
+   "mjd_mid": 59456.38572,
+   "date": "2021-08-30",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 17 band 1"
+   ],
+   "display": {
+    "p01": -19.03713,
+    "p50": 2.92954,
+    "p99": 1872.88254,
+    "p999": 11484.68638
+   },
+   "quality": {
+    "masked_frac": 0.001,
+    "saturated_frac": 0.00239,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e17.f32",
+   "mask_file": "frames/wise_w1_e17.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e17",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59454.98023,
+   "mjd_end": 59457.79134,
+   "mjd_mid": 59456.38578,
+   "date": "2021-08-30",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 17 band 2"
+   ],
+   "display": {
+    "p01": -35.78324,
+    "p50": 2.95493,
+    "p99": 2322.94967,
+    "p999": 31280.47713
+   },
+   "quality": {
+    "masked_frac": 0.0006,
+    "saturated_frac": 0.00152,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e17.f32",
+   "mask_file": "frames/wise_w2_e17.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e18",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59655.38793,
+   "mjd_end": 59663.28989,
+   "mjd_mid": 59659.33891,
+   "date": "2022-03-21",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 18 band 1"
+   ],
+   "display": {
+    "p01": -18.96612,
+    "p50": 2.97561,
+    "p99": 1953.98103,
+    "p999": 16118.48212
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00198,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e18.f32",
+   "mask_file": "frames/wise_w1_e18.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e18",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59655.38793,
+   "mjd_end": 59663.28989,
+   "mjd_mid": 59659.33891,
+   "date": "2022-03-21",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 18 band 2"
+   ],
+   "display": {
+    "p01": -35.68849,
+    "p50": 3.14735,
+    "p99": 2269.64737,
+    "p999": 22767.61257
+   },
+   "quality": {
+    "masked_frac": 0.0011,
+    "saturated_frac": 0.00179,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e18.f32",
+   "mask_file": "frames/wise_w2_e18.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e19",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 59819.21446,
+   "mjd_end": 59827.43157,
+   "mjd_mid": 59823.32302,
+   "date": "2022-09-01",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 19 band 1"
+   ],
+   "display": {
+    "p01": -18.78008,
+    "p50": 2.82739,
+    "p99": 1921.40397,
+    "p999": 13978.18786
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00217,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e19.f32",
+   "mask_file": "frames/wise_w1_e19.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e19",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 59819.21446,
+   "mjd_end": 59827.43157,
+   "mjd_mid": 59823.32302,
+   "date": "2022-09-01",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 19 band 2"
+   ],
+   "display": {
+    "p01": -34.24214,
+    "p50": 2.82153,
+    "p99": 2311.83055,
+    "p999": 34146.37883
+   },
+   "quality": {
+    "masked_frac": 0.0006,
+    "saturated_frac": 0.0016,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e19.f32",
+   "mask_file": "frames/wise_w2_e19.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e20",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 60022.53717,
+   "mjd_end": 60025.0735,
+   "mjd_mid": 60023.80533,
+   "date": "2023-03-20",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 20 band 1"
+   ],
+   "display": {
+    "p01": -19.38233,
+    "p50": 3.00455,
+    "p99": 1964.60979,
+    "p999": 15283.58344
+   },
+   "quality": {
+    "masked_frac": 0.0012,
+    "saturated_frac": 0.00184,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e20.f32",
+   "mask_file": "frames/wise_w1_e20.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e20",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 60022.53717,
+   "mjd_end": 60025.0735,
+   "mjd_mid": 60023.80533,
+   "date": "2023-03-20",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 20 band 2"
+   ],
+   "display": {
+    "p01": -37.65777,
+    "p50": 3.11236,
+    "p99": 2237.47844,
+    "p999": 16614.66073
+   },
+   "quality": {
+    "masked_frac": 0.0008,
+    "saturated_frac": 0.00176,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e20.f32",
+   "mask_file": "frames/wise_w2_e20.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e21",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 60186.25042,
+   "mjd_end": 60189.03657,
+   "mjd_mid": 60187.6435,
+   "date": "2023-08-31",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 21 band 1"
+   ],
+   "display": {
+    "p01": -20.20327,
+    "p50": 2.87559,
+    "p99": 1832.89919,
+    "p999": 11172.61
+   },
+   "quality": {
+    "masked_frac": 0.0011,
+    "saturated_frac": 0.00258,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e21.f32",
+   "mask_file": "frames/wise_w1_e21.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e21",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 60186.25042,
+   "mjd_end": 60189.03657,
+   "mjd_mid": 60187.6435,
+   "date": "2023-08-31",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 21 band 2"
+   ],
+   "display": {
+    "p01": -36.20535,
+    "p50": 3.0141,
+    "p99": 2288.05489,
+    "p999": 31816.07708
+   },
+   "quality": {
+    "masked_frac": 0.0007,
+    "saturated_frac": 0.0016,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e21.f32",
+   "mask_file": "frames/wise_w2_e21.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w2_e22",
+   "instrument": "WISE",
+   "band": "W2",
+   "lambda_um": [
+    4.6,
+    4.6
+   ],
+   "mjd_start": 60386.54243,
+   "mjd_end": 60389.30923,
+   "mjd_mid": 60387.92583,
+   "date": "2024-03-18",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 22 band 2"
+   ],
+   "display": {
+    "p01": -37.47555,
+    "p50": 3.06676,
+    "p99": 2272.96388,
+    "p999": 19770.31779
+   },
+   "quality": {
+    "masked_frac": 0.0013,
+    "saturated_frac": 0.00182,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w2_e22.f32",
+   "mask_file": "frames/wise_w2_e22.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "wise_w1_e22",
+   "instrument": "WISE",
+   "band": "W1",
+   "lambda_um": [
+    3.4,
+    3.4
+   ],
+   "mjd_start": 60386.67117,
+   "mjd_end": 60389.30923,
+   "mjd_mid": 60387.9902,
+   "date": "2024-03-18",
+   "n_inputs": 1,
+   "source_files": [
+    "byw.tools unWISE epoch 22 band 1"
+   ],
+   "display": {
+    "p01": -19.98885,
+    "p50": 2.8901,
+    "p99": 1914.44379,
+    "p999": 13858.37196
+   },
+   "quality": {
+    "masked_frac": 0.0015,
+    "saturated_frac": 0.00212,
+    "notes": [
+     "scaled on 40 Gaia stars",
+     "saturated pixels present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/wise_w1_e22.f32",
+   "mask_file": "frames/wise_w1_e22.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d3_t00",
+   "instrument": "SPHEREx",
+   "band": "D3",
+   "lambda_um": [
+    1.6174,
+    2.4212
+   ],
+   "mjd_start": 60902.86472,
+   "mjd_end": 60914.48542,
+   "mjd_mid": 60908.00734,
+   "date": "2025-08-21",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -16.66086,
+    "p50": 3.96298,
+    "p99": 1305.21949,
+    "p999": 4976.21748
+   },
+   "quality": {
+    "masked_frac": 0.01,
+    "saturated_frac": 0.00071,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d3_t00.f32",
+   "mask_file": "frames/spx_d3_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d6_t00",
+   "instrument": "SPHEREx",
+   "band": "D6",
+   "lambda_um": [
+    4.4028,
+    5.0114
+   ],
+   "mjd_start": 60902.86472,
+   "mjd_end": 60914.48542,
+   "mjd_mid": 60908.13384,
+   "date": "2025-08-21",
+   "n_inputs": 17,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x17"
+   ],
+   "display": {
+    "p01": -37.75501,
+    "p50": 3.43162,
+    "p99": 2489.37383,
+    "p999": 139152.51088
+   },
+   "quality": {
+    "masked_frac": 0.0049,
+    "saturated_frac": 0.0003,
+    "notes": [
+     "co-add of 17 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W2 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d6_t00.f32",
+   "mask_file": "frames/spx_d6_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d2_t00",
+   "instrument": "SPHEREx",
+   "band": "D2",
+   "lambda_um": [
+    1.0884,
+    1.6404
+   ],
+   "mjd_start": 60908.98193,
+   "mjd_end": 60917.67527,
+   "mjd_mid": 60913.73623,
+   "date": "2025-08-26",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -15.50891,
+    "p50": 3.4795,
+    "p99": 1061.49856,
+    "p999": 4847.62683
+   },
+   "quality": {
+    "masked_frac": 0.0043,
+    "saturated_frac": 0.00065,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 39 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d2_t00.f32",
+   "mask_file": "frames/spx_d2_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d5_t00",
+   "instrument": "SPHEREx",
+   "band": "D5",
+   "lambda_um": [
+    3.8051,
+    4.4179
+   ],
+   "mjd_start": 60908.98193,
+   "mjd_end": 60917.67527,
+   "mjd_mid": 60913.73623,
+   "date": "2025-08-26",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -23.86821,
+    "p50": 3.58408,
+    "p99": 2047.73794,
+    "p999": 28057.468
+   },
+   "quality": {
+    "masked_frac": 0.0022,
+    "saturated_frac": 0.00016,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W2 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d5_t00.f32",
+   "mask_file": "frames/spx_d5_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d1_t00",
+   "instrument": "SPHEREx",
+   "band": "D1",
+   "lambda_um": [
+    0.7412,
+    1.1143
+   ],
+   "mjd_start": 60914.21253,
+   "mjd_end": 60949.26725,
+   "mjd_mid": 60923.99948,
+   "date": "2025-09-05",
+   "n_inputs": 24,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x24"
+   ],
+   "display": {
+    "p01": -16.02058,
+    "p50": 3.5422,
+    "p99": 950.18909,
+    "p999": 4798.87202
+   },
+   "quality": {
+    "masked_frac": 0.0044,
+    "saturated_frac": 0.00046,
+    "notes": [
+     "co-add of 24 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d1_t00.f32",
+   "mask_file": "frames/spx_d1_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d4_t00",
+   "instrument": "SPHEREx",
+   "band": "D4",
+   "lambda_um": [
+    2.4185,
+    3.8281
+   ],
+   "mjd_start": 60914.21253,
+   "mjd_end": 60949.26725,
+   "mjd_mid": 60924.26251,
+   "date": "2025-09-06",
+   "n_inputs": 23,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x23"
+   ],
+   "display": {
+    "p01": -20.44999,
+    "p50": 4.54141,
+    "p99": 1644.883,
+    "p999": 6385.34293
+   },
+   "quality": {
+    "masked_frac": 0.008,
+    "saturated_frac": 0.00065,
+    "notes": [
+     "co-add of 23 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d4_t00.f32",
+   "mask_file": "frames/spx_d4_t00.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d1_t01",
+   "instrument": "SPHEREx",
+   "band": "D1",
+   "lambda_um": [
+    0.7398,
+    1.1047
+   ],
+   "mjd_start": 61110.0914,
+   "mjd_end": 61110.77171,
+   "mjd_mid": 61110.47093,
+   "date": "2026-03-11",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -17.31947,
+    "p50": 3.56569,
+    "p99": 980.27537,
+    "p999": 4530.13343
+   },
+   "quality": {
+    "masked_frac": 0.0075,
+    "saturated_frac": 0.00049,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d1_t01.f32",
+   "mask_file": "frames/spx_d1_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d4_t01",
+   "instrument": "SPHEREx",
+   "band": "D4",
+   "lambda_um": [
+    2.4166,
+    3.7886
+   ],
+   "mjd_start": 61110.0914,
+   "mjd_end": 61110.77171,
+   "mjd_mid": 61110.47093,
+   "date": "2026-03-11",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -20.09639,
+    "p50": 4.218,
+    "p99": 1661.27111,
+    "p999": 8447.76556
+   },
+   "quality": {
+    "masked_frac": 0.01,
+    "saturated_frac": 0.00071,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 39 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d4_t01.f32",
+   "mask_file": "frames/spx_d4_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d2_t01",
+   "instrument": "SPHEREx",
+   "band": "D2",
+   "lambda_um": [
+    1.0935,
+    1.6483
+   ],
+   "mjd_start": 61114.032,
+   "mjd_end": 61121.22954,
+   "mjd_mid": 61116.38577,
+   "date": "2026-03-17",
+   "n_inputs": 19,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x19"
+   ],
+   "display": {
+    "p01": -15.71611,
+    "p50": 3.5061,
+    "p99": 1038.4178,
+    "p999": 4759.35579
+   },
+   "quality": {
+    "masked_frac": 0.0047,
+    "saturated_frac": 0.00084,
+    "notes": [
+     "co-add of 19 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d2_t01.f32",
+   "mask_file": "frames/spx_d2_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d5_t01",
+   "instrument": "SPHEREx",
+   "band": "D5",
+   "lambda_um": [
+    3.8077,
+    4.4261
+   ],
+   "mjd_start": 61114.032,
+   "mjd_end": 61121.22954,
+   "mjd_mid": 61116.38577,
+   "date": "2026-03-17",
+   "n_inputs": 19,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x19"
+   ],
+   "display": {
+    "p01": -24.35402,
+    "p50": 3.4351,
+    "p99": 2085.63315,
+    "p999": 41183.46348
+   },
+   "quality": {
+    "masked_frac": 0.0019,
+    "saturated_frac": 0.00038,
+    "notes": [
+     "co-add of 19 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W2 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d5_t01.f32",
+   "mask_file": "frames/spx_d5_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d3_t01",
+   "instrument": "SPHEREx",
+   "band": "D3",
+   "lambda_um": [
+    1.6184,
+    2.4242
+   ],
+   "mjd_start": 61118.30923,
+   "mjd_end": 61165.0843,
+   "mjd_mid": 61128.6273,
+   "date": "2026-03-29",
+   "n_inputs": 24,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x24"
+   ],
+   "display": {
+    "p01": -17.26844,
+    "p50": 4.03893,
+    "p99": 1349.15407,
+    "p999": 5115.74979
+   },
+   "quality": {
+    "masked_frac": 0.0041,
+    "saturated_frac": 0.00073,
+    "notes": [
+     "co-add of 24 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d3_t01.f32",
+   "mask_file": "frames/spx_d3_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d6_t01",
+   "instrument": "SPHEREx",
+   "band": "D6",
+   "lambda_um": [
+    4.4033,
+    5.0129
+   ],
+   "mjd_start": 61118.30923,
+   "mjd_end": 61165.0843,
+   "mjd_mid": 61128.6273,
+   "date": "2026-03-29",
+   "n_inputs": 24,
+   "source_files": [
+    "IRSA SPHEREx dr1 L2 cutouts x24"
+   ],
+   "display": {
+    "p01": -36.62808,
+    "p50": 3.14662,
+    "p99": 2403.84796,
+    "p999": 115730.89455
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00046,
+    "notes": [
+     "co-add of 24 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W2 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d6_t01.f32",
+   "mask_file": "frames/spx_d6_t01.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d6_t02",
+   "instrument": "SPHEREx",
+   "band": "D6",
+   "lambda_um": [
+    4.4173,
+    4.9874
+   ],
+   "mjd_start": 61268.63081,
+   "mjd_end": 61272.90751,
+   "mjd_mid": 61270.28243,
+   "date": "2026-08-18",
+   "n_inputs": 17,
+   "source_files": [
+    "IRSA SPHEREx qr3 L2 cutouts x17"
+   ],
+   "display": {
+    "p01": -37.33591,
+    "p50": 3.06164,
+    "p99": 2371.33129,
+    "p999": 140796.41097
+   },
+   "quality": {
+    "masked_frac": 0.0046,
+    "saturated_frac": 0.00038,
+    "notes": [
+     "co-add of 17 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W2 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d6_t02.f32",
+   "mask_file": "frames/spx_d6_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d3_t02",
+   "instrument": "SPHEREx",
+   "band": "D3",
+   "lambda_um": [
+    1.6306,
+    2.4238
+   ],
+   "mjd_start": 61268.63081,
+   "mjd_end": 61303.1868,
+   "mjd_mid": 61272.00938,
+   "date": "2026-08-20",
+   "n_inputs": 19,
+   "source_files": [
+    "IRSA SPHEREx qr3 L2 cutouts x19"
+   ],
+   "display": {
+    "p01": -16.92717,
+    "p50": 4.09785,
+    "p99": 1373.44978,
+    "p999": 5012.23751
+   },
+   "quality": {
+    "masked_frac": 0.0102,
+    "saturated_frac": 0.00068,
+    "notes": [
+     "co-add of 19 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 39 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d3_t02.f32",
+   "mask_file": "frames/spx_d3_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d2_t02",
+   "instrument": "SPHEREx",
+   "band": "D2",
+   "lambda_um": [
+    1.0859,
+    1.6658
+   ],
+   "mjd_start": 61270.86712,
+   "mjd_end": 61305.62935,
+   "mjd_mid": 61274.85046,
+   "date": "2026-08-22",
+   "n_inputs": 25,
+   "source_files": [
+    "IRSA SPHEREx qr3 L2 cutouts x25"
+   ],
+   "display": {
+    "p01": -17.78911,
+    "p50": 4.00147,
+    "p99": 1111.04815,
+    "p999": 4914.48475
+   },
+   "quality": {
+    "masked_frac": 0.0056,
+    "saturated_frac": 0.00087,
+    "notes": [
+     "co-add of 25 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 39 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d2_t02.f32",
+   "mask_file": "frames/spx_d2_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d5_t02",
+   "instrument": "SPHEREx",
+   "band": "D5",
+   "lambda_um": [
+    3.7984,
+    4.4404
+   ],
+   "mjd_start": 61270.86712,
+   "mjd_end": 61305.62935,
+   "mjd_mid": 61274.85046,
+   "date": "2026-08-22",
+   "n_inputs": 25,
+   "source_files": [
+    "IRSA SPHEREx qr3 L2 cutouts x25"
+   ],
+   "display": {
+    "p01": -24.12293,
+    "p50": 2.92951,
+    "p99": 2411.99061,
+    "p999": 159634.06727
+   },
+   "quality": {
+    "masked_frac": 0.0,
+    "saturated_frac": 0.00049,
+    "notes": [
+     "co-add of 25 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W2 on 40 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d5_t02.f32",
+   "mask_file": "frames/spx_d5_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d1_t02",
+   "instrument": "SPHEREx",
+   "band": "D1",
+   "lambda_um": [
+    0.7368,
+    1.1041
+   ],
+   "mjd_start": 61275.95919,
+   "mjd_end": 61285.25837,
+   "mjd_mid": 61278.32877,
+   "date": "2026-08-26",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx qr3 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -16.25721,
+    "p50": 3.36604,
+    "p99": 934.606,
+    "p999": 4853.84805
+   },
+   "quality": {
+    "masked_frac": 0.0047,
+    "saturated_frac": 0.00046,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 39 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d1_t02.f32",
+   "mask_file": "frames/spx_d1_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  },
+  {
+   "id": "spx_d4_t02",
+   "instrument": "SPHEREx",
+   "band": "D4",
+   "lambda_um": [
+    2.4017,
+    3.7891
+   ],
+   "mjd_start": 61275.95919,
+   "mjd_end": 61285.25837,
+   "mjd_mid": 61278.32877,
+   "date": "2026-08-26",
+   "n_inputs": 18,
+   "source_files": [
+    "IRSA SPHEREx qr3 L2 cutouts x18"
+   ],
+   "display": {
+    "p01": -19.95543,
+    "p50": 4.63305,
+    "p99": 1527.71985,
+    "p999": 5372.0652
+   },
+   "quality": {
+    "masked_frac": 0.0089,
+    "saturated_frac": 0.00071,
+    "notes": [
+     "co-add of 18 images (inverse-variance)",
+     "SPHEREx 6.15\"/px resampled to 2.75\"/px",
+     "scaled to W1 on 39 Gaia stars",
+     "saturated pixels (OVERFLOW) present",
+     "target saturated"
+    ]
+   },
+   "file": "frames/spx_d4_t02.f32",
+   "mask_file": "frames/spx_d4_t02.mask.u8",
+   "dtype": "float32",
+   "units": "relative"
+  }
+ ],
+ "sequences": [
+  {
+   "id": "thermal46",
+   "label": "4.6 µm — WISE W2 + SPHEREx D6",
+   "default": true,
+   "frames": [
+    "wise_w2_e00",
+    "wise_w2_e01",
+    "wise_w2_e02",
+    "wise_w2_e03",
+    "wise_w2_e04",
+    "wise_w2_e05",
+    "wise_w2_e06",
+    "wise_w2_e07",
+    "wise_w2_e08",
+    "wise_w2_e09",
+    "wise_w2_e10",
+    "wise_w2_e11",
+    "wise_w2_e12",
+    "wise_w2_e13",
+    "wise_w2_e14",
+    "wise_w2_e15",
+    "wise_w2_e16",
+    "wise_w2_e17",
+    "wise_w2_e18",
+    "wise_w2_e19",
+    "wise_w2_e20",
+    "wise_w2_e21",
+    "wise_w2_e22",
+    "spx_d6_t00",
+    "spx_d6_t01",
+    "spx_d6_t02"
+   ]
+  },
+  {
+   "id": "w1d4",
+   "label": "3.4 µm — WISE W1 + SPHEREx D4",
+   "default": false,
+   "frames": [
+    "wise_w1_e00",
+    "wise_w1_e01",
+    "wise_w1_e02",
+    "wise_w1_e03",
+    "wise_w1_e04",
+    "wise_w1_e05",
+    "wise_w1_e06",
+    "wise_w1_e07",
+    "wise_w1_e08",
+    "wise_w1_e09",
+    "wise_w1_e10",
+    "wise_w1_e11",
+    "wise_w1_e12",
+    "wise_w1_e13",
+    "wise_w1_e14",
+    "wise_w1_e15",
+    "wise_w1_e16",
+    "wise_w1_e17",
+    "wise_w1_e18",
+    "wise_w1_e19",
+    "wise_w1_e20",
+    "wise_w1_e21",
+    "wise_w1_e22",
+    "spx_d4_t00",
+    "spx_d4_t01",
+    "spx_d4_t02"
+   ]
+  },
+  {
+   "id": "spherex6",
+   "label": "SPHEREx only — D1…D6",
+   "default": false,
+   "frames": [
+    "spx_d3_t00",
+    "spx_d6_t00",
+    "spx_d2_t00",
+    "spx_d5_t00",
+    "spx_d1_t00",
+    "spx_d4_t00",
+    "spx_d1_t01",
+    "spx_d4_t01",
+    "spx_d2_t01",
+    "spx_d5_t01",
+    "spx_d3_t01",
+    "spx_d6_t01",
+    "spx_d6_t02",
+    "spx_d3_t02",
+    "spx_d2_t02",
+    "spx_d5_t02",
+    "spx_d1_t02",
+    "spx_d4_t02"
+   ]
+  }
+ ],
+ "rgb_composites": [
+  {
+   "id": "fingerprint_t00",
+   "label": "Spectral fingerprint (D1/D3/D6), 2025-08",
+   "r": "spx_d6_t00",
+   "g": "spx_d3_t00",
+   "b": "spx_d1_t00"
+  },
+  {
+   "id": "fingerprint_t01",
+   "label": "Spectral fingerprint (D1/D3/D6), 2026-03",
+   "r": "spx_d6_t01",
+   "g": "spx_d3_t01",
+   "b": "spx_d1_t01"
+  },
+  {
+   "id": "fingerprint_t02",
+   "label": "Spectral fingerprint (D1/D3/D6), 2026-08",
+   "r": "spx_d6_t02",
+   "g": "spx_d3_t02",
+   "b": "spx_d1_t02"
+  }
+ ],
+ "objects": [
+  "target"
+ ],
+ "catalogs": {
+  "gaia": "catalogs/gaia.json",
+  "catwise": "catalogs/catwise.json"
+ },
+ "candidates": "candidates.json",
+ "credits": [
+  "NASA/IPAC IRSA SPHEREx DR1+QR3",
+  "unWISE time-resolved coadds via byw.tools (Backyard Worlds/AMNH)",
+  "NASA WISE/NEOWISE",
+  "ESA Gaia DR3",
+  "CatWISE2020 (IRSA)",
+  "SIMBAD (CDS)"
+ ],
+ "build": {
+  "pipeline_version": "0.2.0",
+  "generated_utc": "2026-11-14T11:04:28Z",
+  "spherex_releases": [
+   "dr1",
+   "qr3"
+  ],
+  "status": "done",
+  "grid_note": "SPHEREx pixels are 6.15\"; resampled to 2.75\"/px for comparison",
+  "skipped_frames": [],
+  "spherex_epochs": [
+   [
+    60902.865,
+    60949.267
+   ],
+   [
+    61110.092,
+    61165.084
+   ],
+   [
+    61268.631,
+    61305.629
+   ]
+  ],
+  "wise_source": "byw.tools time-resolved unWISE (neo7-style epochs)",
+  "scaling": "per-frame sigma-clipped background subtracted; scaled to the WISE epoch nearest 2018.0 on bright unsaturated low-PM Gaia stars (D1-D4 -> W1, D5-D6 -> W2)"
+ }
+}
