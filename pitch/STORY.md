@@ -26,7 +26,7 @@ deliver them — every number must also be in `pitch/FACTS.md` with its source f
 | 2 | Challenge | **One year is too short** | Left: SPHEREx frame, a star moved 1–2 pixels. Right: "102 colours · whole sky · every 6 months · 1 year of data". One line: "Nearby worlds hide in plain sight." | 0:35 |
 | 3 | Solution | **A 16-year infrared time machine** | Timeline bar: WISE/NEOWISE 2010 → 2024 (23 epochs, 4.6 µm) + SPHEREx 2025 → 2026 (4.4–5.0 µm). WISE 0855 moves ≈ 2 arcmin (≈ 130″). | 0:30 |
 | 4 | How it works | **Type a position. Watch. Catch.** | 3 screenshots: movie player · spectral fingerprint · AI explanation in AZ/EN. → **switch to LIVE DEMO here (1:30)** | 0:10 + 1:30 demo |
-| 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers, measured vs reference, 99.0–99.9 %; 2 variables RW Aur, R Dra. | 0:35 |
+| 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers 99.0–99.9 %; R Dra period 246 d vs 245.6 d; RW Aur 7–8× above noise; blind search 3/3 movers, 0 false. | 0:35 |
 | 6 | Impact | **Anyone can discover** | Backyard Worlds precedent; first users (mentor V. Aliyev, IDDA): **university students** + **space agencies' school lesson programs** as a channel; SRDA community (`[1000+ — confirm]`); free, browser, no install. | 0:30 |
 | 7 | Next steps | **What's next + how we used AI** | Weekly SPHEREx updates · auto-candidates for follow-up · more languages. AI box: coding assistants; copilot text only from computed facts; AI media watermarked. Link/QR to the live site. | 0:30 |
 Total: 4:40 (3:10 talk + 1:30 demo).
@@ -41,7 +41,8 @@ Pre-open the site in a browser tab, on WISE 0855, paused at 2010. Zoom set. No t
 | 0:55 | Click Barnard's Star → validation card | "Is the motion real? For Barnard's Star we measure 10.4 arcseconds per year. Gaia says the same: 99.8 percent agreement." |
 | 1:15 | Open the AI explanation, Azerbaijani first | "And every object is explained in plain language — in Azerbaijani and English — written only from our own measurements." |
 | 1:30 | Back to slides | — |
-Fallback: if Wi-Fi or the site fails → play the backup video (same steps) from the laptop, no apology longer than one sentence.
+Fallback: if Wi-Fi or the site fails → play `pitch/video/SkyLapse_demo_backup.mp4` (1:22, same story, captions) from the laptop, no apology longer than one sentence.
+Status Sun 00:20: copilot EN/AZ is LIVE (step at 1:15 works); R Dra light curve live (optional swap for the Barnard step if time allows).
 Steps cut for time (mention only if asked): live arbitrary coordinates, Discover tab, difference/co-add modes, Gaia overlay.
 
 ## 4. Script (read aloud; short sentences; ≈ 140 words/min)
@@ -66,7 +67,7 @@ objects move not one pixel, but minutes of arc. You can see them move."
 **Slide 5 — Space data (0:35)**
 "Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data.
 We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to
-better than ninety-nine percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector."
+better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is 245.6. And our blind search found all three NASA movers by itself, with zero false alarms."
 
 **Slide 6 — Impact (0:30)**
 "Why does it matter? With NASA's Backyard Worlds project, volunteers blinking sky images found cold brown dwarfs that computers missed.
