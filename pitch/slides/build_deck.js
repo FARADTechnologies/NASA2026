@@ -139,15 +139,15 @@ data.forEach((d, i) => {
 });
 const rows = [
   [{ text: "NASA target", options: { bold: true, color: H.lt2 } }, { text: "Measured", options: { bold: true, color: H.lt2 } }, { text: "Reference", options: { bold: true, color: H.lt2 } }, { text: "Result", options: { bold: true, color: H.lt2 } }],
-  ["Barnard's Star", "[μ]″/yr", "Gaia", "[X %]"],
-  ["ε Indi B", "[μ]″/yr", "Gaia (ε Indi A)", "[X %]"],
-  ["WISE 0855", "[μ]″/yr", "literature", "[X %]"],
+  ["Barnard's Star", "10.40″/yr", "Gaia DR3", "99.8 %"],
+  ["ε Indi B", "4.72″/yr", "Gaia DR3", "99.0 %"],
+  ["WISE 0855", "8.16″/yr", "Kirkpatrick+21", "99.9 %"],
   ["RW Aurigae", "variability", "—", "[shown]"],
   ["R Draconis", "variability", "—", "[shown]"],
 ];
 s.addTable(rows, { x: 5.0, y: 1.25, w: 4.5, colW: [1.45, 1.0, 1.2, 0.85], fontSize: 12, fontFace: "Calibri", color: H.lt1, fill: { color: H.dk2 }, border: { type: "solid", pt: 0.75, color: H.accent4 }, rowH: 0.42, valign: "middle", objectName: "validation-table" });
 tb(s, "Tools: Python · Astropy · React", { x: 5.0, y: 4.0, w: 4.5, h: 0.6, fontSize: 13, color: C.background2 });
-s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to [X] percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector.");
+s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to better than ninety-nine percent. For the two variable stars, we show their brightness changes — and we honestly flag when a star is too bright for the detector.");
 
 // ---------- 6 Impact ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });

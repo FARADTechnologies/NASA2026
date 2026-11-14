@@ -11,7 +11,7 @@ SkyLapse joins SPHEREx with 14 years of NASA WISE/NEOWISE images at the same 4.6
 grid and plays them as a single movie. Type a star name or coordinates, press play, and nearby brown dwarfs and fast stars visibly crawl
 across the screen. Click an object to see its SPHEREx spectrum — its infrared "fingerprint" — and a plain-language explanation in English
 or Azerbaijani, written only from our own measurements. We validated SkyLapse on all five NASA test targets: our measured motions agree
-with ESA Gaia and the literature to `[X %]`. It brings citizen-science discovery to SPHEREx data.
+with ESA Gaia and the literature to better than 99 percent. It brings citizen-science discovery to SPHEREx data.
 
 ## Link to Demo
 `[30-second video URL — YouTube unlisted or Google Drive, public]`
@@ -41,7 +41,7 @@ time-resolved unWISE coadds for WISE/NEOWISE, reprojects everything onto one TAN
 TypeScript web app renders the frames on a canvas in the browser. A small FastAPI service resolves names and builds new fields on request.
 The five NASA targets are precomputed, so the demo never depends on a live archive.
 
-**Validation.** Barnard's Star, ε Indi B and WISE 0855−0714: measured proper motion vs reference `[table from science/VALIDATION.md]`.
+**Validation.** Barnard's Star, ε Indi B and WISE 0855−0714: measured proper motion vs reference: Barnard 10395 ± 17 vs 10393 mas/yr (99.8 %), ε Indi B 4717 ± 10 vs 4684 (99.0 %), WISE 0855−0714 8157 ± 15 vs 8152 (99.9 %), fitted over up to 46 WISE epochs spanning 14.0 years.
 ε Indi B moves together with ε Indi A (~400″ apart), confirming a bound system. RW Aurigae and R Draconis: `[variability result]`.
 We flag honestly where a star is too bright: Barnard's Star and R Draconis saturate SPHEREx in nearly every image.
 

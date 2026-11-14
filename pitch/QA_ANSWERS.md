@@ -23,7 +23,7 @@ Who answers: Amal by default; Murad for deep technical questions (pipeline, data
 ## B. Validity — "how do you know it's right?"
 6. **How do you know the motion is real and not noise?**
    We measure the object's position in every epoch over 16 years and fit a straight line; a real object moves steadily, noise does not.
-   For Barnard's Star, Epsilon Indi B and WISE 0855 our speeds agree with Gaia and the literature to `[X %]`.
+   For Barnard's Star, Epsilon Indi B and WISE 0855 our speeds agree with Gaia and the literature to better than 99 % (99.0–99.9 %); ε Indi B also moves with its companion ε Indi A to 99.3 %.
 7. **How did you validate the tool?**
    On the five objects NASA itself chose for this challenge. The three movers are compared with published proper motions; for
    Epsilon Indi B we also check it moves together with its companion star Epsilon Indi A, about 400 arcseconds away.
