@@ -20,3 +20,5 @@
 [orchestrator] Vercel Hobby BLOCKS deploys when the last git commit author is not on the Vercel team (squash-merged PRs from Azer/Amal). Always deploy with `python ops/bin/deploy_web.py` (deploys a git-free copy of web/).
 [orchestrator] PRs are merged with MERGE COMMITS (since Sat 14:55; squash caused journal conflicts). Still: after your PR is merged, `git fetch origin && git merge origin/main`, and open a NEW PR for later commits.
 [science] On the 2nd computer `python` on PATH is a broken venv; run skyops with `py ops/bin/skyops.py` and science code with science/.venv/Scripts/python.exe.
+[orchestrator] Kanan's computer: plain `python` is a broken venv → use `python3` (also for skyops: `python3 ops/bin/skyops.py ...`). In PowerShell tabs use `npx.cmd` (npx.ps1 blocked by execution policy).
+[orchestrator] Live coordinates take ~6 min to first frames at the default 8.8′ FOV on the free Railway tier (Sat 23:19). In the demo use a pre-warmed coordinate (`150.5 2.5` is cached), never a new one.

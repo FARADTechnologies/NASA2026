@@ -1,51 +1,39 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat 15:50
+Last update: Sat 23:28 (Kanan's computer)
 
 ## Current task
-Phase 1 autonomous loop (`skyops next`). Next: CHECKPOINT M1 #28 at 16:00 (needs pipeline T2 real wise0855).
+Health check after the move to Kanan's computer (done), then the autonomous loop. Next checkpoint: M4 freeze #31 Sun 10:30.
 
 ## Status
-M1 reached 14:55. Web + API live. Waiting on pipeline T3 (5 fields + merge-science).
-Pipeline (T1 #2, not claimed yet but writing code) and science (S1 #8 claimed) are running in their worktrees.
+Site + API live; all 5 targets verified in the browser 23:20. Live mode works but slow (~6 min). Railway CLI login pending.
 
 ## Done (with proof)
-- Folder = repo working copy of FARADTechnologies/NASA2026 (kept remote LICENSE; kit README replaced the 1-line placeholder).
-- LANGUAGE RULE added to CLAUDE.md §5 (before first push).
-- team.json: captain FARADTechnologies, Murad = MuradGaramollayev (orchestrator/pipeline/science), Azer = AzarValiyev, Amal = JustEyml. Kanan has no account in repo.
-- Labels; branches role/pipeline, role/science, role/frontend, role/pitch pushed.
-- Worktrees: C:\Users\Murad\Downloads\skylapse-pipeline (role/pipeline), C:\Users\Murad\Downloads\skylapse-science (role/science), .skylapse-role written.
-  Review worktree: C:\Users\Murad\Downloads\skylapse-review (detached; for building PRs).
-- Issues #1–#32 created (+ #36 O3b). Map in ops/tmp/issue_numbers.json and PROJECT_STATE.
-- O0 #1 closed: mock.py + validate_bundle.py + _mock bundle on main; validator PASS; negative test FAIL as expected.
-- PR #35 (frontend F0–F3) merged after `npm ci && npm run build` + browser check on mock; #13–#16 closed.
-- PR #34 (pitch A1) merged; #22 closed. PR #44 S1 merged (#8 closed: 99.8/99.0/99.9 %). PR #42 F4+F5 merged (#17,#18). PR #37 pitch A2+A5 merged (#23,#26).
-- O3b #36 closed: Railway API online, /api/* proxied via web/vercel.json.
-- 15:00: #45 #47 (frontend bugs) merged via PR #48 #50; pitch A4 #25 (PR #46), A3 #24 (PR #55) merged; Q #33 #43 #49 #52 answered.
-- PR #53 pipeline T1+T2 merged, #2 #3 closed → M1 reached 14:55 (wise0855 real movie live). New tasks: F6 #51 demo speed, F7 #54 clarity.
-- 15:50: PR #59 pipeline T3–T6 merged (5 real fields, #4–#7 closed); S2 #9 merged; merge_science.py ran (validation 99.8/99.0/99.9 % in UI); O2 #21 closed (live WISE-only on Railway works in UI). Open: F8 #60, Gaia clutter #62, QA r2 #64, S3/S5/S4, checkpoint M2 #29 at 19:30.
-- skyops accept now uses merge commits (D-016); validator sizes nested roots separately; deploy_web.py skips _mock once real fields exist. Local format: 5 min pitch+demo, overrun = disqualified (D-012).
-- O3 #20 closed: Vercel project 'skylapse' → https://skylapse.vercel.app (200 on /, /view, /bundle/_mock/...).
-- O1 #19 closed: api/skylapse_api (resolve + field files + CORS), TestClient proof in the issue.
-- Hooks work here (RECOVERY BRIEF appeared at session start).
+- Sat 14:00–15:50 (Murad's PC): bootstrap, mock + validator, API (resolve, live jobs), Vercel + Railway deploys, M1 14:55, reviews/merges up to PR #59.
+- Sat 23:10–23:28 health check (Kanan's PC):
+  - Pruned missing worktrees skylapse-review/-review2; new review worktree C:\Users\Murad\Downloads\skylapse-review (detached).
+  - Merged PR #63 (frontend F8, #62/#65 Gaia clutter, #66) → closed #60 #62 #65 #66; PR #67 (pipeline live-runner fix), #68 (pitch QA r2 + deck v2), #69 (science journal).
+  - Closed #12 (S4 recall 3/3, 0 false), #64 (QA r2). merge_science.py → S3 light curves + S4 candidates in bundle; validator PASS 8/8; deployed (READY).
+  - Browser: 5 targets frame0 200, agreement 99.8/99.0/99.9 %, R Dra light curve renders (axis label says "magnitude" → #70). Barnard Gaia clutter fixed.
+  - Live 150.5 +2.5 (8.8′): wise_ready 23 frames after ~6 min (slow). /api/health ok.
+  - New tasks: F9 #70, T8 #71, A7 #72. #11 S5 unblocked with offline fallback (D-018). Scope cut P1-7 + P2 (D-019). Checkpoint M2+M3 posted on #30; #28–#30 closed.
 
 ## Next step (exact, so a fresh session can continue blindly)
-0. Usage limit hit at 15:50; auto mode was turned OFF. On resume: `python ops/bin/skyops.py auto on`, then loop `next --wait 540`.
-1. If the last commit is not on origin: `git push origin main` (DNS to github.com failed once at 14:30).
-2. Loop `python ops/bin/skyops.py next --wait 540`; review PRs (build web in ../skylapse-review: `git -C ../skylapse-review checkout --detach origin/role/<x>`, `cd web && npm ci && npm run build`).
-3. After every merge touching web/ or bundle: `python ops/bin/deploy_web.py` (NOT plain vercel deploy: blocked for non-team commit authors), then check https://skylapse.vercel.app.
-4. API redeploy: `MSYS_NO_PATHCONV=1 npx @railway/cli up --detach --service api` (repo root). O2 #21 after pipeline T5 #6: WISE-only live, < 300 MB RAM (D-015).
-5. CHECKPOINT M1 #28 at 16:00 (real wise0855 bundle from pipeline T2 #3).
+1. When Railway login is done: `npx @railway/cli link` (project skylapse-api, service api) → `MSYS_NO_PATHCONV=1 npx @railway/cli up --detach --service api` → test a NEW coordinate time-to-wise_ready; pre-warm demo coords (150.5 2.5 already cached).
+2. Loop `python3 ops/bin/skyops.py next --wait 540` (auto ON). Review: build web in ../skylapse-review (`git checkout --detach origin/role/<x>; git merge origin/main; cd web; npm ci; npm run build`).
+3. After merges touching web/ or bundle: `python3 ops/bin/merge_science.py` (if science changed) → `python3 ops/bin/validate_bundle.py` → `python3 ops/bin/deploy_web.py` → browser check.
+4. Sun 10:30 M4 #31: tag v1.0, final deploy. Sun ~13:00 repo public (needs Murad's approval — irreversible-ish). Sun 14:00 SUB #32.
 
 ## Files touched
-CLAUDE.md, ops/team.json, ops/memory/*, .gitattributes, .gitignore, web/.gitignore (Vercel CLI), pipeline/skylapse_pipeline/mock.py, ops/bin/validate_bundle.py, web/public/bundle/_mock/, api/
+CLAUDE.md, ops/team.json, ops/memory/*, ops/bin/{validate_bundle,merge_science,deploy_web,skyops}.py, .gitattributes, .gitignore, web/vercel.json, pipeline/skylapse_pipeline/mock.py, web/public/bundle/, api/, railway.json, .dockerignore, .railwayignore
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
-- `rm -rf` is denied by settings → use Python shutil for temp cleanup.
-- skyops ranks: in-progress > changes-requested > bug > question > P0 > P1 > issue number. Same-agent tasks need no `after` chaining.
-- Vercel Git auto-deploy is NOT connected (Vercel GitHub app not on FARADTechnologies) → deploy by CLI after merges.
-- Python 3.14 on this machine; astropy not installed globally (mock uses numpy+Pillow only). FastAPI/uvicorn/httpx installed.
-- Check the time with `date` — do not estimate it.
+- Kanan's PC: `python` = broken hermes venv → always `python3`. PowerShell blocks npx.ps1 → `npx.cmd` in terminal tabs; Git Bash `npx` works.
+- Terminal tabs cannot be reused here (org setting) → open a new tab per interactive login.
+- Vercel device-login link scrolls away in the tab → run login in Bash background to a file and grep the URL.
+- Railway login callback goes to 127.0.0.1 → the human must open the link in a browser ON THIS COMPUTER within 5 min.
+- `rm -rf` denied → Python shutil. Check time with `date` — never estimate it (I mis-stamped 23:50 for 23:25 once).
+- skyops ranks: in-progress > changes-requested > bug > question > P0 > P1 > number.
 
 ## Open questions / waiting on
-- Pipeline agent commits code but never claimed T1–T6 (#2–#7): check at M1 that it uses the issue loop.
-- New rule: ESC issues → explain to Murad in the 5-part Azerbaijani format (CLAUDE.md §7b); agents asked to merge main (#38–#41).
+- Human: Railway login on this computer (tab "railway login 3"); optionally ANTHROPIC_API_KEY in C:\Users\Murad\Downloads\skylapse-science\.env.
+- Pipeline agent: queue was empty since 16:20; T8 #71 given — confirm it picks it up.
