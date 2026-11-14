@@ -8,3 +8,6 @@
 *.f32 binary
 *.u8 binary
 *.png binary
+# append-only memory files: union-merge so parallel appends never conflict
+ops/memory/KNOWHOW.md merge=union
+ops/memory/DECISIONS.md merge=union

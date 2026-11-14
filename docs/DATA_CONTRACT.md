@@ -124,3 +124,7 @@ Any block may be `null` if not computed yet — the frontend must handle nulls g
 `GET /api/fields/{id}/status` → `{"state": "queued|wise_ready|spherex_partial|done|error", "progress": 0.42, "manifest_url": "…"}`
 `GET /api/fields/{id}/manifest.json` and frame files under the same path as the static bundle.
 `POST /api/copilot {facts}` → `{"en","az"}` (P2; server-side key only).
+
+## 8. Optional additive keys (schema 1.0 stays valid; readers must ignore unknown keys)
+- `objects/*.json` → `spectrum.usable` (bool; false = target saturated/unmeasurable, show `notes`), `spectrum.binned` (points like `points`, R≈40 bins — draw as the main curve, single points faintly),
+  `spectrum.stats`, `spectrum.method` (short text), `spectrum.points[].saturated` (bool). Added Sat 15:20 (science S2, PR #58).

@@ -24,6 +24,7 @@ export interface Manifest {
   objects?: string[]; catalogs?: Record<string, string>; candidates?: string; credits?: string[];
   build?: Record<string, unknown>;
 }
+export interface SpecPoint { lambda_um: number; flux: number; err?: number; mjd?: number; detector?: string; flagged?: boolean; saturated?: boolean }
 export interface Catalog { catalog: string; ref_epoch: number; columns: string[]; rows: (string | number | null)[][] }
 export interface MotionTrackPoint { mjd: number; ra: number; dec: number; instrument: string; kind?: string }
 export interface ObjectInfo {
@@ -33,15 +34,21 @@ export interface ObjectInfo {
     reference: null | { source: string; pmra: number; pmdec: number; unit: string };
     agreement_pct: number | null; track: MotionTrackPoint[] | null;
   };
-  spectrum: null | { unit_flux: string; points: { lambda_um: number; flux: number; err: number; mjd: number; detector: string; flagged: boolean }[];
-    template: null | { name: string; lambda_um: number[]; flux: number[] }; notes: string[] };
-  lightcurve: null | { points: { mjd: number; instrument: string; band: string; mag: number; err: number; saturated: boolean }[]; notes: string[] };
+  spectrum: null | { unit_flux: string; points: SpecPoint[];
+    template: null | { name: string; lambda_um: number[]; flux: number[] }; notes: string[];
+    // DATA_CONTRACT §8 (optional)
+    binned?: SpecPoint[] | null; usable?: boolean; method?: string; stats?: Record<string, unknown> };
+  lightcurve: null | { points: { mjd: number; instrument: string; band: string; mag: number; err: number; saturated: boolean; kind?: string }[]; notes: string[];
+    unit?: string; method?: string; period_days?: number | null;
+    validation?: { folded?: null | { period_d?: number; source?: string; W1?: { best_period_d?: number }; W2?: { best_period_d?: number } } } | null };
   copilot: null | { en: string; az: string; model: string };
   flags: null | { saturated_in: string[]; warnings: string[] };
 }
 export interface Candidates {
   method: string; stats: { known_movers_in_field: number; recovered: number; new_candidates: number };
-  items: { id: string; ra: number; dec: number; pm_total: number; err: number; class: string; match: Record<string, string | null>; score: number; object_file: string | null }[];
+  items: { id: string; ra: number; dec: number; pm_total: number; err: number; class: string; match?: Record<string, string | null> | null; score?: number | null;
+    object_file?: string | null; significance_sigma?: number; is_nasa_target?: boolean; kind?: string }[];
+  caveat?: string;
 }
 
 // Bundle roots tried in order: real bundle, then the orchestrator's mock bundle.
@@ -88,30 +95,73 @@ export function loadIndex() {
 
 export async function loadField(fieldId: string) {
   const { index, root } = await loadIndex();
-  const entry = index.fields.find((f) => f.field_id === fieldId);
-  const base = entry?.base ?? root + fieldId + "/";
-  const manifest = await getJson<Manifest>(base + "manifest.json");
-  return { manifest, base, entry, isMock: root !== "/bundle/" || /mock/i.test(fieldId) };
-}
-
-export async function loadOptional<T>(url: string): Promise<T | null> {
-  try { return await getJson<T>(url); } catch { return null; }
-}
-
-export async function loadFrame(base: string, f: Frame, w: number, h: number) {
-  const r = await fetch(base + f.file);
-  if (!r.ok) throw new Error(`${r.status} ${f.file}`);
-  const buf = await r.arrayBuffer();
-  const data = new Float32Array(buf);
-  if (data.length !== w * h) throw new Error(`frame ${f.id}: size ${data.length} != ${w}x${h}`);
-  let mask: Uint8Array | null = null;
-  if (f.mask_file) {
-    try {
-      const m = await fetch(base + f.mask_file);
-      if (m.ok) { const mb = new Uint8Array(await m.arrayBuffer()); if (mb.length === w * h) mask = mb; }
-    } catch { /* optional */ }
+  let entry = index.fields.find((f) => f.field_id === fieldId);
+  let base = entry?.base ?? root + fieldId + "/";
+  if (!entry && !bundleOverride()) { // e.g. an old link to the mock field after the real bundle landed
+    for (const r of ROOTS.filter((x) => x !== root)) {
+      const other = await loadOptional<BundleIndex>(r + "index.json");
+      const e = other?.fields?.find((f) => f.field_id === fieldId);
+      if (e) { entry = { ...e, root: r, base: r + fieldId + "/" }; base = entry.base!; break; }
+    }
   }
-  return { data, mask };
+  const manifest = await loadOptional<Manifest>(base + "manifest.json");
+  if (!manifest) throw new Error(`no manifest for ${fieldId}`);
+  return { manifest, base, entry, isMock: base.includes("_mock/") || base.startsWith("/devmock/") || /mock/i.test(fieldId) };
+}
+
+/** Uncached JSON (live manifests change while a job runs). */
+export async function loadFresh<T>(url: string): Promise<T | null> {
+  try { return await getJson<T>(url + (url.includes("?") ? "&" : "?") + "t=" + Date.now()); } catch { return null; }
+}
+const jsonCache = new Map<string, Promise<unknown>>();
+export async function loadOptional<T>(url: string): Promise<T | null> {
+  let p = jsonCache.get(url);
+  if (!p) { p = getJson<T>(url); jsonCache.set(url, p); p.catch(() => jsonCache.delete(url)); }
+  try { return (await p) as T; } catch { return null; }
+}
+
+// Global binary cache (survives navigation; the home page pre-fills it in idle time). Keyed by URL.
+const bufCache = new Map<string, Promise<ArrayBuffer>>();
+function getBuf(url: string): Promise<ArrayBuffer> {
+  let p = bufCache.get(url);
+  if (!p) {
+    p = fetch(url).then((r) => { if (!r.ok) throw new Error(`${r.status} ${url}`); return r.arrayBuffer(); });
+    p.catch(() => bufCache.delete(url));
+    bufCache.set(url, p);
+  }
+  return p;
+}
+export const isCached = (url: string) => bufCache.has(url);
+
+/** Frame pixels (Float32, FITS order). Masks are loaded separately (only when the mask overlay is on). */
+export async function loadFrame(base: string, f: Frame, w: number, h: number) {
+  const data = new Float32Array(await getBuf(base + f.file));
+  if (data.length !== w * h) throw new Error(`frame ${f.id}: size ${data.length} != ${w}x${h}`);
+  return data;
+}
+export async function loadMask(base: string, f: Frame, w: number, h: number): Promise<Uint8Array | null> {
+  if (!f.mask_file) return null;
+  try { const m = new Uint8Array(await getBuf(base + f.mask_file)); return m.length === w * h ? m : null; } catch { return null; }
+}
+
+/** Idle-time warm-up: fetch the default sequence of the given fields into the cache, 2 requests at a time. */
+export function prefetchFields(fields: FieldEntry[]) {
+  const idle = (cb: () => void) => ((window as unknown as { requestIdleCallback?: (c: () => void, o?: object) => void }).requestIdleCallback
+    ? (window as unknown as { requestIdleCallback: (c: () => void, o?: object) => void }).requestIdleCallback(cb, { timeout: 3000 })
+    : setTimeout(cb, 800));
+  idle(async () => {
+    const urls: string[] = [];
+    for (const f of fields) {
+      const m = await loadOptional<Manifest>(f.base + "manifest.json");
+      if (!m) continue;
+      const seq = m.sequences.find((s) => s.default) ?? m.sequences[0];
+      const byId = new Map(m.frames.map((x) => [x.id, x]));
+      seq?.frames.forEach((id) => { const fr = byId.get(id); if (fr) urls.push(f.base + fr.file); });
+    }
+    let i = 0;
+    const worker = async () => { while (i < urls.length) { const u = urls[i++]; try { await getBuf(u); } catch { /* ignore */ } } };
+    await Promise.all([worker(), worker()]);
+  });
 }
 
 export const mjdToYear = (mjd: number) => 2000.0 + (mjd - 51544.5) / 365.25;

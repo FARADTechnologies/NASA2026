@@ -1,0 +1,501 @@
+{
+ "id": "target",
+ "name": "RW Aurigae",
+ "kind": "young_star",
+ "ra": 76.9565679,
+ "dec": 30.4013365,
+ "epoch": 2018.0,
+ "motion": {
+  "measured": null,
+  "reference": {
+   "source": "SIMBAD (2007A&A...474..653V)",
+   "pmra": 7.23,
+   "pmdec": -20.33,
+   "unit": "mas/yr"
+  },
+  "agreement_pct": null,
+  "track": []
+ },
+ "spectrum": {
+  "unit_flux": "mJy",
+  "usable": false,
+  "points": [],
+  "binned": [],
+  "template": null,
+  "notes": [
+   "335 SPHEREx images examined.",
+   "Saturated in 304 of 333 images (OVERFLOW flag or empty core): too bright for SPHEREx, so no spectrum of the star itself is shown."
+  ],
+  "stats": {
+   "images": 335,
+   "measured": 330,
+   "unflagged": 17,
+   "saturated": 304,
+   "nan_core": 1,
+   "edge": 2,
+   "blended": 17,
+   "psf_fit": 330,
+   "saturated_or_empty_core": 304
+  },
+  "method": "SPHEREx L2 cutouts, IMAGE−ZODI; forced EPSF fit of target + Gaia/CatWISE neighbours + constant within 4 px (aperture r=2 px fallback), VARIANCE errors, blends < 1.5 px flagged, per-pixel wavelength from WCS-WAVE (quick-look), moving position per image"
+ },
+ "lightcurve": {
+  "points": [
+   {
+    "mjd": 55259.398,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.327,
+    "err": 0.028,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55259.398,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.441,
+    "err": 0.04,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55450.671,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.386,
+    "err": 0.031,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 55450.671,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.233,
+    "err": 0.035,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56722.865,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.205,
+    "err": 0.028,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56722.865,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.38,
+    "err": 0.044,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56914.118,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.009,
+    "err": 0.03,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 56914.118,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.424,
+    "err": 0.038,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57083.332,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.209,
+    "err": 0.028,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57083.398,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.152,
+    "err": 0.027,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57277.477,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.08,
+    "err": 0.033,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57277.477,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.519,
+    "err": 0.047,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57442.496,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.068,
+    "err": 0.031,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57442.496,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.657,
+    "err": 0.041,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57641.714,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.301,
+    "err": 0.028,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57641.714,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.417,
+    "err": 0.031,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57806.745,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.234,
+    "err": 0.026,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 57806.745,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.597,
+    "err": 0.036,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58007.323,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.608,
+    "err": 0.025,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58007.323,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -1.015,
+    "err": 0.071,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58163.81,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.112,
+    "err": 0.027,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58163.81,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.287,
+    "err": 0.04,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58372.922,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.0,
+    "err": 0.033,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58372.922,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.054,
+    "err": 0.035,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58529.41,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.289,
+    "err": 0.028,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58529.41,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.295,
+    "err": 0.034,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58737.073,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.016,
+    "err": 0.032,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58737.073,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.196,
+    "err": 0.031,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58895.015,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.129,
+    "err": 0.025,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 58895.015,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.21,
+    "err": 0.031,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59102.741,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.173,
+    "err": 0.032,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59102.806,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.043,
+    "err": 0.037,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59259.25,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.419,
+    "err": 0.031,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59259.25,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.542,
+    "err": 0.036,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59468.372,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": 0.247,
+    "err": 0.033,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59468.372,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.425,
+    "err": 0.043,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59626.332,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.084,
+    "err": 0.028,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59626.397,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.09,
+    "err": 0.033,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59832.577,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.22,
+    "err": 0.035,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59835.609,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.003,
+    "err": 0.03,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59990.542,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.25,
+    "err": 0.027,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 59990.542,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": -0.0,
+    "err": 0.032,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60199.719,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.041,
+    "err": 0.035,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60199.719,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.219,
+    "err": 0.039,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60354.679,
+    "instrument": "WISE",
+    "band": "W1",
+    "mag": -0.141,
+    "err": 0.025,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   },
+   {
+    "mjd": 60354.679,
+    "instrument": "WISE",
+    "band": "W2",
+    "mag": 0.075,
+    "err": 0.03,
+    "saturated": true,
+    "kind": "relative_wing_index"
+   }
+  ],
+  "unit": "relative mag (wing index; 0 = median)",
+  "method": "unWISE epoch coadds, background-subtracted median of 1-px rings in the unsaturated PSF wings, ratio to the all-epoch median",
+  "notes": [
+   "Too bright for normal photometry: the star's core is saturated in WISE and in SPHEREx. 'mag' here is a RELATIVE brightness index (0 = median; positive = fainter) from the unsaturated outer wings of the star image, not a magnitude.",
+   "Index from rings 5–11 px (W1) and 5–11 px (W2) around the star in 23 + 23 unWISE epochs (2010–2024).",
+   "Noise floor: a constant comparison star (Gaia G = 10.95) in the same images varies by only 0.03 mag rms (W1) / 0.05 (W2); the target varies by 0.24 / 0.40 mag rms (full range 1.0 / 1.6 mag).",
+   "Cross-check: the index follows NEOWISE profile-fit photometry (correlation 0.93 in W1, 0.98 in W2 over 23 visits).",
+   "SPHEREx points (synthesized at 3.4/4.6 µm from per-epoch spectra) are not possible: the star is saturated in SPHEREx."
+  ],
+  "validation": {
+   "control_rms_w1": 0.035,
+   "control_rms_w2": 0.051,
+   "target_rms_w1": 0.24,
+   "target_rms_w2": 0.395,
+   "neowise_corr_w1": 0.932,
+   "neowise_corr_w2": 0.977,
+   "folded": null
+  }
+ },
+ "copilot": {
+  "en": "RW Aurigae is a young star, a T Tauri star still surrounded by a disk of gas and dust, known for irregular dimming and brightening. It is too bright for the WISE and SPHEREx detectors, so we show a relative brightness index from the star's outer glow, not a magnitude. The index is trustworthy: a steady comparison star in the same images varies by only 0.03 magnitudes, while RW Aurigae varies by 0.24, and the index closely follows NEOWISE's own measurements (correlation 0.98 over 23 visits). In the movie, the star stays in place but its infrared glow changes from year to year.",
+  "az": "RW Aurigae gənc ulduzdur: hələ də qaz və tozdan ibarət disklə əhatələnmiş T Tauri tipli ulduz, nizamsız sönükləşmə və parlaqlaşmaları ilə tanınır. O, WISE və SPHEREx detektorlarının mərkəzi hissəsi üçün çox parlaqdır, ona görə maqnitud yox, ulduz təsvirinin xarici işıltısından alınan nisbi parlaqlıq indeksini göstəririk; SPHEREx spektri də yoxdur. Bu indeksə etibar etmək olar: eyni şəkillərdəki sabit müqayisə ulduzu cəmi 0,03 maqnitud dəyişir, RW Aurigae isə 0,24; indeks NEOWISE-ın öz ölçmələrini yaxından izləyir (23 müşahidədə korrelyasiya 0,98). Filmdə ulduz yerində qalır, amma infraqırmızı işıltısı ildən-ilə dəyişir.",
+  "model": "claude-opus-5-5 (Claude Code, offline from facts)",
+  "facts_hash": "55417f09d305e4b9",
+  "generated_from": "science/out/rw_aur/copilot_facts.json",
+  "ai_generated": true,
+  "audio_en": null,
+  "audio_az": null
+ },
+ "flags": {
+  "saturated_in": [
+   "SPHEREx",
+   "WISE"
+  ],
+  "warnings": [
+   "SPHEREx: saturated — spectrum not usable",
+   "WISE: saturated — light curve is a relative wing index, not magnitudes"
+  ]
+ },
+ "simbad_id": "V* RW Aur",
+ "sp_type": "K1/5e+K5e",
+ "parallax_mas": 15.42
+}
