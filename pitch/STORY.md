@@ -27,7 +27,7 @@ deliver them — every number must also be in `pitch/FACTS.md` with its source f
 | 3 | Solution | **A 16-year infrared time machine** | Timeline bar: WISE/NEOWISE 2010 → 2024 (23 epochs, 4.6 µm) + SPHEREx 2025 → 2026 (4.4–5.0 µm). WISE 0855 moves ≈ 2 arcmin (≈ 130″). | 0:30 |
 | 4 | How it works | **Type a position. Watch. Catch.** | 3 screenshots: movie player · spectral fingerprint · AI explanation in AZ/EN. → **switch to LIVE DEMO here (1:30)** | 0:10 + 1:30 demo |
 | 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers, measured vs reference, `[X %]`; 2 variables RW Aur, R Dra. | 0:35 |
-| 6 | Impact | **Anyone can discover** | Backyard Worlds precedent; first users: students in Azerbaijan + SRDA community (`[1000+ members — confirm]`); free, browser, no install. | 0:30 |
+| 6 | Impact | **Anyone can discover** | Backyard Worlds precedent; first users (mentor V. Aliyev, IDDA): **university students** + **space agencies' school lesson programs** as a channel; SRDA community (`[1000+ — confirm]`); free, browser, no install. | 0:30 |
 | 7 | Next steps | **What's next + how we used AI** | Weekly SPHEREx updates · auto-candidates for follow-up · more languages. AI box: coding assistants; copilot text only from computed facts; AI media watermarked. Link/QR to the live site. | 0:30 |
 Total: 4:40 (3:10 talk + 1:30 demo).
 
@@ -70,7 +70,7 @@ We tested on all five NASA target objects. For the three moving ones, our measur
 
 **Slide 6 — Impact (0:30)**
 "Why does it matter? With NASA's Backyard Worlds project, volunteers blinking sky images found cold brown dwarfs that computers missed.
-SkyLapse brings that power to SPHEREx — in a browser, free, for anyone. Our first users: students in Azerbaijan. We do not claim
+SkyLapse brings that power to SPHEREx — in a browser, free, for anyone. Our first users: university students in Azerbaijan — and, through space agencies' school lessons, young learners too. We do not claim
 discoveries. We help people find candidates for scientists to follow up."
 
 **Slide 7 — Next steps + AI (0:30)**
