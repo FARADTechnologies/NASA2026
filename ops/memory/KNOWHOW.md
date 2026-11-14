@@ -9,3 +9,4 @@
 [seed] WISE 0855 is not in Gaia; use CatWISE2020 / literature for its reference proper motion.
 [pitch] LOCAL RULE Baku: presentation+demo = 5:00 TOTAL (overtime = disqualified), Q&A 5:00, max 7 English slides shared by link; AI media need watermark.
 [orchestrator] Web deploy = Vercel CLI from Murad's PC: `cd web && npx vercel deploy --prod --yes` → https://skylapse.vercel.app (project 'skylapse'; Git auto-deploy NOT connected: Vercel GitHub app is not installed on FARADTechnologies). Redeploy after every merge to main.
+[orchestrator] API = Railway project skylapse-api, service api, volume /data. Redeploy: `npx @railway/cli up --detach --service api` from repo root. Git Bash: set MSYS_NO_PATHCONV=1 for '/data'-style args. Dockerfile path is set by service var RAILWAY_DOCKERFILE_PATH=api/Dockerfile (railway.json dockerfilePath was ignored). Web reaches it via the /api/* rewrite in web/vercel.json.
