@@ -35,10 +35,10 @@ export function About() {
         <h2>How it works</h2>
         <ol className="method">
           <li><b>Find the field.</b> A name or RA/Dec is resolved, and the field centre is set for the target's motion.</li>
-          <li><b>Collect 16 years of images.</b> 23 unWISE time-resolved WISE/NEOWISE epochs (2010–2024) and every SPHEREx visit (2025–2026) from NASA IRSA.</li>
+          <li><b>Collect 16 years of images.</b> 23–48 unWISE time-resolved WISE/NEOWISE epochs per field (2010–2024) and every SPHEREx visit (2025–2026) from NASA IRSA.</li>
           <li><b>Clean them.</b> SPHEREx: zodiacal light subtracted, bad and saturated pixels flagged from the image's own flag names. WISE: saturation masked.</li>
           <li><b>Put them on one grid.</b> All images are reprojected with Astropy onto a single sky grid; SPHEREx visits are co-added per detector for better signal.</li>
-          <li><b>Measure.</b> Sources are detected in each epoch and linked across 16 years; proper motion is fitted and compared with Gaia DR3 / CatWISE2020.</li>
+          <li><b>Measure.</b> Sources are detected in WISE images and linked across 14 years (2010–2024); proper motion is fitted and compared with ESA Gaia DR3 and the published literature.</li>
           <li><b>Explain.</b> An AI copilot writes a plain-language summary in English and Azerbaijani, using only the numbers we measured.</li>
         </ol>
 
@@ -54,7 +54,7 @@ export function About() {
                 return (
                   <tr key={f.field_id} onClick={() => navigate(`/view?field=${encodeURIComponent(f.field_id)}`)}>
                     <td><b>{o.name}</b></td>
-                    <td className="mono">{m.pm_total} ± {m.err}</td>
+                    <td className="mono">{Math.round(m.pm_total)} ± {Math.round(m.err)}</td>
                     <td className="mono">{Math.round(Math.hypot(r.pmra, r.pmdec))}</td>
                     <td>{r.source}</td>
                     <td className="mono"><b className="ok">{o.motion!.agreement_pct != null ? `${o.motion!.agreement_pct.toFixed(1)}%` : "—"}</b></td>
