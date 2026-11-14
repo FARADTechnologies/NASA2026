@@ -1,8 +1,8 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sat ~20:30 Baku
+Last update: Sat ~21:00 Baku
 
 ## Current task
-#62 crowded Gaia fix + #60 F8 both submitted, both in PR #63. All 5 real fields smoke-tested.
+#60, #62, #65, #66 all submitted, all in PR #63 (open). Next: `next` loop.
 
 ## Status
 All F0–F5 features exist on mock; waiting for orchestrator review + real bundle + real API. Azer cosmetic feedback pending.
