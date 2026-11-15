@@ -73,10 +73,24 @@ export function Home() {
 function TargetCard({ f, onOpen }: { f: FieldEntry; onOpen: () => void }) {
   const [broken, setBroken] = useState(false);
   const thumb = f.thumb && f.root ? f.root + f.thumb : null;
+  // Some fields lie at the edge of a survey tile: the preview then has an empty (pure black) band.
+  // Zoom the thumbnail onto the rows that actually contain data, so the card never looks broken.
+  const [crop, setCrop] = useState<React.CSSProperties | undefined>();
+  const fitToData = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    try {
+      const n = 64; const c = document.createElement("canvas"); c.width = n; c.height = n;
+      const g = c.getContext("2d")!; g.drawImage(e.currentTarget, 0, 0, n, n);
+      const d = g.getImageData(0, 0, n, n).data;
+      const empty = (y: number) => { let mx = 0; for (let x = 0; x < n; x++) { const i = (y * n + x) * 4; mx = Math.max(mx, d[i], d[i + 1], d[i + 2]); } return mx < 6; };
+      let top = 0; while (top < n / 2 && empty(top)) top++;
+      let bot = 0; while (bot < n / 2 && empty(n - 1 - bot)) bot++;
+      if (top + bot >= 3) { const h = n - top - bot; setCrop({ transform: `scale(${(n / h).toFixed(3)})`, transformOrigin: `50% ${((100 * top) / (n - h)).toFixed(1)}%` }); }
+    } catch { /* keep the plain thumbnail */ }
+  };
   return (
     <button className="tcard" onClick={onOpen}>
       <div className="tthumb">
-        {thumb && !broken ? <img src={thumb} alt="" onError={() => setBroken(true)} /> : <div className="tthumb-ph"><span /><span /><span /></div>}
+        {thumb && !broken ? <img src={thumb} alt="" style={crop} onLoad={fitToData} onError={() => setBroken(true)} /> : <div className="tthumb-ph"><span /><span /><span /></div>}
       </div>
       <div className="tbody">
         <div className="tname">{f.title}</div>

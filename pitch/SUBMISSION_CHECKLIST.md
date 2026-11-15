@@ -1,5 +1,5 @@
 # Sunday submission checklist (A6 #27 prep) — SkyLapse, team FARAD
-Hard times (Baku): **10:30 feature freeze** · ~11:00 Tural Salmanov rehearsal · ~13:00 repo public · **14:30 Space Apps submission done** ·
+Hard times (Baku): **10:30 feature freeze** · ~11:00 mentor rehearsal · ~13:00 repo public · **14:30 Space Apps submission done** ·
 15:30–16:05 local submission window · 16:05–18:00 judging (5:00 pitch+demo, overtime = disqualified; 5:00 Q&A).
 Text for every field: `pitch/PROJECT_PAGE.md`. Facts: `pitch/FACTS.md`. Q&A: `pitch/QA_ANSWERS.md` + `science/QA_FACTS.md`.
 
@@ -9,7 +9,7 @@ Text for every field: `pitch/PROJECT_PAGE.md`. Facts: `pitch/FACTS.md`. Q&A: `pi
 - [ ] AI use shown on a slide (AI_USE short version); no AI-made NASA logos/flags/patches; any AI image watermarked.
 - [ ] Share → "Anyone with the link: Viewer"; copy the FINAL link → paste into PROJECT_PAGE "Slides".
 
-## B. Rehearsal with Tural Salmanov (~11:00)
+## B. Rehearsal with a mentor (~11:00)
 - [ ] Pre-open tabs: WISE 0855, ε Indi B, Barnard's Star, R Draconis (cold loads 4–11 s) + `pitch/video/SkyLapse_demo_backup.mp4` ready offline.
 - [ ] One full run with a stopwatch: target ≤ 4:40. Over → cut slide 6 Backyard Worlds sentence first.
 - [ ] Notes → `pitch/MENTOR_NOTES.md` session 2 (pitch agent writes them up and sends to the orchestrator).

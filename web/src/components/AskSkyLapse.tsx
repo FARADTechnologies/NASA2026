@@ -18,7 +18,7 @@ const VIEW_ONLY = new Set(["set_sequence", "set_compare", "set_speed", "set_stre
 const persist: { open: boolean; log: LogItem[] } = { open: false, log: [] };
 
 async function callApi(text: string): Promise<{ actions: AskAction[]; rejected: string[] } | null> {
-  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 9000);
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 7000);
   try {
     const field = new URLSearchParams(location.search).get("field");
     const r = await fetch("/api/command", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
@@ -117,7 +117,7 @@ export function AskSkyLapse() {
         <Sparkles size={14} strokeWidth={1.75} style={{ verticalAlign: -2, marginRight: 6 }} />Ask SkyLapse
       </button>
       {open && (
-        <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
+        <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
           background: "var(--panel, #0d1424)", color: "var(--text, #e8eefc)", border: "1px solid var(--line, #2a3550)", borderRadius: 12,
           boxShadow: "0 12px 40px rgba(0,0,0,.45)", padding: 12 }}>
           <div style={{ fontSize: 12, opacity: .75, marginBottom: 8 }}>Tell SkyLapse what to do — it drives the viewer. It does not make up facts or numbers.</div>

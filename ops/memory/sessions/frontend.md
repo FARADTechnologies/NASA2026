@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 13:20 Baku
+Last update: Sun 13:42 Baku
 
 ## Current task
-#121 F13 redesign v2: PR #131 + #134 MERGED + DEPLOYED (themes, tokens, Plex, Lucide, Ask slot, WCAG-checked light colours). Final screenshot set re-shot → small PR open (screenshots only).
+#121 redesign. v2 (PR #131, #134) merged + deployed. v2.1 = Azer feedback, on branch `frontend/azer-review` (pushed, NO PR on purpose: Azer said do not deploy until he checks).
 
 ## Status
-#121 is marked blocked = waiting for Azer cosmetic feedback (asked 12:25, none by 13:20). Hard stop for changes 14:15; then `skyops.py submit 121` with the final report (checklist 50/50 both themes, live site verified).
+v2.1 done + 50/50 checklist: Manrope + Geist Mono, collapsible panels (rail arrows, remembered in localStorage skylapse.left/right), wide view (canvas up to 1.6:1 when a panel is closed, crops top/bottom, key F), add/subtract block in the left rail, Ask SkyLapse floating bottom-right (still mounted in TopBar), no-data hatch (exact 0 / NaN) + thumbnail auto-crop. Waiting for Azer OK → then: git checkout role/frontend; git merge frontend/azer-review; PR; re-shoot web/design-refs/v2.
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).

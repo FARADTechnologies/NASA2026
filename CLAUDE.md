@@ -18,12 +18,12 @@ It is re-injected after every compaction. The detailed docs it points to are the
    If AUTONOMOUS MODE is ON, continue the loop in §7.
 
 ## 1. Mission (non-negotiable)
-Win 1st place at the Baku Local Event (15 finalist teams, 3-person jury: IDDA, Azercosmos, Baku Engineering University),
-then be a strong Global Nominee. Real deadline: project frozen Sunday 15 Nov 10:30, submitted by 14:30 (local window 15:30–16:05).
+Build a scientifically valid, genuinely useful public tool for NASA Space Apps 2026 (Baku Local Event) and present it clearly
+for both the local and the global judging. Real deadline: project frozen Sunday 15 Nov 10:30, submitted by 14:30 (local window 15:30–16:05).
 **Judging criteria — cover BOTH lists (permanent, updated Sun 00:05):**
 - **LOCAL (Baku, 20 % each):** Market Potential/Scalability · Presentation · Innovation · Technical Readiness · Relevance of the problem.
 - **GLOBAL (NASA):** Impact · Creativity · Validity · Relevance · Presentation.
-- Mentor Tural Salmanov (Azercosmos) confirmed in writing: Market Potential does NOT require money — show value as time saved,
+- Our mentor confirmed in writing: Market Potential does NOT require money — show value as time saved,
   people reached or money, with numbers where possible. Scientific validity is judged inside Technical Readiness (methodology,
   research, README on GitHub). Expected answer: "We reviewed recent methods (NASA/ESA/IAC literature): approaches A, B, C; their
   gap X; we propose D; and here is the working prototype." → `docs/METHODOLOGY.md`. Every number from our own files; no discovery claims.

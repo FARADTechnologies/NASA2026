@@ -20,7 +20,9 @@ Every external resource used in the project. Add new ones as soon as they are us
 ## Software and libraries
 - Python 3.11; **Astropy** (Astropy Collaboration 2013, 2018, 2022); astroquery; reproject; photutils; NumPy; SciPy; requests.
 - FastAPI (API).
-- Web: React 18, TypeScript, Vite; Canvas 2D. Fonts: Inter, JetBrains Mono (Google Fonts, OFL).
+- Web: React 18, TypeScript, Vite; Canvas 2D.
+- Fonts (design v2.2, `web/index.html`): **Manrope** and **Geist Mono** — SIL Open Font License 1.1, loaded from Google Fonts.
+- Icons: **Lucide** (`lucide-react`) — ISC License, https://lucide.dev.
 - Hosting: Vercel (web, free tier), Railway (API, trial credits) — ops/memory/PROJECT_STATE.md, D-015.
 
 ## Design inspiration (no code copied)
