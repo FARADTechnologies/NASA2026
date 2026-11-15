@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 14:30 Baku
+Last update: Sun 15:20 Baku
 
 ## Current task
-None. #121 redesign CLOSED. v2.2 (PR #138: Manrope + Geist Mono, collapsible panels, wide view fills stage, Full screen button, add/subtract block, floating Ask, no-data hatch) merged 13:54 + deployed.
+v2.3 (Azer feedback 15:10): Ask SkyLapse as chat widget, calmer object card (facts dl + data notes + "In plain words" clamp), plainer home copy. On branch `frontend/chat-ui` (pushed, NO PR: waiting for Azer to check). 50/50 checklist, no console errors.
 
 ## Status
-Live site verified 14:27: all 7 pages, both themes, desktop + phone, no console errors. Final screenshots (from the live site) in web/design-refs/v2. Autonomous mode paused. Not tested: Full screen button in a real (non-headless) browser.
+Waiting for Azer OK → then: checkout role/frontend, merge frontend/chat-ui + origin/main, PR, ask orchestrator to deploy. checklist selectors updated (.facts .agree, .ask-launcher, .ask-send).
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
