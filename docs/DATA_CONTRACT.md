@@ -128,3 +128,6 @@ Any block may be `null` if not computed yet — the frontend must handle nulls g
 ## 8. Optional additive keys (schema 1.0 stays valid; readers must ignore unknown keys)
 - `objects/*.json` → `spectrum.usable` (bool; false = target saturated/unmeasurable, show `notes`), `spectrum.binned` (points like `points`, R≈40 bins — draw as the main curve, single points faintly),
   `spectrum.stats`, `spectrum.method` (short text), `spectrum.points[].saturated` (bool). Added Sat 15:20 (science S2, PR #58).
+- `catalogs/*.json` → `status` (e.g. `{"state": "ok"|"failed"|..., ...}`) — a failed star catalogue is never served from the live cache.
+  `manifest.build.catalog_status` and `manifest.build.fast_movers`; live fields may list `objects/mover1..3.json` (fast known Gaia stars,
+  predicted track). Added Sun 12:20 (pipeline PR #127, T10 #120). Readers must ignore unknown keys.
