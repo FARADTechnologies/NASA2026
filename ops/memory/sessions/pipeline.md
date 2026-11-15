@@ -1,13 +1,13 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov ~12:20 Baku (Kanan's PC)
+Last update: Sun 15 Nov ~12:50 Baku (Kanan's PC)
 
 ## Current task
-URGENT (human, freeze lifted until 14:30): live fields had EMPTY star catalogues. Fix in PR #127; asked orchestrator (#128) to
-merge + 2-line API patch (needs_rebuild in init/submit) + redeploy. Then test via API: 113.7870 -7.2450, Luhman 16, 195.5 +28.5.
+#120 T10 live catalogues: done, submitted (review). PRs #127, #129 merged; report PR #133 (pipeline/qa/live_catalog_fix.md).
 
 ## Status
-Local test PASS (Gaia/CatWISE full via VizieR CfA mirror, frames scaled, fast movers). Waiting for redeploy.
-After API test: report timings + screenshots, tell Murad in Azerbaijani.
+Live fields: Gaia/CatWISE via VizieR race, status in files/manifest, fast movers (pm>100) as predicted-track objects.
+Causes were TAP outages + Vercel CDN max-age=86400 (orchestrator: no-cache + purge). Freeze lifted until 14:30 (bug fixes).
+Open option: purge the 3 old demo fields (no CatWISE/movers) via SKYLAPSE_STALE_FIELDS.
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -34,6 +34,7 @@ After API test: report timings + screenshots, tell Murad in Azerbaijani.
 - byw.tools was slow on Sat (~4–6 s/request) → live fetches W2 first, then rest of W2 + W1 in background.
 - Live: unWISE epochs per position vary (23 typical, ~427 at NEP) → live probes last epoch, fetches <=32 evenly spaced; HTTP 500 can be one missing epoch.
 - API caches live fields by RA/Dec rounded 4 dp + fov 0.1; site default fov 8.8. Stale cached fields: ask orchestrator (SKYLAPSE_STALE_FIELDS).
+- Vercel CDN caches /api/fields files; live JSON is now no-cache (orchestrator). Check origin https://api-production-02611b3c.up.railway.app when in doubt.
 - Science handoff: data/derived/<field>/spherex_images.csv + data/derived/<field>/frames/<id>.fits (grid WCS + MASK ext).
 
 ## Open questions / waiting on
