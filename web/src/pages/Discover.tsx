@@ -53,7 +53,7 @@ export function Discover() {
       <TopBar />
       <div className="doc">
         <h1>Discover</h1>
-        <p className="lede-s">Every field is searched automatically: sources are detected in each epoch, linked across 16 years, and their motion is measured.
+        <p className="lede-s">Every field is searched automatically: sources are detected in WISE images and linked across 14 years (2010–2024), and their motion is measured.
           Each mover is then cross-matched with Gaia DR3 and CatWISE2020 and labelled. Re-finding the <b>known</b> movers is our validation.</p>
         {err && <div className="empty-state small">Discovery results could not be loaded.</div>}
         {stats.fields > 0 && (

@@ -4,14 +4,14 @@ flags or mission symbols. This statement is used on slide 7, in the Space Apps "
 
 ## Short version (for slide 7 / project page, ≤ 60 words)
 We used AI openly. AI coding assistants (Claude Code) helped our team write the data pipeline and web app faster; humans set the
-concept, checked the science and reviewed every merge. The plain-language explanations (English and Azerbaijani) are written by an AI
-model **only from numbers our pipeline computed**. Any AI-generated image or audio is labelled.
+concept, checked the science and reviewed every merge. The plain-language explanations (English and Azerbaijani) are written by Anthropic's Claude Opus 5.5
+**only from numbers our pipeline computed** (English in a Claude Code session; most Azerbaijani texts via the organizers' Claude API). Any AI-generated image or audio is labelled.
 
 ## Details
 | Where | AI tool | What it did | Human control |
 |---|---|---|---|
 | Software development | Claude Code (Anthropic Claude models) as coding agents, one per role (orchestrator, pipeline, science, frontend, pitch) | Wrote and debugged code, ran tests, drafted docs and task issues | Team members assigned tasks, reviewed results, made all concept and scope decisions; every change merged by the orchestrator after review |
-| Object explanations ("AI Copilot") | Anthropic Claude (written in a Claude Code session — no API key at the venue, decision D-018; `science/copilot_offline_texts.json`) | Turns computed facts (proper motion, agreement with Gaia, saturation flags, spectrum class) into short EN + AZ text Only computed facts (`copilot_facts.json`) as input; every number is checked automatically against those facts, forbidden words ("discovery", "Planet X") blocked, ≤ 110 words; read by the team; labelled "Written by AI" in the UI (science/QA_FACTS.md #15) |
+| Object explanations ("AI Copilot") | Anthropic **Claude Opus 5.5** (`claude-opus-5-5`). **English** texts (all 5 targets) and the **Azerbaijani** text for ε Indi B were written in a Claude Code session from our facts (D-018); the other 4 **Azerbaijani** texts were generated through the **organizers' Claude API gateway** (S7). Source per language: `objects/target.json` → `copilot.served_by`. | Turns computed facts (proper motion, agreement with Gaia, saturation flags, spectrum class) into short EN + AZ text (≤ 110 words) | Only computed facts (`copilot_facts.json`) as input; every number checked automatically against those facts; "discovery" and "Planet X" blocked; read by the team; labelled "AI-generated from our measured facts · model: claude-opus-5-5" on the site (science/QA_FACTS.md #15) |
 | Pitch preparation | Claude Code (pitch agent) | Drafted script, Q&A answers, this statement | Amal edited wording; all numbers come from repo files (`pitch/FACTS.md`) |
 | Images / video / audio | none — the backup demo video is a plain screen recording of the live site | — | — |
 

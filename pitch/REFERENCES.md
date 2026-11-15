@@ -21,7 +21,7 @@ Every external resource used in the project. Add new ones as soon as they are us
 - Python 3.11; **Astropy** (Astropy Collaboration 2013, 2018, 2022); astroquery; reproject; photutils; NumPy; SciPy; requests.
 - FastAPI (API).
 - Web: React 18, TypeScript, Vite; Canvas 2D. Fonts: Inter, JetBrains Mono (Google Fonts, OFL).
-- Hosting: Vercel (web) `[confirm]`, `[API host — confirm]`.
+- Hosting: Vercel (web, free tier), Railway (API, trial credits) — ops/memory/PROJECT_STATE.md, D-015.
 
 ## Design inspiration (no code copied)
 - **WiseView** (byw.tools, Caselden et al.) — blink-viewer controls and URL-state ideas.
@@ -29,9 +29,9 @@ Every external resource used in the project. Add new ones as soon as they are us
 
 ## Scientific references used for validation
 - Barnard's Star, ε Indi A/B proper motions: Gaia DR3 / SIMBAD.
-- WISE 0855−0714: Luhman 2014 (ApJL 786, L18) discovery; proper motion and parallax from literature / CatWISE `[confirm exact paper used in science/VALIDATION.md]`.
+- WISE 0855−0714: Luhman 2014 (ApJL 786, L18), first identification; reference proper motion from Kirkpatrick et al. 2021, ApJS 253, 7 (science/VALIDATION.md).
 - Backyard Worlds: Planet 9 citizen-science project (Kuchner et al. 2017, ApJL 841, L19).
 
 ## AI tools (see pitch/AI_USE.md)
 - Claude Code / Anthropic Claude models — coding agents and copilot text generation.
-- AI-generated media: `[none so far]` — any future AI image/audio is watermarked and listed here.
+- AI-generated media: none (videos are plain screen recordings of the live site). Any future AI image/audio is watermarked and listed here.

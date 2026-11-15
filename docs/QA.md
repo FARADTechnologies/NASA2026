@@ -13,3 +13,13 @@
 | Sat ~17:45 R2b | deployed | phone 375×812, WISE 0855 | ✅ | ✅ | ✅ | – | – | – | ✅ | **#45 fixed**: single column, image + Pause + Controls + timeline on first screen (`pitch/qa/r2_mobile_375_wise0855_fixed.jpg`). |
 | Sat ~17:45 R2b | deployed | fresh profile (headless Edge, = private window), wise0855 + eps_indi_b | ✅ | ✅ | ✅ | – | ✅ | – | – | Full page renders with no cookies/cache; used for the deck screenshots. |
 | Sat ~17:45 R2b | deployed | demo path timing | – | – | – | – | – | – | – | WISE 0855 fully loaded 3.4 s after opening; one movie loop = 26 frames at 3.3 fps ≈ 8 s. Demo steps (0855 play → fingerprint/spectrum → Barnard card) ≈ 60–70 s incl. talking; copilot step not possible yet (S5). Fits 1:30. |
+| Sun 01:05 R3 | deployed (live API) | live field 150.1192 +2.2058, 8′ | ✅ | – | – | – | – | – | – | POST → done in ~12 s ("46 WISE frames in 11s"); one transient 502 from /status ~2 min later, healthy again on retry (0.4 s). Copilot EN/AZ + R Dra light curve + Gaia fix (#65) verified live Sun 00:20. |
+| Sun ~02:15 R4 | deployed (live API, pre-warmed) | Luhman 16 / Teegarden / Kapteyn links from #104 | ✅ 25 / 24 / 23 frames in 3–5 s | (no ring — live fields have no target info) | ✅ | – | – | – | ✅ | Brief "Live job queued 0 %" banner on first open, then ready. Cosmetic: orange "Live field … SPHEREx live is off" banner overlaps the top of the image. |
+| Sun ~02:55 R3 (A12 #116) | deployed main (Sun 00:30) | home | ✅ | – | – | – | – | – | – | 5 targets + "Try a live field" (3 buttons); no console errors; phone 375: no horizontal scroll ✅ |
+| Sun ~02:55 R3 | same | WISE 0855 | ✅ 26 fr, full load 4.3 s | ✅ 99.9 % | ✅ | – | ✅ | – | ✅ | copilot EN/AZ ✅ |
+| Sun ~02:55 R3 | same | Barnard's Star | ✅ 26 fr, full load **10.9 s** | ✅ 99.8 % | ✅ (≤40 circles) | – | "No reliable spectrum — saturated 356/357" ✅ honest | – | ✅ | slowest load → pre-open before demo |
+| Sun ~02:55 R3 | same | ε Indi B | ✅ 27 fr, 4.9 s | ✅ 99.0 % | ✅ | – | ✅ T-dwarf | – | ✅ | copilot ✅ |
+| Sun ~02:55 R3 | same | R Draconis | ✅ 47 fr, 8.9 s (phone: still loading 13/47 after 8 s) | n/a | ✅ | – | saturated ✅ | ✅ 246 d vs 246.12 (AAVSO VSX) | ✅ | phone layout ✅ |
+| Sun ~02:55 R3 | same | RW Aurigae | ✅ 26 fr, 5.9 s | n/a | ✅ | – | saturated ✅ | ✅ index vs NEOWISE | ✅ | |
+| Sun ~02:55 R3 | same | live buttons + fresh coordinate | ✅ Teegarden button **15.4 s** (pre-warm not instant this time); fresh 210.4 −31.7 ≈ 16 s, 25 frames | – | ✅ | – | – | – | ✅ | within the documented 11–23 s range |
+| Sun ~02:55 R3 | same | Discover / About | ✅ | – | – | – | – | – | – | Discover: 3/3, 0 candidates, "not a discovery" note ✅; intro still says "linked across 16 years" → **#117** (P2). About: "14 years … Gaia DR3 and literature" ✅, no 245.6 ✅ |

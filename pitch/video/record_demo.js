@@ -105,7 +105,7 @@ async function scrollTo(page, headingText) {
   await caption(page, "R Draconis is not moving — it pulses.");
   await sleep(4000);
   await scrollTo(page, "Light curve");
-  await caption(page, "14 years of brightness: period 246 days — the known period is 245.6 days.");
+  await caption(page, "14 years of brightness: period 246 days — the known period is about 246 days (AAVSO: 246.12).");
   await sleep(8500);
 
   // 5 — close (≈ 8 s)

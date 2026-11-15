@@ -151,15 +151,15 @@ const rows = [
   ["ε Indi B", "4.72″/yr", "Gaia DR3", "99.0 %"],
   ["WISE 0855", "8.16″/yr", "Kirkpatrick+21", "99.9 %"],
   ["RW Aurigae", "0.40 rms", "noise 0.05", "8× noise"],
-  ["R Draconis", "P = 246 d", "GCVS 245.6 d", "matches"],
+  ["R Draconis", "P = 246 d", "VSX 246.12 d", "matches"],
 ];
 s.addTable(rows, { x: 5.0, y: 1.25, w: 4.5, colW: [1.45, 1.0, 1.2, 0.85], fontSize: 12, fontFace: "Calibri", color: H.lt1, fill: { color: H.dk2 }, border: { type: "solid", pt: 0.75, color: H.accent4 }, rowH: 0.42, valign: "middle", objectName: "validation-table" });
 tb(s, [{ text: "Blind search: 3 / 3 NASA movers found, 0 false alarms", options: { bold: true, color: C.accent5, breakLine: true } }, { text: "Tools: Python · Astropy · React", options: { color: C.background2 } }], { x: 5.0, y: 4.1, w: 4.5, h: 0.75, fontSize: 13 });
-s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is 245.6. And our blind search found all three NASA movers by itself, with zero false alarms.");
+s.addNotes("0:35 — Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data. We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is about 246 days. And our blind search found all three NASA movers by itself, with zero false alarms.");
 
 // ---------- 6 Impact ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Pitch" });
-s.addText("Anyone can discover", { placeholder: "title" });
+s.addText("Anyone can search the sky", { placeholder: "title" });
 card(s, 0.5, 1.25, 4.3, 3.65);
 tb(s, "Precedent", { x: 0.75, y: 1.45, w: 3.8, h: 0.35, fontSize: 15, bold: true, color: C.accent2 });
 tb(s, "In NASA's Backyard Worlds project, volunteers blinking WISE images found cold brown dwarfs that automated searches missed.", { x: 0.75, y: 1.9, w: 3.8, h: 1.5, fontSize: 15 });

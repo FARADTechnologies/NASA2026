@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
 import type { FieldEntry } from "../lib/bundle";
 import { loadIndex, prefetchFields } from "../lib/bundle";
+import { prewarmLive } from "../lib/live";
 import { navigate } from "../lib/router";
 import { SearchBox } from "../components/SearchBox";
 import { TopBar } from "../components/TopBar";
+
+// Pre-warmed on the live API (pipeline T9, #78): same RA/Dec/FOV as cached → the movie opens in ~1 s.
+const LIVE_FIELDS = [
+  { name: "Luhman 16", ra: "162.3057", dec: "-53.3177", caption: "Nearest brown-dwarf pair, ~40″ west over 2010–2024" },
+  { name: "Teegarden's Star", ra: "43.2716", dec: "16.8623", caption: "Red dwarf with planets, ~70″ south-east" },
+  { name: "Kapteyn's Star", ra: "77.9651", dec: "-45.0470", caption: "Fast halo star, ~2′ south-east (saturated core)" },
+];
 
 export function Home() {
   const [fields, setFields] = useState<FieldEntry[] | null>(null);
@@ -14,6 +22,8 @@ export function Home() {
       // warm the cache so a target's movie starts instantly (NASA targets first, then the rest)
       const t = index.fields.filter((f) => f.kind === "nasa_test_target");
       prefetchFields(t.length ? t : index.fields.slice(0, 5));
+      // then warm the 3 pre-built live fields (one after another, low priority)
+      setTimeout(async () => { for (const l of LIVE_FIELDS) await prewarmLive(+l.ra, +l.dec, 8.8); }, 1500);
     }).catch(() => setErr(true));
   }, []);
   const targets = fields?.filter((f) => f.kind === "nasa_test_target") ?? [];
@@ -40,6 +50,15 @@ export function Home() {
         <div className="cards">
           {fields === null && !err && Array.from({ length: 5 }).map((_, i) => <div key={i} className="tcard skeleton-box" />)}
           {targets.map((f) => <TargetCard key={f.field_id} f={f} onOpen={() => open(f)} />)}
+        </div>
+        <h2>Try a live field <span className="h2-sub">built from WISE in seconds</span></h2>
+        <div className="live-row">
+          {LIVE_FIELDS.map((l) => (
+            <button key={l.name} className="live-btn" onClick={() => navigate(`/view?ra=${l.ra}&dec=${l.dec}&fov=8.8`)}>
+              <span className="live-name"><span className="pulse" /> {l.name}</span>
+              <span className="muted small">{l.caption}</span>
+            </button>
+          ))}
         </div>
         {others.length > 0 && (<><h2>{targets.length ? "Showcase fields" : "Fields"}</h2><div className="cards">{others.map((f) => <TargetCard key={f.field_id} f={f} onOpen={() => open(f)} />)}</div></>)}
       </section>

@@ -26,8 +26,8 @@ deliver them — every number must also be in `pitch/FACTS.md` with its source f
 | 2 | Challenge | **One year is too short** | Left: SPHEREx frame, a star moved 1–2 pixels. Right: "102 colours · whole sky · every 6 months · 1 year of data". One line: "Nearby worlds hide in plain sight." | 0:35 |
 | 3 | Solution | **A 16-year infrared time machine** | Timeline bar: WISE/NEOWISE 2010 → 2024 (23 epochs, 4.6 µm) + SPHEREx 2025 → 2026 (4.4–5.0 µm). WISE 0855 moves ≈ 2 arcmin (≈ 130″). | 0:30 |
 | 4 | How it works | **Type a position. Watch. Catch.** | 3 screenshots: movie player · spectral fingerprint · AI explanation in AZ/EN. → **switch to LIVE DEMO here (1:30)** | 0:10 + 1:30 demo |
-| 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers 99.0–99.9 %; R Dra period 246 d vs 245.6 d; RW Aur 7–8× above noise; blind search 3/3 movers, 0 false. | 0:35 |
-| 6 | Impact | **Anyone can spot a candidate** (was "Anyone can discover" — conflicts with our no-discovery rule, science #77) | Backyard Worlds precedent; first users (mentor V. Aliyev, IDDA): **university students** + **space agencies' school lesson programs** as a channel; SRDA community (`[1000+ — confirm]`); free, browser, no install. | 0:30 |
+| 5 | Space data | **NASA data, tested on NASA's targets** | Logos as text (no AI logos): NASA SPHEREx · NASA WISE/NEOWISE (unWISE) · CatWISE · ESA Gaia DR3 (partner). Tools: Python, Astropy. Validation table: 3 movers 99.0–99.9 %; R Dra period 246 d vs 246.12 d (AAVSO VSX); RW Aur 7–8× above noise; blind search 3/3 movers, 0 false. | 0:35 |
+| 6 | Impact | **Anyone can search the sky** (A10 #94; never "discover") | Backyard Worlds precedent; first users (mentor V. Aliyev, IDDA): **university students** + **space agencies' school lesson programs** as a channel; SRDA community (`[1000+ — confirm]`); free, browser, no install. | 0:30 |
 | 7 | Next steps | **What's next + how we used AI** | Weekly SPHEREx updates · auto-candidates for follow-up · more languages. AI box: coding assistants; copilot text only from computed facts; AI media watermarked. Link/QR to the live site. | 0:30 |
 Total: 4:40 (3:10 talk + 1:30 demo).
 
@@ -44,6 +44,14 @@ Pre-open the site in a browser tab, on WISE 0855, paused at 2010. Zoom set. No t
 Fallback: if Wi-Fi or the site fails → play `pitch/video/SkyLapse_demo_backup.mp4` (1:22, same story, captions) from the laptop, no apology longer than one sentence.
 Status Sun 00:20: copilot EN/AZ is LIVE (step at 1:15 works); R Dra light curve live (optional swap for the Barnard step if time allows).
 Steps cut for time (mention only if asked): live arbitrary coordinates, Discover tab, difference/co-add modes, Gaia overlay.
+
+### Optional live step (only if the 5:00 clock allows — Q&A is the better place)
+Pre-warmed live positions (checked Sun ~02:15: each opens in 3–5 s, WISE-only, no target ring → point at the moving star yourself):
+- Luhman 16, nearest brown-dwarf pair (6.5 ly), ~40″ west 2010–2024: https://skylapse.vercel.app/view?ra=162.3057&dec=-53.3177&fov=8.8
+- Teegarden's Star, red dwarf with planets (12.5 ly), ~70″ south-east: https://skylapse.vercel.app/view?ra=43.2716&dec=16.8623&fov=8.8
+- Kapteyn's Star, fast halo star (13 ly), ~2′ south-east, saturated core: https://skylapse.vercel.app/view?ra=77.9651&dec=-45.0470&fov=8.8
+Say: "And this works for any position — here is Teegarden's Star, built live." A brand-new typed coordinate takes ~½ min (F17) — don't type one on stage.
+(Distances/motions from pipeline/qa/live_api_test.md — pipeline #104.)
 
 ## 4. Script (read aloud; short sentences; ≈ 140 words/min)
 **Slide 1 — Title (0:20)**
@@ -67,7 +75,7 @@ objects move not one pixel, but minutes of arc. You can see them move."
 **Slide 5 — Space data (0:35)**
 "Everything runs on open space data. NASA SPHEREx, NASA WISE and NEOWISE, and ESA's Gaia catalogue as partner data.
 We tested on all five NASA target objects. For the three moving ones, our measured speeds agree with Gaia and the literature to
-better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is 245.6. And our blind search found all three NASA movers by itself, with zero false alarms."
+better than ninety-nine percent. For the two variable stars: R Draconis pulses every 246 days — the known period is about 246 days. And our blind search found all three NASA movers by itself, with zero false alarms."
 
 **Slide 6 — Impact (0:30)**
 "Why does it matter? With NASA's Backyard Worlds project, volunteers blinking sky images found cold brown dwarfs that computers missed.
@@ -82,6 +90,7 @@ SkyLapse — sixteen years of sky, for everyone. Thank you."
 
 Word count of spoken script (without demo) = 350 (counted with `wc -w`) → 2:30 at 140 wpm, 2:55 at a calm 120 wpm;
 demo narration = 107 words in 1:30. Estimated total 4:00–4:25 → 15–60 s buffer under the 5:00 hard limit.
+**Timing estimate Sun 03:00 (A12):** spoken §4 = 372 words + demo ≈ 110 words → ≈ 3:10 at Amal's measured pace (≈ 152 wpm); + demo clicks with PRE-OPENED tabs ≈ 15 s + slide↔browser switches → **≈ 3:30–3:50**. Real stopwatch run = Amal (her deck/notes may differ). Pre-open WISE 0855, ε Indi B, Barnard (10.9 s cold load!) and R Dra (8.9 s) in tabs before going on stage.
 **Timing proof:** Amal read §4 script + §3 demo narration aloud with a stopwatch on Sat 14 Nov ~14:40: **3:00**.
 Live clicking/loading will add time → rehearse with the real site (A6) and keep the total ≤ 4:40.
 
