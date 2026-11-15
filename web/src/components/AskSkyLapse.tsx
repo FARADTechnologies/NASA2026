@@ -194,7 +194,7 @@ export function AskSkyLapse() {
               {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>
             <button type="button" onClick={() => { const v = !voice; setVoice(v); voiceOn = v; try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) stopVoice(); }}
-              style={btn} aria-pressed={voice} title={voice ? "Voice replies on — AI voice (ElevenLabs), browser voice as fallback" : "Voice replies off"}>{voice ? "🔊" : "🔇"}</button>
+              style={btn} aria-pressed={voice} title={voice ? "Voice replies on — AI voice (ElevenLabs), browser voice as fallback. Press to mute." : "Voice replies off — press to turn them on"}>{voice ? "🔊" : "🔇"}</button>
             <button type="submit" style={btn} disabled={busy}>{busy ? "…" : "Go"}</button>
           </form>
           {log.length === 0 && (
