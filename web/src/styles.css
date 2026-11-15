@@ -383,3 +383,6 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .stage:fullscreen .fs-btn { margin-left: auto; }
 .fs-btn { align-self: center; }
 @media (max-width: 800px) { .fs-btn { display: none; } }
+
+/* QA v1.1 (orchestrator): let the last side-panel section scroll clear of the floating Ask SkyLapse button */
+aside.panel.side { padding-bottom: 72px; }
