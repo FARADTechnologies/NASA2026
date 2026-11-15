@@ -221,7 +221,9 @@ export function Viewer({ search }: { search: string }) {
   // keyboard
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.closest("input, select, textarea")) return;
+      // typing / sliders / selects keep their keys; a focused checkbox still lets ← → step frames
+      const field = (e.target as HTMLElement)?.closest("input, select, textarea") as HTMLInputElement | null;
+      if (field && !(field.type === "checkbox" && e.code !== "Space")) return;
       if (e.code === "Space") { e.preventDefault(); setPlaying((p) => !p); }
       else if (e.key === "ArrowRight") { setPlaying(false); setView((v) => ({ ...v, frame: n ? (v.frame + 1) % n : 0 })); }
       else if (e.key === "ArrowLeft") { setPlaying(false); setView((v) => ({ ...v, frame: n ? (v.frame - 1 + n) % n : 0 })); }
