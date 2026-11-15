@@ -314,34 +314,64 @@ class FieldBuilder:
             x, y = world_to_grid(self.wcs, ra18, de18)
             if not (4 <= float(x[0]) <= n - 5 and 4 <= float(y[0]) <= n - 5):
                 continue
-            cands.append((pm, r, ra18, de18, pmra, pmde))
+            cands.append([pm, r, ra18, de18, pmra, pmde])
+        for c in cands:
+            c.append("gaia")
+        # SIMBAD fallback: literature proper motions > 500 mas/yr (catches fast movers without a Gaia DR3 proper motion)
+        try:
+            r_deg = self.grid["width"] * self.grid["pixel_scale_arcsec"] / 3600 * 0.75
+            srows, self.catalog_status["simbad_movers"] = cat.load_simbad_movers(self.field_id, self.ra, self.dec, r_deg)
+        except Exception as e:  # noqa: BLE001
+            srows = []
+            log.warning("%s SIMBAD movers: %r", self.field_id, e)
+        for r in srows:
+            try:
+                ra0, de0, pmra, pmde = float(r["ra"]), float(r["dec"]), float(r["pmra"]), float(r["pmdec"])
+            except (TypeError, ValueError, KeyError):
+                continue
+            ra18, de18 = propagate(ra0, de0, pmra, pmde, 2000.0, 2018.0)
+            if any(abs(c[2] - ra18) * np.cos(np.radians(de18)) * 3600 < 5 and abs(c[3] - de18) * 3600 < 5 for c in cands):
+                continue  # already a Gaia mover
+            x, y = world_to_grid(self.wcs, ra18, de18)
+            if not (4 <= float(x[0]) <= n - 5 and 4 <= float(y[0]) <= n - 5):
+                continue
+            name = str(r.get("main_id", "")).replace("NAME ", "").strip() or "SIMBAD object"
+            cands.append([(pmra ** 2 + pmde ** 2) ** 0.5, {"source_id": name, "otype": r.get("otype"),
+                          "parallax": r.get("plx_value")}, ra18, de18, pmra, pmde, "simbad"])
         cands.sort(key=lambda c: -c[0])
         frame_mjds = sorted({round(f["mjd_mid"], 3) for f in self.frames.values()})
         mjds = sorted(set([mjd0] + frame_mjds + [mjd1]))
-        for k, (pm, r, ra18, de18, pmra, pmde) in enumerate(cands[:nmax], 1):
+        for k, (pm, r, ra18, de18, pmra, pmde, src) in enumerate(cands[:nmax], 1):
             track = []
             for m in mjds:
                 tra, tde = propagate(ra18, de18, pmra, pmde, 2018.0, julian_year(m))
                 track.append({"mjd": round(m, 3), "ra": round(tra, 7), "dec": round(tde, 7),
                               "instrument": "WISE" if m < 60700 else "SPHEREx", "predicted": True})
             g = r.get("phot_g_mean_mag")
-            name = f"Gaia DR3 {r.get('source_id')}"
+            name = f"Gaia DR3 {r.get('source_id')}" if src == "gaia" else str(r.get("source_id"))
+            if src == "simbad":
+                label = "track predicted from literature proper motion (SIMBAD)"
+                warn = "Known object (SIMBAD); track predicted from literature proper motion (SIMBAD), not measured by SkyLapse"
+            else:
+                label = "predicted from Gaia DR3 proper motion"
+                warn = "Known star (Gaia DR3); path predicted from its catalogue proper motion, not measured by SkyLapse"
             plx = r.get("parallax")
-            obj = {"id": f"mover{k}", "name": name, "kind": "star", "ra": round(ra18, 7), "dec": round(de18, 7), "epoch": 2018.0,
+            kind = "brown_dwarf" if src == "simbad" and "BD" in str(r.get("otype") or "") else "star"
+            obj = {"id": f"mover{k}", "name": name, "kind": kind, "ra": round(ra18, 7), "dec": round(de18, 7), "epoch": 2018.0,
                    "motion": {"measured": None,
-                              "reference": {"source": "Gaia DR3", "pmra": round(pmra, 2), "pmdec": round(pmde, 2), "unit": "mas/yr"},
-                              "agreement_pct": None, "track": track, "track_kind": "predicted from Gaia DR3 proper motion"},
+                              "reference": {"source": "Gaia DR3" if src == "gaia" else "SIMBAD (literature)", "pmra": round(pmra, 2),
+                                            "pmdec": round(pmde, 2), "unit": "mas/yr"},
+                              "agreement_pct": None, "track": track, "track_kind": label},
                    "spectrum": None, "lightcurve": None, "copilot": None,
-                   "flags": {"saturated_in": [], "warnings": ["Known star (Gaia DR3); path predicted from its catalogue proper motion, "
-                                                              "not measured by SkyLapse"]},
+                   "flags": {"saturated_in": [], "warnings": [warn]},
                    "gaia_g_mag": float(g) if g not in (None, "") else None,
                    "parallax_mas": float(plx) if plx not in (None, "") else None,
                    "pm_total_masyr": round(pm, 1)}
             write_json(odir / f"mover{k}.json", obj, indent=1)
         k = min(len(cands), nmax)
         self.fast_movers = {"n": k, "pm_min_masyr": pm_min,
-                            "note": (f"{k} fast-moving known star(s) from Gaia DR3 (pm > {pm_min:.0f} mas/yr)" if k else
-                                     f"no fast-moving known star in this field (Gaia DR3, pm > {pm_min:.0f} mas/yr)")}
+                            "note": (f"{k} fast-moving known object(s) (Gaia DR3 pm > {pm_min:.0f} mas/yr; SIMBAD pm > 500 mas/yr)"
+                                     if k else f"no fast-moving known star in this field (Gaia DR3 pm > {pm_min:.0f}, SIMBAD pm > 500 mas/yr)")}
         return k
 
     def _target_saturated(self, fid) -> bool:
