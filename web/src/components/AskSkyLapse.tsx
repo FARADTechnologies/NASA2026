@@ -2,14 +2,32 @@
 // Not a chatbot: it never answers with numbers or facts; it only drives the viewer and shows what it did.
 // One mount point: <AskSkyLapse /> in the header (floats bottom-right as a chat widget; styles: .ask-* in styles.css).
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, MessageCircle, Mic, Square, X } from "lucide-react";
+import { ArrowUp, MessageCircle, Mic, RotateCcw, Square, X } from "lucide-react";
 import { navigate } from "../lib/router";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
 import { ACTIONS_EVENT, READY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
 import { describe, parseCommand } from "../lib/askParser";
 
 type LogItem = { text: string; source: "claude" | "local" | "none"; actions: string[]; note?: string };
-const LANGS = [{ id: "en-US", label: "EN" }, { id: "tr-TR", label: "TR" }, { id: "az-AZ", label: "AZ" }];
+const LANGS = [{ id: "az-AZ", label: "AZ", name: "Azərbaycan dili" }, { id: "en-US", label: "EN", name: "English" }, { id: "tr-TR", label: "TR", name: "Türkçe" }];
+// short chip labels → the full command that is sent
+const QUICK: { label: string; cmd: string }[] = [
+  { label: "Barnard's Star, difference, 2× speed", cmd: "show Barnard's Star in difference mode at double speed" },
+  { label: "Compare 2010 with today", cmd: "compare 2010 with today" },
+  { label: "Go to Luhman 16", cmd: "go to RA 162.3 Dec -53.3" },
+  { label: "Show the spectrum", cmd: "show the spectrum" },
+  { label: "Explain in Azerbaijani", cmd: "explain this object in Azerbaijani" },
+];
+const TXT = {
+  en: { sub: "Online · uses only our data", hi: "Hi!", welcome: "Tell me what you want to see — type or speak.",
+    intro: "I can open a target, compare years, change speed or zoom, switch overlays, and show the spectrum or the explanation. I never make up numbers.",
+    lang: "Which language will you speak?", today: "Today", ph: "Write a message…", listening: "Listening…", reset: "New conversation", close: "Close",
+    src: { claude: "understood by Claude (AI)", local: "understood offline", none: "not understood" } },
+  az: { sub: "Onlayn · yalnız bizim məlumat", hi: "Salam!", welcome: "Nə görmək istədiyinizi yazın və ya deyin.",
+    intro: "Hədəfi aça, illəri müqayisə edə, sürəti və miqyası dəyişə, işarələri açıb-bağlaya, spektri və izahı göstərə bilərəm. Rəqəm uydurmuram.",
+    lang: "Hansı dildə danışacaqsınız?", today: "Bu gün", ph: "Mesajınızı yazın…", listening: "Dinləyirəm…", reset: "Yeni söhbət", close: "Bağla",
+    src: { claude: "Claude (AI) başa düşdü", local: "oflayn başa düşüldü", none: "başa düşülmədi" } },
+};
 const EXAMPLES = ["show Barnard's Star in difference mode at double speed", "compare 2010 with today", "go to RA 162.3 Dec -53.3",
   "show the spectrum", "explain this object in Azerbaijani"];
 const OPEN = new Set(["open_field", "open_coordinates"]);
@@ -111,12 +129,12 @@ export function AskSkyLapse() {
     setListening(true); setOpen(true); rec.start();
   }
 
+  const T = lang.startsWith("az") ? TXT.az : TXT.en;
   const Avatar = ({ big }: { big?: boolean }) => (
     <span className={"ask-avatar" + (big ? " lg" : "")} aria-hidden>
       <svg viewBox="0 0 32 32" width={big ? 30 : 18} height={big ? 30 : 18}><circle cx="8" cy="22" r="3" fill="#F0A040" opacity=".55" /><circle cx="16" cy="16" r="3.2" fill="#F0A040" /><circle cx="24" cy="10" r="3.6" fill="#3CC0D6" /></svg>
     </span>
   );
-  const sourceLabel = (s: LogItem["source"]) => (s === "claude" ? "understood by Claude (AI)" : s === "local" ? "understood offline" : "not understood");
   return (
     <div className="ask">
       {!open && (
@@ -128,44 +146,55 @@ export function AskSkyLapse() {
         <div role="dialog" aria-label="Ask SkyLapse" className="ask-panel">
           <header className="ask-head">
             <Avatar />
-            <div className="ask-title"><b>SkyLapse assistant</b><span>Moves the viewer for you · uses only our data</span></div>
-            <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close" title="Close"><X size={18} strokeWidth={1.75} /></button>
+            <div className="ask-title"><b>SkyLapse assistant</b><span><i className="ask-dot" />{T.sub}</span></div>
+            {log.length > 0 && (
+              <button className="icon-btn" onClick={() => setLog(() => [])} aria-label={T.reset} title={T.reset}><RotateCcw size={16} strokeWidth={1.75} /></button>
+            )}
+            <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close" title={T.close}><X size={18} strokeWidth={1.75} /></button>
           </header>
           <div className="ask-body" ref={bodyRef}>
             <div className="ask-welcome">
               <Avatar big />
-              <b>Salam! Hi!</b>
-              <p>Tell me what you want to see — in English or Azerbaijani, by typing or by voice.</p>
+              <b>{T.hi}</b>
+              <p>{T.welcome}</p>
             </div>
-            <div className="msg bot">I can open a target, compare years, change the speed or zoom, switch overlays, and show the spectrum or the explanation. I never make up numbers.</div>
+            <div className="ask-day"><span>{T.today}</span></div>
+            <div className="msg-row"><Avatar /><div className="msg bot">{T.intro}</div></div>
+            <div className="msg-row"><Avatar /><div className="msg bot">{T.lang}</div></div>
+            <div className="chips">
+              {LANGS.map((l) => (
+                <button key={l.id} type="button" className={"chip" + (lang === l.id ? " on" : "")} onClick={() => setLang(l.id)} aria-pressed={lang === l.id}>
+                  <small>{l.label}</small> {l.name}
+                </button>
+              ))}
+            </div>
             {log.length === 0 && (
               <div className="chips">
-                {EXAMPLES.map((x) => <button key={x} type="button" className="chip" onClick={() => run(x)}>{x}</button>)}
+                {QUICK.map((q) => <button key={q.cmd} type="button" className="chip" onClick={() => run(q.cmd)} title={q.cmd}>{q.label}</button>)}
               </div>
             )}
             {[...log].reverse().map((item, i) => (
               <div key={i} className="turn">
                 <div className="msg me">{item.text}</div>
-                <div className="msg bot">
-                  {item.actions.length > 0 && <ul>{item.actions.map((a, k) => <li key={k}>{a}</li>)}</ul>}
-                  {item.note && <p>{item.note}</p>}
-                  <span className="msg-meta">{sourceLabel(item.source)}</span>
+                <div className="msg-row"><Avatar />
+                  <div className="msg bot">
+                    {item.actions.length > 0 && <ul>{item.actions.map((a, k) => <li key={k}>{a}</li>)}</ul>}
+                    {item.note && <p>{item.note}</p>}
+                    <span className="msg-meta">{T.src[item.source]}</span>
+                  </div>
                 </div>
               </div>
             ))}
-            {busy && <div className="msg bot typing" aria-label="Working"><i /><i /><i /></div>}
+            {busy && <div className="msg-row"><Avatar /><div className="msg bot typing" aria-label="Working"><i /><i /><i /></div></div>}
           </div>
           <form className="ask-input" onSubmit={(e) => { e.preventDefault(); run(text); }}>
-            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? "Listening…" : "Write a message…"}
+            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? T.listening : T.ph}
               aria-label="Command" disabled={busy} />
             {SR && (
-              <button type="button" className={"icon-btn" + (listening ? " rec" : "")} onClick={listen} title="Speak a command" aria-pressed={listening}>
+              <button type="button" className={"icon-btn" + (listening ? " rec" : "")} onClick={listen} title={`Speak (${LANGS.find((l) => l.id === lang)?.name ?? lang})`} aria-pressed={listening}>
                 {listening ? <Square size={15} strokeWidth={2} /> : <Mic size={16} strokeWidth={1.75} />}
               </button>
             )}
-            <select value={lang} onChange={(e) => setLang(e.target.value)} aria-label="Voice language" title="Voice language">
-              {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
-            </select>
             <button type="submit" className="ask-send" disabled={busy || !text.trim()} aria-label="Send" title="Send"><ArrowUp size={18} strokeWidth={2} /></button>
           </form>
         </div>
