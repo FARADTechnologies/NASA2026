@@ -83,16 +83,20 @@ export function AskSkyLapse() {
     const c = cmd.trim(); if (!c || busy) return;
     setBusy(true);
     let source: LogItem["source"] = "claude";
-    let res = await callApi(c);
+    const local = parseCommand(c);
+    const res = await callApi(c);
     let actions = res?.actions ?? [];
     const rejected = res?.rejected ?? [];
-    if (!res || actions.length === 0) {
-      const local = parseCommand(c);
-      if (local.length) { actions = local; source = "local"; } else source = res ? "claude" : "none";
-    }
+    let picked: string | undefined;
+    // use whichever reading covers more of the command; ties go to Claude. Both only produce whitelisted actions.
+    if (local.length > actions.length) {
+      if (res && actions.length) picked = "Claude's reading was incomplete, so the offline parser's fuller reading was used.";
+      actions = local; source = "local";
+    } else if (!actions.length) source = res ? "claude" : "none";
     let note: string | undefined;
     if (actions.length) note = await applyActions(actions);
     else note = "I can only drive the viewer (open a target, compare, speed, zoom, overlays, spectrum, explanation). Try: “" + EXAMPLES[1] + "”.";
+    if (picked) note = [picked, note].filter(Boolean).join(" · ");
     if (rejected.length) note = [note, "Ignored: " + rejected.join("; ")].filter(Boolean).join(" · ");
     setLog((l) => [{ text: c, source, actions: actions.map(describe), note }, ...l].slice(0, 12));
     setText(""); setBusy(false);
