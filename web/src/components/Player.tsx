@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import type { Catalog, Frame, Manifest, MotionTrackPoint } from "../lib/bundle";
 import { mjdToYear } from "../lib/bundle";
 import { pix2world, propagate, world2pix, fmtRaHms, fmtDecDms } from "../lib/wcs";
+import { CANVAS } from "../lib/theme";
+
+const UI_FONT = '"IBM Plex Sans", system-ui, sans-serif';
 
 export interface PlayerProps {
   manifest: Manifest;
@@ -72,7 +75,7 @@ export function Player(p: PlayerProps) {
     c.style.width = size + "px"; c.style.height = size + "px";
     const g = c.getContext("2d")!;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    g.fillStyle = "#000"; g.fillRect(0, 0, size, size);
+    g.fillStyle = CANVAS.bg; g.fillRect(0, 0, size, size);
     if (p.image) {
       if (!off.current) off.current = document.createElement("canvas");
       const o = off.current; o.width = W; o.height = H;
@@ -124,33 +127,33 @@ export function Player(p: PlayerProps) {
         }
       }
     };
-    if (p.overlay.includes("gaia") && p.catalogs.gaia) drawCat(p.catalogs.gaia, "rgba(124,252,154,0.6)", false, p.overlay.includes("gaiaall") ? null : 40);
-    if (p.overlay.includes("catwise") && p.catalogs.catwise) drawCat(p.catalogs.catwise, "rgba(199,146,234,0.7)", true, p.overlay.includes("gaiaall") ? null : 40);
+    if (p.overlay.includes("gaia") && p.catalogs.gaia) drawCat(p.catalogs.gaia, CANVAS.gaia, false, p.overlay.includes("gaiaall") ? null : 40);
+    if (p.overlay.includes("catwise") && p.catalogs.catwise) drawCat(p.catalogs.catwise, CANVAS.catwise, true, p.overlay.includes("gaiaall") ? null : 40);
 
     if (p.overlay.includes("track") && p.track && p.track.length > 1) {
-      g.strokeStyle = "rgba(255,93,143,0.55)"; g.lineWidth = 1.5; g.setLineDash([4, 4]);
+      g.strokeStyle = CANVAS.targetSoft; g.lineWidth = 1.5; g.setLineDash([4, 4]);
       g.beginPath();
       p.track.forEach((t, i) => { const [sx, sy] = toScreen(...world2pix(wcs, t.ra, t.dec)); if (i) g.lineTo(sx, sy); else g.moveTo(sx, sy); });
       g.stroke(); g.setLineDash([]);
       for (const t of p.track) { // measured positions = small dots, model/predicted = hollow
         const [sx, sy] = toScreen(...world2pix(wcs, t.ra, t.dec));
         g.beginPath(); g.arc(sx, sy, 2.2, 0, Math.PI * 2);
-        if (t.kind && t.kind !== "measured") { g.strokeStyle = "rgba(255,93,143,0.8)"; g.lineWidth = 1; g.stroke(); }
-        else { g.fillStyle = "rgba(255,93,143,0.75)"; g.fill(); }
+        if (t.kind && t.kind !== "measured") { g.strokeStyle = CANVAS.target; g.lineWidth = 1; g.stroke(); }
+        else { g.fillStyle = CANVAS.targetSoft; g.fill(); }
       }
       if (p.frame) {
         const pos = trackAt(p.track, p.frame.mjd_mid);
         if (pos) {
           const [sx, sy] = toScreen(...world2pix(wcs, pos[0], pos[1]));
           const r = Math.max(14, rCirc + 8);
-          g.strokeStyle = "#ff5d8f"; g.lineWidth = 2.5;
+          g.strokeStyle = CANVAS.target; g.lineWidth = 2.5;
           g.beginPath(); g.arc(sx, sy, r, 0, Math.PI * 2); g.stroke();
           if (p.targetLabel) {
-            g.font = "700 13px Inter, system-ui";
+            g.font = `600 13px ${UI_FONT}`;
             const tw = g.measureText(p.targetLabel).width;
             const lx = Math.min(size - tw - 14, Math.max(6, sx + r + 6)), ly = Math.max(18, sy - r - 4);
-            g.fillStyle = "rgba(5,7,13,0.75)"; g.fillRect(lx - 5, ly - 14, tw + 10, 19);
-            g.fillStyle = "#ff8fb1"; g.fillText(p.targetLabel, lx, ly);
+            g.fillStyle = "rgba(5,7,11,0.8)"; g.fillRect(lx - 5, ly - 14, tw + 10, 19);
+            g.fillStyle = CANVAS.target; g.fillText(p.targetLabel, lx, ly);
           }
         }
       }
@@ -158,14 +161,14 @@ export function Player(p: PlayerProps) {
     // scale bar: 1 arcmin
     const bar = (60 / scale) * k;
     if (bar < size * 0.6) {
-      g.strokeStyle = "#e8ecf5"; g.lineWidth = 2; g.beginPath();
+      g.strokeStyle = CANVAS.ink; g.lineWidth = 1.5; g.beginPath();
       g.moveTo(16, size - 18); g.lineTo(16 + bar, size - 18); g.stroke();
-      g.fillStyle = "#e8ecf5"; g.font = "600 13px Inter, system-ui"; g.fillText("1′", 16 + bar / 2 - 5, size - 26);
+      g.fillStyle = CANVAS.ink; g.font = `500 12px ${UI_FONT}`; g.fillText("1′", 16 + bar / 2 - 5, size - 26);
     }
     // compass
-    g.fillStyle = "rgba(232,236,245,0.85)"; g.font = "600 12px Inter, system-ui";
+    g.fillStyle = "rgba(231,234,240,0.85)"; g.font = `500 12px ${UI_FONT}`;
     g.fillText("N", size - 26, 20); g.fillText(flipX ? "E" : "E", flipX ? size - 12 : size - 52, 44);
-    g.strokeStyle = "rgba(232,236,245,0.85)"; g.lineWidth = 1.5; g.beginPath();
+    g.strokeStyle = "rgba(231,234,240,0.85)"; g.lineWidth = 1.25; g.beginPath();
     g.moveTo(size - 22, 40); g.lineTo(size - 22, 26); g.moveTo(size - 22, 40); g.lineTo(flipX ? size - 8 : size - 36, 40); g.stroke();
   }, [p.image, p.frame, p.overlay, p.catalogs, p.track, p.targetLabel, size, u0, v0, cropPx]);
 

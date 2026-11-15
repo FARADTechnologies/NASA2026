@@ -5,6 +5,7 @@ import { prewarmLive } from "../lib/live";
 import { navigate } from "../lib/router";
 import { SearchBox } from "../components/SearchBox";
 import { TopBar } from "../components/TopBar";
+import { ArrowRight } from "lucide-react";
 
 // Pre-warmed on the live API (pipeline T9, #78): same RA/Dec/FOV as cached → the movie opens in ~1 s.
 const LIVE_FIELDS = [
@@ -34,14 +35,13 @@ export function Home() {
     <div className="page home">
       <TopBar />
       <section className="hero">
-        <div className="hero-bg" aria-hidden />
         <div className="hero-inner">
           <div className="eyebrow">NASA Space Apps 2026 · Planet X and SPHEREx</div>
-          <h1>Watch <span className="accent">16 years</span> of the infrared sky<br />and catch what moves.</h1>
-          <p className="lede">SkyLapse joins NASA's WISE/NEOWISE (2010–2024) and SPHEREx (2025–2026) into one movie of any patch of sky,
-            so nearby brown dwarfs and fast stars visibly crawl across the screen.</p>
+          <h1>Watch <span className="num">16 years</span> of the infrared sky and catch what moves.</h1>
+          <p className="lede">SkyLapse joins NASA's <span className="inst i-wise"><i />WISE/NEOWISE</span> (2010–2024) and <span className="inst i-spx"><i />SPHEREx</span> (2025–2026)
+            into one movie of any patch of sky, so nearby brown dwarfs and fast stars visibly move across the screen.</p>
           <SearchBox />
-          <div className="how"><b>How it works:</b> pick a target <span>→</span> watch 16 years play <span>→</span> the moving dot is the object.</div>
+          <ol className="how"><li>Pick a target</li><li>Watch 16 years play</li><li>The moving dot is the object</li></ol>
         </div>
       </section>
       <section className="targets">
@@ -55,8 +55,9 @@ export function Home() {
         <div className="live-row">
           {LIVE_FIELDS.map((l) => (
             <button key={l.name} className="live-btn" onClick={() => navigate(`/view?ra=${l.ra}&dec=${l.dec}&fov=8.8`)}>
-              <span className="live-name"><span className="pulse" /> {l.name}</span>
+              <span className="live-name">{l.name}</span>
               <span className="muted small">{l.caption}</span>
+              <ArrowRight className="live-arrow" size={16} strokeWidth={1.75} aria-hidden />
             </button>
           ))}
         </div>
@@ -79,7 +80,7 @@ function TargetCard({ f, onOpen }: { f: FieldEntry; onOpen: () => void }) {
       </div>
       <div className="tbody">
         <div className="tname">{f.title}</div>
-        <div className="ttags">{f.tags.map((t) => <span key={t} className={"tag " + (t === "variability" ? "t-var" : t === "motion" ? "t-mot" : "")}>{t}</span>)}</div>
+        <div className="ttags">{f.tags.join(" · ")}</div>
         <div className="tcoord mono muted">{f.ra.toFixed(3)}° {f.dec >= 0 ? "+" : "−"}{Math.abs(f.dec).toFixed(3)}°</div>
       </div>
     </button>

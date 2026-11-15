@@ -3,6 +3,7 @@ import type { Candidates, FieldEntry, Manifest } from "../lib/bundle";
 import { loadIndex, loadOptional } from "../lib/bundle";
 import { navigate } from "../lib/router";
 import { TopBar } from "../components/TopBar";
+import { ArrowRight } from "lucide-react";
 
 type Row = Candidates["items"][number] & { field: FieldEntry };
 const CLASS_LABEL: Record<string, string> = { candidate: "New candidate", known: "Known mover", artifact: "Artifact" };
@@ -78,7 +79,7 @@ export function Discover() {
                     <td className="mono"><b className={s.recovered === s.known_movers_in_field ? "ok" : "warn"}>{s.recovered}</b></td>
                     <td className="mono">{s.new_candidates}</td>
                     <td className="mono muted">{(s as Record<string, number>).sources_early ?? "—"}</td>
-                    <td><button className="btn small">Watch →</button></td>
+                    <td><button className="btn small">Watch <ArrowRight size={13} strokeWidth={1.75} /></button></td>
                   </tr>
                 ))}
               </tbody>
@@ -106,7 +107,7 @@ export function Discover() {
                     {r.is_nasa_target && <div>NASA test target</div>}
                     {!r.is_nasa_target && !Object.values(r.match ?? {}).some(Boolean) && <span className="muted">no catalogue match</span>}</td>
                   <td className="mono">{r.score != null ? r.score.toFixed(2) : r.significance_sigma != null ? `${Math.round(r.significance_sigma)}σ` : "—"}</td>
-                  <td><button className="btn small">Watch →</button></td>
+                  <td><button className="btn small">Watch <ArrowRight size={13} strokeWidth={1.75} /></button></td>
                 </tr>
               ))}
             </tbody>

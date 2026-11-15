@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TriangleAlert } from "lucide-react";
 import type { Candidates, Frame, Manifest, ObjectInfo } from "../lib/bundle";
 import { mjdToYear } from "../lib/bundle";
 import { ScatterChart, type Series } from "./ScatterChart";
@@ -27,17 +28,17 @@ function LightCurve({ lc }: { lc: LC }) {
   // one series per instrument + band (W1 / W2 / SPHEREx)
   const groups = new Map<string, LC["points"]>();
   for (const p of lc.points) { const k = p.instrument === "WISE" ? `WISE ${p.band}` : p.instrument; if (!groups.has(k)) groups.set(k, []); groups.get(k)!.push(p); }
-  const color = (k: string) => (k === "WISE W1" ? "#ffd166" : k.startsWith("WISE") ? "var(--wise)" : "var(--spherex)");
+  const color = (k: string) => (k === "WISE W1" ? "var(--wise-2)" : k.startsWith("WISE") ? "var(--wise)" : "var(--spherex)");
   const period = periodLine(lc);
   const firstNote = rel ? lc.notes?.[0] : null;
   const otherNotes = (lc.notes ?? []).filter((t) => t !== firstNote && t !== period);
   return (
     <>
-      <div className="muted small y-caption">↑ {rel ? "Relative brightness (0 = median, up = brighter)" : "Magnitude (up = brighter)"}</div>
+      <div className="muted small y-caption">{rel ? "Relative brightness (0 = median, up = brighter)" : "Magnitude (up = brighter)"}</div>
       <ScatterChart xLabel="year" yLabel={rel ? "rel. brightness" : "magnitude"} invertY
         series={[...groups.entries()].map(([k, pts]) => ({ name: k, color: color(k), points: pts.map((p) => ({ x: mjdToYear(p.mjd), y: p.mag, err: p.err, hollow: rel ? false : p.saturated })) }))}
         hollowLabel="saturated (less reliable)" />
-      {rel && <div className="small lc-note">Saturated core → brightness index measured from the star's outer wings (not a calibrated magnitude).</div>}
+      {rel && <div className="small lc-note">Saturated core: brightness index measured from the star's outer wings (not a calibrated magnitude).</div>}
       {period && <div className="period-line">{period}</div>}
       {otherNotes.length > 0 && (
         <details className="lc-more"><summary className="muted small">How this was measured</summary>
@@ -49,8 +50,8 @@ function LightCurve({ lc }: { lc: LC }) {
 }
 
 const SPEC_BANDS = [
-  { x0: 3.2, x1: 3.45, label: "CH₄ 3.3", color: "rgba(255,93,143,0.12)" },
-  { x0: 4.4, x1: 4.85, label: "W2 / D6 4.6", color: "rgba(76,201,240,0.12)" },
+  { x0: 3.2, x1: 3.45, label: "CH₄ 3.3", color: "var(--band-a)" },
+  { x0: 4.4, x1: 4.85, label: "W2 / D6 4.6", color: "var(--band-b)" },
 ];
 /** Binned spectrum = main curve (line + points + error bars); single measurements faint, coloured by epoch; flagged hidden unless asked. */
 function spectrumSeries(sp: NonNullable<ObjectInfo["spectrum"]>, showFlagged: boolean): Series[] {
@@ -64,7 +65,7 @@ function spectrumSeries(sp: NonNullable<ObjectInfo["spectrum"]>, showFlagged: bo
   return spectrumByEpoch(pts as SpecPt[]);
 }
 
-const EPOCH_COLORS = ["#4cc9f0", "#ffd166", "#ff5d8f", "#7cfc9a", "#c792ea", "#f4a259"];
+const EPOCH_COLORS = ["var(--spherex)", "var(--wise)", "var(--target)", "var(--gaia)", "var(--ai)", "var(--muted)"];
 type SpecPt = NonNullable<ObjectInfo["spectrum"]>["points"][number];
 /** Group spectrum points into epochs (gap > 30 d) so each epoch gets its own colour (LVF: one star, different λ per visit). */
 function spectrumByEpoch(points: SpecPt[]) {
@@ -151,8 +152,8 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
                 <div className="muted small ref-src">{m.reference.source} · mas/yr</div>
               </div>
             ) : null}
-            {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}>⚠ {w}</li>)}</ul> : null}
-            {obj.flags?.saturated_in?.length ? <div className="warn small">⚠ Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
+            {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}><TriangleAlert size={13} strokeWidth={1.75} /> {w}</li>)}</ul> : null}
+            {obj.flags?.saturated_in?.length ? <div className="warn small"><TriangleAlert size={13} strokeWidth={1.75} /> Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
           </>
         ) : NA}
       </section>
@@ -194,7 +195,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
             <ScatterChart xLabel="wavelength (µm)" yLabel={`flux (${obj.spectrum.unit_flux})`} xRange={[0.7, 5.05]}
               bands={SPEC_BANDS}
               series={spectrumSeries(obj.spectrum, showFlagged)}
-              line={obj.spectrum.template?.lambda_um?.length ? { name: obj.spectrum.template.name, color: "var(--accent2)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined}
+              line={obj.spectrum.template?.lambda_um?.length ? { name: obj.spectrum.template.name, color: "var(--muted)", xs: obj.spectrum.template.lambda_um, ys: obj.spectrum.template.flux } : undefined}
               hollowLabel="flagged / saturated" />
             {obj.spectrum.method && <div className="muted small caption" title={obj.spectrum.method}>Method: {obj.spectrum.method}</div>}
             {obj.spectrum.notes?.map((t) => <div key={t} className="muted small">{t}</div>)}
