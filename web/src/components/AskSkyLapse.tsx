@@ -179,6 +179,7 @@ export function AskSkyLapse() {
     if (picked) note = [picked, note].filter(Boolean).join(" · ");
     if (rejected.length) note = [note, "Ignored: " + rejected.join("; ")].filter(Boolean).join(" · ");
     setLog((l) => [{ text: c, source, actions: actions.map(describe), note }, ...l].slice(0, 12));
+    setOpen(false); // the answer starts: close the panel so it does not cover the page (reopen with the button)
     if (voice) {
       const ex = actions.find((a) => a.type === "explain") as { type: "explain"; lang: "en" | "az" } | undefined;
       if (ex) setTimeout(() => speak(copilotText() || "The explanation is not available for this object.", ex.lang === "az" ? "az-AZ" : "en-US"), 1400);
@@ -192,13 +193,16 @@ export function AskSkyLapse() {
   function listen() {
     if (!SR) return;
     if (listening) { recRef.current?.stop(); return; }
-    const rec = new SR(); recRef.current = rec;
-    rec.lang = lang; rec.interimResults = true; rec.maxAlternatives = 1;
+    // press = start listening; talk as long as needed; press again = stop and send (nothing is sent before that)
+    const rec = new SR(); recRef.current = rec; let said = "";
+    rec.lang = lang; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 1;
     rec.onresult = (e: any) => {
-      const r = e.results[e.results.length - 1]; const said = r[0].transcript;
-      setText(said); if (r.isFinal) { rec.stop(); run(said); }
+      let finalT = "", interim = "";
+      for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalT += r[0].transcript + " "; else interim += r[0].transcript; }
+      said = (finalT + interim).trim(); setText(said);
     };
-    rec.onerror = () => setListening(false); rec.onend = () => setListening(false);
+    rec.onerror = () => setListening(false);
+    rec.onend = () => { setListening(false); if (said.trim()) run(said.trim()); };
     setListening(true); setOpen(true); rec.start();
   }
 
