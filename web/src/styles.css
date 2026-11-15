@@ -1,7 +1,7 @@
 /* SkyLapse design v2 — tokens + components. See web/DESIGN_V2.md. Themes: html[data-theme="light" | "dark"]. */
 :root {
-  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --canvas: #05070b; --canvas-ink: #e7eaf0;
   --r-s: 6px; --r-m: 10px;
   --focus: #2f6feb;
@@ -342,3 +342,44 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
   .doc h1 { font-size: 30px; }
   .doc { padding-top: 32px; }
 }
+
+/* ---------- v2.1 (Azer): collapsible panels, wide view, floating assistant ---------- */
+.viewer-grid { --left-w: 248px; --right-w: 360px; grid-template-columns: var(--left-w) minmax(0, 1fr) var(--right-w); }
+.viewer-grid.no-left { --left-w: 0px; }
+.viewer-grid.no-right { --right-w: 0px; }
+.viewer-grid.no-left > .panel.controls, .viewer-grid.no-right > .panel.side { display: none; }
+.stage { position: relative; padding-left: 40px; padding-right: 40px; }
+.rail-toggle { position: absolute; top: 14px; z-index: 5; width: 26px; height: 26px; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow); }
+.rt-left { left: -1px; border-left: 0; border-radius: 0 var(--r-s) var(--r-s) 0; }
+.rt-right { right: -1px; border-right: 0; border-radius: var(--r-s) 0 0 var(--r-s); }
+.wide-btn { margin-left: auto; align-self: center; }
+.sub-label { font-size: 12.5px; font-weight: 500; margin: 10px 0 6px; }
+.sub-label:first-of-type { margin-top: 0; }
+.canvas-chip { position: absolute; right: 10px; bottom: 8px; font-size: 11.5px; color: var(--canvas-ink); background: rgba(5, 7, 11, .72); padding: 2px 8px; border-radius: 4px; pointer-events: none; }
+/* Ask SkyLapse floats bottom-right as a small assistant (mounted in the header component, positioned here) */
+.tb-ask { position: fixed; right: 20px; bottom: 20px; z-index: 40; }
+.tb-ask > div > button { border-radius: 999px !important; padding: 10px 16px !important; font-weight: 600 !important; border-color: var(--ink) !important; background: var(--ink) !important; color: var(--bg) !important; box-shadow: 0 6px 24px rgba(0, 0, 0, .25); }
+.panel.side { padding-bottom: 84px; }
+.viewer-grid.no-right .transport, .viewer-grid.no-right .timeline { margin-right: 176px; }
+@media (max-width: 1280px) { .viewer-grid { --left-w: 232px; --right-w: 320px; } }
+@media (max-width: 800px) {
+  .rail-toggle, .wide-btn { display: none; }
+  .viewer-grid.no-left > .panel.controls { display: none; }
+  .viewer-grid.no-left > .panel.controls.open { display: block; }
+  .viewer-grid.no-right > .panel.side { display: block; }
+  .stage { padding-left: 12px; padding-right: 12px; }
+  .viewer-grid.no-right .transport, .viewer-grid.no-right .timeline { margin-right: 0; }
+  .tb-ask { right: 12px; bottom: 12px; order: 0; }
+  .topbar::after { display: none; }
+  .tb-search { order: 5; flex-basis: 100%; }
+}
+.viewer-grid > .panel.controls { grid-column: 1; }
+.viewer-grid > .stage { grid-column: 2; }
+.viewer-grid > .panel.side { grid-column: 3; }
+
+/* v2.2: full screen of the movie area */
+.stage:fullscreen { background: var(--bg); padding: 16px 28px; }
+.stage:fullscreen .rail-toggle, .stage:fullscreen .wide-btn { display: none; }
+.stage:fullscreen .fs-btn { margin-left: auto; }
+.fs-btn { align-self: center; }
+@media (max-width: 800px) { .fs-btn { display: none; } }

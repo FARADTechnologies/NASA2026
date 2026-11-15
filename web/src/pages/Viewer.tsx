@@ -12,7 +12,7 @@ import { Timeline } from "../components/Timeline";
 import { ControlsPanel } from "../components/ControlsPanel";
 import { SidePanel } from "../components/SidePanel";
 import { TopBar } from "../components/TopBar";
-import { Pause, Play, SkipBack, SkipForward, SlidersHorizontal, X } from "lucide-react";
+import { Expand, Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, SkipBack, SkipForward, SlidersHorizontal, X } from "lucide-react";
 import { useCommandBridge } from "../lib/commandBridge";
 
 type FrameData = { data: Float32Array; mask: Uint8Array | null };
@@ -33,6 +33,18 @@ export function Viewer({ search }: { search: string }) {
 
   const [objectId, setObjectId] = useState("");
   const [showControls, setShowControls] = useState(false); // phone layout only
+  // collapsible side panels (remembered); with a panel closed the movie switches to the wide view and grows
+  const stored = (k: string) => { try { return localStorage.getItem(k) !== "0"; } catch { return true; } };
+  const [leftOpen, setLeftOpen] = useState(() => stored("skylapse.left"));
+  const [rightOpen, setRightOpen] = useState(() => stored("skylapse.right"));
+  useEffect(() => { try { localStorage.setItem("skylapse.left", leftOpen ? "1" : "0"); localStorage.setItem("skylapse.right", rightOpen ? "1" : "0"); } catch { /* ignore */ } }, [leftOpen, rightOpen]);
+  // real full screen of the movie area (browser Fullscreen API)
+  const stageRef = useRef<HTMLElement>(null);
+  const [isFs, setIsFs] = useState(false);
+  useEffect(() => { const on = () => setIsFs(document.fullscreenElement === stageRef.current); document.addEventListener("fullscreenchange", on); return () => document.removeEventListener("fullscreenchange", on); }, []);
+  const toggleFs = useCallback(() => { try { if (document.fullscreenElement) void document.exitFullscreen(); else void stageRef.current?.requestFullscreen(); } catch { /* not supported */ } }, []);
+  const wide = !leftOpen || !rightOpen || isFs;
+  const toggleWide = useCallback(() => { const open = !(leftOpen || rightOpen); setLeftOpen(open); setRightOpen(open); }, [leftOpen, rightOpen]);
   useEffect(() => {
     if (!objectId || !base) { setObj(null); return; }
     let alive = true;
@@ -228,10 +240,11 @@ export function Viewer({ search }: { search: string }) {
       else if (e.key === "ArrowRight") { setPlaying(false); setView((v) => ({ ...v, frame: n ? (v.frame + 1) % n : 0 })); }
       else if (e.key === "ArrowLeft") { setPlaying(false); setView((v) => ({ ...v, frame: n ? (v.frame - 1 + n) % n : 0 })); }
       else if (e.key === "i") setView((v) => ({ ...v, invert: !v.invert }));
+      else if (e.key === "f") toggleWide();
       else if (e.key === "d") setView((v) => ({ ...v, diff: v.diff === "none" ? "first" : "none" }));
     };
     window.addEventListener("keydown", on); return () => window.removeEventListener("keydown", on);
-  }, [n]);
+  }, [n, toggleWide]);
 
   // URL sync (replace, throttled by React batching; frame excluded while playing to avoid history spam)
   useEffect(() => {
@@ -279,7 +292,7 @@ export function Viewer({ search }: { search: string }) {
       vmin = cur.display.p01; vmax = view.max === 99 ? cur.display.p99 : cur.display.p999;
     } else [vmin, vmax] = percentiles(arr, [view.min, view.max]);
     const mask = coaddRange ? null : store.current.get(cur.id)?.mask ?? null;
-    return { image: toImageData(arr, W, H, { vmin, vmax, stretch: isDiff ? "linear" : view.stretch, invert: view.invert, mask, showMask: view.overlay.includes("mask"), flipX }), note: label };
+    return { image: toImageData(arr, W, H, { vmin, vmax, stretch: isDiff ? "linear" : view.stretch, invert: view.invert, mask, showMask: view.overlay.includes("mask"), flipX, hatchNoData: !isDiff }), note: label };
   }, [manifest, cur, loadedVer, view.diff, view.ref, view.stretch, view.min, view.max, view.invert, view.overlay, coaddRange, rgb, idx]);
 
   // click on the image: select the object under the cursor (target ring or a discovery candidate) and show its card
@@ -327,10 +340,16 @@ export function Viewer({ search }: { search: string }) {
   return (
     <div className="page viewer">
       <TopBar title={manifest?.title} isMock={isMock} />
-      <div className="viewer-grid">
+      <div className={"viewer-grid" + (leftOpen ? "" : " no-left") + (rightOpen ? "" : " no-right")}>
         <ControlsPanel view={view} update={update} manifest={manifest} seqFrames={seqFrames} idx={idx} playing={playing}
           open={showControls} onClose={() => setShowControls(false)} />
-        <main className="stage">
+        <main className="stage" ref={stageRef}>
+          <button className="icon-btn rail-toggle rt-left" onClick={() => setLeftOpen((x) => !x)} title={leftOpen ? "Hide controls" : "Show controls"} aria-label={leftOpen ? "Hide controls panel" : "Show controls panel"}>
+            {leftOpen ? <PanelLeftClose size={16} strokeWidth={1.75} /> : <PanelLeftOpen size={16} strokeWidth={1.75} />}
+          </button>
+          <button className="icon-btn rail-toggle rt-right" onClick={() => setRightOpen((x) => !x)} title={rightOpen ? "Hide details" : "Show details"} aria-label={rightOpen ? "Hide details panel" : "Show details panel"}>
+            {rightOpen ? <PanelRightClose size={16} strokeWidth={1.75} /> : <PanelRightOpen size={16} strokeWidth={1.75} />}
+          </button>
           <div className="frame-label">
             {shownFrame ? (
               <>
@@ -342,6 +361,10 @@ export function Viewer({ search }: { search: string }) {
                 </div>
               </>
             ) : <div className="fl-date skeleton-text">Loading…</div>}
+            <button className="btn small wide-btn" onClick={toggleWide} title="Wider view: hide both panels so the movie grows (F)">
+              {leftOpen || rightOpen ? <><Maximize2 size={13} strokeWidth={1.75} /> Wider view</> : <><Minimize2 size={13} strokeWidth={1.75} /> Normal view</>}
+            </button>
+            <button className="btn small fs-btn" onClick={toggleFs} title="Full screen (Esc to leave)"><Expand size={13} strokeWidth={1.75} /> {isFs ? "Exit full screen" : "Full screen"}</button>
             {note && <div className="fl-note">{note}</div>}
             {!note && liveNote && <div className="fl-note">Live field · {liveNote}</div>}
           </div>
@@ -369,7 +392,8 @@ export function Viewer({ search }: { search: string }) {
             <Player manifest={manifest} image={image} frame={shownFrame} catalogs={cats} track={track}
               overlay={view.overlay} fovArcmin={view.fov} centerRaDec={view.ra !== null && view.dec !== null ? [view.ra, view.dec] : null}
               loadingText={!image ? "Loading frames…" : undefined}
-              targetLabel={view.overlay.includes("track") ? obj?.name : undefined} onPick={pick} />
+              targetLabel={view.overlay.includes("track") ? obj?.name : undefined} onPick={pick} wide={wide}
+              noDataNote={!rgb && shownFrame && shownFrame.quality.masked_frac > 0.05 && view.diff === "none" ? `Hatched = no ${shownFrame.instrument} data in this part of the field` : undefined} />
           ) : <div className="player-wrap"><div className="skeleton-box">{live && <div className="skeleton-msg">Building this field from the WISE archive — the first frames usually appear within 1–2 minutes.</div>}</div></div>}
           <div className="transport">
             <button className="icon-btn" title="Previous frame (←)" aria-label="Previous frame" onClick={() => { setPlaying(false); update({ frame: (idx - 1 + n) % Math.max(1, n) }); }}><SkipBack size={17} strokeWidth={1.75} /></button>

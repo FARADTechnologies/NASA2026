@@ -4,7 +4,7 @@ import { mjdToYear } from "../lib/bundle";
 import { pix2world, propagate, world2pix, fmtRaHms, fmtDecDms } from "../lib/wcs";
 import { CANVAS } from "../lib/theme";
 
-const UI_FONT = '"IBM Plex Sans", system-ui, sans-serif';
+const UI_FONT = '"Manrope", system-ui, sans-serif';
 
 export interface PlayerProps {
   manifest: Manifest;
@@ -18,6 +18,9 @@ export interface PlayerProps {
   loadingText?: string;
   onPick?: (ra: number, dec: number) => void;
   targetLabel?: string;
+  /** Wide view: the canvas fills the whole stage; the image fills the width, top and bottom of the field are cropped. */
+  wide?: boolean;
+  noDataNote?: string;
 }
 
 /** Target position at `mjd`, linearly interpolated along the track (clamped at the ends). */
@@ -37,27 +40,32 @@ export function Player(p: PlayerProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const off = useRef<HTMLCanvasElement | null>(null);
-  const [size, setSize] = useState(600);
+  const [box, setBox] = useState({ w: 600, h: 600 });
   const [cursor, setCursor] = useState<[number, number] | null>(null);
   const { width: W, height: H, pixel_scale_arcsec: scale, wcs } = p.manifest.grid;
   const flipX = wcs.CD1_1 > 0;
 
   useEffect(() => {
     const el = wrapRef.current; if (!el) return;
-    const ro = new ResizeObserver(() => setSize(Math.max(200, Math.floor(Math.min(el.clientWidth, el.clientHeight)))));
+    const ro = new ResizeObserver(() => setBox({ w: Math.max(200, Math.floor(el.clientWidth)), h: Math.max(200, Math.floor(el.clientHeight)) }));
     ro.observe(el); return () => ro.disconnect();
   }, []);
 
-  // crop window in canvas orientation (u to the right, v down = south)
+  // canvas size: square (normal) or a wide rectangle (wide view, at most 1.6:1)
+  const square = Math.min(box.w, box.h);
+  const sizeW = p.wide ? box.w : square; // wide view fills the whole stage width
+  const sizeH = p.wide ? Math.min(box.h, sizeW) : square;
+  // crop window in canvas orientation (u to the right, v down = south); cropPx = width in data pixels
   const cropPx = Math.min(W, Math.max(16, p.fovArcmin ? (p.fovArcmin * 60) / scale : W));
+  const cropH = cropPx * (sizeH / sizeW);
   let cu = W / 2, cv = H / 2;
   if (p.centerRaDec) {
     const [x, y] = world2pix(wcs, p.centerRaDec[0], p.centerRaDec[1]);
     if (x >= 0 && x < W && y >= 0 && y < H) { cu = (flipX ? W - 1 - x : x) + 0.5; cv = H - 1 - y + 0.5; }
   }
   const u0 = Math.min(W - cropPx, Math.max(0, cu - cropPx / 2));
-  const v0 = Math.min(H - cropPx, Math.max(0, cv - cropPx / 2));
-  const k = size / cropPx; // css px per data pixel
+  const v0 = Math.min(H - cropH, Math.max(0, cv - cropH / 2));
+  const k = sizeW / cropPx; // css px per data pixel
 
   const toScreen = (x: number, y: number): [number, number] => {
     const u = (flipX ? W - 1 - x : x) + 0.5, v = H - 1 - y + 0.5;
@@ -71,17 +79,17 @@ export function Player(p: PlayerProps) {
   useEffect(() => {
     const c = canvasRef.current; if (!c) return;
     const dpr = window.devicePixelRatio || 1;
-    c.width = Math.round(size * dpr); c.height = Math.round(size * dpr);
-    c.style.width = size + "px"; c.style.height = size + "px";
+    c.width = Math.round(sizeW * dpr); c.height = Math.round(sizeH * dpr);
+    c.style.width = sizeW + "px"; c.style.height = sizeH + "px";
     const g = c.getContext("2d")!;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    g.fillStyle = CANVAS.bg; g.fillRect(0, 0, size, size);
+    g.fillStyle = CANVAS.bg; g.fillRect(0, 0, sizeW, sizeH);
     if (p.image) {
       if (!off.current) off.current = document.createElement("canvas");
       const o = off.current; o.width = W; o.height = H;
       o.getContext("2d")!.putImageData(p.image, 0, 0);
       g.imageSmoothingEnabled = false;
-      g.drawImage(o, u0, v0, cropPx, cropPx, 0, 0, size, size);
+      g.drawImage(o, u0, v0, cropPx, cropH, 0, 0, sizeW, sizeH);
     }
     const year = p.frame ? mjdToYear(p.frame.mjd_mid) : null;
     const rCirc = Math.max(4, (4.5 / scale) * k); // catalogue circles stay smaller/thinner than the target ring
@@ -98,7 +106,7 @@ export function Player(p: PlayerProps) {
         const pmra = Number(row[iPmra]) || 0, pmdec = Number(row[iPmdec]) || 0;
         const [r1, d1] = propagate(ra, dec, pmra, pmdec, year, cat.ref_epoch);
         const [sx, sy] = toScreen(...world2pix(wcs, r1, d1));
-        if (sx < -20 || sy < -20 || sx > size + 20 || sy > size + 20) continue;
+        if (sx < -20 || sy < -20 || sx > sizeW + 20 || sy > sizeH + 20) continue;
         const m = iMag >= 0 && row[iMag] !== null ? Number(row[iMag]) : 99;
         inView.push({ sx, sy, ra, dec, pmra, pmdec, mag: Number.isFinite(m) ? m : 99, pm: Math.hypot(pmra, pmdec) });
       }
@@ -151,7 +159,7 @@ export function Player(p: PlayerProps) {
           if (p.targetLabel) {
             g.font = `600 13px ${UI_FONT}`;
             const tw = g.measureText(p.targetLabel).width;
-            const lx = Math.min(size - tw - 14, Math.max(6, sx + r + 6)), ly = Math.max(18, sy - r - 4);
+            const lx = Math.min(sizeW - tw - 14, Math.max(6, sx + r + 6)), ly = Math.max(18, sy - r - 4);
             g.fillStyle = "rgba(5,7,11,0.8)"; g.fillRect(lx - 5, ly - 14, tw + 10, 19);
             g.fillStyle = CANVAS.target; g.fillText(p.targetLabel, lx, ly);
           }
@@ -160,21 +168,21 @@ export function Player(p: PlayerProps) {
     }
     // scale bar: 1 arcmin
     const bar = (60 / scale) * k;
-    if (bar < size * 0.6) {
+    if (bar < sizeW * 0.6) {
       g.strokeStyle = CANVAS.ink; g.lineWidth = 1.5; g.beginPath();
-      g.moveTo(16, size - 18); g.lineTo(16 + bar, size - 18); g.stroke();
-      g.fillStyle = CANVAS.ink; g.font = `500 12px ${UI_FONT}`; g.fillText("1′", 16 + bar / 2 - 5, size - 26);
+      g.moveTo(16, sizeH - 18); g.lineTo(16 + bar, sizeH - 18); g.stroke();
+      g.fillStyle = CANVAS.ink; g.font = `500 12px ${UI_FONT}`; g.fillText("1′", 16 + bar / 2 - 5, sizeH - 26);
     }
     // compass
     g.fillStyle = "rgba(231,234,240,0.85)"; g.font = `500 12px ${UI_FONT}`;
-    g.fillText("N", size - 26, 20); g.fillText(flipX ? "E" : "E", flipX ? size - 12 : size - 52, 44);
+    g.fillText("N", sizeW - 26, 20); g.fillText(flipX ? "E" : "E", flipX ? sizeW - 12 : sizeW - 52, 44);
     g.strokeStyle = "rgba(231,234,240,0.85)"; g.lineWidth = 1.25; g.beginPath();
-    g.moveTo(size - 22, 40); g.lineTo(size - 22, 26); g.moveTo(size - 22, 40); g.lineTo(flipX ? size - 8 : size - 36, 40); g.stroke();
-  }, [p.image, p.frame, p.overlay, p.catalogs, p.track, p.targetLabel, size, u0, v0, cropPx]);
+    g.moveTo(sizeW - 22, 40); g.lineTo(sizeW - 22, 26); g.moveTo(sizeW - 22, 40); g.lineTo(flipX ? sizeW - 8 : sizeW - 36, 40); g.stroke();
+  }, [p.image, p.frame, p.overlay, p.catalogs, p.track, p.targetLabel, sizeW, sizeH, u0, v0, cropPx]);
 
   return (
     <div className="player-wrap" ref={wrapRef}>
-      <div className="player-stage" style={{ width: size, height: size }}>
+      <div className="player-stage" style={{ width: sizeW, height: sizeH }}>
         <canvas
           ref={canvasRef}
           className="player-canvas"
@@ -192,6 +200,9 @@ export function Player(p: PlayerProps) {
           }}
         />
         {p.loadingText && <div className="player-loading">{p.loadingText}</div>}
+        {(p.noDataNote || (p.wide && sizeW > sizeH)) && (
+          <div className="canvas-chip">{[p.noDataNote, p.wide && sizeW > sizeH ? "Wide view: top and bottom of the field are cropped" : null].filter(Boolean).join(" · ")}</div>
+        )}
         <div className="coord-readout mono">
           {cursor ? <>{fmtRaHms(cursor[0])} {fmtDecDms(cursor[1])}<span className="muted"> · {cursor[0].toFixed(4)}° {cursor[1].toFixed(4)}°</span></> : <span className="muted">hover for RA / Dec</span>}
         </div>

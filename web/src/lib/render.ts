@@ -31,7 +31,7 @@ const curve = (t: number, mode: Stretch) => {
   return t;
 };
 
-export interface RenderOpts { vmin: number; vmax: number; stretch: Stretch; invert: boolean; mask?: Uint8Array | null; showMask?: boolean; flipX?: boolean }
+export interface RenderOpts { vmin: number; vmax: number; stretch: Stretch; invert: boolean; mask?: Uint8Array | null; showMask?: boolean; flipX?: boolean; /** false for difference images, where 0 means "no change" */ hatchNoData?: boolean }
 
 /** Float32 FITS-order image -> RGBA ImageData with north up. */
 export function toImageData(data: Float32Array, w: number, h: number, o: RenderOpts): ImageData {
@@ -47,9 +47,16 @@ export function toImageData(data: Float32Array, w: number, h: number, o: RenderO
       const v = data[srcRow + sx];
       const di = (y * w + x) * 4;
       let g: number;
-      if (!Number.isFinite(v)) g = o.invert ? 255 : 0;
-      else { const t = (v - o.vmin) / span; g = lut[t <= 0 ? 0 : t >= 1 ? 1023 : (t * 1023) | 0]; }
-      let r = g, gg = g, b = g;
+      let r: number, gg: number, b: number;
+      if (!Number.isFinite(v) || (v === 0 && o.hatchNoData !== false)) {
+        // no data here (outside the survey tile): quiet diagonal hatch, so it reads as "no coverage", not as a broken image
+        const h = ((x + y) % 6) === 0;
+        if (o.invert) { r = gg = b = h ? 206 : 226; } else { r = h ? 44 : 22; gg = h ? 52 : 27; b = h ? 70 : 38; }
+        px[di] = r; px[di + 1] = gg; px[di + 2] = b; px[di + 3] = 255;
+        continue;
+      }
+      const t = (v - o.vmin) / span; g = lut[t <= 0 ? 0 : t >= 1 ? 1023 : (t * 1023) | 0];
+      r = g; gg = g; b = g;
       if (o.showMask && o.mask) {
         const m = o.mask[srcRow + sx];
         if (m & 2) { r = r * 0.55 + 255 * 0.45; gg = gg * 0.55 + 140 * 0.45; b = b * 0.55 + 26 * 0.45; }
