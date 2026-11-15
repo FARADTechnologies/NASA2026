@@ -69,7 +69,9 @@ export function AskSkyLapse() {
   const [lang, setLang] = useState(() => { try { return localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { return "en-US"; } });
   const [log, setLogRaw] = useState<LogItem[]>(persist.log);
   // write the module copy first: after a command opens a new page this instance is already unmounted
-  const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); };
+  const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); window.dispatchEvent(new Event("skylapse:asklog")); };
+  // a command that opens a new page writes the log after this (new) instance mounted: listen for it
+  useEffect(() => { const on = () => { setLogRaw(persist.log); setOpenRaw(persist.open); }; window.addEventListener("skylapse:asklog", on); return () => window.removeEventListener("skylapse:asklog", on); }, []);
   const inputRef = useRef<HTMLInputElement>(null);
   const recRef = useRef<any>(null);
   const SR: any = typeof window !== "undefined" ? ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition) : null;
