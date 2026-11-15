@@ -212,3 +212,25 @@ def catwise_json(rows: list[dict]) -> dict:
 
 def _r(v, nd):
     return None if v is None else round(v, nd)
+
+
+# SIMBAD (literature proper motions) — fallback for fast movers that Gaia DR3 lacks (e.g. Luhman 16: 2-parameter Gaia solution)
+SIMBAD_TAP = ["https://simbad.harvard.edu/simbad/sim-tap/sync", "https://simbad.cds.unistra.fr/simbad/sim-tap/sync"]
+SIMBAD_Q = """SELECT main_id, ra, dec, pmra, pmdec, plx_value, otype FROM basic
+WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {ra}, {dec}, {r})) = 1
+AND pmra IS NOT NULL AND pmdec IS NOT NULL AND pmra*pmra + pmdec*pmdec > {pm2}"""
+
+
+def load_simbad_movers(field: str, ra, dec, radius_deg=0.12, pm_min=500.0, timeout=15):
+    """Objects with total proper motion > pm_min mas/yr from SIMBAD (positions J2000, epoch 2000). Returns (rows, status)."""
+    p = _cached(field, "simbad_movers")
+    if p is not None:
+        rows = _read_csv(p)
+        return rows, {"state": "ok", "source": "cache", "rows": len(rows)}
+    q = SIMBAD_Q.format(ra=ra, dec=dec, r=radius_deg, pm2=pm_min * pm_min)
+    for url in SIMBAD_TAP:
+        rows = _csv_rows(_post(url, q, timeout, tries=1))
+        if rows is not None:
+            _save(field, "simbad_movers", rows)
+            return rows, {"state": "ok", "source": "SIMBAD (" + url.split("/")[2] + ")", "rows": len(rows)}
+    return [], {"state": "unavailable", "source": None, "rows": 0}
