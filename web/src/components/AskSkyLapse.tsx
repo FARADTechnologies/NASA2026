@@ -40,7 +40,27 @@ function waitForBridge(ms = 8000): Promise<boolean> {
 /** Opening a field: fold view-only actions into the URL; the rest runs once the new viewer is ready. */
 // Voice replies: the browser's built-in speech (Web Speech API, no key, not AI-generated audio).
 // It only reads our action log or our precomputed, fact-checked explanation — it never says anything else.
-function speak(text: string, lang: string) {
+let currentAudio: HTMLAudioElement | null = null;
+export let lastVoice: "elevenlabs" | "browser" | null = null;
+// ElevenLabs first (server-side key, AI voice), browser speech as the fallback
+async function speak(text: string, lang: string) {
+  if (!text) return;
+  try { currentAudio?.pause(); window.speechSynthesis?.cancel(); } catch { /* ignore */ }
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
+  try {
+    const r = await fetch("/api/speak", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
+      body: JSON.stringify({ text: text.slice(0, 900), lang: lang.slice(0, 2) }) });
+    if (r.ok && (r.headers.get("content-type") || "").startsWith("audio")) {
+      const url = URL.createObjectURL(await r.blob());
+      currentAudio = new Audio(url); lastVoice = "elevenlabs";
+      await currentAudio.play();
+      return;
+    }
+  } catch { /* fall through to the browser voice */ } finally { clearTimeout(timer); }
+  browserSpeak(text, lang);
+}
+function browserSpeak(text: string, lang: string) {
+  lastVoice = "browser";
   try {
     const s = window.speechSynthesis; if (!s || !text) return;
     s.cancel();
@@ -154,7 +174,7 @@ export function AskSkyLapse() {
         <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
           background: "var(--panel, #0d1424)", color: "var(--text, #e8eefc)", border: "1px solid var(--line, #2a3550)", borderRadius: 12,
           boxShadow: "0 12px 40px rgba(0,0,0,.45)", padding: 12 }}>
-          <div style={{ fontSize: 12, opacity: .75, marginBottom: 8 }}>Tell SkyLapse what to do — it drives the viewer. It does not make up facts or numbers.</div>
+          <div style={{ fontSize: 12, opacity: .75, marginBottom: 8 }}>Tell SkyLapse what to do — it drives the viewer. It does not make up facts or numbers.{voice ? " Voice replies: AI-generated voice (ElevenLabs)." : ""}</div>
           <form onSubmit={(e) => { e.preventDefault(); run(text); }} style={{ display: "flex", gap: 6 }}>
             <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? "Listening…" : "e.g. compare 2010 with today"}
               aria-label="Command" style={{ ...btn, flex: 1, cursor: "text" }} disabled={busy} />
@@ -163,7 +183,7 @@ export function AskSkyLapse() {
               {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>
             <button type="button" onClick={() => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) window.speechSynthesis?.cancel(); }}
-              style={btn} aria-pressed={voice} title={voice ? "Voice replies on (browser speech)" : "Voice replies off"}>{voice ? "🔊" : "🔇"}</button>
+              style={btn} aria-pressed={voice} title={voice ? "Voice replies on — AI voice (ElevenLabs), browser voice as fallback" : "Voice replies off"}>{voice ? "🔊" : "🔇"}</button>
             <button type="submit" style={btn} disabled={busy}>{busy ? "…" : "Go"}</button>
           </form>
           {log.length === 0 && (
