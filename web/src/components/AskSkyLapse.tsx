@@ -38,6 +38,28 @@ function waitForBridge(ms = 8000): Promise<boolean> {
 }
 
 /** Opening a field: fold view-only actions into the URL; the rest runs once the new viewer is ready. */
+// Voice replies: the browser's built-in speech (Web Speech API, no key, not AI-generated audio).
+// It only reads our action log or our precomputed, fact-checked explanation — it never says anything else.
+function speak(text: string, lang: string) {
+  try {
+    const s = window.speechSynthesis; if (!s || !text) return;
+    s.cancel();
+    const u = new SpeechSynthesisUtterance(text.slice(0, 900));
+    const vs = s.getVoices(); const want = lang.toLowerCase();
+    const v = vs.find((x) => x.lang.toLowerCase() === want) || vs.find((x) => x.lang.toLowerCase().startsWith(want.slice(0, 2)))
+      || (want.startsWith("az") ? vs.find((x) => x.lang.toLowerCase().startsWith("tr")) : undefined);
+    if (v) u.voice = v;
+    u.lang = v?.lang || lang; u.rate = 1.03;
+    s.speak(u);
+  } catch { /* speech not available */ }
+}
+function copilotText(): string {
+  const sec = document.querySelector('[data-section="copilot"]');
+  if (!sec) return "";
+  const ps = Array.from(sec.querySelectorAll("p")).map((p) => (p.textContent || "").trim()).filter((t) => t.length > 60);
+  return ps.sort((a, b) => b.length - a.length)[0] || "";
+}
+
 async function applyActions(actions: AskAction[]): Promise<string | undefined> {
   const open = actions.find((a) => OPEN.has(a.type));
   if (open) {
@@ -67,6 +89,7 @@ export function AskSkyLapse() {
   const [busy, setBusy] = useState(false);
   const [listening, setListening] = useState(false);
   const [lang, setLang] = useState(() => { try { return localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { return "en-US"; } });
+  const [voice, setVoice] = useState(() => { try { return localStorage.getItem("skylapse.ask.voice") !== "off"; } catch { return true; } });
   const [log, setLogRaw] = useState<LogItem[]>(persist.log);
   // write the module copy first: after a command opens a new page this instance is already unmounted
   const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); window.dispatchEvent(new Event("skylapse:asklog")); };
@@ -99,6 +122,11 @@ export function AskSkyLapse() {
     if (picked) note = [picked, note].filter(Boolean).join(" · ");
     if (rejected.length) note = [note, "Ignored: " + rejected.join("; ")].filter(Boolean).join(" · ");
     setLog((l) => [{ text: c, source, actions: actions.map(describe), note }, ...l].slice(0, 12));
+    if (voice) {
+      const ex = actions.find((a) => a.type === "explain") as { type: "explain"; lang: "en" | "az" } | undefined;
+      if (ex) setTimeout(() => speak(copilotText() || "The explanation is not available for this object.", ex.lang === "az" ? "az-AZ" : "en-US"), 1400);
+      else speak(actions.length ? actions.map(describe).join(". ") + "." : "Sorry, I can only drive the viewer.", "en-US");
+    }
     setText(""); setBusy(false);
   }
 
@@ -134,6 +162,8 @@ export function AskSkyLapse() {
             <select value={lang} onChange={(e) => setLang(e.target.value)} style={btn} aria-label="Voice language">
               {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>
+            <button type="button" onClick={() => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) window.speechSynthesis?.cancel(); }}
+              style={btn} aria-pressed={voice} title={voice ? "Voice replies on (browser speech)" : "Voice replies off"}>{voice ? "🔊" : "🔇"}</button>
             <button type="submit" style={btn} disabled={busy}>{busy ? "…" : "Go"}</button>
           </form>
           {log.length === 0 && (
