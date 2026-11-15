@@ -1,9 +1,9 @@
 # Journal — role: science  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov ~02:20 Baku
+Last update: Sun 15 Nov ~11:45 Baku
 
 ## Current task
-#91 S9 science/IMPACT_NUMBERS.md done (live field measured by science: 23 s ready / 33 s done; manual alternative estimate
-2–3 h). #89 S7 + #90 S8 submitted on PR #102.
+#123 S10 done (PR #135): live overlays OK (median <= 0.12 px), Teegarden/Kapteyn tracks OK, Luhman 16 NOT marked (no Gaia fast mover);
+QA_FACTS has 2 answers on Ask SkyLapse. All earlier science issues closed (#8-#12, #77, #89-#91).
 
 ## Status
 - S4: recall 3/3 known movers (Barnard 10405, eps Indi B 4713, WISE 0855 8155 mas/yr), 0 false candidates in 5 fields.
