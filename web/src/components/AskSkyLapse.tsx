@@ -5,12 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { Mic, Sparkles, Square } from "lucide-react";
 import { navigate } from "../lib/router";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
-import { ACTIONS_EVENT, READY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
+import { ACTIONS_EVENT, READY_EVENT, SAY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
 import { describe, parseCommand } from "../lib/askParser";
 
 type LogItem = { text: string; source: "claude" | "local" | "none"; actions: string[]; note?: string };
 const LANGS = [{ id: "en-US", label: "EN" }, { id: "tr-TR", label: "TR" }, { id: "az-AZ", label: "AZ" }];
-const EXAMPLES = ["show Barnard's Star in difference mode at double speed", "compare 2010 with today", "go to RA 162.3 Dec -53.3",
+const EXAMPLES = ["find Barnard's Star and show its motion in full spectral view", "show Barnard's Star in difference mode at double speed", "compare 2010 with today", "go to RA 162.3 Dec -53.3",
   "show the spectrum", "explain this object in Azerbaijani"];
 const OPEN = new Set(["open_field", "open_coordinates"]);
 const VIEW_ONLY = new Set(["set_sequence", "set_compare", "set_speed", "set_stretch", "set_zoom", "toggle_overlay"]);
@@ -90,6 +90,8 @@ export function AskSkyLapse() {
   const [listening, setListening] = useState(false);
   const [lang, setLang] = useState(() => { try { return localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { return "en-US"; } });
   const [voice, setVoice] = useState(() => { try { return localStorage.getItem("skylapse.ask.voice") !== "off"; } catch { return true; } });
+  // the bridge narrates multi-step tours through this event
+  useEffect(() => { const on = (e: Event) => { if (voice) speak(String((e as CustomEvent).detail || ""), "en-US"); }; window.addEventListener(SAY_EVENT, on); return () => window.removeEventListener(SAY_EVENT, on); }, [voice]);
   const [log, setLogRaw] = useState<LogItem[]>(persist.log);
   // write the module copy first: after a command opens a new page this instance is already unmounted
   const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); window.dispatchEvent(new Event("skylapse:asklog")); };
@@ -125,7 +127,7 @@ export function AskSkyLapse() {
     if (voice) {
       const ex = actions.find((a) => a.type === "explain") as { type: "explain"; lang: "en" | "az" } | undefined;
       if (ex) setTimeout(() => speak(copilotText() || "The explanation is not available for this object.", ex.lang === "az" ? "az-AZ" : "en-US"), 1400);
-      else speak(actions.length ? actions.map(describe).join(". ") + "." : "Sorry, I can only drive the viewer.", "en-US");
+      else if (!actions.some((a) => a.type === "show_spectral_motion")) speak(actions.length ? actions.map(describe).join(". ") + "." : "Sorry, I can only drive the viewer.", "en-US");
     }
     setText(""); setBusy(false);
   }

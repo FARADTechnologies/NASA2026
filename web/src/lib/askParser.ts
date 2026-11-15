@@ -60,8 +60,14 @@ export function parseCommand(input: string): AskAction[] {
   if (has(t, /track|path|ring|iz\b|yol|halqa/)) out.push({ type: "toggle_overlay", overlay: "track", on: !off });
   if (has(t, /mask|saturat|doymuş/)) out.push({ type: "toggle_overlay", overlay: "mask", on: !off });
 
+  // 5b. full spectral view (SPHEREx colour fingerprint) / agentic spectral tour
+  if (has(t, /full spectral|all spectral|spectral (view|mode|fingerprint)|fingerprint|all colou?rs|full colou?r|tam spektr|spektral|bütün renk|rəngli|tam rəng/)) {
+    if (has(t, /off|kapat|söndür|normal/)) out.push({ type: "set_fingerprint", on: false });
+    else if (has(t, /motion|move|moving|movement|hareket|hərəkət|tour|tur/) || out.some((a) => a.type === "open_field")) out.push({ type: "show_spectral_motion" });
+    else out.push({ type: "set_fingerprint", on: true, which: "last" });
+  }
   // 6. panels / explanation
-  if (has(t, /spectrum|spektr/)) out.push({ type: "show_spectrum" });
+  if (has(t, /spectrum|spektr/) && !out.some((a) => a.type === "show_spectral_motion" || a.type === "set_fingerprint")) out.push({ type: "show_spectrum" });
   if (has(t, /light ?curve|ışık eğrisi|işıq əyrisi|brightness over time/)) out.push({ type: "show_lightcurve" });
   if (has(t, /explain|what is this|açıkla|anlat|izah|nədir|nedir/)) out.push({ type: "explain", lang: has(t, /azerbaijani|azərbaycan|azerbaycan|\baz\b/) ? "az" : "en" });
 
@@ -95,5 +101,7 @@ export function describe(a: AskAction): string {
     case "show_spectrum": return "Show the spectrum";
     case "show_lightcurve": return "Show the light curve";
     case "explain": return `Show our fact-checked explanation (${a.lang === "az" ? "Azerbaijani" : "English"})`;
+    case "set_fingerprint": return a.on === false ? "Spectral fingerprint off" : "Full spectral view (SPHEREx colour fingerprint)";
+    case "show_spectral_motion": return "Spectral tour: the 16-year movie, then the SPHEREx colours epoch by epoch, then the spectrum";
   }
 }
