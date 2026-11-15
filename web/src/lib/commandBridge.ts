@@ -17,7 +17,8 @@ export type AskAction =
   | { type: "go_to_frame"; which: "first" | "last" }
   | { type: "show_spectrum" } | { type: "show_lightcurve" } | { type: "explain"; lang: "en" | "az" }
   | { type: "set_fingerprint"; on?: boolean; which?: "first" | "last" | "next" }
-  | { type: "show_spectral_motion" };
+  | { type: "show_spectral_motion" }
+  | { type: "tell_about"; lang?: "en" | "az" };
 
 export const ACTIONS_EVENT = "skylapse:actions";
 export const READY_EVENT = "skylapse:bridge-ready";
@@ -35,6 +36,96 @@ type Api = {
 };
 export const SAY_EVENT = "skylapse:say";
 const say = (text: string) => window.dispatchEvent(new CustomEvent(SAY_EVENT, { detail: text }));
+/** Speak and wait until the sentence has been said (AskSkyLapse resolves it; a time cap means a tour can never hang). */
+const sayWait = (text: string, lang: "en" | "az" = "en") => new Promise<void>((res) => {
+  let done = false; const fin = () => { if (!done) { done = true; res(); } };
+  setTimeout(fin, 5000 + text.length * 110);
+  window.dispatchEvent(new CustomEvent(SAY_EVENT, { detail: { text, lang, done: fin } }));
+});
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+/** Poll until the page shows something (data arrive after the viewer mounts, e.g. when a command opened it from the home page). */
+export async function waitFor<T>(get: () => T | null | undefined | false, ms = 8000): Promise<T | null> {
+  const t0 = Date.now();
+  for (;;) { const v = get(); if (v) return v; if (Date.now() - t0 > ms) return null; await sleep(150); }
+}
+/** Guided tour: scroll a card into view and keep it outlined while the assistant talks about it. */
+function spotlight(el: Element | null) {
+  document.querySelectorAll("[data-ask-spot]").forEach((e) => { const h = e as HTMLElement; h.style.outline = ""; h.style.outlineOffset = ""; h.removeAttribute("data-ask-spot"); });
+  if (!el) return;
+  el.scrollIntoView({ behavior: document.hidden ? "auto" : "smooth", block: "center" });
+  const h = el as HTMLElement; h.setAttribute("data-ask-spot", ""); h.style.outline = "2px solid #4cc9f0"; h.style.outlineOffset = "3px";
+}
+const txt = (el: Element | null | undefined) => (el?.textContent || "").replace(/\s+/g, " ").trim();
+/** Read the measured-motion card exactly as the page shows it (numbers come only from our bundle). */
+function factsOf(card: Element): Record<string, string> {
+  const m: Record<string, string> = {};
+  card.querySelectorAll("dl.facts dt").forEach((dt) => { const dd = dt.nextElementSibling; if (dd) m[txt(dt).toLowerCase()] = txt(dd); });
+  return m;
+}
+const spokenEn = (s: string) => s.replace(/mas\/yr/g, "milliarcseconds per year").replace(/±/g, "plus or minus").replace(/%/g, " percent")
+  .replace(/(\d) d\b/g, "$1 days").replace(/\s*·\s*/g, ". ");
+const spokenAz = (s: string) => s.replace(/mas\/yr/g, "milliqövs saniyə ildə").replace(/±/g, "artı-əksi").replace(/(\d+(?:\.\d+)?)%/g, "$1 faiz")
+  .replace(/Period found:/g, "Tapdığımız period:").replace(/known:/g, "məlum dəyər:").replace(/(\d) d\b/g, "$1 gün").replace(/\s*·\s*/g, ". ");
+
+/** "Tell me about X": play the movie, then walk down the page card by card and read what each card shows. */
+async function guidedTour(lang: "en" | "az", alive: () => boolean, api: () => Api) {
+  const az = lang === "az";
+  const card = await waitFor(() => { const c = document.querySelector(".obj-card"); return c && c.querySelector("dl.facts, table.pm, .kind") ? c : null; }, 9000)
+    ?? document.querySelector(".obj-card");
+  if (!alive()) return;
+  const name = txt(card?.querySelector("h3")) || (az ? "Bu obyekt" : "This object");
+  const kind = txt(card?.querySelector(".kind"));
+  api().setView((v) => ({ ...v, rgb: "", diff: "none", coadd: "", overlay: v.overlay.includes("track") ? v.overlay : [...v.overlay, "track"] }));
+  api().setPlaying(true);
+  spotlight(document.querySelector(".stage"));
+  await sayWait(az ? `${name}. Bu, onun on altı illik infraqırmızı filmidir: 2010-dan WISE, sonra SPHEREx. Halqa hədəfi göstərir.`
+    : `${name}${kind ? `, ${kind}` : ""}. This is its sixteen-year infrared movie: WISE from 2010, then SPHEREx. The ring marks the target.`, lang);
+  if (!alive()) return;
+  if (card) {
+    const f = factsOf(card);
+    const mv = f["motion we measured"], pub = f["published value"], agr = f["agreement"], fit = f["fit"];
+    let line = "";
+    if (mv) {
+      if (az) {
+        const fm = fit?.match(/(\d+) epochs(?: over ([\d.]+) years)?/);
+        line = `Ölçdüyümüz hərəkət: ${spokenAz(mv)}.` + (pub ? ` Dərc olunmuş dəyər: ${spokenAz(pub)}.` : "") + (agr ? ` Uyğunluq: ${spokenAz(agr)}.` : "")
+          + (fm ? ` ${fm[1]} epoxa${fm[2] ? `, ${fm[2]} il ərzində` : ""}.` : "");
+      } else {
+        line = `What we measured: ${spokenEn(mv)}.` + (pub ? ` Published value: ${spokenEn(pub)}.` : "") + (agr ? ` Agreement: ${spokenEn(agr)}.` : "") + (fit ? ` Fit: ${fit}.` : "");
+      }
+    } else {
+      const total = txt(card.querySelector("table.pm tbody tr td:last-child"));
+      if (total) line = az ? `Dərc olunmuş hərəkəti: ${total} milliqövs saniyə ildə.` : `Its published motion: ${total} milliarcseconds per year.`;
+    }
+    if (line) { spotlight(card); await sayWait(line, lang); if (!alive()) return; }
+  }
+  const cop = document.querySelector('[data-section="copilot"]');
+  if (cop) {
+    (cop.querySelector(`[data-lang="${lang}"]`) as HTMLButtonElement | null)?.click();
+    await sleep(300);
+    const p = Array.from(cop.querySelectorAll("p")).map(txt).filter((t) => t.length > 60).sort((a, b) => b.length - a.length)[0];
+    if (p) { spotlight(cop); await sayWait(p, lang); if (!alive()) return; }
+  }
+  const lc = document.querySelector('[data-section="lightcurve"]');
+  if (lc) {
+    const per = txt(lc.querySelector(".period-line"));
+    spotlight(lc);
+    await sayWait(az ? `Parlaqlığının zamanla dəyişməsi.${per ? " " + spokenAz(per) + "." : ""}` : `Its brightness over time.${per ? " " + spokenEn(per) + "." : ""}`, lang);
+    if (!alive()) return;
+  }
+  const sp = document.querySelector('[data-section="spectrum"]');
+  if (sp) {
+    const honest = txt(sp.querySelector(".honest-note b"));
+    spotlight(sp);
+    await sayWait(honest ? (az ? "Bu hədəf SPHEREx detektorları üçün çox parlaqdır, ona görə etibarlı spektr göstərmirik." : honest)
+      : (az ? "Bu isə onun SPHEREx spektridir, 0,75-dən 5 mikrona qədər." : "And this is its SPHEREx spectrum, from 0.75 to 5 microns."), lang);
+    if (!alive()) return;
+  }
+  spotlight(document.querySelector(".stage"));
+  api().setPlaying(true);
+  await sayWait(az ? "Bu qədər. Başqa ulduzu da soruşa bilərsiniz." : "That's the tour. Ask me about another target any time.", lang);
+  spotlight(null);
+}
 
 /** Apply view-only actions to a ViewState (also used to build the URL when a field is opened). */
 export function applyToView(v: ViewState, a: AskAction, fullFov: number | null, sequenceIds?: string[]): ViewState {
@@ -102,9 +193,10 @@ export function useCommandBridge(api: Api) {
               const nv = applyToView(v, a, a0.fullFovArcmin);
               return a.mode === "chosen" ? { ...nv, ref: a0.frameIdAt(v.frame) ?? v.ref } : nv;
             }); break;
-          case "show_spectrum": scrollToSection("spectrum"); break;
-          case "show_lightcurve": scrollToSection("lightcurve"); break;
-          case "explain": chooseCopilotLang(a.lang); break;
+          case "show_spectrum": void waitFor(() => document.querySelector('[data-section="spectrum"]'), 8000).then(() => scrollToSection("spectrum")); break;
+          case "show_lightcurve": void waitFor(() => document.querySelector('[data-section="lightcurve"]'), 8000).then(() => scrollToSection("lightcurve")); break;
+          case "explain": void waitFor(() => document.querySelector('[data-section="copilot"]'), 8000).then(() => chooseCopilotLang(a.lang)); break;
+          case "tell_about": { const my = tour.current; void guidedTour(a.lang ?? "en", () => tour.current === my, () => ref.current); break; }
           case "set_fingerprint": {
             const ids = a0.rgbIds ?? [];
             if (a.on === false || !ids.length) { a0.setView((v) => ({ ...v, rgb: "" })); break; }

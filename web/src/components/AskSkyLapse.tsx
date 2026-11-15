@@ -5,13 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUp, MessageCircle, Mic, RotateCcw, Square, Volume2, VolumeX, X } from "lucide-react";
 import { navigate } from "../lib/router";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
-import { ACTIONS_EVENT, READY_EVENT, SAY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
+import { ACTIONS_EVENT, READY_EVENT, SAY_EVENT, applyToView, waitFor, type AskAction } from "../lib/commandBridge";
 import { describe, parseCommand } from "../lib/askParser";
 
 type LogItem = { text: string; source: "claude" | "local" | "none"; actions: string[]; note?: string };
 const LANGS = [{ id: "az-AZ", label: "AZ", name: "Azərbaycan dili" }, { id: "en-US", label: "EN", name: "English" }, { id: "tr-TR", label: "TR", name: "Türkçe" }];
 // short chip labels → the full command that is sent
 const QUICK: { label: string; cmd: string }[] = [
+  { label: "Tell me about WISE 0855", cmd: "tell me about WISE 0855" },
   { label: "Barnard's Star in full spectral view", cmd: "find Barnard's Star and show its motion in full spectral view" },
   { label: "Barnard's Star, difference, 2× speed", cmd: "show Barnard's Star in difference mode at double speed" },
   { label: "Compare 2010 with today", cmd: "compare 2010 with today" },
@@ -21,13 +22,13 @@ const QUICK: { label: string; cmd: string }[] = [
 ];
 const TXT = {
   en: { sub: "Online · uses only our data", hi: "Hi!", welcome: "Tell me what you want to see — type or speak.",
-    intro: "I can open a target, compare years, change speed or zoom, switch overlays, and show the spectrum or the explanation. I never make up numbers.",
+    intro: "I can open a target, compare years, change speed or zoom, switch overlays, show the spectrum or the explanation — or walk you through a target card by card and read its facts aloud (“tell me about Barnard's Star”). I never make up numbers.",
     lang: "Which language will you speak?", today: "Today", ph: "Write a message…", listening: "Listening…", reset: "New conversation", close: "Close",
     voiceOn: "Voice replies on — AI-generated voice (ElevenLabs), browser voice as fallback", voiceOff: "Voice replies off",
     voiceNote: "Spoken replies use an AI-generated voice (ElevenLabs).",
     src: { claude: "understood by Claude (AI)", local: "understood offline", none: "not understood" } },
   az: { sub: "Onlayn · yalnız bizim məlumat", hi: "Salam!", welcome: "Nə görmək istədiyinizi yazın və ya deyin.",
-    intro: "Hədəfi aça, illəri müqayisə edə, sürəti və miqyası dəyişə, işarələri açıb-bağlaya, spektri və izahı göstərə bilərəm. Rəqəm uydurmuram.",
+    intro: "Hədəfi aça, illəri müqayisə edə, sürəti və miqyası dəyişə, işarələri açıb-bağlaya, spektri və izahı göstərə, ya da hədəfi səhifədə kart-kart göstərib faktlarını səsli oxuya bilərəm (“Barnard ulduzu haqqında danış”). Rəqəm uydurmuram.",
     lang: "Hansı dildə danışacaqsınız?", today: "Bu gün", ph: "Mesajınızı yazın…", listening: "Dinləyirəm…", reset: "Yeni söhbət", close: "Bağla",
     voiceOn: "Səsli cavab açıqdır — süni intellekt səsi (ElevenLabs)", voiceOff: "Səsli cavab bağlıdır",
     voiceNote: "Səsli cavablar süni intellektlə yaradılmış səsdir (ElevenLabs).",
@@ -66,27 +67,46 @@ function waitForBridge(ms = 8000): Promise<boolean> {
 let currentAudio: HTMLAudioElement | null = null;
 export let lastVoice: "elevenlabs" | "browser" | null = null;
 // ElevenLabs first (server-side key, AI voice), browser speech as the fallback
-async function speak(text: string, lang: string) {
-  if (!text) return;
-  window.dispatchEvent(new Event("skylapse:speaking")); // the panel closes while the answer is spoken (UI only)
+let speechId = 0;
+/** Stop whatever is being said (a new command or the mic must not talk over the user). */
+export function stopSpeech() {
+  speechId++;
   try { currentAudio?.pause(); window.speechSynthesis?.cancel(); } catch { /* ignore */ }
-  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
-  try {
-    const r = await fetch("/api/speak", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
-      body: JSON.stringify({ text: text.slice(0, 900), lang: lang.slice(0, 2) }) });
-    if (r.ok && (r.headers.get("content-type") || "").startsWith("audio")) {
-      const url = URL.createObjectURL(await r.blob());
-      currentAudio = new Audio(url); lastVoice = "elevenlabs";
-      await currentAudio.play();
-      return;
-    }
-  } catch { /* fall through to the browser voice */ } finally { clearTimeout(timer); }
-  browserSpeak(text, lang);
 }
-function browserSpeak(text: string, lang: string) {
+/** Say a sentence; resolves when it has been said (or was interrupted). */
+function speakWait(text: string, lang: string): Promise<void> {
+  return new Promise((resolve) => {
+    if (!text) { resolve(); return; }
+    window.dispatchEvent(new Event("skylapse:speaking")); // the panel closes while the answer is spoken (UI only)
+    stopSpeech();
+    const my = speechId;
+    (async () => {
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
+      try {
+        const r = await fetch("/api/speak", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
+          body: JSON.stringify({ text: text.slice(0, 900), lang: lang.slice(0, 2) }) });
+        if (r.ok && (r.headers.get("content-type") || "").startsWith("audio")) {
+          const blob = await r.blob();
+          if (my !== speechId) { resolve(); return; } // something newer started meanwhile
+          const url = URL.createObjectURL(blob);
+          const a = new Audio(url); currentAudio = a; lastVoice = "elevenlabs";
+          const fin = () => { URL.revokeObjectURL(url); resolve(); };
+          a.onended = fin; a.onpause = fin; a.onerror = fin;
+          await a.play();
+          return;
+        }
+      } catch { /* fall through to the browser voice */ } finally { clearTimeout(timer); }
+      if (my !== speechId) { resolve(); return; }
+      browserSpeak(text, lang, resolve);
+    })();
+  });
+}
+// spoken replies go through the event, so the assistant that is mounted NOW (after a page change) speaks and shows the subtitle
+const sayNow = (text: string, lang: "en" | "az" = "en") => window.dispatchEvent(new CustomEvent(SAY_EVENT, { detail: { text, lang } }));
+function browserSpeak(text: string, lang: string, done: () => void = () => {}) {
   lastVoice = "browser";
   try {
-    const s = window.speechSynthesis; if (!s || !text) return;
+    const s = window.speechSynthesis; if (!s || !text) { done(); return; }
     s.cancel();
     const u = new SpeechSynthesisUtterance(text.slice(0, 900));
     const vs = s.getVoices(); const want = lang.toLowerCase();
@@ -94,8 +114,9 @@ function browserSpeak(text: string, lang: string) {
       || (want.startsWith("az") ? vs.find((x) => x.lang.toLowerCase().startsWith("tr")) : undefined);
     if (v) u.voice = v;
     u.lang = v?.lang || lang; u.rate = 1.03;
+    u.onend = () => done(); u.onerror = () => done();
     s.speak(u);
-  } catch { /* speech not available */ }
+  } catch { done(); /* speech not available */ }
 }
 function copilotText(): string {
   const sec = document.querySelector('[data-section="copilot"]');
@@ -134,8 +155,24 @@ export function AskSkyLapse() {
   const [listening, setListening] = useState(false);
   const [lang, setLang] = useState(() => { try { return localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { return "en-US"; } });
   const [voice, setVoice] = useState(() => { try { return localStorage.getItem("skylapse.ask.voice") !== "off"; } catch { return true; } });
-  // the bridge narrates multi-step tours through this event
-  useEffect(() => { const on = (e: Event) => { if (voice) speak(String((e as CustomEvent).detail || ""), "en-US"); }; window.addEventListener(SAY_EVENT, on); return () => window.removeEventListener(SAY_EVENT, on); }, [voice]);
+  // subtitles of what the assistant says (the panel is closed while it talks; useful in a noisy room or with voice off)
+  const [caption, setCaption] = useState("");
+  const talk = async (t: string, l: string) => {
+    if (!t) return;
+    setCaption(t);
+    if (voice) await speakWait(t, l);
+    else { window.dispatchEvent(new Event("skylapse:speaking")); await new Promise((r) => setTimeout(r, Math.min(12000, 1800 + t.length * 55))); }
+    setCaption((c) => (c === t ? "" : c));
+  };
+  // the bridge narrates tours through this event; {done} lets a guided tour wait for each sentence
+  useEffect(() => {
+    const on = (e: Event) => {
+      const d = (e as CustomEvent).detail as string | { text: string; lang?: string; done?: () => void };
+      const o = typeof d === "string" ? { text: d } : d || { text: "" };
+      void talk(String(o.text || ""), o.lang === "az" ? "az-AZ" : "en-US").finally(() => o.done?.());
+    };
+    window.addEventListener(SAY_EVENT, on); return () => window.removeEventListener(SAY_EVENT, on);
+  }, [voice]);
   const [log, setLogRaw] = useState<LogItem[]>(persist.log);
   // write the module copy first: after a command opens a new page this instance is already unmounted
   const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); window.dispatchEvent(new Event("skylapse:asklog")); };
@@ -160,6 +197,7 @@ export function AskSkyLapse() {
   }, []);
   async function run(cmd: string) {
     const c = cmd.trim(); if (!c || busy) return;
+    stopSpeech(); setCaption(""); // a new command interrupts whatever is being said
     setBusy(true);
     setOpen(false); // collapse back to the button at once, so the whole page is visible while the answer runs
     let source: LogItem["source"] = "claude";
@@ -169,7 +207,9 @@ export function AskSkyLapse() {
     const rejected = res?.rejected ?? [];
     let picked: string | undefined;
     // use whichever reading covers more of the command; ties go to Claude. Both only produce whitelisted actions.
-    if (local.length > actions.length) {
+    const AGENTIC = new Set(["tell_about", "show_spectral_motion"]);
+    const tourOnlyLocal = local.some((a) => AGENTIC.has(a.type)) && !actions.some((a) => AGENTIC.has(a.type));
+    if (local.length > actions.length || (tourOnlyLocal && local.length >= actions.length)) {
       if (res && actions.length) picked = "Claude's reading was incomplete, so the offline parser's fuller reading was used.";
       actions = local; source = "local";
     } else if (!actions.length) source = res ? "claude" : "none";
@@ -181,11 +221,13 @@ export function AskSkyLapse() {
     if (rejected.length) note = [note, "Ignored: " + rejected.join("; ")].filter(Boolean).join(" · ");
     setLog((l) => [{ text: c, source, actions: actions.map(describe), note }, ...l].slice(0, 12));
     setOpen(false); // the answer starts: close the panel so it does not cover the page (reopen with the button)
-    if (voice) {
+    {
       const ex = actions.find((a) => a.type === "explain") as { type: "explain"; lang: "en" | "az" } | undefined;
-      if (ex) setTimeout(() => speak(copilotText() || "The explanation is not available for this object.", ex.lang === "az" ? "az-AZ" : "en-US"), 1400);
-      else if (blocked || !actions.length) speak(blocked ? "I need a target first. Say, for example: show Barnard's Star." : "Sorry, I can only drive the viewer. Try: compare 2010 with today.", "en-US");
-      else if (!actions.some((a) => a.type === "show_spectral_motion")) speak(actions.map(describe).join(". ") + ".", "en-US");
+      // the explanation appears once the object data have loaded (also when the command opened the viewer from the home page)
+      if (ex) void waitFor(() => document.querySelector('[data-section="copilot"]'), 8000).then(() => new Promise((r) => setTimeout(r, 400)))
+        .then(() => sayNow(copilotText() || "The explanation is not available for this object.", ex.lang));
+      else if (blocked || !actions.length) sayNow(blocked ? "I need a target first. Say, for example: tell me about Barnard's Star." : "Sorry, I can only drive the viewer. Try: compare 2010 with today.");
+      else if (!actions.some((a) => a.type === "show_spectral_motion" || a.type === "tell_about")) sayNow(actions.map(describe).join(". ") + ".");
     }
     setText(""); setBusy(false);
   }
@@ -194,6 +236,7 @@ export function AskSkyLapse() {
   function listen() {
     if (!SR) return;
     if (listening) { recRef.current?.stop(); return; }
+    stopSpeech(); setCaption(""); // do not record our own voice
     // press = start listening; talk as long as needed; press again = stop and send (nothing is sent before that)
     const rec = new SR(); recRef.current = rec; let said = "";
     rec.lang = lang; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 1;
@@ -207,7 +250,7 @@ export function AskSkyLapse() {
     setListening(true); setOpen(true); rec.start();
   }
 
-  const toggleVoice = () => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) { try { window.speechSynthesis?.cancel(); } catch { /* ignore */ } } };
+  const toggleVoice = () => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) stopSpeech(); };
   const T = lang.startsWith("az") ? TXT.az : TXT.en;
   const Avatar = ({ big }: { big?: boolean }) => (
     <span className={"ask-avatar" + (big ? " lg" : "")} aria-hidden>
@@ -216,6 +259,12 @@ export function AskSkyLapse() {
   );
   return (
     <div className="ask">
+      {caption && !open && (
+        <div className="ask-caption" role="status" aria-live="polite" style={{ position: "fixed", left: "50%", bottom: 22, transform: "translateX(-50%)",
+          width: "max-content", maxWidth: "min(720px, calc(100vw - 32px))", maxHeight: "30vh", overflow: "hidden", padding: "10px 16px", borderRadius: 12,
+          background: "rgba(8, 12, 22, 0.86)", color: "#f2f5fa", fontSize: 15, lineHeight: 1.45, zIndex: 70, pointerEvents: "none",
+          boxShadow: "0 6px 24px rgba(0,0,0,.35)" }}>{caption}</div>
+      )}
       {!open && (
         <button className="ask-launcher" onClick={() => setOpen(true)} aria-expanded={false} title="Ask SkyLapse — drive the viewer by voice or text">
           <MessageCircle size={18} strokeWidth={1.9} /> Ask SkyLapse
@@ -296,6 +345,7 @@ export function AskMic() {
   if (!SR) return null;
   function toggle() {
     if (on) { recRef.current?.stop(); return; } // second press: stop → onend sends
+    stopSpeech(); // do not record our own voice
     let lang = "en-US"; try { lang = localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { /* storage blocked */ }
     const rec = new SR(); recRef.current = rec; textRef.current = ""; setHeard("");
     rec.lang = lang; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 1;
