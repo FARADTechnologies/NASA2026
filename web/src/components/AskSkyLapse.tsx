@@ -161,6 +161,7 @@ export function AskSkyLapse() {
   async function run(cmd: string) {
     const c = cmd.trim(); if (!c || busy) return;
     setBusy(true);
+    setOpen(false); // collapse back to the button at once, so the whole page is visible while the answer runs
     let source: LogItem["source"] = "claude";
     const local = parseCommand(c);
     const res = await callApi(c);
