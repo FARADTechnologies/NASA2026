@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 13:42 Baku
+Last update: Sun 14:30 Baku
 
 ## Current task
-#121 redesign. v2 (PR #131, #134) merged + deployed. v2.1 = Azer feedback, on branch `frontend/azer-review` (pushed, NO PR on purpose: Azer said do not deploy until he checks).
+None. #121 redesign CLOSED. v2.2 (PR #138: Manrope + Geist Mono, collapsible panels, wide view fills stage, Full screen button, add/subtract block, floating Ask, no-data hatch) merged 13:54 + deployed.
 
 ## Status
-v2.1 done + 50/50 checklist: Manrope + Geist Mono, collapsible panels (rail arrows, remembered in localStorage skylapse.left/right), wide view (canvas up to 1.6:1 when a panel is closed, crops top/bottom, key F), add/subtract block in the left rail, Ask SkyLapse floating bottom-right (still mounted in TopBar), no-data hatch (exact 0 / NaN) + thumbnail auto-crop. Waiting for Azer OK → then: git checkout role/frontend; git merge frontend/azer-review; PR; re-shoot web/design-refs/v2.
+Live site verified 14:27: all 7 pages, both themes, desktop + phone, no console errors. Final screenshots (from the live site) in web/design-refs/v2. Autonomous mode paused. Not tested: Full screen button in a real (non-headless) browser.
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
