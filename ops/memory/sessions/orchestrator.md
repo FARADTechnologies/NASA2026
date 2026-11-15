@@ -1,7 +1,8 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 13:55 (Kanan's computer)
+Last update: Sun 15:02 (Kanan's computer)
 
 ## Current task
+15:02: v1.1 tagged (a0aabfa, #124 closed; visual QA both themes 1280x720 + 1440x900 clean). Sanitisation done (#125 closed, f8ff723, D-026): 0 secrets; names/remarks neutralised in files, all branches, 4 issues + 4 comments. Next: #126 PUBLIC at 15:50 (captain) → verify links in private window; O6 Claude path still blocked (new tunnel NXDOMAIN). Submission 16:05.
 13:55: merged + deployed redesign v2.2 (#138; F13 #121 closed after my functional test: assistant + 5 targets + canvas OK), CSS/screenshot PRs #134 #136, S10 #123 (overlays ≤0.13 px). A13 #137 pitch: Ask SkyLapse disclosure. Next: v1.1 checkpoint #124 at 14:30.
 12:56: merged T10 (#127,#129,#133) + API purge/no-cache (#128,#130, CDN purged); 3 demo live fields rebuilt with movers (Teegarden/Kapteyn rings); redesign step 1 (#131) merged + deployed (F13 #121 changes-requested for Azer's cosmetic round). O6 #122 blocked on new tunnel URL. S10 #123 running.
 Sun 12:12: FREEZE LIFTED (D-024). Schedule: dev until 14:30; 14:30–15:15 QA + rehearsal + tag v1.1 (#124); 15:15 sanitisation (#125, instructions NOT received — asked Murad); ~15:50 public (#126, captain); 16:05 submit.
