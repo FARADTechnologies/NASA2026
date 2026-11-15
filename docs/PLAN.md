@@ -1,11 +1,9 @@
 # PLAN — SkyLapse (scope, milestones, timeline, demo, pitch facts)
 
 ## 1. Context that drives every decision
-- Baku Local Event final: 15 teams. Jury (none are astronomers):
-  Elkhan Shukurov (IDDA – Innovation and Digital Development Agency), Asad Hasanov (Azercosmos), Bunyamin Seyidov (Baku Engineering University).
+- Baku Local Event final. The judges come from technology, space and academic institutions: explain everything without jargon.
 - Judging Sun 16:05–18:00 → ~7 min per team incl. Q&A. A live demo moment and a one-sentence problem decide a lot.
-- Mentors: Tural Salmanov (Azercosmos — idea & pitch), Vugar Aliyev (IDDA — users & scope), Ilkin Aliyev (Azercosmos — satellite tech, architecture).
-  We listen and learn; we only change direction through the escalation protocol.
+- Mentors advise on idea & pitch, users & scope, and architecture. We listen and learn; we only change direction through the escalation protocol.
 - Local organizers allow AI tools for everything, on condition that the presentation explains how AI was used.
 - Real working time ≈ 16–17 h: Sat 11:00–24:00 (minus meals), Sun 07:30–13:30. Venue: Baku Engineering University (Xırdalan).
 - Format (LOCAL_RULES): pitch + live demo = 5 min total (overrun = disqualified), Q&A 5 min, max 7 English slides.
@@ -18,7 +16,7 @@
 | Innovation | first public tool joining the 16-yr WISE baseline with SPHEREx spectra | Creativity |
 | Technical Readiness (includes scientific validity) | live prototype + `docs/METHODOLOGY.md` (A/B/C → gap X → D) + README + validation 99.0–99.9 %, 3/3 blind recovery, 0 false alarms | Validity |
 | Relevance of the problem | NASA challenge; SPHEREx's 1-yr baseline problem; volunteer science precedent | Relevance |
-Mentor (Tural Salmanov, in writing): Market Potential needs no money; validity is judged inside Technical Readiness. Expected methodology answer:
+Mentor feedback (in writing): Market Potential needs no money; validity is judged inside Technical Readiness. Expected methodology answer:
 "We reviewed recent methods (NASA/ESA/IAC literature): approaches A, B, C; their gap X; we propose D; and here is the working prototype."
 
 ## 2. What NASA asks for (challenge "Planet X and SPHEREx") — our checklist
@@ -38,7 +36,7 @@ so moving objects are easy to spot. Test on: Barnard's Star, Epsilon Indi B, WIS
 | C9 | Use Astropy / Aladin | Astropy everywhere in pipeline; Aladin Lite context map | P0 (astropy) / P1 (Aladin) |
 
 ## 3. Scope (IDs are used in issues and commits)
-### P0 — must work at M2 (Sat 18:30). Without these we cannot win.
+### P0 — must work at M2 (Sat 18:30). Without these the tool does not meet the challenge.
 - P0-1 Bundle for the 5 targets: WISE W1/W2 epochs + SPHEREx D1–D6 per epoch, on one common grid (pipeline).
 - P0-2 Viewer: blink player, timeline with dates and instrument badges, play/pause/step, speed, stretch (linear/asinh/log + percentiles), invert, zoom (frontend).
 - P0-3 Search by name or RA/Dec + URL state + share link (frontend + api resolve).
@@ -49,7 +47,7 @@ so moving objects are easy to spot. Test on: Barnard's Star, Epsilon Indi B, WIS
 - P0-8 Public deployment (web + bundle; API) with a stable URL (orchestrator).
 - P0-9 Proper-motion validation table for Barnard's Star, Eps Indi B, WISE 0855: measured vs reference (science).
 - P0-10 Pitch: 7-slide deck, live demo script, 30-s video, project page text in English, AI-use explanation (pitch).
-### P1 — Sat 22:30 target, Sun 10:30 at the latest. These make us win, not just pass.
+### P1 — Sat 22:30 target, Sun 10:30 at the latest. These make the tool genuinely useful, not just complete.
 - P1-1 Spectrum panel: spectrum of the target objects (precomputed) and of any clicked source in cached fields; template comparison.
 - P1-2 Spectral fingerprint RGB composite (D1/D3/D6) toggle.
 - P1-3 Light curves for R Dra and RW Aur: WISE W1/W2 + SPHEREx synthesized W-band points, saturation-aware.
@@ -70,7 +68,7 @@ Finding Planet X; training a deep-learning model from scratch; mobile app; user 
 | M0 Kickoff | Sat 11:00 | repo + docs + ops live; every agent has role file and an assigned issue; data zip available |
 | M1 Walking skeleton | Sat 13:30 | deployed URL shows the WISE 0855 movie (WISE W2 epochs + SPHEREx D6) from a real bundle, play/pause works |
 | M2 Core complete | Sat 18:30 | all P0-1…P0-6 for all 5 targets on the deployed URL; P0-7 at least WISE-live; vertical slice tested by pitch role |
-| M3 Winning layer | Sat 22:30 | P0-9 table done; P1-1, P1-3, P1-4 for the 5 targets; demo script rehearsed once on the real site |
+| M3 Science layer | Sat 22:30 | P0-9 table done; P1-1, P1-3, P1-4 for the 5 targets; demo script rehearsed once on the real site |
 | Night | Sat 22:30–24:00 | deploy, record rough demo video; people go home before transport stops; remote work allowed |
 | M4 Feature freeze | Sun 10:30 | only bug fixes after this; P1-5/P1-6 if ready; final deploy tagged `v1.0` |
 | Submit | Sun 14:30 | Space Apps project page complete and submitted; all links tested in a private window |
