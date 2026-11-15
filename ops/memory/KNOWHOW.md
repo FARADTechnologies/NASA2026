@@ -32,3 +32,4 @@
 [orchestrator] GitHub's PR merge ignores .gitattributes merge=union → KNOWHOW.md conflicts on PRs; fix: merge origin/main into the role branch locally (union applies) and push, then merge the PR.
 [orchestrator] Repo visibility change needs admin: only FARADTechnologies (captain) can make NASA2026 public; agents' accounts have push only.
 [pipeline] 15 Nov: ESA Gaia TAP, CDS (vizier.cds/tapvizier) and IRSA TAP failed (reset/502) while VizieR mirrors vizier.cfa.harvard.edu + vizier.idia.ac.za worked. VizieR gotchas: requests encodes II/365/catwise as II%2F365%2Fcatwise -> 0 rows; any -out= list on CatWISE -> 0 rows; use hand-built URL + -out.all.
+[orchestrator] Live-field files from the API must not be long-cached: Vercel CDN honoured max-age=86400 on /api/fields/* and kept stale rebuilt fields. Now JSON no-cache, binaries max-age=60. Purge: `cd web && npx vercel cache purge --type cdn --yes`. Note: the API answers GET only (curl -I → 405).
