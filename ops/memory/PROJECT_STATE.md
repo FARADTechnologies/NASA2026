@@ -1,5 +1,5 @@
 # PROJECT STATE — written ONLY by the orchestrator. Keep under ~70 lines. Update at every checkpoint and after big changes.
-Last update: Sun 10:47 by orchestrator
+Last update: Sun 12:12 by orchestrator
 
 ## Milestone
 M0 14:20 · M1 14:55 · M2+M3 posted late (Sat 23:25, #30) · **M4 FREEZE done Sun 10:45: tag `v1.0` (fe05969), #31 closed.**
