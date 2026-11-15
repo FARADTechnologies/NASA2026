@@ -4,7 +4,7 @@ import type { AskAction } from "./commandBridge";
 
 // includes common speech-recognition mishearings ("planet star", "Bernard", "our Draconis", ...)
 const FIELD_WORDS: [RegExp, string][] = [
-  [/(barnar[dt]?|bernar[dt]?|barnyard|barn ?ard|burnard|bonard|barnet|planet star)/i, "barnard"],
+  [/(barnard|bernard|barnyard|barn ?ard|burnard|bonard|barnet|planet star|barnards)/i, "barnard"],
   [/(eps(ilon)?\.?\s*ind(i|us|ie|y|ia)?\s*b|ε\s*ind|epsilon in(dy|die|the) b)/i, "eps_indi_b"],
   [/(wise\s*0?8\s*55|0855|wise zero eight five five|wise oh eight five five|y'?s 0?855|coldest brown dwarf|en soğuk|ən soyuq)/i, "wise0855"],
   [/(rw\s*aur|r\.?\s*w\.?\s*auri?ga)/i, "rw_aur"],
@@ -67,15 +67,10 @@ export function parseCommand(input: string): AskAction[] {
     else if (has(t, /motion|move|moving|movement|hareket|hərəkət|tour|tur/) || out.some((a) => a.type === "open_field")) out.push({ type: "show_spectral_motion" });
     else out.push({ type: "set_fingerprint", on: true, which: "last" });
   }
-  // 6a. "tell me about X" → guided tour: the movie, then each card on the page (motion, explanation, light curve, spectrum), read aloud
-  const tell = has(t, /(tell me|talk|speak) about|tell me more|everything about|info(rmation)? (about|on)|guide me|walk me through|introduce|haqq?[ıi]nda|dan[ıi][şs]|m[əe]lumat|hakk[ıi]nda|bilgi|anlat|tan[ıi]t|tan[ıi][şs] et/)
-    && !out.some((a) => a.type === "show_spectral_motion");
-  if (tell) out.push({ type: "tell_about", lang: has(t, /in english|ingilis|ingiliz/) ? "en"
-    : has(t, /azerbaijani|azərbaycan|azerbaycan|\baz\b|ə|haqq|dan[ıi][şs]|m[əe]lumat|ulduz|hakk|anlat|bilgi|tan[ıi]t/) ? "az" : "en" });
-  // 6. panels / explanation (the guided tour already covers them)
-  if (!tell && has(t, /spectrum|spektr/) && !out.some((a) => a.type === "show_spectral_motion" || a.type === "set_fingerprint")) out.push({ type: "show_spectrum" });
-  if (!tell && has(t, /light ?curve|ışık eğrisi|işıq əyrisi|brightness over time/)) out.push({ type: "show_lightcurve" });
-  if (!tell && has(t, /explain|what is this|açıkla|izah|nədir|nedir/)) out.push({ type: "explain", lang: has(t, /azerbaijani|azərbaycan|azerbaycan|\baz\b/) ? "az" : "en" });
+  // 6. panels / explanation
+  if (has(t, /spectrum|spektr/) && !out.some((a) => a.type === "show_spectral_motion" || a.type === "set_fingerprint")) out.push({ type: "show_spectrum" });
+  if (has(t, /light ?curve|ışık eğrisi|işıq əyrisi|brightness over time/)) out.push({ type: "show_lightcurve" });
+  if (has(t, /explain|what is this|açıkla|anlat|izah|nədir|nedir/)) out.push({ type: "explain", lang: has(t, /azerbaijani|azərbaycan|azerbaycan|\baz\b/) ? "az" : "en" });
 
   // 7. transport
   if (has(t, /\bstep back|previous frame|geri\b/)) out.push({ type: "step", direction: -1 });
@@ -109,6 +104,5 @@ export function describe(a: AskAction): string {
     case "explain": return `Show our fact-checked explanation (${a.lang === "az" ? "Azerbaijani" : "English"})`;
     case "set_fingerprint": return a.on === false ? "Spectral fingerprint off" : "Full spectral view (SPHEREx colour fingerprint)";
     case "show_spectral_motion": return "Spectral tour: the 16-year movie, then the SPHEREx colours epoch by epoch, then the spectrum";
-    case "tell_about": return `Guided tour (${a.lang === "az" ? "Azerbaijani" : "English"}): the movie, then each card on the page — motion, explanation, light curve, spectrum — read aloud`;
   }
 }

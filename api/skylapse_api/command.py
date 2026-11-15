@@ -52,8 +52,6 @@ TOOLS = [
      "input_schema": {"type": "object", "properties": {"on": {"type": "boolean"}, "which": {"type": "string", "enum": ["first", "last", "next"]}}}},
     {"name": "show_spectral_motion", "description": "Agentic tour of the current/just-opened target: play the 16-year movie with the target ring, then step through the SPHEREx colour fingerprint epoch by epoch, then show the spectrum. Use for 'show its motion in full spectral / all colours'.",
      "input_schema": {"type": "object", "properties": {}}},
-    {"name": "tell_about", "description": "Guided tour of the current/just-opened target: play its movie, then scroll through each card on the page (measured motion, plain-words explanation, light curve, spectrum) and read aloud what the page shows. Use for 'tell me about X', 'what do we know about X', 'X haqqında danış / məlumat ver', 'X hakkında anlat / bilgi ver'. lang: az for Azerbaijani or Turkish requests, else en.",
-     "input_schema": {"type": "object", "properties": {"lang": {"type": "string", "enum": sorted(LANGS)}}}},
     {"name": "show_spectrum", "description": "Scroll to the object's SPHEREx spectrum.", "input_schema": {"type": "object", "properties": {}}},
     {"name": "show_lightcurve", "description": "Scroll to the object's light curve.", "input_schema": {"type": "object", "properties": {}}},
     {"name": "explain", "description": "Show our precomputed, fact-checked explanation of the current object in English (en) or Azerbaijani (az).",
@@ -65,7 +63,7 @@ SYSTEM = (
     "Translate the user's command (English, Turkish or Azerbaijani) into one or more tool calls, in the order they should run. "
     "Use ONLY the tools. Never answer questions in text and never state facts or numbers. Numbers in tool inputs must come from the "
     "user's own words (for 'double speed' use factor 2; 'half speed' factor 0.5). 'Compare 2010 with today' = set_compare vs2010 + "
-    "go_to_frame last + pause. 'Difference mode' or 'compare' without a qualifier = set_compare vs2010. Return ALL needed tool calls in ONE response (multi-step commands need several calls). 'Find/locate/show X' = open that target. 'Show its motion in full spectral / all colours / spectral view' = open the target (if named) + show_spectral_motion. 'Spectral fingerprint' alone = set_fingerprint. Commands often come from speech recognition: 'planet star', 'Bernard', 'barnyard star' mean Barnard's Star; 'our Draconis' = R Draconis; 'Y's 0855' = WISE 0855; 'full spectrum view' = full spectral view. Turkish/Azerbaijani requests for an explanation in Azerbaijani → explain az; otherwise explain en. 'Tell me about X' / 'X haqqında danış' / 'X hakkında anlat' = open the target (if named) + tell_about (not explain); it works from the home page too. "
+    "go_to_frame last + pause. 'Difference mode' or 'compare' without a qualifier = set_compare vs2010. Return ALL needed tool calls in ONE response (multi-step commands need several calls). 'Find/locate/show X' = open that target. 'Show its motion in full spectral / all colours / spectral view' = open the target (if named) + show_spectral_motion. 'Spectral fingerprint' alone = set_fingerprint. Commands often come from speech recognition: 'planet star', 'Bernard', 'barnyard star' mean Barnard's Star; 'our Draconis' = R Draconis; 'Y's 0855' = WISE 0855; 'full spectrum view' = full spectral view. Turkish/Azerbaijani requests for an explanation in Azerbaijani → explain az; otherwise explain en. "
     f"Known fields: {', '.join(f'{k} = {v}' for k, v in FIELDS.items())}. Named live fields (use open_coordinates with exactly these): "
     "Luhman 16 = 162.3057 -53.3177, Teegarden's Star = 43.2716 16.8623, Kapteyn's Star = 77.9651 -45.0470. "
     "If the command cannot be done with the tools, call no tool."
@@ -144,8 +142,6 @@ def validate(actions: list[dict], text: str) -> tuple[list[dict], list[str]]:
                 ok.append({"type": t, "direction": -1 if int(p.get("direction", 1)) < 0 else 1})
             elif t == "go_to_frame" and p.get("which") in ("first", "last"):
                 ok.append({"type": t, "which": p["which"]})
-            elif t == "tell_about":
-                ok.append({"type": t, "lang": p["lang"] if p.get("lang") in LANGS else "en"})
             elif t == "explain" and p.get("lang") in LANGS:
                 ok.append({"type": t, "lang": p["lang"]})
             else:
