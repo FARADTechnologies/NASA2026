@@ -28,7 +28,7 @@ export function SearchBox({ compact }: { compact?: boolean }) {
   return (
     <form className={"search" + (compact ? " compact" : "")} onSubmit={submit}>
       <Search className="search-ico" size={compact ? 15 : 18} strokeWidth={1.75} aria-hidden />
-      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={compact ? "Name or RA Dec…" : "Search a star name or RA Dec — e.g. Barnard's Star, 08h55m10.8s −07d14m42s"} aria-label="Search sky position" />
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={compact ? "Name or RA Dec…" : "Star name or coordinates, e.g. Barnard's Star"} aria-label="Search sky position" />
       <button className="btn primary" disabled={busy}>{busy ? "…" : compact ? "Go" : "Open"}</button>
       {msg && <div className="search-msg">{msg}</div>}
     </form>

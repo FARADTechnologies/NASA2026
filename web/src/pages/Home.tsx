@@ -38,10 +38,10 @@ export function Home() {
         <div className="hero-inner">
           <div className="eyebrow">NASA Space Apps 2026 · Planet X and SPHEREx</div>
           <h1>Watch <span className="num">16 years</span> of the infrared sky and catch what moves.</h1>
-          <p className="lede">SkyLapse joins NASA's <span className="inst i-wise"><i />WISE/NEOWISE</span> (2010–2024) and <span className="inst i-spx"><i />SPHEREx</span> (2025–2026)
-            into one movie of any patch of sky, so nearby brown dwarfs and fast stars visibly move across the screen.</p>
+          <p className="lede">Two NASA telescopes photographed the same sky years apart: WISE from 2010 to 2024, SPHEREx since 2025.
+            We line up their pictures of one small patch and play them in order. The stars that drift are our neighbours.</p>
           <SearchBox />
-          <ol className="how"><li>Pick a target</li><li>Watch 16 years play</li><li>The moving dot is the object</li></ol>
+          <p className="how-line">Not sure where to start? Open one of NASA's five test targets below.</p>
         </div>
       </section>
       <section className="targets">

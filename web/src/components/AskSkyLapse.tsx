@@ -1,8 +1,8 @@
 // Ask SkyLapse — action-taking assistant (orchestrator, O6 #122). Text or voice command → validated viewer actions.
 // Not a chatbot: it never answers with numbers or facts; it only drives the viewer and shows what it did.
-// One mount point: <AskSkyLapse /> in the header. Styles are inline so the theme redesign cannot break it.
+// One mount point: <AskSkyLapse /> in the header (floats bottom-right as a chat widget; styles: .ask-* in styles.css).
 import { useEffect, useRef, useState } from "react";
-import { Mic, Sparkles, Square } from "lucide-react";
+import { ArrowUp, MessageCircle, Mic, Square, X } from "lucide-react";
 import { navigate } from "../lib/router";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
 import { ACTIONS_EVENT, READY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
@@ -71,6 +71,8 @@ export function AskSkyLapse() {
   // write the module copy first: after a command opens a new page this instance is already unmounted
   const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); };
   const inputRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { const b = bodyRef.current; if (b) b.scrollTop = b.scrollHeight; }, [log, busy, open]);
   const recRef = useRef<any>(null);
   const SR: any = typeof window !== "undefined" ? ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition) : null;
 
@@ -109,43 +111,63 @@ export function AskSkyLapse() {
     setListening(true); setOpen(true); rec.start();
   }
 
-  const btn: React.CSSProperties = { border: "1px solid var(--line, #2a3550)", background: "var(--panel, #111a2b)", color: "var(--text, #e8eefc)",
-    borderRadius: 8, padding: "6px 10px", cursor: "pointer", font: "inherit", fontSize: 13 };
+  const Avatar = ({ big }: { big?: boolean }) => (
+    <span className={"ask-avatar" + (big ? " lg" : "")} aria-hidden>
+      <svg viewBox="0 0 32 32" width={big ? 30 : 18} height={big ? 30 : 18}><circle cx="8" cy="22" r="3" fill="#F0A040" opacity=".55" /><circle cx="16" cy="16" r="3.2" fill="#F0A040" /><circle cx="24" cy="10" r="3.6" fill="#3CC0D6" /></svg>
+    </span>
+  );
+  const sourceLabel = (s: LogItem["source"]) => (s === "claude" ? "understood by Claude (AI)" : s === "local" ? "understood offline" : "not understood");
   return (
-    <div style={{ position: "relative" }}>
-      <button style={{ ...btn, borderColor: "var(--accent, #4cc9f0)" }} onClick={() => setOpen((o) => !o)} aria-expanded={open} title="Ask SkyLapse — drive the viewer by voice or text">
-        <Sparkles size={14} strokeWidth={1.75} style={{ verticalAlign: -2, marginRight: 6 }} />Ask SkyLapse
-      </button>
+    <div className="ask">
+      {!open && (
+        <button className="ask-launcher" onClick={() => setOpen(true)} aria-expanded={false} title="Ask SkyLapse — drive the viewer by voice or text">
+          <MessageCircle size={18} strokeWidth={1.9} /> Ask SkyLapse
+        </button>
+      )}
       {open && (
-        <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
-          background: "var(--panel, #0d1424)", color: "var(--text, #e8eefc)", border: "1px solid var(--line, #2a3550)", borderRadius: 12,
-          boxShadow: "0 12px 40px rgba(0,0,0,.45)", padding: 12 }}>
-          <div style={{ fontSize: 12, opacity: .75, marginBottom: 8 }}>Tell SkyLapse what to do — it drives the viewer. It does not make up facts or numbers.</div>
-          <form onSubmit={(e) => { e.preventDefault(); run(text); }} style={{ display: "flex", gap: 6 }}>
-            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? "Listening…" : "e.g. compare 2010 with today"}
-              aria-label="Command" style={{ ...btn, flex: 1, cursor: "text" }} disabled={busy} />
-            {SR && <button type="button" onClick={listen} style={{ ...btn, background: listening ? "#c0392b" : btn.background }} title="Speak a command" aria-pressed={listening}>{listening ? <Square size={14} strokeWidth={2} style={{ verticalAlign: -2 }} /> : <Mic size={14} strokeWidth={1.75} style={{ verticalAlign: -2 }} />}</button>}
-            <select value={lang} onChange={(e) => setLang(e.target.value)} style={btn} aria-label="Voice language">
+        <div role="dialog" aria-label="Ask SkyLapse" className="ask-panel">
+          <header className="ask-head">
+            <Avatar />
+            <div className="ask-title"><b>SkyLapse assistant</b><span>Moves the viewer for you · uses only our data</span></div>
+            <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close" title="Close"><X size={18} strokeWidth={1.75} /></button>
+          </header>
+          <div className="ask-body" ref={bodyRef}>
+            <div className="ask-welcome">
+              <Avatar big />
+              <b>Salam! Hi!</b>
+              <p>Tell me what you want to see — in English or Azerbaijani, by typing or by voice.</p>
+            </div>
+            <div className="msg bot">I can open a target, compare years, change the speed or zoom, switch overlays, and show the spectrum or the explanation. I never make up numbers.</div>
+            {log.length === 0 && (
+              <div className="chips">
+                {EXAMPLES.map((x) => <button key={x} type="button" className="chip" onClick={() => run(x)}>{x}</button>)}
+              </div>
+            )}
+            {[...log].reverse().map((item, i) => (
+              <div key={i} className="turn">
+                <div className="msg me">{item.text}</div>
+                <div className="msg bot">
+                  {item.actions.length > 0 && <ul>{item.actions.map((a, k) => <li key={k}>{a}</li>)}</ul>}
+                  {item.note && <p>{item.note}</p>}
+                  <span className="msg-meta">{sourceLabel(item.source)}</span>
+                </div>
+              </div>
+            ))}
+            {busy && <div className="msg bot typing" aria-label="Working"><i /><i /><i /></div>}
+          </div>
+          <form className="ask-input" onSubmit={(e) => { e.preventDefault(); run(text); }}>
+            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? "Listening…" : "Write a message…"}
+              aria-label="Command" disabled={busy} />
+            {SR && (
+              <button type="button" className={"icon-btn" + (listening ? " rec" : "")} onClick={listen} title="Speak a command" aria-pressed={listening}>
+                {listening ? <Square size={15} strokeWidth={2} /> : <Mic size={16} strokeWidth={1.75} />}
+              </button>
+            )}
+            <select value={lang} onChange={(e) => setLang(e.target.value)} aria-label="Voice language" title="Voice language">
               {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>
-            <button type="submit" style={btn} disabled={busy}>{busy ? "…" : "Go"}</button>
+            <button type="submit" className="ask-send" disabled={busy || !text.trim()} aria-label="Send" title="Send"><ArrowUp size={18} strokeWidth={2} /></button>
           </form>
-          {log.length === 0 && (
-            <div style={{ marginTop: 10, fontSize: 12, opacity: .85 }}>Try:
-              {EXAMPLES.map((x) => <div key={x}><button type="button" onClick={() => run(x)} style={{ ...btn, padding: "2px 6px", marginTop: 4, fontSize: 12 }}>{x}</button></div>)}
-            </div>
-          )}
-          {log.length > 0 && (
-            <ol aria-label="Actions taken" style={{ listStyle: "none", padding: 0, margin: "10px 0 0", maxHeight: 260, overflow: "auto", fontSize: 12 }}>
-              {log.map((item, i) => (
-                <li key={i} style={{ borderTop: i ? "1px solid var(--line, #2a3550)" : "none", padding: "6px 0" }}>
-                  <div><b>“{item.text}”</b> <span style={{ opacity: .6 }}>· {item.source === "claude" ? "understood by Claude (AI)" : item.source === "local" ? "understood by the offline parser" : "not understood"}</span></div>
-                  {item.actions.map((a, j) => <div key={j} style={{ color: "var(--accent, #4cc9f0)" }}>→ {a}</div>)}
-                  {item.note && <div style={{ opacity: .75 }}>{item.note}</div>}
-                </li>
-              ))}
-            </ol>
-          )}
         </div>
       )}
     </div>
