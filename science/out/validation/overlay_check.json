@@ -1,0 +1,86 @@
+[
+ {
+  "label": "Luhman 16",
+  "field": "live_162d3288_m53d3195_e654cb",
+  "state": "done",
+  "seconds": 20,
+  "frames": 50,
+  "catalog_rows": {
+   "gaia": 1577,
+   "catwise": 1609
+  },
+  "first_date": "2010-01-09",
+  "first_n": 224,
+  "first_median_px": 0.07,
+  "first_p90_px": 1.51,
+  "last_date": "2024-06-14",
+  "last_n": 189,
+  "last_median_px": 0.11,
+  "last_p90_px": 1.63,
+  "movers_error": "HTTP Error 404: Not Found",
+  "movers": []
+ },
+ {
+  "label": "Teegarden's Star",
+  "field": "live_043d2537_p16d8813_b69148",
+  "state": "done",
+  "seconds": 16,
+  "frames": 48,
+  "catalog_rows": {
+   "gaia": 113,
+   "catwise": 969
+  },
+  "first_date": "2010-02-01",
+  "first_n": 22,
+  "first_median_px": 0.06,
+  "first_p90_px": 0.14,
+  "last_date": "2024-01-14",
+  "last_n": 22,
+  "last_median_px": 0.08,
+  "last_p90_px": 0.13,
+  "movers_error": "HTTP Error 404: Not Found",
+  "movers": []
+ },
+ {
+  "label": "Kapteyn's Star",
+  "field": "live_077d9191_m45d0184_47f141",
+  "state": "done",
+  "seconds": 12,
+  "frames": 46,
+  "catalog_rows": {
+   "gaia": 195,
+   "catwise": 1109
+  },
+  "first_date": "2010-02-22",
+  "first_n": 33,
+  "first_median_px": 0.04,
+  "first_p90_px": 0.23,
+  "last_date": "2024-02-06",
+  "last_n": 31,
+  "last_median_px": 0.07,
+  "last_p90_px": 0.16,
+  "movers_error": "HTTP Error 404: Not Found",
+  "movers": []
+ },
+ {
+  "label": "fresh coordinate",
+  "field": "live_030d1234_m20d4321_52188d",
+  "state": "done",
+  "seconds": 16,
+  "frames": 50,
+  "catalog_rows": {
+   "gaia": 82,
+   "catwise": 903
+  },
+  "first_date": "2010-01-08",
+  "first_n": 8,
+  "first_median_px": 0.1,
+  "first_p90_px": 0.25,
+  "last_date": "2024-07-12",
+  "last_n": 7,
+  "last_median_px": 0.12,
+  "last_p90_px": 0.2,
+  "movers_error": "HTTP Error 404: Not Found",
+  "movers": []
+ }
+]
