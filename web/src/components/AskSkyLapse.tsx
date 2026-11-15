@@ -139,7 +139,8 @@ export function AskSkyLapse() {
       actions = local; source = "local";
     } else if (!actions.length) source = res ? "claude" : "none";
     let note: string | undefined;
-    if (actions.length) note = await applyActions(actions);
+    let blocked = false;
+    if (actions.length) { note = await applyActions(actions); blocked = !!note; }
     else note = "I can only drive the viewer (open a target, compare, speed, zoom, overlays, spectrum, explanation). Try: “" + EXAMPLES[1] + "”.";
     if (picked) note = [picked, note].filter(Boolean).join(" · ");
     if (rejected.length) note = [note, "Ignored: " + rejected.join("; ")].filter(Boolean).join(" · ");
@@ -147,7 +148,8 @@ export function AskSkyLapse() {
     if (voice) {
       const ex = actions.find((a) => a.type === "explain") as { type: "explain"; lang: "en" | "az" } | undefined;
       if (ex) setTimeout(() => speak(copilotText() || "The explanation is not available for this object.", ex.lang === "az" ? "az-AZ" : "en-US"), 1400);
-      else if (!actions.some((a) => a.type === "show_spectral_motion")) speak(actions.length ? actions.map(describe).join(". ") + "." : "Sorry, I can only drive the viewer.", "en-US");
+      else if (blocked || !actions.length) speak(blocked ? "I need a target first. Say, for example: show Barnard's Star." : "Sorry, I can only drive the viewer. Try: compare 2010 with today.", "en-US");
+      else if (!actions.some((a) => a.type === "show_spectral_motion")) speak(actions.map(describe).join(". ") + ".", "en-US");
     }
     setText(""); setBusy(false);
   }
