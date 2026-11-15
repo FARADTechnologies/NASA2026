@@ -1,5 +1,5 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov 00:45 Baku (2nd computer, user knany)
+Last update: Sun 15 Nov ~11:40 Baku (Kanan's PC)
 
 ## Current task
 #78 T9 live API test + demo pre-warm: done, submitted (review). Fixes merged: PR #87 (WISE-only no TAP hang), PR #100 (NEP epochs, missing epoch).
@@ -17,8 +17,8 @@ Teegarden (43.2716 16.8623), Kapteyn (77.9651 -45.0470), fov 8.8. Table: pipelin
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- `.venv/Scripts/python.exe ops/bin/skyops.py next --wait 540` (plain `python` is broken on this computer).
-- When science writes motion.track into the bundle: rerun `cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline movies`.
+- FEATURE FREEZE active (human, Sun ~11:40): only bug fixes. pitch/video movies stay as they are (catalogue-motion ring) — do NOT regenerate.
+- All issues T1–T9 closed, all PRs merged. Loop: `.venv/Scripts/python.exe ops/bin/skyops.py next --wait 540`.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py
