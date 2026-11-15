@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15:45 Baku
+Last update: Sun 17:35 Baku
 
 ## Current task
-v2.4 for deploy (Azer: "deploy et, chatbotu biraz duzelt"): chat-widget Ask SkyLapse (merged onto orchestrator's voice version: ElevenLabs/browser voice, voice toggle, SAY_EVENT, fuller reading), language chips AZ/EN/TR + AZ texts, calmer object card, plainer home copy. PR to main, orchestrator asked to merge+deploy.
+PR #145 (render only): Ask SkyLapse chat-widget look re-applied on main's 15:34 logic (orchestrator rolled AskSkyLapse back to 15:34, D-032, which dropped the chat look; object card + home copy from #142 survived). Asked orchestrator to merge+deploy (#146).
 
 ## Status
-Checklist 48/50 at 2.5 s Ask wait (API ~2.2–2.9 s); Ask passes 4/4 with longer wait; no console errors. Gotcha: AskSkyLapse.tsx is edited by the orchestrator too → on conflict take theirs and re-apply the render (scratchpad patch_v25.py).
+Only web/src/components/AskSkyLapse.tsx changed; run/listen/speak/callApi untouched; build OK; Ask command 4/4; no console errors. Render patch: scratchpad patch_v26.py.
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
