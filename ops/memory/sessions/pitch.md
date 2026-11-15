@@ -16,14 +16,14 @@ All Saturday pitch deliverables done. Gaps depend on other agents: light curves 
   https://docs.google.com/presentation/d/1IdgZwwna3FG_qA31ovPNDHE3TScZNbb8/edit?usp=sharing
 - QA: R1 (mock) #25, R2/R2b real targets #64 → docs/QA.md. Bugs: #45 fixed, #65 (Gaia clutter, fix on role/frontend not deployed), #66 (empty panels).
 - Validation: Barnard 99.8 %, ε Indi B 99.0 % (+99.3 % co-motion with A), WISE 0855 99.9 % (science/VALIDATION.md).
-- A3 #24: Vugar Aliyev notes in pitch/MENTOR_NOTES.md, sent to orchestrator #52.
+- A3 #24: mentor session 1 notes in pitch/MENTOR_NOTES.md, sent to orchestrator #52.
 
 ## Next step (exact, so a fresh session can continue blindly)
 0. DO NOT touch the deck. Facts go to pitch/FACTS.md; offer them to Amal, she edits slides herself.
 1. `python ops/bin/skyops.py next --wait 540` loop.
 2. When target.json has `lightcurve`/`copilot` (check: curl https://skylapse.vercel.app/bundle/<field>/objects/target.json) → QA R3,
    DONE Sun 00:20: light curves + copilot EN/AZ live; deck v3 (pitch/slides/SkyLapse_FARAD_v3.pptx) + backup video pitch/video/SkyLapse_demo_backup.mp4 (1:22) sent to Amal.
-3. Sun 11:00 Tural Salmanov rehearsal (A3 session 2 + A6): full timed run ≤ 4:40 on the live site; fill MENTOR_NOTES session 2.
+3. Sun 11:00 mentor rehearsal (A3 session 2 + A6): full timed run ≤ 4:40 on the live site; fill MENTOR_NOTES session 2.
 4. A6 (#27, after `approved`): follow pitch/SUBMISSION_CHECKLIST.md. PROJECT_PAGE is filled except 3 links: 30-s video (file pitch/video/SkyLapse_30s.mp4 ready — a human uploads it), final deck link (Amal), repo public (Murad ~13:00). Test every link in a private window, submit by 14:30 with Murad.
 
 ## Files touched

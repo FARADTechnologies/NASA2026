@@ -1,6 +1,6 @@
 # Jury Q&A — prepared answers (A5, issue #26)
 Q&A is 5 minutes. Answer in 2 sentences, then stop. Numbers in `[brackets]` wait for `science/VALIDATION.md` / the deployed site.
-Jury: IDDA (digital innovation), Azercosmos (space agency / satellite operator), Baku Engineering University. None are astronomers.
+Audience: non-specialist judges — answers avoid jargon.
 Who answers: Amal by default; Murad for deep technical questions (pipeline, data, validation).
 
 ## A. The idea

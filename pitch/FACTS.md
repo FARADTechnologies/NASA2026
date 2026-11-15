@@ -20,7 +20,7 @@ Rule: a fact is usable on stage only when Status = ✅ (source is a repo file wi
 | F15 | Blind automatic search recovered 3 / 3 NASA movers with 0 false candidates in 5 fields | science/DISCOVERY.md; candidates.json stats | ✅ |
 | F16 | AI copilot texts EN + AZ live for the targets, generated only from computed facts ("Written by AI only from the measured facts above") | deployed site panel; science S5 #11 | ✅ |
 | F17 | New sky position → 14-year WISE movie in about half a minute: WISE ready 11–23 s, finished 20–33 s (two independent tests; up to 38 s seen; pitch's own test Sun 01:05: done in 12 s) | science/IMPACT_NUMBERS.md §1; docs/QA.md R3 | ✅ (say the range, not one run) |
-| F18 | Any sky position, free, no login, browser only; first users university students (mentor V. Aliyev) | live site; pitch/MENTOR_NOTES.md | ✅ |
+| F18 | Any sky position, free, no login, browser only; first users university students (mentor feedback) | live site; pitch/MENTOR_NOTES.md | ✅ |
 | F19 | Cost ≈ 0 per user: NASA/ESA open data, static bundle on free Vercel tier, one small API server for live fields (Railway trial, D-015) | ops/memory/PROJECT_STATE.md (Deployed); docs/ARCHITECTURE.md | ✅ (no money figure) |
 | F20 | CatWISE2020 lists ε Indi B at (0.90, −0.68) ″/yr ≈ 1.1″/yr; true ≈ 4.7″/yr (Gaia DR3 4684 mas/yr) — "a quarter of the true speed" | docs/METHODOLOGY.md B; docs/SCIENCE_NOTES.md §7 | ✅ |
 | F21 | Manual alternative ≈ 2–3 h of expert work per field (46–96 WISE images, ~45 min SPHEREx downloads, ≥1 h cleaning/aligning, 30–60 min blinking) — an ESTIMATE; say "hours of expert work become half a minute", never "200×" as measured | science/IMPACT_NUMBERS.md §4 | ✅ as estimate |
