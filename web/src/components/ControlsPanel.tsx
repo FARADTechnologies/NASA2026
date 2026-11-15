@@ -17,7 +17,7 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
   const co = /^(\d+)-(\d+)$/.exec(view.coadd);
   const coA = co ? +co[1] : 0, coB = co ? +co[2] : Math.max(0, n - 1);
   const toggleOverlay = (k: string) => update({ overlay: view.overlay.includes(k) ? view.overlay.filter((x) => x !== k) : [...view.overlay, k] });
-  const advancedActive = !!view.coadd || view.min !== 30 || view.max !== 99.8 || view.overlay.includes("catwise") || view.overlay.includes("mask") || view.overlay.includes("gaiaall");
+  const advancedActive = view.min !== 30 || view.max !== 99.8 || view.overlay.includes("catwise") || view.overlay.includes("mask") || view.overlay.includes("gaiaall");
 
   return (
     <aside className={"panel controls" + (open ? " open" : "")}>
@@ -43,7 +43,8 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
       </section>
 
       <section>
-        <h3>Compare times <Tip text="Shows only what changed: moving objects appear as a black/white pair (black = where it was, white = where it is now)." /></h3>
+        <h3>Add or subtract times <Tip text="Subtract: shows only what changed — a moving object appears as a black/white pair (black = where it was, white = where it is now). Add: averages many frames into one deeper image." /></h3>
+        <div className="sub-label">Subtract <span className="muted">(what changed)</span></div>
         <div className="seg seg-grid">
           {([["none", "Off"], ["first", "vs 2010"], ["prev", "vs previous"], ["ref", "vs chosen"]] as const).map(([k, l]) => (
             <button key={k} className={view.diff === k ? "on" : ""} disabled={!!view.coadd}
@@ -53,6 +54,19 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
         </div>
         {view.diff === "ref" && (
           <button className="btn small" onClick={() => update({ ref: seqFrames[idx]?.id ?? "" })}>Use current frame ({seqFrames[idx]?.date}) as reference</button>
+        )}
+        <div className="sub-label">Add <span className="muted">(deeper image)</span></div>
+        <label className="check" title="Averages several frames into one deeper image (fainter things become visible; moving things smear).">
+          <input type="checkbox" checked={!!view.coadd} onChange={(e) => update({ coadd: e.target.checked ? `0-${Math.max(0, n - 1)}` : "", diff: "none" })} />
+          <span>Add frames together (average a time range)</span>
+        </label>
+        {view.coadd && n > 0 && (
+          <div className="coadd">
+            <label className="slider"><span>From <b className="mono">{seqFrames[Math.min(coA, n - 1)]?.date}</b></span>
+              <input type="range" min={0} max={n - 1} value={coA} onChange={(e) => update({ coadd: `${Math.min(+e.target.value, coB)}-${coB}` })} /></label>
+            <label className="slider"><span>To <b className="mono">{seqFrames[Math.min(coB, n - 1)]?.date}</b></span>
+              <input type="range" min={0} max={n - 1} value={coB} onChange={(e) => update({ coadd: `${coA}-${Math.max(+e.target.value, coA)}` })} /></label>
+          </div>
         )}
       </section>
 
@@ -94,20 +108,6 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
             <span>White point <b className="mono">{view.max}%</b></span>
             <input type="range" min={60} max={100} step={0.1} value={view.max} onChange={(e) => update({ max: Math.max(+e.target.value, view.min + 1) })} />
           </label>
-        </section>
-        <section>
-          <label className="check" title="Averages several frames into one deeper image (fainter things become visible; moving things smear).">
-            <input type="checkbox" checked={!!view.coadd} onChange={(e) => update({ coadd: e.target.checked ? `0-${Math.max(0, n - 1)}` : "", diff: "none" })} />
-            <span>Co-add (average a time range)</span>
-          </label>
-          {view.coadd && n > 0 && (
-            <div className="coadd">
-              <label className="slider"><span>From <b className="mono">{seqFrames[Math.min(coA, n - 1)]?.date}</b></span>
-                <input type="range" min={0} max={n - 1} value={coA} onChange={(e) => update({ coadd: `${Math.min(+e.target.value, coB)}-${coB}` })} /></label>
-              <label className="slider"><span>To <b className="mono">{seqFrames[Math.min(coB, n - 1)]?.date}</b></span>
-                <input type="range" min={0} max={n - 1} value={coB} onChange={(e) => update({ coadd: `${coA}-${Math.max(+e.target.value, coA)}` })} /></label>
-            </div>
-          )}
         </section>
         <section>
           <h3>More overlays</h3>

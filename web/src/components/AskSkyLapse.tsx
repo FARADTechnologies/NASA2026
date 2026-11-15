@@ -117,7 +117,7 @@ export function AskSkyLapse() {
         <Sparkles size={14} strokeWidth={1.75} style={{ verticalAlign: -2, marginRight: 6 }} />Ask SkyLapse
       </button>
       {open && (
-        <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
+        <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
           background: "var(--panel, #0d1424)", color: "var(--text, #e8eefc)", border: "1px solid var(--line, #2a3550)", borderRadius: 12,
           boxShadow: "0 12px 40px rgba(0,0,0,.45)", padding: 12 }}>
           <div style={{ fontSize: 12, opacity: .75, marginBottom: 8 }}>Tell SkyLapse what to do — it drives the viewer. It does not make up facts or numbers.</div>
