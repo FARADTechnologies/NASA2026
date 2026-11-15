@@ -1,39 +1,16 @@
 // Ask SkyLapse — action-taking assistant (orchestrator, O6 #122). Text or voice command → validated viewer actions.
 // Not a chatbot: it never answers with numbers or facts; it only drives the viewer and shows what it did.
-// One mount point: <AskSkyLapse /> in the header (floats bottom-right as a chat widget; styles: .ask-* / .msg / .chip in styles.css).
+// One mount point: <AskSkyLapse /> in the header. Styles are inline so the theme redesign cannot break it.
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, MessageCircle, Mic, RotateCcw, Square, Volume2, VolumeX, X } from "lucide-react";
+import { Mic, Sparkles, Square } from "lucide-react";
 import { navigate } from "../lib/router";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
-import { ACTIONS_EVENT, READY_EVENT, SAY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
+import { ACTIONS_EVENT, READY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
 import { describe, parseCommand } from "../lib/askParser";
 
 type LogItem = { text: string; source: "claude" | "local" | "none"; actions: string[]; note?: string };
-const LANGS = [{ id: "az-AZ", label: "AZ", name: "Azərbaycan dili" }, { id: "en-US", label: "EN", name: "English" }, { id: "tr-TR", label: "TR", name: "Türkçe" }];
-// short chip labels → the full command that is sent
-const QUICK: { label: string; cmd: string }[] = [
-  { label: "Barnard's Star in full spectral view", cmd: "find Barnard's Star and show its motion in full spectral view" },
-  { label: "Barnard's Star, difference, 2× speed", cmd: "show Barnard's Star in difference mode at double speed" },
-  { label: "Compare 2010 with today", cmd: "compare 2010 with today" },
-  { label: "Go to Luhman 16", cmd: "go to RA 162.3 Dec -53.3" },
-  { label: "Show the spectrum", cmd: "show the spectrum" },
-  { label: "Explain in Azerbaijani", cmd: "explain this object in Azerbaijani" },
-];
-const TXT = {
-  en: { sub: "Online · uses only our data", hi: "Hi!", welcome: "Tell me what you want to see — type or speak.",
-    intro: "I can open a target, compare years, change speed or zoom, switch overlays, and show the spectrum or the explanation. I never make up numbers.",
-    lang: "Which language will you speak?", today: "Today", ph: "Write a message…", listening: "Listening…", reset: "New conversation", close: "Close",
-    voiceOn: "Voice replies on — AI-generated voice (ElevenLabs), browser voice as fallback", voiceOff: "Voice replies off",
-    voiceNote: "Spoken replies use an AI-generated voice (ElevenLabs).",
-    src: { claude: "understood by Claude (AI)", local: "understood offline", none: "not understood" } },
-  az: { sub: "Onlayn · yalnız bizim məlumat", hi: "Salam!", welcome: "Nə görmək istədiyinizi yazın və ya deyin.",
-    intro: "Hədəfi aça, illəri müqayisə edə, sürəti və miqyası dəyişə, işarələri açıb-bağlaya, spektri və izahı göstərə bilərəm. Rəqəm uydurmuram.",
-    lang: "Hansı dildə danışacaqsınız?", today: "Bu gün", ph: "Mesajınızı yazın…", listening: "Dinləyirəm…", reset: "Yeni söhbət", close: "Bağla",
-    voiceOn: "Səsli cavab açıqdır — süni intellekt səsi (ElevenLabs)", voiceOff: "Səsli cavab bağlıdır",
-    voiceNote: "Səsli cavablar süni intellektlə yaradılmış səsdir (ElevenLabs).",
-    src: { claude: "Claude (AI) başa düşdü", local: "oflayn başa düşüldü", none: "başa düşülmədi" } },
-};
-const EXAMPLES = ["find Barnard's Star and show its motion in full spectral view", "show Barnard's Star in difference mode at double speed", "compare 2010 with today", "go to RA 162.3 Dec -53.3",
+const LANGS = [{ id: "en-US", label: "EN" }, { id: "tr-TR", label: "TR" }, { id: "az-AZ", label: "AZ" }];
+const EXAMPLES = ["show Barnard's Star in difference mode at double speed", "compare 2010 with today", "go to RA 162.3 Dec -53.3",
   "show the spectrum", "explain this object in Azerbaijani"];
 const OPEN = new Set(["open_field", "open_coordinates"]);
 const VIEW_ONLY = new Set(["set_sequence", "set_compare", "set_speed", "set_stretch", "set_zoom", "toggle_overlay"]);
@@ -63,27 +40,7 @@ function waitForBridge(ms = 8000): Promise<boolean> {
 /** Opening a field: fold view-only actions into the URL; the rest runs once the new viewer is ready. */
 // Voice replies: the browser's built-in speech (Web Speech API, no key, not AI-generated audio).
 // It only reads our action log or our precomputed, fact-checked explanation — it never says anything else.
-let currentAudio: HTMLAudioElement | null = null;
-export let lastVoice: "elevenlabs" | "browser" | null = null;
-// ElevenLabs first (server-side key, AI voice), browser speech as the fallback
-async function speak(text: string, lang: string) {
-  if (!text) return;
-  try { currentAudio?.pause(); window.speechSynthesis?.cancel(); } catch { /* ignore */ }
-  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
-  try {
-    const r = await fetch("/api/speak", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
-      body: JSON.stringify({ text: text.slice(0, 900), lang: lang.slice(0, 2) }) });
-    if (r.ok && (r.headers.get("content-type") || "").startsWith("audio")) {
-      const url = URL.createObjectURL(await r.blob());
-      currentAudio = new Audio(url); lastVoice = "elevenlabs";
-      await currentAudio.play();
-      return;
-    }
-  } catch { /* fall through to the browser voice */ } finally { clearTimeout(timer); }
-  browserSpeak(text, lang);
-}
-function browserSpeak(text: string, lang: string) {
-  lastVoice = "browser";
+function speak(text: string, lang: string) {
   try {
     const s = window.speechSynthesis; if (!s || !text) return;
     s.cancel();
@@ -133,16 +90,12 @@ export function AskSkyLapse() {
   const [listening, setListening] = useState(false);
   const [lang, setLang] = useState(() => { try { return localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { return "en-US"; } });
   const [voice, setVoice] = useState(() => { try { return localStorage.getItem("skylapse.ask.voice") !== "off"; } catch { return true; } });
-  // the bridge narrates multi-step tours through this event
-  useEffect(() => { const on = (e: Event) => { if (voice) speak(String((e as CustomEvent).detail || ""), "en-US"); }; window.addEventListener(SAY_EVENT, on); return () => window.removeEventListener(SAY_EVENT, on); }, [voice]);
   const [log, setLogRaw] = useState<LogItem[]>(persist.log);
   // write the module copy first: after a command opens a new page this instance is already unmounted
   const setLog = (f: (l: LogItem[]) => LogItem[]) => { persist.log = f(persist.log); setLogRaw(persist.log); window.dispatchEvent(new Event("skylapse:asklog")); };
   // a command that opens a new page writes the log after this (new) instance mounted: listen for it
   useEffect(() => { const on = () => { setLogRaw(persist.log); setOpenRaw(persist.open); }; window.addEventListener("skylapse:asklog", on); return () => window.removeEventListener("skylapse:asklog", on); }, []);
   const inputRef = useRef<HTMLInputElement>(null);
-  const bodyRef = useRef<HTMLDivElement>(null);
-  useEffect(() => { const b = bodyRef.current; if (b) b.scrollTop = b.scrollHeight; }, [log, busy, open]);
   const recRef = useRef<any>(null);
   const SR: any = typeof window !== "undefined" ? ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition) : null;
 
@@ -164,8 +117,7 @@ export function AskSkyLapse() {
       actions = local; source = "local";
     } else if (!actions.length) source = res ? "claude" : "none";
     let note: string | undefined;
-    let blocked = false;
-    if (actions.length) { note = await applyActions(actions); blocked = !!note; }
+    if (actions.length) note = await applyActions(actions);
     else note = "I can only drive the viewer (open a target, compare, speed, zoom, overlays, spectrum, explanation). Try: “" + EXAMPLES[1] + "”.";
     if (picked) note = [picked, note].filter(Boolean).join(" · ");
     if (rejected.length) note = [note, "Ignored: " + rejected.join("; ")].filter(Boolean).join(" · ");
@@ -173,8 +125,7 @@ export function AskSkyLapse() {
     if (voice) {
       const ex = actions.find((a) => a.type === "explain") as { type: "explain"; lang: "en" | "az" } | undefined;
       if (ex) setTimeout(() => speak(copilotText() || "The explanation is not available for this object.", ex.lang === "az" ? "az-AZ" : "en-US"), 1400);
-      else if (blocked || !actions.length) speak(blocked ? "I need a target first. Say, for example: show Barnard's Star." : "Sorry, I can only drive the viewer. Try: compare 2010 with today.", "en-US");
-      else if (!actions.some((a) => a.type === "show_spectral_motion")) speak(actions.map(describe).join(". ") + ".", "en-US");
+      else speak(actions.length ? actions.map(describe).join(". ") + "." : "Sorry, I can only drive the viewer.", "en-US");
     }
     setText(""); setBusy(false);
   }
@@ -192,78 +143,45 @@ export function AskSkyLapse() {
     setListening(true); setOpen(true); rec.start();
   }
 
-  const toggleVoice = () => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) { try { window.speechSynthesis?.cancel(); } catch { /* ignore */ } } };
-  const T = lang.startsWith("az") ? TXT.az : TXT.en;
-  const Avatar = ({ big }: { big?: boolean }) => (
-    <span className={"ask-avatar" + (big ? " lg" : "")} aria-hidden>
-      <svg viewBox="0 0 32 32" width={big ? 30 : 18} height={big ? 30 : 18}><circle cx="8" cy="22" r="3" fill="#F0A040" opacity=".55" /><circle cx="16" cy="16" r="3.2" fill="#F0A040" /><circle cx="24" cy="10" r="3.6" fill="#3CC0D6" /></svg>
-    </span>
-  );
+  const btn: React.CSSProperties = { border: "1px solid var(--line, #2a3550)", background: "var(--panel, #111a2b)", color: "var(--text, #e8eefc)",
+    borderRadius: 8, padding: "6px 10px", cursor: "pointer", font: "inherit", fontSize: 13 };
   return (
-    <div className="ask">
-      {!open && (
-        <button className="ask-launcher" onClick={() => setOpen(true)} aria-expanded={false} title="Ask SkyLapse — drive the viewer by voice or text">
-          <MessageCircle size={18} strokeWidth={1.9} /> Ask SkyLapse
-        </button>
-      )}
+    <div style={{ position: "relative" }}>
+      <button style={{ ...btn, borderColor: "var(--accent, #4cc9f0)" }} onClick={() => setOpen((o) => !o)} aria-expanded={open} title="Ask SkyLapse — drive the viewer by voice or text">
+        <Sparkles size={14} strokeWidth={1.75} style={{ verticalAlign: -2, marginRight: 6 }} />Ask SkyLapse
+      </button>
       {open && (
-        <div role="dialog" aria-label="Ask SkyLapse" className="ask-panel">
-          <header className="ask-head">
-            <Avatar />
-            <div className="ask-title"><b>SkyLapse assistant</b><span><i className="ask-dot" />{T.sub}</span></div>
-            <button className="icon-btn" onClick={toggleVoice} aria-pressed={voice} aria-label={voice ? T.voiceOn : T.voiceOff} title={voice ? T.voiceOn : T.voiceOff}>
-              {voice ? <Volume2 size={17} strokeWidth={1.75} /> : <VolumeX size={17} strokeWidth={1.75} />}
-            </button>
-            {log.length > 0 && (
-              <button className="icon-btn" onClick={() => setLog(() => [])} aria-label={T.reset} title={T.reset}><RotateCcw size={16} strokeWidth={1.75} /></button>
-            )}
-            <button className="icon-btn" onClick={() => setOpen(false)} aria-label="Close" title={T.close}><X size={18} strokeWidth={1.75} /></button>
-          </header>
-          <div className="ask-body" ref={bodyRef}>
-            <div className="ask-welcome">
-              <Avatar big />
-              <b>{T.hi}</b>
-              <p>{T.welcome}</p>
-            </div>
-            <div className="ask-day"><span>{T.today}</span></div>
-            <div className="msg-row"><Avatar /><div className="msg bot">{T.intro}{voice && <span className="msg-meta">{T.voiceNote}</span>}</div></div>
-            <div className="msg-row"><Avatar /><div className="msg bot">{T.lang}</div></div>
-            <div className="chips">
-              {LANGS.map((l) => (
-                <button key={l.id} type="button" className={"chip" + (lang === l.id ? " on" : "")} onClick={() => setLang(l.id)} aria-pressed={lang === l.id}>
-                  <small>{l.label}</small> {l.name}
-                </button>
-              ))}
-            </div>
-            {log.length === 0 && (
-              <div className="chips">
-                {QUICK.map((q) => <button key={q.cmd} type="button" className="chip" onClick={() => run(q.cmd)} title={q.cmd}>{q.label}</button>)}
-              </div>
-            )}
-            {[...log].reverse().map((item, i) => (
-              <div key={i} className="turn">
-                <div className="msg me">{item.text}</div>
-                <div className="msg-row"><Avatar />
-                  <div className="msg bot">
-                    {item.actions.length > 0 && <ul>{item.actions.map((a, k) => <li key={k}>{a}</li>)}</ul>}
-                    {item.note && <p>{item.note}</p>}
-                    <span className="msg-meta">{T.src[item.source]}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {busy && <div className="msg-row"><Avatar /><div className="msg bot typing" aria-label="Working"><i /><i /><i /></div></div>}
-          </div>
-          <form className="ask-input" onSubmit={(e) => { e.preventDefault(); run(text); }}>
-            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? T.listening : T.ph}
-              aria-label="Command" disabled={busy} />
-            {SR && (
-              <button type="button" className={"icon-btn" + (listening ? " rec" : "")} onClick={listen} title={`Speak (${LANGS.find((l) => l.id === lang)?.name ?? lang})`} aria-pressed={listening}>
-                {listening ? <Square size={15} strokeWidth={2} /> : <Mic size={16} strokeWidth={1.75} />}
-              </button>
-            )}
-            <button type="submit" className="ask-send" disabled={busy || !text.trim()} aria-label="Send" title="Send"><ArrowUp size={18} strokeWidth={2} /></button>
+        <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
+          background: "var(--panel, #0d1424)", color: "var(--text, #e8eefc)", border: "1px solid var(--line, #2a3550)", borderRadius: 12,
+          boxShadow: "0 12px 40px rgba(0,0,0,.45)", padding: 12 }}>
+          <div style={{ fontSize: 12, opacity: .75, marginBottom: 8 }}>Tell SkyLapse what to do — it drives the viewer. It does not make up facts or numbers.</div>
+          <form onSubmit={(e) => { e.preventDefault(); run(text); }} style={{ display: "flex", gap: 6 }}>
+            <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? "Listening…" : "e.g. compare 2010 with today"}
+              aria-label="Command" style={{ ...btn, flex: 1, cursor: "text" }} disabled={busy} />
+            {SR && <button type="button" onClick={listen} style={{ ...btn, background: listening ? "#c0392b" : btn.background }} title="Speak a command" aria-pressed={listening}>{listening ? <Square size={14} strokeWidth={2} style={{ verticalAlign: -2 }} /> : <Mic size={14} strokeWidth={1.75} style={{ verticalAlign: -2 }} />}</button>}
+            <select value={lang} onChange={(e) => setLang(e.target.value)} style={btn} aria-label="Voice language">
+              {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
+            </select>
+            <button type="button" onClick={() => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) window.speechSynthesis?.cancel(); }}
+              style={btn} aria-pressed={voice} title={voice ? "Voice replies on (browser speech)" : "Voice replies off"}>{voice ? "🔊" : "🔇"}</button>
+            <button type="submit" style={btn} disabled={busy}>{busy ? "…" : "Go"}</button>
           </form>
+          {log.length === 0 && (
+            <div style={{ marginTop: 10, fontSize: 12, opacity: .85 }}>Try:
+              {EXAMPLES.map((x) => <div key={x}><button type="button" onClick={() => run(x)} style={{ ...btn, padding: "2px 6px", marginTop: 4, fontSize: 12 }}>{x}</button></div>)}
+            </div>
+          )}
+          {log.length > 0 && (
+            <ol aria-label="Actions taken" style={{ listStyle: "none", padding: 0, margin: "10px 0 0", maxHeight: 260, overflow: "auto", fontSize: 12 }}>
+              {log.map((item, i) => (
+                <li key={i} style={{ borderTop: i ? "1px solid var(--line, #2a3550)" : "none", padding: "6px 0" }}>
+                  <div><b>“{item.text}”</b> <span style={{ opacity: .6 }}>· {item.source === "claude" ? "understood by Claude (AI)" : item.source === "local" ? "understood by the offline parser" : "not understood"}</span></div>
+                  {item.actions.map((a, j) => <div key={j} style={{ color: "var(--accent, #4cc9f0)" }}>→ {a}</div>)}
+                  {item.note && <div style={{ opacity: .75 }}>{item.note}</div>}
+                </li>
+              ))}
+            </ol>
+          )}
         </div>
       )}
     </div>

@@ -2,13 +2,12 @@
 // Covers the ~10 most common commands in English, Turkish and Azerbaijani. Numbers come ONLY from the user's words.
 import type { AskAction } from "./commandBridge";
 
-// includes common speech-recognition mishearings ("planet star", "Bernard", "our Draconis", ...)
 const FIELD_WORDS: [RegExp, string][] = [
-  [/(barnard|bernard|barnyard|barn ?ard|burnard|bonard|barnet|planet star|barnards)/i, "barnard"],
-  [/(eps(ilon)?\.?\s*ind(i|us|ie|y|ia)?\s*b|ε\s*ind|epsilon in(dy|die|the) b)/i, "eps_indi_b"],
-  [/(wise\s*0?8\s*55|0855|wise zero eight five five|wise oh eight five five|y'?s 0?855|coldest brown dwarf|en soğuk|ən soyuq)/i, "wise0855"],
-  [/(rw\s*aur|r\.?\s*w\.?\s*auri?ga)/i, "rw_aur"],
-  [/(\br\s*dra(co(nis)?)?\b|\br\s*draconis|\b(our|are|ar)\s*draco|\br\s*dragon)/i, "r_dra"],
+  [/barnard/i, "barnard"],
+  [/(eps(ilon)?\.?\s*ind(i|us)?\s*b|ε\s*ind)/i, "eps_indi_b"],
+  [/(wise\s*0?855|0855|coldest brown dwarf|en soğuk|ən soyuq)/i, "wise0855"],
+  [/(rw\s*aur)/i, "rw_aur"],
+  [/(r\s*dra(co(nis)?)?\b|r\s*draconis)/i, "r_dra"],
 ];
 // named live demo fields — coordinates from our own file pipeline/qa/live_api_test.md (T9)
 const NAMED_LIVE: [RegExp, number, number][] = [
@@ -61,14 +60,8 @@ export function parseCommand(input: string): AskAction[] {
   if (has(t, /track|path|ring|iz\b|yol|halqa/)) out.push({ type: "toggle_overlay", overlay: "track", on: !off });
   if (has(t, /mask|saturat|doymuş/)) out.push({ type: "toggle_overlay", overlay: "mask", on: !off });
 
-  // 5b. full spectral view (SPHEREx colour fingerprint) / agentic spectral tour
-  if (has(t, /full spectr(al|um)|all spectr(al|um)|whole spectrum|spectr(al|um) (view|mode)|spectral fingerprint|fingerprint|all colou?rs|full colou?r|tam spektr|spektral|bütün renk|rəngli|tam rəng/)) {
-    if (has(t, /off|kapat|söndür|normal/)) out.push({ type: "set_fingerprint", on: false });
-    else if (has(t, /motion|move|moving|movement|hareket|hərəkət|tour|tur/) || out.some((a) => a.type === "open_field")) out.push({ type: "show_spectral_motion" });
-    else out.push({ type: "set_fingerprint", on: true, which: "last" });
-  }
   // 6. panels / explanation
-  if (has(t, /spectrum|spektr/) && !out.some((a) => a.type === "show_spectral_motion" || a.type === "set_fingerprint")) out.push({ type: "show_spectrum" });
+  if (has(t, /spectrum|spektr/)) out.push({ type: "show_spectrum" });
   if (has(t, /light ?curve|ışık eğrisi|işıq əyrisi|brightness over time/)) out.push({ type: "show_lightcurve" });
   if (has(t, /explain|what is this|açıkla|anlat|izah|nədir|nedir/)) out.push({ type: "explain", lang: has(t, /azerbaijani|azərbaycan|azerbaycan|\baz\b/) ? "az" : "en" });
 
@@ -102,7 +95,5 @@ export function describe(a: AskAction): string {
     case "show_spectrum": return "Show the spectrum";
     case "show_lightcurve": return "Show the light curve";
     case "explain": return `Show our fact-checked explanation (${a.lang === "az" ? "Azerbaijani" : "English"})`;
-    case "set_fingerprint": return a.on === false ? "Spectral fingerprint off" : "Full spectral view (SPHEREx colour fingerprint)";
-    case "show_spectral_motion": return "Spectral tour: the 16-year movie, then the SPHEREx colours epoch by epoch, then the spectrum";
   }
 }

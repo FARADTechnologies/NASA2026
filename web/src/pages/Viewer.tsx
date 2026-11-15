@@ -212,8 +212,7 @@ export function Viewer({ search }: { search: string }) {
   const n = seqFrames.length;
   // Ask SkyLapse (O6): the ONE hook that lets voice/text commands drive this viewer — keep it during the redesign.
   useCommandBridge({ setView, setPlaying, n, sequenceIds: manifest?.sequences.map((s) => s.id) ?? [], frameIdAt: (i) => seqFrames[i]?.id,
-    fullFovArcmin: manifest ? (manifest.grid.width * manifest.grid.pixel_scale_arcsec) / 60 : null,
-    rgbIds: manifest?.rgb_composites?.map((r) => r.id) ?? [] });
+    fullFovArcmin: manifest ? (manifest.grid.width * manifest.grid.pixel_scale_arcsec) / 60 : null });
   const idx = n ? Math.min(view.frame, n - 1) : 0;
   const cur = seqFrames[idx] ?? null;
 

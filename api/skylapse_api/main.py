@@ -13,10 +13,10 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
-from . import command, copilot, live, speak
+from . import command, copilot, live
 from . import resolve as resolver
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -36,7 +36,7 @@ MEDIA = {".json": "application/json", ".f32": "application/octet-stream", ".u8":
 
 @app.get("/api/health")
 def health():
-    return {"ok": True, "version": app.version, "copilot": copilot.configured(), "voice": speak.configured(), "fields_cached": len(list(FIELDS.glob("*/manifest.json"))) if FIELDS.exists() else 0}
+    return {"ok": True, "version": app.version, "copilot": copilot.configured(), "fields_cached": len(list(FIELDS.glob("*/manifest.json"))) if FIELDS.exists() else 0}
 
 
 @app.get("/api/resolve")
@@ -62,20 +62,6 @@ class CommandRequest(BaseModel):
 def api_command(req: CommandRequest):
     """Ask SkyLapse: command → validated viewer actions. 503 {fallback: true} → the browser uses its deterministic parser."""
     code, body = command.interpret(req.text, req.context)
-    return JSONResponse(body, status_code=code)
-
-
-class SpeakRequest(BaseModel):
-    text: str
-    lang: str | None = None
-
-
-@app.post("/api/speak")
-def api_speak(req: SpeakRequest):
-    """ElevenLabs voice (AI-generated audio, labelled in the UI). 503 {fallback: true} → the browser speaks instead."""
-    code, body = speak.synth(req.text)
-    if code == 200:
-        return Response(content=body, media_type="audio/mpeg", headers={"Cache-Control": "no-store"})
     return JSONResponse(body, status_code=code)
 
 

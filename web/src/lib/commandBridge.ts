@@ -15,9 +15,7 @@ export type AskAction =
   | { type: "toggle_overlay"; overlay: "gaia" | "track" | "mask"; on?: boolean }
   | { type: "play" } | { type: "pause" } | { type: "step"; direction?: number }
   | { type: "go_to_frame"; which: "first" | "last" }
-  | { type: "show_spectrum" } | { type: "show_lightcurve" } | { type: "explain"; lang: "en" | "az" }
-  | { type: "set_fingerprint"; on?: boolean; which?: "first" | "last" | "next" }
-  | { type: "show_spectral_motion" };
+  | { type: "show_spectrum" } | { type: "show_lightcurve" } | { type: "explain"; lang: "en" | "az" };
 
 export const ACTIONS_EVENT = "skylapse:actions";
 export const READY_EVENT = "skylapse:bridge-ready";
@@ -30,11 +28,7 @@ type Api = {
   sequenceIds: string[];
   frameIdAt: (i: number) => string | undefined;
   fullFovArcmin: number | null;    // grid width in arcmin
-  rgbIds?: string[];               // SPHEREx colour-fingerprint composites, oldest first
-  currentRgb?: string;
 };
-export const SAY_EVENT = "skylapse:say";
-const say = (text: string) => window.dispatchEvent(new CustomEvent(SAY_EVENT, { detail: text }));
 
 /** Apply view-only actions to a ViewState (also used to build the URL when a field is opened). */
 export function applyToView(v: ViewState, a: AskAction, fullFov: number | null, sequenceIds?: string[]): ViewState {
@@ -83,12 +77,10 @@ export function chooseCopilotLang(lang: "en" | "az"): boolean {
 export function useCommandBridge(api: Api) {
   const ref = useRef(api); ref.current = api;
   const pendingFrame = useRef<"first" | "last" | null>(null);
-  const tour = useRef(0);
   useEffect(() => {
     const on = (e: Event) => {
       const actions = ((e as CustomEvent).detail || []) as AskAction[];
       const a0 = ref.current;
-      tour.current++; // any new command cancels a running tour
       for (const a of actions) {
         switch (a.type) {
           case "play": a0.setPlaying(true); break;
@@ -105,36 +97,6 @@ export function useCommandBridge(api: Api) {
           case "show_spectrum": scrollToSection("spectrum"); break;
           case "show_lightcurve": scrollToSection("lightcurve"); break;
           case "explain": chooseCopilotLang(a.lang); break;
-          case "set_fingerprint": {
-            const ids = a0.rgbIds ?? [];
-            if (a.on === false || !ids.length) { a0.setView((v) => ({ ...v, rgb: "" })); break; }
-            a0.setPlaying(false);
-            a0.setView((v) => {
-              const i = ids.indexOf(v.rgb);
-              const id = a.which === "first" ? ids[0] : a.which === "next" ? ids[(i + 1) % ids.length] : ids[ids.length - 1];
-              return { ...v, rgb: id, diff: "none" };
-            });
-            break;
-          }
-          case "show_spectral_motion": {
-            // agentic tour: the 16-year movie with the target ring → SPHEREx colour fingerprint epoch by epoch → spectrum
-            const my = tour.current; const ids = a0.rgbIds ?? [];
-            const alive = () => tour.current === my;
-            a0.setView((v) => ({ ...v, rgb: "", diff: "none", coadd: "", overlay: v.overlay.includes("track") ? v.overlay : [...v.overlay, "track"] }));
-            a0.setPlaying(true);
-            say("Watch it move: sixteen years of infrared images, WISE then SPHEREx, at four point six microns.");
-            let t = 8000;
-            ids.forEach((id, k) => {
-              setTimeout(() => {
-                if (!alive()) return;
-                ref.current.setPlaying(false); ref.current.setView((v) => ({ ...v, rgb: id, diff: "none" }));
-                if (k === 0) say("Now the full spectral view: SPHEREx colours, blue at one micron, green at two, red at almost five microns.");
-              }, t);
-              t += 3200;
-            });
-            setTimeout(() => { if (!alive()) return; scrollToSection("spectrum"); say("And here is its spectrum from SPHEREx."); }, t + 400);
-            break;
-          }
           default: a0.setView((v) => applyToView(v, a, a0.fullFovArcmin, a0.sequenceIds));
         }
       }
