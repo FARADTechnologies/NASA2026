@@ -16,7 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
-from . import copilot, live
+from . import command, copilot, live
 from . import resolve as resolver
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,7 +24,7 @@ CACHE = Path(os.environ.get("SKYLAPSE_CACHE", str(ROOT / "cache"))).resolve()
 FIELDS = CACHE / "fields"
 FIELD_ID = re.compile(r"^[A-Za-z0-9_.+-]{1,80}$")
 
-app = FastAPI(title="SkyLapse API", version="0.3.0")
+app = FastAPI(title="SkyLapse API", version="0.4.0")
 origins = [o.strip() for o in os.environ.get("CORS_ORIGINS", "*").split(",") if o.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"])
 resolver.init_cache(CACHE / "resolve.json")
@@ -51,6 +51,18 @@ def _field_dir(field_id: str) -> Path:
     if not FIELD_ID.match(field_id):
         raise HTTPException(400, "bad field id")
     return FIELDS / field_id
+
+
+class CommandRequest(BaseModel):
+    text: str
+    context: dict | None = None
+
+
+@app.post("/api/command")
+def api_command(req: CommandRequest):
+    """Ask SkyLapse: command → validated viewer actions. 503 {fallback: true} → the browser uses its deterministic parser."""
+    code, body = command.interpret(req.text, req.context)
+    return JSONResponse(body, status_code=code)
 
 
 class CopilotRequest(BaseModel):

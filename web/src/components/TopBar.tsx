@@ -1,5 +1,6 @@
 import { navigate } from "../lib/router";
 import { SearchBox } from "./SearchBox";
+import { AskSkyLapse } from "./AskSkyLapse";
 
 export function TopBar({ title, isMock }: { title?: string; isMock?: boolean }) {
   const go = (to: string) => (e: React.MouseEvent) => { e.preventDefault(); navigate(to); };
@@ -11,6 +12,8 @@ export function TopBar({ title, isMock }: { title?: string; isMock?: boolean }) 
       </a>
       {title && <span className="tb-title">{title}{isMock && <span className="badge b-mock">mock</span>}</span>}
       <div className="tb-search"><SearchBox compact /></div>
+      {/* Ask SkyLapse (O6) — keep this one mount point during the redesign */}
+      <AskSkyLapse />
       <nav>
         <a href="/discover" onClick={go("/discover")}>Discover</a>
         <a href="/about" onClick={go("/about")}>About</a>
