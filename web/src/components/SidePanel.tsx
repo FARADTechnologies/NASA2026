@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { TriangleAlert } from "lucide-react";
 import type { Candidates, Frame, Manifest, ObjectInfo } from "../lib/bundle";
 import { mjdToYear } from "../lib/bundle";
 import { ScatterChart, type Series } from "./ScatterChart";
@@ -87,6 +86,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
 }) {
   const [lang, setLang] = useState<"en" | "az">("en");
   const [showFlagged, setShowFlagged] = useState(false);
+  const [more, setMore] = useState(false);
   const m = obj?.motion;
   const coming = [
     !(m?.measured && m.measured.pm_total > 0) && !m?.reference ? "motion" : null,
@@ -127,18 +127,24 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
             <div className="muted kind">{obj.kind.replace(/_/g, " ")}</div>
             {m?.measured && m.measured.pm_total > 0 ? (
               <div className="motion">
-                {m.agreement_pct != null && (
-                  <div className="big-stat"><b>{m.agreement_pct.toFixed(1)}%</b><span>agreement with the published motion</span></div>
-                )}
-                <table className="pm">
-                  <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
-                  <tbody>
-                    <tr><td>Measured</td><td>{Math.round(m.measured.pmra)}</td><td>{Math.round(m.measured.pmdec)}</td><td><b>{Math.round(m.measured.pm_total)}</b> ± {Math.round(m.measured.err)}</td></tr>
-                    {m.reference && <tr><td title={m.reference.source}>Reference</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>}
-                  </tbody>
-                </table>
-                {m.reference && <div className="muted small ref-src">Reference: {m.reference.source}</div>}
-                <div className="muted small">mas/yr · fitted over {m.measured.n_epochs} epochs{m.measured.baseline_yr ? ` spanning ${m.measured.baseline_yr.toFixed(1)} years` : ""}</div>
+                <dl className="facts">
+                  <dt>Motion we measured</dt><dd className="mono"><b>{Math.round(m.measured.pm_total)}</b> ± {Math.round(m.measured.err)} mas/yr</dd>
+                  {m.reference && <><dt>Published value</dt><dd className="mono">{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))} mas/yr</dd></>}
+                  {m.agreement_pct != null && <><dt>Agreement</dt><dd className="agree">{m.agreement_pct.toFixed(1)}%</dd></>}
+                  <dt>Fit</dt><dd>{m.measured.n_epochs} epochs{m.measured.baseline_yr ? ` over ${m.measured.baseline_yr.toFixed(1)} years` : ""}</dd>
+                </dl>
+                {m.reference && <div className="muted small ref-src">Published: {m.reference.source}</div>}
+                <details className="lc-more">
+                  <summary className="muted small">Components (µα*, µδ)</summary>
+                  <table className="pm">
+                    <thead><tr><th /><th>µ<sub>α*</sub></th><th>µ<sub>δ</sub></th><th>total</th></tr></thead>
+                    <tbody>
+                      <tr><td>Measured</td><td>{Math.round(m.measured.pmra)}</td><td>{Math.round(m.measured.pmdec)}</td><td>{Math.round(m.measured.pm_total)} ± {Math.round(m.measured.err)}</td></tr>
+                      {m.reference && <tr><td title={m.reference.source}>Published</td><td>{Math.round(m.reference.pmra)}</td><td>{Math.round(m.reference.pmdec)}</td><td>{Math.round(Math.hypot(m.reference.pmra, m.reference.pmdec))}</td></tr>}
+                    </tbody>
+                  </table>
+                  <div className="muted small">mas/yr</div>
+                </details>
               </div>
             ) : m?.reference ? (
               <div className="motion">
@@ -152,8 +158,15 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
                 <div className="muted small ref-src">{m.reference.source} · mas/yr</div>
               </div>
             ) : null}
-            {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}><TriangleAlert size={13} strokeWidth={1.75} /> {w}</li>)}</ul> : null}
-            {obj.flags?.saturated_in?.length ? <div className="warn small"><TriangleAlert size={13} strokeWidth={1.75} /> Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
+            {obj.flags?.warnings?.length || obj.flags?.saturated_in?.length ? (
+              <div className="notes">
+                <div className="notes-h">Data notes</div>
+                <ul>
+                  {(obj.flags?.warnings ?? []).map((w) => <li key={w}>{w}</li>)}
+                  {obj.flags?.saturated_in?.length ? <li>Saturated in: {obj.flags.saturated_in.join(", ")}</li> : null}
+                </ul>
+              </div>
+            ) : null}
           </>
         ) : <span className="muted small">No object details for this field — the movie, overlays and controls all work.</span>}
       </section>
@@ -161,7 +174,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
       {obj?.copilot && (
         <section className="card" data-section="copilot">
           <div className="card-head">
-            <h3>AI Copilot <span className="badge b-ai" title="This text is generated by an AI model">AI</span></h3>
+            <h3>In plain words</h3>
             <div className="seg tiny">
               <button data-lang="en" className={lang === "en" ? "on" : ""} onClick={() => setLang("en")}>EN</button>
               <button data-lang="az" className={lang === "az" ? "on" : ""} onClick={() => setLang("az")}>AZ</button>
@@ -169,7 +182,8 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
           </div>
           {/* text and AI label are rendered together — the text is never shown without the label */}
           <figure className="copilot-block">
-            <p className="copilot">{obj.copilot[lang]}</p>
+            <p className={"copilot" + (more ? "" : " clamp")}>{obj.copilot[lang]}</p>
+            {obj.copilot[lang].length > 240 && <button className="link-btn" onClick={() => setMore((x) => !x)}>{more ? (lang === "az" ? "Daha az" : "Show less") : (lang === "az" ? "Davamını oxu" : "Read more")}</button>}
             <figcaption className="ai-label" title={obj.copilot.generated_from ? `facts: ${obj.copilot.generated_from}` : undefined}>
               {lang === "az" ? "Ölçdüyümüz faktlardan süni intellekt (AI) ilə yaradılıb" : "AI-generated from our measured facts"}
               {obj.copilot.model ? <> · model: <span className="mono">{obj.copilot.model}</span></> : null}

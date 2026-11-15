@@ -362,10 +362,12 @@ export function Viewer({ search }: { search: string }) {
                 </div>
               </>
             ) : <div className="fl-date skeleton-text">Loading…</div>}
+            <div className="view-btns">
             <button className="btn small wide-btn" onClick={toggleWide} title="Wider view: hide both panels so the movie grows (F)">
               {leftOpen || rightOpen ? <><Maximize2 size={13} strokeWidth={1.75} /> Wider view</> : <><Minimize2 size={13} strokeWidth={1.75} /> Normal view</>}
             </button>
             <button className="btn small fs-btn" onClick={toggleFs} title="Full screen (Esc to leave)"><Expand size={13} strokeWidth={1.75} /> {isFs ? "Exit full screen" : "Full screen"}</button>
+            </div>
             {note && <div className="fl-note">{note}</div>}
             {!note && liveNote && <div className="fl-note">Live field · {liveNote}</div>}
           </div>
