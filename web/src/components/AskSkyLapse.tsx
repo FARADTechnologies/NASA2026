@@ -2,6 +2,7 @@
 // Not a chatbot: it never answers with numbers or facts; it only drives the viewer and shows what it did.
 // One mount point: <AskSkyLapse /> in the header. Styles are inline so the theme redesign cannot break it.
 import { useEffect, useRef, useState } from "react";
+import { Mic, Sparkles, Square } from "lucide-react";
 import { navigate } from "../lib/router";
 import { DEFAULTS, parseView, serializeView, type ViewState } from "../lib/url";
 import { ACTIONS_EVENT, READY_EVENT, applyToView, type AskAction } from "../lib/commandBridge";
@@ -113,7 +114,7 @@ export function AskSkyLapse() {
   return (
     <div style={{ position: "relative" }}>
       <button style={{ ...btn, borderColor: "var(--accent, #4cc9f0)" }} onClick={() => setOpen((o) => !o)} aria-expanded={open} title="Ask SkyLapse — drive the viewer by voice or text">
-        ✦ Ask SkyLapse
+        <Sparkles size={14} strokeWidth={1.75} style={{ verticalAlign: -2, marginRight: 6 }} />Ask SkyLapse
       </button>
       {open && (
         <div role="dialog" aria-label="Ask SkyLapse" style={{ position: "absolute", right: 0, top: "calc(100% + 8px)", zIndex: 50, width: "min(440px, 92vw)",
@@ -123,7 +124,7 @@ export function AskSkyLapse() {
           <form onSubmit={(e) => { e.preventDefault(); run(text); }} style={{ display: "flex", gap: 6 }}>
             <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={listening ? "Listening…" : "e.g. compare 2010 with today"}
               aria-label="Command" style={{ ...btn, flex: 1, cursor: "text" }} disabled={busy} />
-            {SR && <button type="button" onClick={listen} style={{ ...btn, background: listening ? "#c0392b" : btn.background }} title="Speak a command" aria-pressed={listening}>{listening ? "■" : "🎤"}</button>}
+            {SR && <button type="button" onClick={listen} style={{ ...btn, background: listening ? "#c0392b" : btn.background }} title="Speak a command" aria-pressed={listening}>{listening ? <Square size={14} strokeWidth={2} style={{ verticalAlign: -2 }} /> : <Mic size={14} strokeWidth={1.75} style={{ verticalAlign: -2 }} />}</button>}
             <select value={lang} onChange={(e) => setLang(e.target.value)} style={btn} aria-label="Voice language">
               {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>

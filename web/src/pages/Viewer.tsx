@@ -12,6 +12,7 @@ import { Timeline } from "../components/Timeline";
 import { ControlsPanel } from "../components/ControlsPanel";
 import { SidePanel } from "../components/SidePanel";
 import { TopBar } from "../components/TopBar";
+import { Pause, Play, SkipBack, SkipForward, SlidersHorizontal, X } from "lucide-react";
 import { useCommandBridge } from "../lib/commandBridge";
 
 type FrameData = { data: Float32Array; mask: Uint8Array | null };
@@ -220,7 +221,9 @@ export function Viewer({ search }: { search: string }) {
   // keyboard
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.closest("input, select, textarea")) return;
+      // typing / sliders / selects keep their keys; a focused checkbox still lets ← → step frames
+      const field = (e.target as HTMLElement)?.closest("input, select, textarea") as HTMLInputElement | null;
+      if (field && !(field.type === "checkbox" && e.code !== "Space")) return;
       if (e.code === "Space") { e.preventDefault(); setPlaying((p) => !p); }
       else if (e.key === "ArrowRight") { setPlaying(false); setView((v) => ({ ...v, frame: n ? (v.frame + 1) % n : 0 })); }
       else if (e.key === "ArrowLeft") { setPlaying(false); setView((v) => ({ ...v, frame: n ? (v.frame - 1 + n) % n : 0 })); }
@@ -333,7 +336,7 @@ export function Viewer({ search }: { search: string }) {
               <>
                 <div className="fl-date mono">{rgb ? shownFrame.date.slice(0, 7) : shownFrame.date}</div>
                 <div className="fl-meta">
-                  <span className={"badge " + (shownFrame.instrument === "WISE" ? "b-wise" : "b-spx")}>{rgb ? "SPHEREx" : shownFrame.instrument}</span>
+                  <span className={"inst " + (!rgb && shownFrame.instrument === "WISE" ? "i-wise" : "i-spx")}><i />{rgb ? "SPHEREx" : shownFrame.instrument}</span>
                   <span className="fl-band">{rgb ? "RGB D6 / D3 / D1" : `${shownFrame.band} · ${fmtLam(shownFrame.lambda_um)}`}</span>
                   {!rgb && <span className="muted mono">frame {idx + 1}/{n}</span>}
                 </div>
@@ -345,11 +348,11 @@ export function Viewer({ search }: { search: string }) {
           {showHint && manifest && (
             <div className="hint-card" role="note">
               <div className="hint-steps">
-                <span><b>1</b> Watch the movie — 16 years of the same patch of sky</span>
+                <span><b>1</b> Watch the movie</span>
                 <span><b>2</b> Follow the <i className="ring-ico" /> circled target as it moves</span>
                 <span><b>3</b> Click it for its story</span>
               </div>
-              <button className="btn small" onClick={closeHint}>Got it</button>
+              <button className="icon-btn" onClick={closeHint} title="Got it" aria-label="Dismiss hint"><X size={16} strokeWidth={1.75} /></button>
             </div>
           )}
           {live && (
@@ -369,15 +372,15 @@ export function Viewer({ search }: { search: string }) {
               targetLabel={view.overlay.includes("track") ? obj?.name : undefined} onPick={pick} />
           ) : <div className="player-wrap"><div className="skeleton-box">{live && <div className="skeleton-msg">Building this field from the WISE archive — the first frames usually appear within 1–2 minutes.</div>}</div></div>}
           <div className="transport">
-            <button className="btn icon" title="Previous frame (←)" onClick={() => { setPlaying(false); update({ frame: (idx - 1 + n) % Math.max(1, n) }); }}>⏮</button>
-            <button className="btn primary play" title="Play / pause (space)" onClick={() => setPlaying((p) => !p)}>{playing ? "❚❚ Pause" : "▶ Play"}</button>
-            <button className="btn icon" title="Next frame (→)" onClick={() => { setPlaying(false); update({ frame: (idx + 1) % Math.max(1, n) }); }}>⏭</button>
+            <button className="icon-btn" title="Previous frame (←)" aria-label="Previous frame" onClick={() => { setPlaying(false); update({ frame: (idx - 1 + n) % Math.max(1, n) }); }}><SkipBack size={17} strokeWidth={1.75} /></button>
+            <button className="btn primary play" title="Play / pause (space)" onClick={() => setPlaying((p) => !p)}>{playing ? <><Pause size={15} strokeWidth={2} /> Pause</> : <><Play size={15} strokeWidth={2} /> Play</>}</button>
+            <button className="icon-btn" title="Next frame (→)" aria-label="Next frame" onClick={() => { setPlaying(false); update({ frame: (idx + 1) % Math.max(1, n) }); }}><SkipForward size={17} strokeWidth={1.75} /></button>
             <label className="speed">
               <span>Speed</span>
               <input type="range" min={40} max={1500} step={10} value={1540 - view.speed} onChange={(e) => update({ speed: 1540 - +e.target.value })} />
               <span className="mono">{(1000 / view.speed).toFixed(1)} fps</span>
             </label>
-            <button className="btn controls-toggle" onClick={() => setShowControls((x) => !x)}>⚙ Controls</button>
+            <button className="btn controls-toggle" onClick={() => setShowControls((x) => !x)}><SlidersHorizontal size={15} strokeWidth={1.75} /> Controls</button>
             <div className="span-label"><b className="mono">{span}</b> <span className="muted">{nLoaded < n ? `· loading ${nLoaded}/${n}` : `· ${n} frames`}{failed.size ? ` · ${failed.size} unavailable` : ""}</span></div>
           </div>
           {n > 0 && nReady < n && <div className="load-bar" title={`loading frames ${nReady}/${n}`}><i style={{ width: `${(100 * nReady) / n}%` }} /></div>}

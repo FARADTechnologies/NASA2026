@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Check, CircleHelp, Link2, X } from "lucide-react";
 import type { Frame, Manifest } from "../lib/bundle";
 import type { ViewState } from "../lib/url";
 
 /** Small "?" with a native tooltip (works on hover and long-press). */
-const Tip = ({ text }: { text: string }) => <span className="tip" title={text} aria-label={text}>?</span>;
+const Tip = ({ text }: { text: string }) => <span className="tip" title={text} aria-label={text}><CircleHelp size={13} strokeWidth={1.75} /></span>;
 
 export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, onClose }: {
   view: ViewState; update: (p: Partial<ViewState>) => void; manifest: Manifest | null; seqFrames: Frame[]; idx: number; playing: boolean;
@@ -20,7 +21,7 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
 
   return (
     <aside className={"panel controls" + (open ? " open" : "")}>
-      {onClose && <button className="btn small controls-close" onClick={onClose}>✕ Close controls</button>}
+      {onClose && <button className="btn small controls-close" onClick={onClose}><X size={14} strokeWidth={1.75} /> Close controls</button>}
       <section>
         <h3>What to watch <Tip text="Each sequence is a movie of the same patch of sky at one infrared wavelength, from 2010 to 2026." /></h3>
         <select value={view.seq} onChange={(e) => update({ seq: e.target.value, frame: 0, coadd: "" })}>
@@ -43,7 +44,7 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
 
       <section>
         <h3>Compare times <Tip text="Shows only what changed: moving objects appear as a black/white pair (black = where it was, white = where it is now)." /></h3>
-        <div className="seg">
+        <div className="seg seg-grid">
           {([["none", "Off"], ["first", "vs 2010"], ["prev", "vs previous"], ["ref", "vs chosen"]] as const).map(([k, l]) => (
             <button key={k} className={view.diff === k ? "on" : ""} disabled={!!view.coadd}
               title={k === "first" ? "Each frame minus the first (2010) frame" : k === "prev" ? "Each frame minus the one before it" : k === "ref" ? "Each frame minus a frame you choose" : "Normal movie"}
@@ -121,9 +122,9 @@ export function ControlsPanel({ view, update, manifest, seqFrames, idx, open, on
       </details>
 
       <section>
-        <button className="btn primary wide" onClick={async () => {
+        <button className="btn wide" onClick={async () => {
           try { await navigator.clipboard.writeText(location.href); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch { prompt("Copy this link:", location.href); }
-        }}>{copied ? "✓ Link copied" : "🔗 Share this view"}</button>
+        }}>{copied ? <><Check size={15} strokeWidth={2} /> Link copied</> : <><Link2 size={15} strokeWidth={1.75} /> Share this view</>}</button>
         <p className="hint muted"><kbd>Space</kbd> play · <kbd>←</kbd><kbd>→</kbd> step · <kbd>D</kbd> compare</p>
       </section>
     </aside>

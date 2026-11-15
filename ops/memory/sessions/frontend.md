@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun ~02:00 Baku
+Last update: Sun 12:30 Baku
 
 ## Current task
-#108 F12 live-field buttons + pre-warm submitted (PR #111). F9–F11 merged & deployed (verified in live JS bundle).
+UI redesign v2 (team decision, freeze lifted until 14:15). PR #131 open: themes (light/dark, toggle), tokens, IBM Plex, Lucide, calmer layout; AskSkyLapse (orchestrator O6) mounted in #ask-skylapse-slot.
 
 ## Status
-Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze Sun 10:30.
+Step 1 done + pushed; screenshots sent to Azer (cosmetic feedback pending). Next: apply his feedback, small polish PRs, final screenshots of every page in both themes by 14:15 (hard stop).
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
@@ -26,6 +26,9 @@ Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze S
 - web/** (all), ops/memory/sessions/frontend.md
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
+- Screenshots: Playwright in scratchpad `shots/` (`node shoot.mjs <base> <out> <light|dark|none> [pages] [desktop,mobile]`); local server `npx vite --port 5175`. Theme via localStorage `skylapse.theme`.
+- Design v2: tokens in src/styles.css (`html[data-theme]`), canvas colours in src/lib/theme.ts (CANVAS), doc web/DESIGN_V2.md. Old stylesheet backup: scratchpad styles_v1_backup.css (also git history).
+- AskSkyLapse reads --panel/--text/--line/--accent → aliased in styles.css; do not edit that component (orchestrator's).
 - Railway API round trip ≈ 0.8 s → live fields pre-warmed from home (src/lib/live.ts); warm open ≈ 0.1 s, cold ≈ 3.3 s.
 - Real-data geometry verified numerically (python, bundle frames): ring ≤1 px, Gaia median 0.4 px → WCS/flip correct.
 - DOM test gotcha: innerText of content inside a closed <details> is "" → use textContent. Same-field URL change does not remount Viewer (viewKey) → toggle UI instead.
