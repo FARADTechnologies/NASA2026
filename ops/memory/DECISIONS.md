@@ -23,3 +23,4 @@ D-021 | Sun 00:01 | Organizers' Claude API (Murad): optional live copilot POST /
 D-022 | Sun 00:09 | Judging: cover LOCAL (Market Potential/Scalability, Presentation, Innovation, Technical Readiness, Relevance; 20 % each) AND GLOBAL (NASA) lists; methodology A/B/C→X→D in docs/METHODOLOGY.md; market value without money | mentor Tural Salmanov in writing, via Murad | Murad
 D-023 | Sun 10:45 | M4 feature freeze: tag v1.0 at fe05969; only bug fixes after this | PLAN M4 | orchestrator
 D-024 | Sun 12:00 | Freeze lifted (team): dev until 14:30 hard stop; 14:30–15:15 QA + rehearsal + tag v1.1; 15:15 repo sanitisation (no history rewrite, no force-push); ~15:50 repo public; 16:05 submission. New: Ask SkyLapse (orchestrator), UI redesign light+dark (frontend), live-field catalogs/movers (pipeline) | team decision via Murad | Murad
+D-025 | Sun 14:26 | v1.1 tagged (hard stop); after this only demo-breaking fixes | schedule D-024 | orchestrator
