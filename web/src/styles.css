@@ -8,8 +8,8 @@
 }
 html[data-theme="light"] {
   --bg: #faf7f2; --surface: #ffffff; --surface-2: #f2eee6; --line: #e3ddd2; --ink: #1b1f2a; --muted: #5f6776;
-  --wise: #d9822b; --wise-2: #e5b03a; --spherex: #12879e; --gaia: #2f8f5b; --target: #c2255c; --catwise: #6f84a8;
-  --ok: #2e8b57; --warn: #8a6100; --err: #b42318; --ai: #6b5ca5; --sat: #e8731a;
+  --wise: #c06a10; --wise-2: #7a4b0a; --spherex: #0f7f95; --gaia: #2a8554; --target: #c2255c; --catwise: #6f84a8;
+  --ok: #1f7446; --warn: #8a6100; --err: #b42318; --ai: #6b5ca5; --sat: #e8731a;
   --band-a: rgba(194, 37, 92, .08); --band-b: rgba(18, 135, 158, .10);
   --shadow: 0 1px 2px rgba(27, 31, 42, .06), 0 6px 20px rgba(27, 31, 42, .06);
   color-scheme: light;

@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 12:30 Baku
+Last update: Sun 12:45 Baku
 
 ## Current task
-UI redesign v2 (team decision, freeze lifted until 14:15). PR #131 open: themes (light/dark, toggle), tokens, IBM Plex, Lucide, calmer layout; AskSkyLapse (orchestrator O6) mounted in #ask-skylapse-slot.
+#121 F13 redesign v2: PR #131 MERGED + DEPLOYED (light/dark, tokens, Plex, Lucide, Ask slot, data-section/data-lang). Report submitted. PR #134 open = screenshots only (web/design-refs/v2, 30 JPEGs).
 
 ## Status
-Step 1 done + pushed; screenshots sent to Azer (cosmetic feedback pending). Next: apply his feedback, small polish PRs, final screenshots of every page in both themes by 14:15 (hard stop).
+Checklist 50/50 locally in both themes; live site verified (slow-network timing only). Waiting for Azer cosmetic feedback (asked 12:25) → apply as small PRs; hard stop 14:15, then re-shoot final screenshots if anything changed.
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
@@ -27,6 +27,7 @@ Step 1 done + pushed; screenshots sent to Azer (cosmetic feedback pending). Next
 
 ## Gotchas / know-how (local to this role; durable ones also go to ops/memory/KNOWHOW.md)
 - Screenshots: Playwright in scratchpad `shots/` (`node shoot.mjs <base> <out> <light|dark|none> [pages] [desktop,mobile]`); local server `npx vite --port 5175`. Theme via localStorage `skylapse.theme`.
+- Feature checklist script: scratchpad shots/check.mjs <base> (50 checks, both themes). Re-shoot: shoot.mjs → final1/ → JPEG into web/design-refs/v2.
 - Design v2: tokens in src/styles.css (`html[data-theme]`), canvas colours in src/lib/theme.ts (CANVAS), doc web/DESIGN_V2.md. Old stylesheet backup: scratchpad styles_v1_backup.css (also git history).
 - AskSkyLapse reads --panel/--text/--line/--accent → aliased in styles.css; do not edit that component (orchestrator's).
 - Railway API round trip ≈ 0.8 s → live fields pre-warmed from home (src/lib/live.ts); warm open ≈ 0.1 s, cold ≈ 3.3 s.

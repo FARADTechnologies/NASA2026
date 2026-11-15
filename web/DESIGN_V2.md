@@ -17,8 +17,9 @@ References were captured with headless Chromium and studied (not copied): NASA E
 - **Dark**: bg `#0E131C` · surface `#151B26` · surface-2 `#1C2331` · line `#283142` · ink `#E7EAF0` · muted `#98A2B3`
 - **Canvas** (both themes): `#05070B` — star images never sit on a light background.
 - **Meaning colours** (same hue in both themes, tuned for contrast; also used on the canvas, timeline, badges, charts, legends):
-  WISE amber `#D9822B` / `#F0A040` · SPHEREx teal `#12879E` / `#3CC0D6` · Gaia green `#2F8F5B` / `#5CC98A` · target rose `#C2255C` / `#FF6B9A`
-  · ok `#2E8B57` / `#5AD17A` · warn `#8A6100` / `#F2C94C` · AI label violet-grey `#6B5CA5` / `#B7A6F5` (label only, never decoration)
+  WISE amber `#C06A10` / `#F0A040` · SPHEREx teal `#0F7F95` / `#3CC0D6` · Gaia green `#2A8554` / `#5CC98A` · target rose `#C2255C` / `#FF6B9A`
+  · ok `#1F7446` / `#5AD17A` · warn `#8A6100` / `#F2C94C` · AI label violet-grey `#6B5CA5` / `#B7A6F5` (label only, never decoration)
+  · contrast checked (WCAG): all text colours ≥ 4.5:1 on the page background in both themes, instrument marks ≥ 3:1 (projector-safe)
 - **Interactive**: primary button = ink on paper (inverted per theme); focus ring `#2F6FEB`; links underlined ink. No accent gradients.
 - **Type**: IBM Plex Sans 400/500/600 (UI) + IBM Plex Mono 400/500 (dates, numbers, coordinates). Scale 12 · 13 · 14.5 (body) · 16 · 20 · 28 · 40 · 56.
   Labels are sentence case, 12.5 px, medium, muted — no tracked ALL-CAPS headings.
