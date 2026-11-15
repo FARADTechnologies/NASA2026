@@ -1,0 +1,11 @@
+# Deterministic policy for the SkyLapse pack (no money, no personal data): only R0 actions exist.
+allowed_kinds: [ui, read]
+max_steps_per_request: 8
+numbers:
+  must_come_from: [user_words, named_live_fields, facts_results]
+named_live_fields:
+  luhman_16: [162.3057, -53.3177]
+  teegarden: [43.2716, 16.8623]
+  kapteyn: [77.9651, -45.0470]
+forbidden_words: ["discovered", "discovery", "Planet X"]
+disabled: []

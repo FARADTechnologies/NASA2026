@@ -1,0 +1,92 @@
+# Viewer controls (kind ui, risk R0). Each maps 1:1 to an action of web/src/lib/commandBridge.ts (shared with Ask SkyLapse v1).
+id: viewer.sequence
+title: Choose the band / sequence
+llm_description: thermal46 = 4.6 µm WISE W2 + SPHEREx D6 (default); w1d4 = 3.4 µm WISE W1 + SPHEREx D4; spherex6 = SPHEREx only.
+kind: ui
+risk: R0
+input_schema: { type: object, properties: { sequence: { type: string, enum: [thermal46, w1d4, spherex6] } }, required: [sequence], additionalProperties: false }
+ui: { action: set_sequence }
+---
+id: viewer.compare
+title: Compare times (subtract)
+llm_description: off; vs2010 = every frame minus the 2010 frame; previous = minus the previous frame; chosen = minus the current frame.
+kind: ui
+risk: R0
+input_schema: { type: object, properties: { mode: { type: string, enum: [off, vs2010, previous, chosen] } }, required: [mode], additionalProperties: false }
+ui: { action: set_compare }
+---
+id: viewer.add
+title: Add frames together (co-add a time range)
+llm_description: Average the frames between two years the user said (deeper image).
+kind: ui
+risk: R0
+input_schema: { type: object, properties: { from_year: { type: integer, minimum: 2010, maximum: 2026 }, to_year: { type: integer, minimum: 2010, maximum: 2026 } }, required: [from_year, to_year], additionalProperties: false }
+guards: [numbers_from_user_words]
+ui: { action: set_coadd }
+---
+id: viewer.stretch
+title: Brightness scale
+kind: ui
+risk: R0
+llm_description: linear, asinh (default) or log.
+input_schema: { type: object, properties: { stretch: { type: string, enum: [linear, asinh, log] } }, required: [stretch], additionalProperties: false }
+ui: { action: set_stretch }
+---
+id: viewer.invert
+title: Dark stars on white
+kind: ui
+risk: R0
+llm_description: Invert the image (on true/false).
+input_schema: { type: object, properties: { on: { type: boolean } }, additionalProperties: false }
+ui: { action: set_invert }
+---
+id: viewer.zoom
+title: Zoom
+kind: ui
+risk: R0
+llm_description: factor (2 = zoom in twice) or field width in arcminutes if the user says a number.
+input_schema: { type: object, properties: { factor: { type: number, minimum: 0.2, maximum: 8 }, fov_arcmin: { type: number, minimum: 1, maximum: 30 } }, additionalProperties: false }
+guards: [numbers_from_user_words]
+ui: { action: set_zoom }
+---
+id: viewer.speed
+title: Playback speed
+kind: ui
+risk: R0
+llm_description: factor (2 = double, 0.5 = half) or frames per second if the user says a number.
+input_schema: { type: object, properties: { factor: { type: number, minimum: 0.1, maximum: 10 }, fps: { type: number, minimum: 0.2, maximum: 25 } }, additionalProperties: false }
+guards: [numbers_from_user_words]
+ui: { action: set_speed }
+---
+id: viewer.transport
+title: Play, pause, step, jump to a year
+kind: ui
+risk: R0
+llm_description: play | pause | step_forward | step_back | first | last | year (jump to the frame nearest the year the user said).
+input_schema: { type: object, properties: { op: { type: string, enum: [play, pause, step_forward, step_back, first, last, year] }, year: { type: integer, minimum: 2010, maximum: 2026 } }, required: [op], additionalProperties: false }
+guards: [numbers_from_user_words]
+ui: { action: transport }
+---
+id: viewer.overlay
+title: Show or hide an overlay
+kind: ui
+risk: R0
+llm_description: gaia (known stars at this date), track (target ring + path), mask (flagged/saturated pixels), catwise.
+input_schema: { type: object, properties: { overlay: { type: string, enum: [gaia, track, mask, catwise] }, on: { type: boolean } }, required: [overlay], additionalProperties: false }
+ui: { action: toggle_overlay }
+---
+id: viewer.display
+title: Full screen, theme, share link
+kind: ui
+risk: R0
+llm_description: fullscreen_on | fullscreen_off | theme_light | theme_dark | copy_share_link.
+input_schema: { type: object, properties: { op: { type: string, enum: [fullscreen_on, fullscreen_off, theme_light, theme_dark, copy_share_link] } }, required: [op], additionalProperties: false }
+ui: { action: display }
+---
+id: viewer.panel
+title: Show spectrum, light curve or explanation
+kind: ui
+risk: R0
+llm_description: spectrum | lightcurve | explain_en | explain_az | discover_candidates. Explanations are our precomputed, fact-checked texts.
+input_schema: { type: object, properties: { panel: { type: string, enum: [spectrum, lightcurve, explain_en, explain_az, discover_candidates] } }, required: [panel], additionalProperties: false }
+ui: { action: show_panel }

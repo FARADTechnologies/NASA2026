@@ -1,0 +1,56 @@
+# SkyLapse domain pack for general-automation-system (Ask SkyLapse v2). kind "ui" = changes viewer state only (no side effects).
+id: nav.go
+title: Go to a page
+llm_description: Open one of the site pages. Use only when the user asks to go somewhere.
+kind: ui
+risk: R0
+input_schema:
+  type: object
+  properties:
+    page: { type: string, enum: [home, viewer, discover, about] }
+  required: [page]
+  additionalProperties: false
+ui: { action: navigate, route_from: screens }
+---
+id: field.open
+title: Open a NASA target field
+llm_description: Open a precomputed NASA target. Use the field id that matches the name the user said.
+kind: ui
+risk: R0
+input_schema:
+  type: object
+  properties:
+    field: { type: string, enum: [barnard, eps_indi_b, wise0855, rw_aur, r_dra] }
+  required: [field]
+  additionalProperties: false
+ui: { action: open_field }
+---
+id: field.open_coordinates
+title: Open a live field at coordinates
+llm_description: >
+  Open a live WISE field at RA/Dec in degrees. The numbers must come from the user's words, or from the named live fields:
+  Luhman 16 = 162.3057 -53.3177, Teegarden's Star = 43.2716 16.8623, Kapteyn's Star = 77.9651 -45.0470.
+kind: ui
+risk: R0
+input_schema:
+  type: object
+  properties:
+    ra: { type: number, minimum: 0, maximum: 360 }
+    dec: { type: number, minimum: -90, maximum: 90 }
+  required: [ra, dec]
+  additionalProperties: false
+guards: [numbers_from_user_words_or_named_fields]
+ui: { action: open_coordinates }
+---
+id: field.resolve
+title: Find a sky object by name
+llm_description: Resolve an object name (e.g. "Vega") to coordinates with /api/resolve, then open it.
+kind: read
+risk: R0
+input_schema:
+  type: object
+  properties:
+    name: { type: string, minLength: 1, maxLength: 60, description: "Object name exactly as the user said it" }
+  required: [name]
+  additionalProperties: false
+request: { method: GET, path: /api/resolve, query: { q: "{input.name}" } }

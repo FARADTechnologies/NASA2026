@@ -37,3 +37,5 @@ Every external resource used in the project. Add new ones as soon as they are us
 ## AI tools (see pitch/AI_USE.md)
 - Claude Code / Anthropic Claude models — coding agents and copilot text generation.
 - AI-generated media: none (videos are plain screen recordings of the live site). Any future AI image/audio is watermarked and listed here.
+
+- **general-automation-system** — Team FARAD's own AI action layer (YUNEX 2026, 3rd place), https://github.com/FARADTechnologies/general-automation-system — design basis for Ask SkyLapse v2 (domain pack in `ask-v2/domains/skylapse/`, branch `feature/ask-v2`).

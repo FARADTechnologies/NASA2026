@@ -1,0 +1,29 @@
+# Read-only facts from the public static bundle. Answers about the current view must use ONLY these results (no other numbers).
+id: facts.field
+title: Facts about the current field
+llm_description: Field title, dates, instruments and frame count of the current field (from manifest.json).
+kind: read
+risk: R0
+input_schema: { type: object, properties: { field: { type: string, maxLength: 80 } }, required: [field], additionalProperties: false }
+request: { method: GET, path: "/bundle/{input.field}/manifest.json" }
+response: { fields: { title: title, center: center, frames: "frames[].{id,date,instrument,band}", sequences: "sequences[].id" } }
+---
+id: facts.object
+title: Facts about the target object
+llm_description: >
+  Measured vs reference proper motion and agreement %, spectrum notes, light-curve notes (period), saturation warnings and the
+  precomputed explanation, from objects/target.json. Quote numbers exactly as returned.
+kind: read
+risk: R0
+input_schema: { type: object, properties: { field: { type: string, maxLength: 80 } }, required: [field], additionalProperties: false }
+request: { method: GET, path: "/bundle/{input.field}/objects/target.json" }
+response: { fields: { name: name, kind: kind, motion: motion.measured, reference: motion.reference, agreement_pct: motion.agreement_pct, spectrum_notes: spectrum.notes, lightcurve_notes: lightcurve.notes, warnings: flags.warnings } }
+---
+id: facts.candidates
+title: Discover — candidates and recall
+llm_description: Blind-search results for a field (known movers recovered, new candidates, artifacts). Never call a candidate a discovery.
+kind: read
+risk: R0
+input_schema: { type: object, properties: { field: { type: string, maxLength: 80 } }, required: [field], additionalProperties: false }
+request: { method: GET, path: "/bundle/{input.field}/candidates.json" }
+response: { fields: { stats: stats, items: "items[].{id,class,pm_total,match}" } }
