@@ -1,7 +1,8 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 16:17 (Kanan's computer)
+Last update: Sun 16:25 (Kanan's computer)
 
 ## Current task
+16:25: UI per Murad — Ask SkyLapse panel collapses to its button the moment a command is sent (675f2a8, deployed 16:21). Verified live on skylapse.vercel.app: panel closed 54 ms after "skylapse:ask-run", actions still applied (diff=first, frame=25). Auto loop resumes (bug fixes only).
 16:17: UI per Murad — header mic + panel mic = press to start, talk, press again to stop and send (no auto-stop); panel closes as soon as the answer starts. Deployed + verified live (command 200 via Claude again, panel closed after 2 s).
 16:04: v2.4 (PR #142) merged + deployed after functional test (rollback point d9ed476). Organizers' tunnel HTTP 530 → offline parser in use. Loop continues: bug fixes only.
 16:00: repo PUBLIC (15:59), all links verified anonymously (#126 closed, D-030). Submission 16:05 by humans (A6 #27). Loop continues for post-submission bug fixes only.
