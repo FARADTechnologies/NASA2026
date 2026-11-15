@@ -5,6 +5,7 @@ FieldBuilder is incremental (used by live.py): add_wise() -> write() -> add_sphe
 from __future__ import annotations
 
 import csv
+import threading
 import math
 import shutil
 import time
@@ -24,6 +25,7 @@ from .resolve import julian_year, propagate
 from .scale import display_percentiles, scale_factor, select_ref_stars, subtract_background, aperture_fluxes
 
 log = get_logger("build")
+_CAT_LOCK = threading.Lock()
 WISE_REF_FOR = {"D1": "W1", "D2": "W1", "D3": "W1", "D4": "W1", "D5": "W2", "D6": "W2"}
 PREVIEW_BANDS = {"W2", "D6", "D3", "D1"}
 
@@ -78,9 +80,13 @@ class FieldBuilder:
         return (x > -margin_px) & (x < n + margin_px) & (y > -margin_px) & (y < n + margin_px)
 
     def _write_catalogs(self, parts=("gaia", "catwise")):
+        with _CAT_LOCK:  # Gaia and CatWISE load in parallel threads: never let one overwrite the other's file
+            self._write_catalogs_locked(parts)
+
+    def _write_catalogs_locked(self, parts):
         for name, rows, fn, rak, deck in (("gaia", self.gaia_rows, cat.gaia_json, "ra", "dec"),
                                          ("catwise", self.catwise_rows, cat.catwise_json, "ra", "dec")):
-            if name not in parts and (self.fdir / "catalogs" / f"{name}.json").is_file():
+            if name not in parts and ((self.fdir / "catalogs" / f"{name}.json").is_file() or name in self.catalog_status):
                 continue
             js = fn(rows)
             if js["rows"]:
