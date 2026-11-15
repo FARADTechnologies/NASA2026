@@ -108,5 +108,6 @@ def field_file(field_id: str, path: str):
     f = (d / path).resolve()
     if not str(f).startswith(str(d) + os.sep) or not f.is_file():
         raise HTTPException(404, "not found")
-    headers = {"Cache-Control": "no-cache" if f.name in ("manifest.json", "status.json") else "public, max-age=86400"}
+    # live fields can be rebuilt under the same id (failed catalogue → rebuild): JSON never cached, binaries at most 60 s
+    headers = {"Cache-Control": "no-cache" if f.suffix == ".json" else "public, max-age=60"}
     return FileResponse(f, media_type=MEDIA.get(f.suffix, "application/octet-stream"), headers=headers)
