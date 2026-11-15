@@ -52,6 +52,8 @@ class FieldBuilder:
         self.releases: set[str] = set()
         self.objects: list[str] = []
         self.skipped: list[dict] = []
+        self.catalog_status: dict = {}
+        self.fast_movers: dict | None = None
         self.fdir.mkdir(parents=True, exist_ok=True)
 
     # ------------------------------------------------------------------ inputs
@@ -59,9 +61,9 @@ class FieldBuilder:
         r = self.grid["width"] * self.grid["pixel_scale_arcsec"] / 3600 * 0.75
         kw = dict(ra=self.ra, dec=self.dec, radius_deg=r, timeout=timeout) if online else {}
         if "gaia" in parts:
-            self.gaia_rows = cat.load_gaia(self.field_id, **kw)
+            self.gaia_rows, self.catalog_status["gaia"] = cat.load_gaia_status(self.field_id, **kw)
         if "catwise" in parts:
-            self.catwise_rows = cat.load_catwise(self.field_id, **kw)
+            self.catwise_rows, self.catalog_status["catwise"] = cat.load_catwise_status(self.field_id, **kw)
         if "gaia" in parts:
             self.ref_xy = select_ref_stars(self.gaia_rows, self.wcs, self.shape)
         log.info("%s: Gaia %d rows, CatWISE %d rows, %d reference stars", self.field_id, len(self.gaia_rows), len(self.catwise_rows),
@@ -86,6 +88,8 @@ class FieldBuilder:
                 dec = np.array([r[2] for r in js["rows"]])
                 keep = self._in_field(ra, dec)
                 js["rows"] = [r for r, k in zip(js["rows"], keep) if k]
+            # "ok" | "unavailable" (all services failed: rows [] means UNKNOWN, not "no stars") | "pending" (still loading)
+            js["status"] = self.catalog_status.get(name, {"state": "pending", "source": None, "rows": 0})
             write_json(self.fdir / "catalogs" / f"{name}.json", js)
 
     # ------------------------------------------------------------------ frames
@@ -277,6 +281,63 @@ class FieldBuilder:
         write_json(p, obj, indent=1)
         self.objects.append("target")
 
+    def write_fast_movers(self, pm_min: float = 100.0, nmax: int = 3, mjd0: float = 55197.0, mjd1: float = 61406.0):
+        """Live fields: the fastest-moving known Gaia stars (pm > pm_min mas/yr) in the field become objects mover1..3 with a
+        track PREDICTED from their Gaia DR3 proper motion (2010-2026), so the viewer can draw the ring + path.
+        Returns the number written; sets self.fast_movers (written to manifest.build.fast_movers)."""
+        from .grid import world_to_grid
+
+        odir = self.fdir / "objects"
+        for old in odir.glob("mover*.json") if odir.is_dir() else []:
+            old.unlink()
+        if self.catalog_status.get("gaia", {}).get("state") != "ok":
+            self.fast_movers = {"n": 0, "pm_min_masyr": pm_min, "note": "star catalogue unavailable; fast movers not computed"}
+            return 0
+        cands = []
+        n = self.grid["width"]
+        for r in self.gaia_rows:
+            try:
+                ra0, de0 = float(r["ra"]), float(r["dec"])
+                pmra, pmde = float(r["pmra"]), float(r["pmdec"])
+            except (TypeError, ValueError, KeyError):
+                continue
+            pm = (pmra ** 2 + pmde ** 2) ** 0.5
+            if pm != pm or pm < pm_min:
+                continue
+            ra18, de18 = propagate(ra0, de0, pmra, pmde, 2016.0, 2018.0)
+            x, y = world_to_grid(self.wcs, ra18, de18)
+            if not (4 <= float(x[0]) <= n - 5 and 4 <= float(y[0]) <= n - 5):
+                continue
+            cands.append((pm, r, ra18, de18, pmra, pmde))
+        cands.sort(key=lambda c: -c[0])
+        frame_mjds = sorted({round(f["mjd_mid"], 3) for f in self.frames.values()})
+        mjds = sorted(set([mjd0] + frame_mjds + [mjd1]))
+        for k, (pm, r, ra18, de18, pmra, pmde) in enumerate(cands[:nmax], 1):
+            track = []
+            for m in mjds:
+                tra, tde = propagate(ra18, de18, pmra, pmde, 2018.0, julian_year(m))
+                track.append({"mjd": round(m, 3), "ra": round(tra, 7), "dec": round(tde, 7),
+                              "instrument": "WISE" if m < 60700 else "SPHEREx", "predicted": True})
+            g = r.get("phot_g_mean_mag")
+            name = f"Gaia DR3 {r.get('source_id')}"
+            plx = r.get("parallax")
+            obj = {"id": f"mover{k}", "name": name, "kind": "star", "ra": round(ra18, 7), "dec": round(de18, 7), "epoch": 2018.0,
+                   "motion": {"measured": None,
+                              "reference": {"source": "Gaia DR3", "pmra": round(pmra, 2), "pmdec": round(pmde, 2), "unit": "mas/yr"},
+                              "agreement_pct": None, "track": track, "track_kind": "predicted from Gaia DR3 proper motion"},
+                   "spectrum": None, "lightcurve": None, "copilot": None,
+                   "flags": {"saturated_in": [], "warnings": ["Known star (Gaia DR3); path predicted from its catalogue proper motion, "
+                                                              "not measured by SkyLapse"]},
+                   "gaia_g_mag": float(g) if g not in (None, "") else None,
+                   "parallax_mas": float(plx) if plx not in (None, "") else None,
+                   "pm_total_masyr": round(pm, 1)}
+            write_json(odir / f"mover{k}.json", obj, indent=1)
+        k = min(len(cands), nmax)
+        self.fast_movers = {"n": k, "pm_min_masyr": pm_min,
+                            "note": (f"{k} fast-moving known star(s) from Gaia DR3 (pm > {pm_min:.0f} mas/yr)" if k else
+                                     f"no fast-moving known star in this field (Gaia DR3, pm > {pm_min:.0f} mas/yr)")}
+        return k
+
     def _target_saturated(self, fid) -> bool:
         t = self.target
         fr = self.frames[fid]
@@ -303,6 +364,8 @@ class FieldBuilder:
                "build": {"pipeline_version": PIPELINE_VERSION, "generated_utc": utcnow(), "spherex_releases": sorted(self.releases),
                          "status": status, "grid_note": "SPHEREx pixels are 6.15\"; resampled to 2.75\"/px for comparison",
                          "skipped_frames": self.skipped,
+                         "catalog_status": self.catalog_status,
+                         "fast_movers": self.fast_movers,
                          "spherex_epochs": [[round(a, 3), round(b, 3)] for a, b in self.intervals],
                          "wise_source": "byw.tools time-resolved unWISE (neo7-style epochs)",
                          "scaling": "per-frame sigma-clipped background subtracted; scaled to the WISE epoch nearest 2018.0 "

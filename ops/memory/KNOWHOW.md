@@ -31,3 +31,4 @@
 [science] Never cite literature values from memory: R Dra period '245.6 d (GCVS)' was unverified; AAVSO VSX gives 246.12 d (CDS/VizieR often down — use vsx.aavso.org).
 [orchestrator] GitHub's PR merge ignores .gitattributes merge=union → KNOWHOW.md conflicts on PRs; fix: merge origin/main into the role branch locally (union applies) and push, then merge the PR.
 [orchestrator] Repo visibility change needs admin: only FARADTechnologies (captain) can make NASA2026 public; agents' accounts have push only.
+[pipeline] 15 Nov: ESA Gaia TAP, CDS (vizier.cds/tapvizier) and IRSA TAP failed (reset/502) while VizieR mirrors vizier.cfa.harvard.edu + vizier.idia.ac.za worked. VizieR gotchas: requests encodes II/365/catwise as II%2F365%2Fcatwise -> 0 rows; any -out= list on CatWISE -> 0 rows; use hand-built URL + -out.all.
