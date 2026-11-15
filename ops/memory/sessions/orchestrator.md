@@ -1,7 +1,8 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15:54 (Kanan's computer)
+Last update: Sun 16:00 (Kanan's computer)
 
 ## Current task
+16:00: repo PUBLIC (15:59), all links verified anonymously (#126 closed, D-030). Submission 16:05 by humans (A6 #27). Loop continues for post-submission bug fixes only.
 15:54: fixed speech mishearings ('planet star' = Barnard's Star etc.), 'full spectrum view', spoken note when no target; verified live (tour + ElevenLabs speak 200). Auto loop ON (Murad asked). Waiting: repo public (#126), submission 16:05.
 15:48: VERIFIED on skylapse.vercel.app — ElevenLabs voice live (/api/health voice:true; /api/speak 0.7–1.0 s), Claude command 1.8 s, spectral tour runs (movie → fingerprint t00..t02 → spectrum). Loop PAUSED by me while Murad directs (resume with `python3 ops/bin/skyops.py resume`). Remaining: captain makes repo public; submission 16:05.
 15:44: Ask SkyLapse agentic spectral tour (open → 16-yr movie → SPHEREx fingerprint epochs → spectrum, narrated) live and verified with the Turkish command; voice = ElevenLabs via /api/speak (needs ELEVENLABS_API_KEY on Railway — Murad sets it) with browser fallback. Waiting: Murad 'done' for the key → verify /api/health voice:true; captain makes repo public; submission 16:05.
