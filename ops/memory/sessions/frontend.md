@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun ~02:00 Baku
+Last update: Sun 10:50 Baku
 
 ## Current task
-#108 F12 live-field buttons + pre-warm submitted (PR #111). F9–F11 merged & deployed (verified in live JS bundle).
+None. All frontend issues #13–#117 closed. v1.0 tagged at feature freeze (fe05969) and includes F0–F12; role/frontend == main.
 
 ## Status
-Autonomous ON. Waiting for orchestrator review of #70 / PR #76. Feature freeze Sun 10:30.
+Post-freeze (Sun 10:30): bug fixes only. Deployed site verified 10:50: all features in live JS, site 0.46 s, API v0.3.0 ok, bundle ok. Repo still PRIVATE (needs captain).
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
