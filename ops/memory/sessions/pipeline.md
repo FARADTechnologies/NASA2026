@@ -1,13 +1,12 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov ~12:50 Baku (Kanan's PC)
+Last update: Sun 15 Nov ~14:10 Baku (Kanan's PC)
 
 ## Current task
-#120 T10 live catalogues: done, submitted (review). PRs #127, #129 merged; report PR #133 (pipeline/qa/live_catalog_fix.md).
+T10 #120 (review) + SIMBAD fast-mover fallback (PR #139 merged). 3 demo fields rebuilt via API and verified in the browser.
 
 ## Status
-Live fields: Gaia/CatWISE via VizieR race, status in files/manifest, fast movers (pm>100) as predicted-track objects.
-Causes were TAP outages + Vercel CDN max-age=86400 (orchestrator: no-cache + purge). Freeze lifted until 14:30 (bug fixes).
-Open option: purge the 3 old demo fields (no CatWISE/movers) via SKYLAPSE_STALE_FIELDS.
+Done. Luhman 16 now shows as a mover via SIMBAD; Teegarden + Kapteyn via Gaia. Report: pipeline/qa/live_catalog_fix.md.
+Hard stop 14:30 (submission). Idea not done: show common names (SIMBAD cross-match) for Gaia movers.
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band

@@ -22,3 +22,12 @@ I checked all three in the browser on skylapse.vercel.app: Gaia circles visible,
 ## Known limits
 - Luhman 16 itself is in Gaia DR3 (5353626573555863424, G 16.9) **without** a proper motion (two-parameter solution), so it cannot be a Gaia fast mover.
 - CatWISE in the old cached demo fields (Luhman 16 / Teegarden / Kapteyn at the 4-decimal demo coordinates) is still empty, and they have no mover objects. Purging them (SKYLAPSE_STALE_FIELDS) rebuilds them in ~17 s.
+
+## Demo fields rebuilt with T10 + SIMBAD fallback (Sun ~14:05, PR #139)
+The orchestrator purged the 3 old demo fields and redeployed; I rebuilt them through skylapse.vercel.app/api/fields one after another and clicked each home-page button in a fresh tab:
+| button | done | Gaia / CatWISE overlay | mover with ring + path |
+|---|---|---|---|
+| Luhman 16 (162.3057 −53.3177) | 17.2 s | 1,595 / 1,584 | **Luhman 16**, 2,790 mas/yr, "track predicted from literature proper motion (SIMBAD)" (+ Gaia star, 115 mas/yr) |
+| Teegarden's Star (43.2716 +16.8623) | 16.6 s | 111 / 971 | Gaia DR3 35227046884571776 (= Teegarden's Star), 5,123 mas/yr |
+| Kapteyn's Star (77.9651 −45.0470) | 16.7 s | 195 / 1,188 | Gaia DR3 4810594479418041856 (= Kapteyn's Star), 8,644 mas/yr |
+Known cosmetic limit: Gaia movers are labelled by their Gaia DR3 id, not their common name.
