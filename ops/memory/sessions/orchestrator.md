@@ -1,7 +1,8 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 16:04 (Kanan's computer)
+Last update: Sun 16:17 (Kanan's computer)
 
 ## Current task
+16:17: UI per Murad — header mic + panel mic = press to start, talk, press again to stop and send (no auto-stop); panel closes as soon as the answer starts. Deployed + verified live (command 200 via Claude again, panel closed after 2 s).
 16:04: v2.4 (PR #142) merged + deployed after functional test (rollback point d9ed476). Organizers' tunnel HTTP 530 → offline parser in use. Loop continues: bug fixes only.
 16:00: repo PUBLIC (15:59), all links verified anonymously (#126 closed, D-030). Submission 16:05 by humans (A6 #27). Loop continues for post-submission bug fixes only.
 15:54: fixed speech mishearings ('planet star' = Barnard's Star etc.), 'full spectrum view', spoken note when no target; verified live (tour + ElevenLabs speak 200). Auto loop ON (Murad asked). Waiting: repo public (#126), submission 16:05.
