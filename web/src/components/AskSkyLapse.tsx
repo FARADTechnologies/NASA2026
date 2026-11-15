@@ -18,7 +18,7 @@ const VIEW_ONLY = new Set(["set_sequence", "set_compare", "set_speed", "set_stre
 const persist: { open: boolean; log: LogItem[] } = { open: false, log: [] };
 
 async function callApi(text: string): Promise<{ actions: AskAction[]; rejected: string[] } | null> {
-  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 9000);
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 7000);
   try {
     const field = new URLSearchParams(location.search).get("field");
     const r = await fetch("/api/command", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,

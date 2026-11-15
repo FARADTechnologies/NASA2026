@@ -145,14 +145,15 @@ def validate(actions: list[dict], text: str) -> tuple[list[dict], list[str]]:
     return ok, rejected
 
 
-def interpret(text: str, context: dict | None = None, timeout_s: float = 12.0) -> tuple[int, dict]:
+def interpret(text: str, context: dict | None = None, timeout_s: float = 6.0) -> tuple[int, dict]:
     text = (text or "").strip()[:300]
     if not text:
         return 400, {"error": "empty command"}
     if not os.environ.get("ANTHROPIC_API_KEY"):
         return 503, {"fallback": True, "reason": "not configured"}
     base = os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com").rstrip("/")
-    model = os.environ.get("COPILOT_MODEL", "claude-opus-5-5")
+    # fastest model for commands (set COMMAND_MODEL on Railway after measuring); falls back to the copilot model
+    model = os.environ.get("COMMAND_MODEL") or os.environ.get("COPILOT_MODEL", "claude-opus-5-5")
     ctx = context or {}
     user = f"Current view: {ctx.get('field') or ctx.get('path') or 'home page'}.\nCommand: {text}"
     try:
@@ -160,6 +161,8 @@ def interpret(text: str, context: dict | None = None, timeout_s: float = 12.0) -
             "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01", "content-type": "application/json"},
             json={"model": model, "max_tokens": 1024, "thinking": {"type": "disabled"}, "system": SYSTEM, "tools": TOOLS,
                   "tool_choice": {"type": "auto"}, "messages": [{"role": "user", "content": user}]})
+    except httpx.TimeoutException:
+        return 503, {"fallback": True, "reason": f"AI took longer than {timeout_s:.0f} s"}
     except httpx.HTTPError as e:
         return 503, {"fallback": True, "reason": f"unreachable ({type(e).__name__})"}
     if r.status_code != 200:
