@@ -52,6 +52,10 @@ def finish_catalogs(b, fid, wise_rows) -> str:
             if rows:
                 b.add_wise(rows)
     try:
+        b._write_catalogs(("gaia", "catwise"))  # final, complete rewrite of both overlay files
+    except Exception as e:  # noqa: BLE001
+        log.warning("live %s catalogue write: %r", fid, e)
+    try:
         b.write_fast_movers()
     except Exception as e:  # noqa: BLE001
         log.warning("live %s fast movers: %r", fid, e)
