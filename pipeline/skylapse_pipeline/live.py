@@ -28,6 +28,39 @@ def live_id(ra: float, dec: float, fov: float) -> str:
     return f"live_{ra:08.4f}_{'p' if dec >= 0 else 'm'}{abs(dec):07.4f}_{h}".replace(".", "d")
 
 
+def allw_rows(fw1, w2_rows):
+    try:
+        return fw1.result(timeout=0.1)
+    except Exception:  # noqa: BLE001
+        return w2_rows
+
+
+def finish_catalogs(b, fid, wise_rows) -> str:
+    """Make sure the catalogues are loaded (one more try each if a service failed), rescale the WISE frames if Gaia arrived
+    late, add the fast-moving known stars. Returns a short human-readable note for the status message."""
+    gaia_ok = lambda: b.catalog_status.get("gaia", {}).get("state") == "ok"  # noqa: E731
+    had_gaia = gaia_ok() and len(b.ref_xy[0]) > 0
+    for name in ("gaia", "catwise"):
+        if b.catalog_status.get(name, {}).get("state") != "ok":
+            try:
+                b.load_catalogs(True, (name,), 20)
+            except Exception as e:  # noqa: BLE001
+                log.warning("live %s retry %s: %r", fid, name, e)
+    if gaia_ok() and not had_gaia and len(b.ref_xy[0]) > 0 and wise_rows:  # Gaia came late: redo the scaling
+        for band in (2, 1):
+            rows = [r for r in wise_rows if r["band"] == band]
+            if rows:
+                b.add_wise(rows)
+    try:
+        b.write_fast_movers()
+    except Exception as e:  # noqa: BLE001
+        log.warning("live %s fast movers: %r", fid, e)
+    bad = [k for k, v in b.catalog_status.items() if v.get("state") != "ok"]
+    if bad:
+        return "star catalogue temporarily unavailable (" + ", ".join("Gaia DR3" if k == "gaia" else "CatWISE2020" for k in bad) + ")"
+    return (b.fast_movers or {}).get("note", "")
+
+
 def pick_per_bin(rows: list[dict], intervals, k: int) -> list[dict]:
     """At most k images per time bin, spread evenly in time (IRSA cutouts take 10-60 s each; a full field can be 400 images)."""
     from .epochs import assign
@@ -120,11 +153,14 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
             log.warning("live %s W1: %r", fid, e)
         catwise_done()
         ex.shutdown(wait=False)
+        msg = finish_catalogs(b, fid, allw_rows(fw1, rows))
         try:
             b.write(status="done")
         except Exception as e:  # noqa: BLE001
             log.error("live %s final write: %s", fid, e)
-        report("done", 1.0, f"{len(b.frames)} WISE frames in {time.time() - t0:.0f}s (SPHEREx live is off)")
+        status["catalogs"] = {k: v.get("state") for k, v in b.catalog_status.items()}
+        status["fast_movers"] = (b.fast_movers or {}).get("n", 0)
+        report("done", 1.0, f"{len(b.frames)} WISE frames in {time.time() - t0:.0f}s (SPHEREx live is off) · {msg}")
         return status
 
     # ---- 2. SPHEREx
@@ -168,10 +204,31 @@ def build_live_field(ra: float, dec: float, fov_arcmin: float = 6.0, out_dir: Pa
     except Exception as e:  # noqa: BLE001
         log.warning("live %s late WISE: %r", fid, e)
     ex.shutdown(wait=False)
+    note = finish_catalogs(b, fid, allw_rows(fw1, []))
+    status["catalogs"] = {k: v.get("state") for k, v in b.catalog_status.items()}
     try:
         b.write(status="done")
         b.write_science_csv()
     except Exception as e:  # noqa: BLE001
         log.error("live %s final write: %s", fid, e)
-    report("done", 1.0, f"{len(b.frames)} frames in {time.time() - t0:.0f}s")
+    report("done", 1.0, f"{len(b.frames)} frames in {time.time() - t0:.0f}s · {note}")
     return status
+
+
+def needs_rebuild(field_dir) -> bool:
+    """True if a cached live field must NOT be served from cache: its star catalogue failed or was built before catalogue
+    status existed (old runner: rows [] with no "status" key, i.e. unknown). Used by the API in submit() and at startup."""
+    import json
+    from pathlib import Path
+
+    p = Path(field_dir) / "catalogs" / "gaia.json"
+    if not (Path(field_dir) / "manifest.json").is_file():
+        return False  # not built (yet); the normal queue logic applies
+    try:
+        g = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return True
+    st = (g.get("status") or {}).get("state")
+    if st is None:
+        return not g.get("rows")  # old field: empty rows = catalogue failed
+    return st != "ok"
