@@ -13,6 +13,7 @@ import { ControlsPanel } from "../components/ControlsPanel";
 import { SidePanel } from "../components/SidePanel";
 import { TopBar } from "../components/TopBar";
 import { Pause, Play, SkipBack, SkipForward, SlidersHorizontal, X } from "lucide-react";
+import { useCommandBridge } from "../lib/commandBridge";
 
 type FrameData = { data: Float32Array; mask: Uint8Array | null };
 
@@ -197,6 +198,9 @@ export function Viewer({ search }: { search: string }) {
 
   const loaded = useMemo(() => new Set(store.current.keys()), [loadedVer]);
   const n = seqFrames.length;
+  // Ask SkyLapse (O6): the ONE hook that lets voice/text commands drive this viewer — keep it during the redesign.
+  useCommandBridge({ setView, setPlaying, n, sequenceIds: manifest?.sequences.map((s) => s.id) ?? [], frameIdAt: (i) => seqFrames[i]?.id,
+    fullFovArcmin: manifest ? (manifest.grid.width * manifest.grid.pixel_scale_arcsec) / 60 : null });
   const idx = n ? Math.min(view.frame, n - 1) : 0;
   const cur = seqFrames[idx] ?? null;
 

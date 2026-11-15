@@ -1,9 +1,10 @@
 # PROJECT STATE — written ONLY by the orchestrator. Keep under ~70 lines. Update at every checkpoint and after big changes.
-Last update: Sun 10:47 by orchestrator
+Last update: Sun 12:12 by orchestrator
 
 ## Milestone
 M0 14:20 · M1 14:55 · M2+M3 posted late (Sat 23:25, #30) · **M4 FREEZE done Sun 10:45: tag `v1.0` (fe05969), #31 closed.**
-Now: bug fixes only. Next: A6 #27 (needs Murad's approve) · rehearsal with Tural Salmanov · repo public ~13:00 (captain only) · submit by 14:30 (SUB #32 at 14:00).
+**FREEZE LIFTED Sun ~11:55 (D-024):** dev until 14:30 hard stop · 14:30–15:15 QA + rehearsal + tag v1.1 (#124) · 15:15 sanitisation (#125, no history rewrite/force-push; instructions to be resent by Murad) · ~15:50 repo public (#126, captain) · 16:05 submission.
+Open: O6 #122 Ask SkyLapse (shipped; Claude path waits for a new tunnel URL) · T10 #120 pipeline live catalogs/movers · F13 #121 UI redesign (Azer) · S10 #123 science · A6 #27 approved.
 
 ## Machines
 - Orchestrator, pipeline, science now run on **Kanan's computer** (same paths C:\Users\Murad\Downloads\...). Murad's computer is no longer used.

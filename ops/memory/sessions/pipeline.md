@@ -1,13 +1,13 @@
 # Journal — role: pipeline  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 15 Nov 00:45 Baku (2nd computer, user knany)
+Last update: Sun 15 Nov ~12:20 Baku (Kanan's PC)
 
 ## Current task
-#78 T9 live API test + demo pre-warm: done, submitted (review). Fixes merged: PR #87 (WISE-only no TAP hang), PR #100 (NEP epochs, missing epoch).
-#71 T8 movies submitted earlier (PR #73).
+URGENT (human, freeze lifted until 14:30): live fields had EMPTY star catalogues. Fix in PR #127; asked orchestrator (#128) to
+merge + 2-line API patch (needs_rebuild in init/submit) + redeploy. Then test via API: 113.7870 -7.2450, Luhman 16, 195.5 +28.5.
 
 ## Status
-Autonomous loop ON. Live via API: wise_ready 10-20 s, done 15-33 s. Demo fields cached: Luhman 16 (162.3057 -53.3177),
-Teegarden (43.2716 16.8623), Kapteyn (77.9651 -45.0470), fov 8.8. Table: pipeline/qa/live_api_test.md. Pitch told (#104).
+Local test PASS (Gaia/CatWISE full via VizieR CfA mirror, frames scaled, fast movers). Waiting for redeploy.
+After API test: report timings + screenshots, tell Murad in Azerbaijani.
 
 ## Done (with proof)
 - T1: `python -m skylapse_pipeline inventory` (run from `pipeline/` with `../.venv/Scripts/python.exe`) prints WISE epochs per band
@@ -17,8 +17,8 @@ Teegarden (43.2716 16.8623), Kapteyn (77.9651 -45.0470), fov 8.8. Table: pipelin
   QA: pipeline/qa/wise0855_thermal46.gif, pipeline/qa/wise0855_zoom.png.
 
 ## Next step (exact, so a fresh session can continue blindly)
-- `.venv/Scripts/python.exe ops/bin/skyops.py next --wait 540` (plain `python` is broken on this computer).
-- When science writes motion.track into the bundle: rerun `cd pipeline && ../.venv/Scripts/python.exe -m skylapse_pipeline movies`.
+- FEATURE FREEZE active (human, Sun ~11:40): only bug fixes. pitch/video movies stay as they are (catalogue-motion ring) — do NOT regenerate.
+- All issues T1–T9 closed, all PRs merged. Loop: `.venv/Scripts/python.exe ops/bin/skyops.py next --wait 540`.
 
 ## Files touched
 - pipeline/skylapse_pipeline/{config,resolve,fetch_wise,fetch_spherex,catalogs,grid,calibrate,epochs,coadd,scale,export,build,qa,__main__}.py

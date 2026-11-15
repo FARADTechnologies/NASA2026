@@ -2,6 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { navigate } from "../lib/router";
 import { useTheme } from "../lib/theme";
 import { SearchBox } from "./SearchBox";
+import { AskSkyLapse } from "./AskSkyLapse";
 
 export function TopBar({ title, isMock }: { title?: string; isMock?: boolean }) {
   const [theme, toggle] = useTheme();
@@ -16,10 +17,9 @@ export function TopBar({ title, isMock }: { title?: string; isMock?: boolean }) 
         <span>SkyLapse</span>
       </a>
       {title && <span className="tb-title">{title}{isMock && <span className="badge b-mock">mock</span>}</span>}
-      {/* Mount point for the "Ask SkyLapse" command bar (components/AskSkyLapse.tsx, built by the orchestrator):
-          render <AskSkyLapse /> inside this element. Empty → takes no space. */}
-      <div className="tb-ask" id="ask-skylapse-slot" data-slot="ask-skylapse" />
       <div className="tb-search"><SearchBox compact /></div>
+      {/* Ask SkyLapse (O6, orchestrator) — the ONE mount point for the command bar; keep it here. */}
+      <div className="tb-ask" id="ask-skylapse-slot" data-slot="ask-skylapse"><AskSkyLapse /></div>
       <nav>
         <a href="/discover" className={here("/discover")} onClick={go("/discover")}>Discover</a>
         <a href="/about" className={here("/about")} onClick={go("/about")}>About</a>

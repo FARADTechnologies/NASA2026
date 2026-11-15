@@ -38,6 +38,15 @@ def init(fields_dir: Path) -> None:
         if fid.startswith("live_") and "/" not in fid and "\\" not in fid and d.parent == FIELDS.resolve() and d.is_dir():
             shutil.rmtree(d, ignore_errors=True)
             print(f"removed stale live field {fid}", flush=True)
+    # cached live fields whose star catalogue failed (pipeline PR #127) are purged so they get rebuilt
+    try:
+        from skylapse_pipeline.live import needs_rebuild
+        for d in FIELDS.glob("live_*"):
+            if d.is_dir() and needs_rebuild(d):
+                shutil.rmtree(d, ignore_errors=True)
+                print(f"removed live field with failed star catalogue {d.name}", flush=True)
+    except Exception as e:  # noqa: BLE001 — never block API startup
+        print(f"catalogue check skipped: {e!r}", flush=True)
 
 
 def field_id(ra: float, dec: float, fov: float) -> str:
@@ -96,7 +105,8 @@ def submit(ra: float, dec: float, fov: float | None) -> dict:
     fov = min(FOV_MAX, max(FOV_MIN, float(fov or FOV_DEFAULT)))
     fid = field_id(ra, dec, fov)
     st = read_status(fid)
-    if st and st["state"] in ("done", "wise_ready", "spherex_partial"):
+    from skylapse_pipeline.live import needs_rebuild  # failed star catalogue → rebuild instead of serving the cache (PR #127)
+    if st and st["state"] in ("done", "wise_ready", "spherex_partial") and not needs_rebuild(FIELDS / fid):
         return {"field_id": fid, "status_url": f"/api/fields/{fid}/status", "cached": True}
     with _lock:
         if fid not in _pending:

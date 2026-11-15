@@ -1,7 +1,9 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 10:47 (Kanan's computer)
+Last update: Sun 12:12 (Kanan's computer)
 
 ## Current task
+Sun 12:12: FREEZE LIFTED (D-024). Schedule: dev until 14:30; 14:30–15:15 QA + rehearsal + tag v1.1 (#124); 15:15 sanitisation (#125, instructions NOT received — asked Murad); ~15:50 public (#126, captain); 16:05 submit.
+O6 #122 Ask SkyLapse: shipped (web AskSkyLapse.tsx + lib/commandBridge.ts + lib/askParser.ts; API /api/command v0.4.0). Offline path verified live. Claude path blocked: organizers' tunnel DNS dead → need new ANTHROPIC_BASE_URL (set on Railway, non-secret). Open: T10 #120 pipeline, F13 #121 redesign (told to merge main for hooks), S10 #123 science.
 Sun 10:45 M4 FREEZE done: tag v1.0 (fe05969), #31 closed, pitch checklist PR #119 merged. Session was idle 08:10–10:42 (no activity from any agent).
 Next: SUB #32 at 14:00; A6 #27 waits for Murad's `approve`; repo public = captain.
 Autonomous review loop; queue empty at 01:00 except scheduled M4 #31 (Sun 10:30) and SUB #32 (14:00); A6 #27 is human (Amal).
