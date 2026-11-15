@@ -68,6 +68,7 @@ export let lastVoice: "elevenlabs" | "browser" | null = null;
 // ElevenLabs first (server-side key, AI voice), browser speech as the fallback
 async function speak(text: string, lang: string) {
   if (!text) return;
+  window.dispatchEvent(new Event("skylapse:speaking")); // the panel closes while the answer is spoken (UI only)
   try { currentAudio?.pause(); window.speechSynthesis?.cancel(); } catch { /* ignore */ }
   const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
   try {
@@ -149,6 +150,14 @@ export function AskSkyLapse() {
   useEffect(() => { if (open && !persist.log.length) setTimeout(() => inputRef.current?.focus(), 50); }, [open]);
   useEffect(() => { try { localStorage.setItem("skylapse.ask.lang", lang); } catch { /* storage blocked */ } }, [lang]);
 
+  // header mic (push-to-talk) sends its transcript here; a spoken answer closes the panel (reopen with the button)
+  const runRef = useRef<(c: string) => void>(() => {});
+  useEffect(() => {
+    const onRun = (e: Event) => runRef.current(String((e as CustomEvent).detail || ""));
+    const onSpeak = () => setOpen(false);
+    window.addEventListener("skylapse:ask-run", onRun); window.addEventListener("skylapse:speaking", onSpeak);
+    return () => { window.removeEventListener("skylapse:ask-run", onRun); window.removeEventListener("skylapse:speaking", onSpeak); };
+  }, []);
   async function run(cmd: string) {
     const c = cmd.trim(); if (!c || busy) return;
     setBusy(true);
@@ -179,6 +188,7 @@ export function AskSkyLapse() {
     setText(""); setBusy(false);
   }
 
+  runRef.current = run;
   function listen() {
     if (!SR) return;
     if (listening) { recRef.current?.stop(); return; }
@@ -267,5 +277,44 @@ export function AskSkyLapse() {
         </div>
       )}
     </div>
+  );
+}
+
+
+/** Header microphone — push-to-talk for Ask SkyLapse: press once to start listening, press again to send. UI only. */
+export function AskMic() {
+  const SR: any = typeof window !== "undefined" ? ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition) : null;
+  const [on, setOn] = useState(false);
+  const [heard, setHeard] = useState("");
+  const recRef = useRef<any>(null);
+  const textRef = useRef("");
+  if (!SR) return null;
+  function toggle() {
+    if (on) { recRef.current?.stop(); return; } // second press: stop → onend sends
+    let lang = "en-US"; try { lang = localStorage.getItem("skylapse.ask.lang") || "en-US"; } catch { /* storage blocked */ }
+    const rec = new SR(); recRef.current = rec; textRef.current = ""; setHeard("");
+    rec.lang = lang; rec.continuous = true; rec.interimResults = true; rec.maxAlternatives = 1;
+    rec.onresult = (e: any) => {
+      let finalT = "", interim = "";
+      for (let i = 0; i < e.results.length; i++) { const r = e.results[i]; if (r.isFinal) finalT += r[0].transcript + " "; else interim += r[0].transcript; }
+      textRef.current = (finalT + interim).trim(); setHeard(textRef.current);
+    };
+    rec.onerror = () => setOn(false);
+    rec.onend = () => {
+      setOn(false);
+      const said = textRef.current.trim(); setHeard("");
+      if (said) window.dispatchEvent(new CustomEvent("skylapse:ask-run", { detail: said }));
+    };
+    setOn(true); rec.start();
+  }
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 6, minWidth: 0 }}>
+      <button type="button" className={"icon-btn" + (on ? " rec" : "")} onClick={toggle} aria-pressed={on}
+        title={on ? "Listening — press again to send" : "Speak to SkyLapse (press, talk, press again)"} aria-label={on ? "Stop and send" : "Speak to SkyLapse"}
+        style={on ? { background: "#c0392b", color: "#fff", borderColor: "#c0392b" } : undefined}>
+        {on ? <Square size={15} strokeWidth={2} /> : <Mic size={17} strokeWidth={1.75} />}
+      </button>
+      {on && <span className="muted small" style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{heard || "Listening… press again to send"}</span>}
+    </span>
   );
 }

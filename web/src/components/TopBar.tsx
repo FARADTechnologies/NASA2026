@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { navigate } from "../lib/router";
 import { useTheme } from "../lib/theme";
 import { SearchBox } from "./SearchBox";
-import { AskSkyLapse } from "./AskSkyLapse";
+import { AskMic, AskSkyLapse } from "./AskSkyLapse";
 
 export function TopBar({ title, isMock }: { title?: string; isMock?: boolean }) {
   const [theme, toggle] = useTheme();
@@ -18,6 +18,7 @@ export function TopBar({ title, isMock }: { title?: string; isMock?: boolean }) 
       </a>
       {title && <span className="tb-title">{title}{isMock && <span className="badge b-mock">mock</span>}</span>}
       <div className="tb-search"><SearchBox compact /></div>
+      <AskMic />
       {/* Ask SkyLapse (O6, orchestrator) — the ONE mount point for the command bar; keep it here. */}
       <div className="tb-ask" id="ask-skylapse-slot" data-slot="ask-skylapse"><AskSkyLapse /></div>
       <nav>
