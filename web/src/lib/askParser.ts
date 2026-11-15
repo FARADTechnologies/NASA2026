@@ -80,7 +80,7 @@ export function parseCommand(input: string): AskAction[] {
 
 export function describe(a: AskAction): string {
   switch (a.type) {
-    case "open_field": return `Open ${a.field}`;
+    case "open_field": return `Open ${({ barnard: "Barnard's Star", eps_indi_b: "Epsilon Indi B", wise0855: "WISE 0855", rw_aur: "RW Aurigae", r_dra: "R Draconis" } as Record<string, string>)[a.field] ?? a.field}`;
     case "open_coordinates": return `Open live field RA ${a.ra}, Dec ${a.dec}`;
     case "set_sequence": return `Sequence → ${a.sequence}`;
     case "set_compare": return { off: "Compare off", vs2010: "Compare: each frame vs 2010", previous: "Compare: vs previous frame", chosen: "Compare: vs this frame" }[a.mode];
