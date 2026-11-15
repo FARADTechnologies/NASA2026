@@ -43,20 +43,31 @@ function waitForBridge(ms = 8000): Promise<boolean> {
 let currentAudio: HTMLAudioElement | null = null;
 export let lastVoice: "elevenlabs" | "browser" | null = null;
 // ElevenLabs first (server-side key, AI voice), browser speech as the fallback
+// 🔇 must silence everything at once: the playing AI audio, the browser voice, and replies still on their way
+let voiceOn = (() => { try { return localStorage.getItem("skylapse.ask.voice") !== "off"; } catch { return true; } })();
+let speechId = 0;
+function stopVoice() {
+  speechId++;
+  try { currentAudio?.pause(); currentAudio = null; window.speechSynthesis?.cancel(); } catch { /* ignore */ }
+}
 async function speak(text: string, lang: string) {
-  if (!text) return;
-  try { currentAudio?.pause(); window.speechSynthesis?.cancel(); } catch { /* ignore */ }
+  if (!text || !voiceOn) return;
+  stopVoice();
+  const my = speechId;
   const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
   try {
     const r = await fetch("/api/speak", { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
       body: JSON.stringify({ text: text.slice(0, 900), lang: lang.slice(0, 2) }) });
     if (r.ok && (r.headers.get("content-type") || "").startsWith("audio")) {
-      const url = URL.createObjectURL(await r.blob());
+      const blob = await r.blob();
+      if (my !== speechId || !voiceOn) return; // switched off (or a newer reply) while the audio was loading
+      const url = URL.createObjectURL(blob);
       currentAudio = new Audio(url); lastVoice = "elevenlabs";
       await currentAudio.play();
       return;
     }
   } catch { /* fall through to the browser voice */ } finally { clearTimeout(timer); }
+  if (my !== speechId || !voiceOn) return;
   browserSpeak(text, lang);
 }
 function browserSpeak(text: string, lang: string) {
@@ -182,7 +193,7 @@ export function AskSkyLapse() {
             <select value={lang} onChange={(e) => setLang(e.target.value)} style={btn} aria-label="Voice language">
               {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
             </select>
-            <button type="button" onClick={() => { const v = !voice; setVoice(v); try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) window.speechSynthesis?.cancel(); }}
+            <button type="button" onClick={() => { const v = !voice; setVoice(v); voiceOn = v; try { localStorage.setItem("skylapse.ask.voice", v ? "on" : "off"); } catch { /* blocked */ } if (!v) stopVoice(); }}
               style={btn} aria-pressed={voice} title={voice ? "Voice replies on — AI voice (ElevenLabs), browser voice as fallback" : "Voice replies off"}>{voice ? "🔊" : "🔇"}</button>
             <button type="submit" style={btn} disabled={busy}>{busy ? "…" : "Go"}</button>
           </form>
