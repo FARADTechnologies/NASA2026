@@ -44,8 +44,9 @@ export function parseCommand(input: string): AskAction[] {
   else if (has(t, /half speed|slower|yavaş|yarı/)) out.push({ type: "set_speed", factor: 0.5 });
 
   // 4. zoom / stretch / sequence
-  const fov = t.match(/(\d+(?:\.\d+)?)\s*(arcmin|′|')/);
-  if (fov) out.push({ type: "set_zoom", fov_arcmin: +fov[1] });
+  // only explicit arcminutes (an apostrophe is also a Turkish suffix, e.g. "WISE 0855'i")
+  const fov = t.match(/(\d+(?:\.\d+)?)\s*(arcmin|arc ?minutes?|′)/);
+  if (fov && +fov[1] >= 1 && +fov[1] <= 30) out.push({ type: "set_zoom", fov_arcmin: +fov[1] });
   else if (has(t, /zoom in|yakınlaş|yaxınlaş/)) out.push({ type: "set_zoom", factor: 2 });
   else if (has(t, /zoom out|uzaklaş|uzaqlaş/)) out.push({ type: "set_zoom", factor: 0.5 });
   if (has(t, /\blinear\b|doğrusal|xətti/)) out.push({ type: "set_stretch", stretch: "linear" });
