@@ -1,5 +1,5 @@
 # Market Potential / Scalability + Impact slide — content for Amal (A9, issue #93, v2 after review)
-Amal places this in her deck herself. Local criterion (D-022): value = time saved, people reached, cost per user — **no money needed** (mentor Tural Salmanov, in writing).
+Amal places this in her deck herself. Local criterion (D-022): value = time saved, people reached, cost per user — **no money needed** (mentor feedback, in writing).
 Numbers only from `science/IMPACT_NUMBERS.md` ("say this" column) and our own measurements; F-numbers point to `pitch/FACTS.md`.
 
 ---

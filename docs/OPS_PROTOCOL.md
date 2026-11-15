@@ -32,7 +32,7 @@ orchestrator **accepts** (merges PR, closes issue → dependants unlock) or **re
 ## 4. Task template (orchestrator)
 ```
 ## Goal            one sentence, user-visible outcome
-## Context         why it matters for winning; links to docs sections
+## Context         why it matters for the project; links to docs sections
 ## Inputs          files, contract sections, data paths
 ## Requirements    numbered, testable
 ## Out of scope

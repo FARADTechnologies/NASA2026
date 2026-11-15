@@ -1,6 +1,6 @@
 # DECISIONS — append-only, orchestrator writes. Format: D-NNN | time | decision | why | who
 D-001 | Fri 23:55 | Challenge: Planet X and SPHEREx; product name SkyLapse | selected in the local application form | Deneme
-D-002 | Sat 01:30 | Concept B: 16-yr time machine + spectral fingerprint + auto-discovery + AI copilot, layered (core first) | best expected score on all 5 criteria with this jury | Deneme
+D-002 | Sat 01:30 | Concept B: 16-yr time machine + spectral fingerprint + auto-discovery + AI copilot, layered (core first) | best fit to all 5 judging criteria | Deneme
 D-003 | Sat 01:30 | Static-first architecture; live API only for new coordinates | IRSA cutouts take ~30 s each and have no CORS | Deneme
 D-004 | Sat 01:30 | WISE epochs from byw.tools unWISE time-resolved cutouts; SPHEREx DR1+QR3 via IRSA TAP/cutouts | tested; fastest reliable sources | Deneme
 D-005 | Sat 01:30 | Gaia DR3 (ESA) is our Space Agency Partner data; no bolt-on partner data | Relevance criterion penalises superficial data use | Deneme
@@ -20,7 +20,7 @@ D-018 | Sat 23:24 | S5 copilot: if no ANTHROPIC_API_KEY on Kanan's computer, sci
 D-019 | Sat 23:25 | Scope cut: P1-7 Aladin and all P2 are cut | 7 h lost to the usage-limit stall; freeze Sun 10:30 | orchestrator (PLAN scope-cut rules)
 D-020 | Sat 23:38 | API redeployed with pipeline live-runner fix (#67) + SKYLAPSE_CACHE=/data/cache on the Railway volume; live wise_ready 88 s | P0-7 had degraded to ~6 min and the cache was not persistent | orchestrator
 D-021 | Sun 00:01 | Organizers' Claude API (Murad): optional live copilot POST /api/copilot, config only via env (ANTHROPIC_BASE_URL/KEY, COPILOT_MODEL), facts guard, graceful fallback; science regenerates bundle texts via it (S7 #89). The demo never calls it | the tunnel URL can change; static texts stay the source for the demo | Murad + orchestrator
-D-022 | Sun 00:09 | Judging: cover LOCAL (Market Potential/Scalability, Presentation, Innovation, Technical Readiness, Relevance; 20 % each) AND GLOBAL (NASA) lists; methodology A/B/C→X→D in docs/METHODOLOGY.md; market value without money | mentor Tural Salmanov in writing, via Murad | Murad
+D-022 | Sun 00:09 | Judging: cover LOCAL (Market Potential/Scalability, Presentation, Innovation, Technical Readiness, Relevance; 20 % each) AND GLOBAL (NASA) lists; methodology A/B/C→X→D in docs/METHODOLOGY.md; market value without money | mentor feedback in writing, via Murad | Murad
 D-023 | Sun 10:45 | M4 feature freeze: tag v1.0 at fe05969; only bug fixes after this | PLAN M4 | orchestrator
 D-024 | Sun 12:00 | Freeze lifted (team): dev until 14:30 hard stop; 14:30–15:15 QA + rehearsal + tag v1.1; 15:15 repo sanitisation (no history rewrite, no force-push); ~15:50 repo public; 16:05 submission. New: Ask SkyLapse (orchestrator), UI redesign light+dark (frontend), live-field catalogs/movers (pipeline) | team decision via Murad | Murad
 D-025 | Sun 14:26 | v1.1 tagged (hard stop); after this only demo-breaking fixes | schedule D-024 | orchestrator

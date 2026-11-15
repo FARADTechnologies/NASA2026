@@ -1,5 +1,5 @@
 # Technical Readiness / Validity slide — content for Amal (A8, issue #92, v2 after review)
-Amal places this in her deck herself. Format required by mentor Tural Salmanov (D-022): existing approaches A / B / C → their gap X → our approach D → working prototype.
+Amal places this in her deck herself. Format suggested by our mentor (D-022): existing approaches A / B / C → their gap X → our approach D → working prototype.
 Aligned with `docs/METHODOLOGY.md` (science S8, merged Sun ~01:15) and `science/QA_FACTS.md`. F-numbers point to `pitch/FACTS.md`.
 
 ---
