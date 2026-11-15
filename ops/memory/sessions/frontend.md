@@ -1,11 +1,11 @@
 # Journal — role: frontend  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 12:45 Baku
+Last update: Sun 13:20 Baku
 
 ## Current task
-#121 F13 redesign v2: PR #131 MERGED + DEPLOYED (light/dark, tokens, Plex, Lucide, Ask slot, data-section/data-lang). Report submitted. PR #134 open = screenshots only (web/design-refs/v2, 30 JPEGs).
+#121 F13 redesign v2: PR #131 + #134 MERGED + DEPLOYED (themes, tokens, Plex, Lucide, Ask slot, WCAG-checked light colours). Final screenshot set re-shot → small PR open (screenshots only).
 
 ## Status
-Checklist 50/50 locally in both themes; live site verified (slow-network timing only). Waiting for Azer cosmetic feedback (asked 12:25) → apply as small PRs; hard stop 14:15, then re-shoot final screenshots if anything changed.
+#121 is marked blocked = waiting for Azer cosmetic feedback (asked 12:25, none by 13:20). Hard stop for changes 14:15; then `skyops.py submit 121` with the final report (checklist 50/50 both themes, live site verified).
 
 ## Done (with proof)
 - Joined repo (folder = working copy on role/frontend). R0: web/DESIGN.md + web/design-refs/*.png (WiseView, Legacy Surveys, NASA Eyes).
