@@ -1,9 +1,9 @@
 # PROJECT STATE — written ONLY by the orchestrator. Keep under ~70 lines. Update at every checkpoint and after big changes.
-Last update: Sun 01:00 by orchestrator
+Last update: Sun 10:47 by orchestrator
 
 ## Milestone
-M0 14:20 · M1 14:55 · M2+M3 checkpoint posted late (Sat 23:25, issue #30) — agents stalled ~16:00–23:00 (shared usage limit).
-Next: **M4 FEATURE FREEZE Sun 10:30** (tag v1.0) · Sun 11:00 rehearsals (A6) · repo public ~13:00 · submit by 14:30.
+M0 14:20 · M1 14:55 · M2+M3 posted late (Sat 23:25, #30) · **M4 FREEZE done Sun 10:45: tag `v1.0` (fe05969), #31 closed.**
+Now: bug fixes only. Next: A6 #27 (needs Murad's approve) · rehearsal with Tural Salmanov · repo public ~13:00 (captain only) · submit by 14:30 (SUB #32 at 14:00).
 
 ## Machines
 - Orchestrator, pipeline, science now run on **Kanan's computer** (same paths C:\Users\Murad\Downloads\...). Murad's computer is no longer used.

@@ -1,7 +1,9 @@
 # Journal — role: orchestrator  (only this role writes this file; keep < ~120 lines; replace stale lines)
-Last update: Sun 02:05 (Kanan's computer)
+Last update: Sun 10:47 (Kanan's computer)
 
 ## Current task
+Sun 10:45 M4 FREEZE done: tag v1.0 (fe05969), #31 closed, pitch checklist PR #119 merged. Session was idle 08:10–10:42 (no activity from any agent).
+Next: SUB #32 at 14:00; A6 #27 waits for Murad's `approve`; repo public = captain.
 Autonomous review loop; queue empty at 01:00 except scheduled M4 #31 (Sun 10:30) and SUB #32 (14:00); A6 #27 is human (Amal).
 Closed 00:30–01:00: A9 #93 (market slide, 'Seconds, not hours', 11–33 s range, SRDA confirmed), A10 #94 (no discovery wording),
 #113 period 246.12 d in pitch + 30-s video pitch/video/SkyLapse_30s.mp4, A11 #114 accurate AI-use (EN offline / AZ via gateway).
