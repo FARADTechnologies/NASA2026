@@ -155,7 +155,7 @@ export function SidePanel({ frame, obj, cands, manifest, isMock, objectIds, obje
             {obj.flags?.warnings?.length ? <ul className="warnings">{obj.flags.warnings.map((w) => <li key={w}><TriangleAlert size={13} strokeWidth={1.75} /> {w}</li>)}</ul> : null}
             {obj.flags?.saturated_in?.length ? <div className="warn small"><TriangleAlert size={13} strokeWidth={1.75} /> Saturated in: {obj.flags.saturated_in.join(", ")}</div> : null}
           </>
-        ) : NA}
+        ) : <span className="muted small">No object details for this field — the movie, overlays and controls all work.</span>}
       </section>
 
       {obj?.copilot && (

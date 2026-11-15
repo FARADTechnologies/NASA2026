@@ -346,7 +346,7 @@ export function Viewer({ search }: { search: string }) {
           {showHint && manifest && (
             <div className="hint-card" role="note">
               <div className="hint-steps">
-                <span><b>1</b> Watch the movie — 16 years of the same patch of sky</span>
+                <span><b>1</b> Watch the movie</span>
                 <span><b>2</b> Follow the <i className="ring-ico" /> circled target as it moves</span>
                 <span><b>3</b> Click it for its story</span>
               </div>
