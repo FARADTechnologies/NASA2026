@@ -376,3 +376,10 @@ table.pm td:first-child { text-align: left; font-family: var(--font); color: var
 .viewer-grid > .panel.controls { grid-column: 1; }
 .viewer-grid > .stage { grid-column: 2; }
 .viewer-grid > .panel.side { grid-column: 3; }
+
+/* v2.2: full screen of the movie area */
+.stage:fullscreen { background: var(--bg); padding: 16px 28px; }
+.stage:fullscreen .rail-toggle, .stage:fullscreen .wide-btn { display: none; }
+.stage:fullscreen .fs-btn { margin-left: auto; }
+.fs-btn { align-self: center; }
+@media (max-width: 800px) { .fs-btn { display: none; } }

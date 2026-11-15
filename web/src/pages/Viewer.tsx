@@ -12,7 +12,7 @@ import { Timeline } from "../components/Timeline";
 import { ControlsPanel } from "../components/ControlsPanel";
 import { SidePanel } from "../components/SidePanel";
 import { TopBar } from "../components/TopBar";
-import { Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, SkipBack, SkipForward, SlidersHorizontal, X } from "lucide-react";
+import { Expand, Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen, Pause, Play, SkipBack, SkipForward, SlidersHorizontal, X } from "lucide-react";
 import { useCommandBridge } from "../lib/commandBridge";
 
 type FrameData = { data: Float32Array; mask: Uint8Array | null };
@@ -38,7 +38,12 @@ export function Viewer({ search }: { search: string }) {
   const [leftOpen, setLeftOpen] = useState(() => stored("skylapse.left"));
   const [rightOpen, setRightOpen] = useState(() => stored("skylapse.right"));
   useEffect(() => { try { localStorage.setItem("skylapse.left", leftOpen ? "1" : "0"); localStorage.setItem("skylapse.right", rightOpen ? "1" : "0"); } catch { /* ignore */ } }, [leftOpen, rightOpen]);
-  const wide = !leftOpen || !rightOpen;
+  // real full screen of the movie area (browser Fullscreen API)
+  const stageRef = useRef<HTMLElement>(null);
+  const [isFs, setIsFs] = useState(false);
+  useEffect(() => { const on = () => setIsFs(document.fullscreenElement === stageRef.current); document.addEventListener("fullscreenchange", on); return () => document.removeEventListener("fullscreenchange", on); }, []);
+  const toggleFs = useCallback(() => { try { if (document.fullscreenElement) void document.exitFullscreen(); else void stageRef.current?.requestFullscreen(); } catch { /* not supported */ } }, []);
+  const wide = !leftOpen || !rightOpen || isFs;
   const toggleWide = useCallback(() => { const open = !(leftOpen || rightOpen); setLeftOpen(open); setRightOpen(open); }, [leftOpen, rightOpen]);
   useEffect(() => {
     if (!objectId || !base) { setObj(null); return; }
@@ -338,7 +343,7 @@ export function Viewer({ search }: { search: string }) {
       <div className={"viewer-grid" + (leftOpen ? "" : " no-left") + (rightOpen ? "" : " no-right")}>
         <ControlsPanel view={view} update={update} manifest={manifest} seqFrames={seqFrames} idx={idx} playing={playing}
           open={showControls} onClose={() => setShowControls(false)} />
-        <main className="stage">
+        <main className="stage" ref={stageRef}>
           <button className="icon-btn rail-toggle rt-left" onClick={() => setLeftOpen((x) => !x)} title={leftOpen ? "Hide controls" : "Show controls"} aria-label={leftOpen ? "Hide controls panel" : "Show controls panel"}>
             {leftOpen ? <PanelLeftClose size={16} strokeWidth={1.75} /> : <PanelLeftOpen size={16} strokeWidth={1.75} />}
           </button>
@@ -359,6 +364,7 @@ export function Viewer({ search }: { search: string }) {
             <button className="btn small wide-btn" onClick={toggleWide} title="Wider view: hide both panels so the movie grows (F)">
               {leftOpen || rightOpen ? <><Maximize2 size={13} strokeWidth={1.75} /> Wider view</> : <><Minimize2 size={13} strokeWidth={1.75} /> Normal view</>}
             </button>
+            <button className="btn small fs-btn" onClick={toggleFs} title="Full screen (Esc to leave)"><Expand size={13} strokeWidth={1.75} /> {isFs ? "Exit full screen" : "Full screen"}</button>
             {note && <div className="fl-note">{note}</div>}
             {!note && liveNote && <div className="fl-note">Live field · {liveNote}</div>}
           </div>

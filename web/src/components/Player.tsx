@@ -18,7 +18,7 @@ export interface PlayerProps {
   loadingText?: string;
   onPick?: (ra: number, dec: number) => void;
   targetLabel?: string;
-  /** Wide view: the canvas fills the stage (up to 1.6:1); the image fills the width, top and bottom of the field are cropped. */
+  /** Wide view: the canvas fills the whole stage; the image fills the width, top and bottom of the field are cropped. */
   wide?: boolean;
   noDataNote?: string;
 }
@@ -53,7 +53,7 @@ export function Player(p: PlayerProps) {
 
   // canvas size: square (normal) or a wide rectangle (wide view, at most 1.6:1)
   const square = Math.min(box.w, box.h);
-  const sizeW = p.wide ? Math.min(box.w, Math.round(box.h * 1.6)) : square;
+  const sizeW = p.wide ? box.w : square; // wide view fills the whole stage width
   const sizeH = p.wide ? Math.min(box.h, sizeW) : square;
   // crop window in canvas orientation (u to the right, v down = south); cropPx = width in data pixels
   const cropPx = Math.min(W, Math.max(16, p.fovArcmin ? (p.fovArcmin * 60) / scale : W));
